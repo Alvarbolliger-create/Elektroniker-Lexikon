@@ -1,0 +1,33 @@
+1. Dokumentation & BenennungStandards: Basiert auf PEP 8 und Google Style.
+Docstrings: Pflicht für Module, Klassen und Funktionen via """...""".
+Kommentare: Erklären das Warum, nicht das Was. 
+Inline-Kommentare nur für komplexe Logik.
+Naming: Konsequent Englisch (Kommentare sind Deutsch)
+snake_case: Variablen, Parameter, Funktionen, Module.
+PascalCase: Klassen.
+UPPER_CASE: Konstanten auf Modulebene (Typ-Annotation Pflicht).
+
+2. Dateistruktur (Strikte Reihenfolge)
+Modul-Docstring.
+Imports (sortiert: Standard > Drittanbieter > Lokal), getrennt durch Leerzeilen.
+Modul-Konstanten.
+Typdefinitionen.
+Klassen/Funktionen.
+Hauptprogramm: if __name__ == "__main__": main().
+
+4 Leerzeichen Einrückung (keine Tabs).
+Typ-Annotierung: Pflicht für alle Variablen, Funktionsparameter und Rückgabewerte (-> None falls leer).
+Best Practices: with-Statements für Ressourcen, spezifische Exceptions (kein except:), List Comprehensions bevorzugt.
+
+4. Architektur: MVVM-MusterModel: Reine Daten/Logik, keine GUI-Abhängigkeit.
+ViewModel: Verbindet Model/View, bereitet Daten auf, keine GUI-Widgets.
+View: Rein visuell, nutzt ViewModel-Methoden.
+Kommunikation: Einweg: View → ViewModel → Model. Rückfluss via Callbacks/Signale.
+
+5. GUI & LayoutVerboten: Absolute Positionierung (x/y Koordinaten).
+Pflicht: Layout-Manager (VBox, HBox, Grid, Form).
+Dynamik: Nutzung von addStretch() und Spacing für Skalierbarkeit.
+Size Policies: Steuerung des Wachstumsverhaltens (Fixed, Expanding, etc.).
+
+6. Tool-StackFormat/Lint: black, ruff, pylint.
+Typ-Check: mypy.Testing: pytest.

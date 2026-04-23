@@ -1,0 +1,548 @@
+/* ═══════════════════════════════════════════════════════════════
+   Elektronik Lexikon — Globales Stylesheet (main.qss)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── HamburgerButton (Standard – im Header/TabBar) ───────────── */
+HamburgerButton {
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+}
+HamburgerButton:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* ── Sidebar-Close-Button (innen, dunkle Linien) ─────────────── */
+HamburgerButton#sidebarCloseBtn {
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+}
+HamburgerButton#sidebarCloseBtn:hover {
+    background: rgba(0, 0, 0, 0.07);
+}
+
+/* ── Floating-Toggle-Button (kleiner Kreis, sichtbar wenn zu) ── */
+HamburgerButton#leftFloatBtn,
+HamburgerButton#rightFloatBtn {
+    background: #1e3a5f;
+    border: none;
+    border-radius: 18px;
+}
+HamburgerButton#leftFloatBtn:hover,
+HamburgerButton#rightFloatBtn:hover {
+    background: #1e40af;
+}
+
+/* ── TabBar ──────────────────────────────────────────────────── */
+TabBar {
+    background: #162d4a;
+}
+TabBar QPushButton {
+    background: transparent;
+    border: none;
+    color: #93c5fd;
+    font-size: 13px;
+    padding: 5px 18px;
+    border-radius: 4px;
+}
+TabBar QPushButton:hover {
+    background: rgba(70, 70, 180, 0.15);
+}
+TabBar QPushButton:checked {
+    background: #1e3a5f;
+    color: white;
+    font-weight: 600;
+}
+
+/* ── FormulaBlockWidget ──────────────────────────────────────── */
+FormulaBlockWidget {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+}
+FormulaBlockWidget QPushButton {
+    background: #1e3a5f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 6px;
+}
+FormulaBlockWidget QPushButton:hover {
+    background: #1e40af;
+}
+
+/* ── ArticleContentWidget (QScrollArea) ──────────────────────── */
+ArticleContentWidget {
+    background: white;
+}
+ArticleContentWidget QScrollBar:vertical {
+    width: 8px;
+    background: #f1f5f9;
+    border-radius: 4px;
+    margin: 0px;
+}
+ArticleContentWidget QScrollBar::handle:vertical {
+    background: #1e3a5f;
+    min-height: 20px;
+    border-radius: 4px;
+}
+ArticleContentWidget QScrollBar::handle:vertical:hover {
+    background: #1e40af;
+}
+ArticleContentWidget QScrollBar::add-line:vertical, 
+ArticleContentWidget QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+QWidget#articleContent {
+    background: white;
+}
+
+/* ── QTextBrowser im Artikel (render_html) ───────────────────── */
+QTextBrowser#articleBrowser {
+    border: none;
+    background: white;
+    font-size: 15px;
+}
+
+/* ── MathEditor ──────────────────────────────────────────────── */
+MathEditor {
+    background: white;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Hauptfenster (LexiconWindow)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── App-Header ──────────────────────────────────────────────── */
+QWidget#appHeader {
+    background: #1e3a5f;
+}
+QLabel#headerTitle {
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* ── Breadcrumb ──────────────────────────────────────────────── */
+QLabel#breadcrumbLabel {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+/* ── Zurück-Button ───────────────────────────────────────────── */
+QPushButton#backButton {
+    background: transparent;
+    color: #93c5fd;
+    border: none;
+    font-size: 13px;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+QPushButton#backButton:hover {
+    background: #1e40af;
+}
+QPushButton#backButton:disabled {
+    color: #374151;
+}
+
+/* ── Linke Seitenleiste ──────────────────────────────────────── */
+QWidget#leftSidebar {
+    background: #f9fafb;
+    border-right: 1px solid #e5e7eb;
+}
+QWidget#leftSidebar QScrollBar:vertical {
+    width: 10px;
+    background: #f1f5f9;
+    border-radius: 5px;
+    margin: 0px;
+}
+QWidget#leftSidebar QScrollBar::handle:vertical {
+    background: #1e3a5f;
+    min-height: 20px;
+    border-radius: 5px; 
+    margin: 2px;
+}
+QWidget#leftSidebar QScrollBar::handle:vertical:hover {
+    background: #1e40af;
+}
+QWidget#leftSidebar QScrollBar::add-line:vertical, 
+QWidget#leftSidebar QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+QLineEdit#searchField {
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 7px 10px;
+    font-size: 13px;
+    background: white;
+}
+QLineEdit#searchField:focus {
+    border-color: #2563eb;
+}
+QTreeWidget#articleTree {
+    border: none;
+    background: transparent;
+    font-size: 13px;
+    outline: 0;
+    show-decoration-selected: 1;
+}
+QTreeWidget#articleTree::item {
+    padding: 4px 4px;
+    border-radius: 5px;
+    color: #374151;
+}
+QTreeWidget#articleTree::item:hover {
+    background: #e5e7eb;
+}
+QTreeWidget#articleTree::item:selected {
+    background: #dbeafe;
+    color: #1e40af;
+}
+QTreeWidget#articleTree::branch:has-children:!has-siblings:closed,
+QTreeWidget#articleTree::branch:closed:has-children:has-siblings {
+    border-image: none;
+    image: none;
+}
+QTreeWidget#articleTree::branch:open:has-children:!has-siblings,
+QTreeWidget#articleTree::branch:open:has-children:has-siblings {
+    border-image: none;
+    image: none;
+}
+QLabel#countLabel {
+    color: #9ca3af;
+    font-size: 11px;
+}
+
+/* ── Rechte Seitenleiste ─────────────────────────────────────── */
+QWidget#rightSidebar {
+    background: #f9fafb;
+    border-left: 1px solid #e5e7eb;
+}
+QWidget#rightSidebar QScrollBar:vertical {
+    width: 10px;
+    background: #f1f5f9;
+    border-radius: 5px;
+    margin: 0px;
+}
+QWidget#rightSidebar QScrollBar::handle:vertical {
+    background: #1e3a5f;
+    min-height: 20px;
+    border-radius: 5px; 
+    margin: 2px;
+}
+QWidget#rightSidebar QScrollBar::handle:vertical:hover {
+    background: #1e40af;
+}
+QWidget#rightSidebar QScrollBar::add-line:vertical, 
+QWidget#rightSidebar QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+QLabel#sectionLabel {
+    color: #9ca3af;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+QFrame#divider {
+    background: #e5e7eb;
+    max-height: 1px;
+    margin: 8px 0;
+}
+
+/* ── Artikel-Header (Kategorie, Badges) ──────────────────────── */
+QLabel#categoryLabel {
+    color: #6b7280;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+}
+QLabel#symbolBadge {
+    background: #dbeafe;
+    color: #1e40af;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+QLabel#einheitBadge {
+    background: #f0fdf4;
+    color: #166534;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/* ── Bild-Fehler & Alt-Text ──────────────────────────────────── */
+QLabel#imageError {
+    color: #9ca3af;
+    font-size: 13px;
+}
+QLabel#imageAlt {
+    color: #6b7280;
+    font-size: 12px;
+    font-style: italic;
+}
+
+/* ── Link-Buttons (Verlinkungen) ─────────────────────────────── */
+QPushButton#foundLink {
+    background: transparent;
+    color: #2563eb;
+    border: none;
+    font-size: 12px;
+    padding: 2px 4px;
+    text-align: left;
+}
+QPushButton#foundLink:hover {
+    color: #1d4ed8;
+}
+QPushButton#brokenLink {
+    background: transparent;
+    color: #9ca3af;
+    border: none;
+    font-size: 12px;
+    padding: 2px 4px;
+    text-align: left;
+}
+
+/* ── Formel-Buttons (rechte Seitenleiste) ────────────────────── */
+QPushButton#formulaButton {
+    background: #e8f0fe;
+    color: #1e3a8a;
+    border: none;
+    border-radius: 5px;
+    font-size: 11px;
+    font-family: monospace;
+    padding: 3px 8px;
+    text-align: left;
+}
+QPushButton#formulaButton:hover {
+    background: #c7d7f9;
+}
+
+/* ── Leerzustand-Labels (Keine Tags / Verlinkungen / Formeln) ── */
+QLabel#emptyLabel {
+    color: #d1d5db;
+    font-size: 12px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CAS-Rechner (CasCalculator / HelpView / SettingsDialog)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Formel-Seitenleiste (HelpView) ──────────────────────────── */
+QWidget#formulaPage {
+    background: #f8fafc;
+    border-right: 1px solid #e2e8f0;
+}
+QListWidget#formulaList {
+    background: transparent;
+    border: none;
+    padding: 4px 0;
+    outline: none;
+}
+QListWidget#formulaList::item {
+    padding: 5px 14px;
+    color: #374151;
+    font-size: 13px;
+    border: none;
+}
+QListWidget#formulaList::item:selected {
+    background: #e0e7ff;
+    color: #1e3a8a;
+}
+QListWidget#formulaList::item:hover {
+    background: #eef2ff;
+}
+QTextBrowser#formulaDisplay {
+    background: white;
+    border: none;
+    padding: 28px 36px;
+}
+QTextBrowser#formulaDisplay QScrollBar:vertical {
+    width: 10px;
+    background: #f1f5f9;
+}
+QTextBrowser#formulaDisplay QScrollBar::handle:vertical {
+    background: #1e3a5f;
+    border-radius: 5px;
+    min-height: 30px;
+}
+QTextBrowser#formulaDisplay QScrollBar::handle:vertical:hover {
+    background: #1e40af;
+}
+QTextBrowser#formulaDisplay QScrollBar::add-line:vertical,
+QTextBrowser#formulaDisplay QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+/* ── SettingsDialog ──────────────────────────────────────────── */
+SettingsDialog {
+    background: #ffffff;
+}
+SettingsDialog QLabel {
+    color: #111827;
+}
+SettingsDialog QRadioButton {
+    color: #374151;
+    padding: 4px 0;
+    font-size: 13px;
+}
+SettingsDialog QSpinBox {
+    padding: 3px 6px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+}
+QLabel#settingsHeading {
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+    margin-bottom: 2px;
+}
+QPushButton#cancelButton {
+    background: transparent;
+    color: #6b7280;
+    border: 1px solid #d1d5db;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 5px 14px;
+}
+QPushButton#cancelButton:hover {
+    background: #f9fafb;
+}
+QPushButton#okButton {
+    background: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 16px;
+}
+QPushButton#okButton:hover {
+    background: #4338ca;
+}
+
+/* ── CAS-Toolbar ─────────────────────────────────────────────── */
+QWidget#casToolbar {
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+QLabel#casTitle {
+    color: #1e3a5f;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+QFrame#casSeparator {
+    color: #e2e8f0;
+    max-width: 1px;
+    margin: 10px 0;
+}
+QWidget#plotPanel {
+    background: #ffffff;
+    border-left: 1px solid #e2e8f0;
+}
+QWidget#plotPanel QCheckBox {
+    color: #374151;
+    font-size: 12px;
+}
+QPushButton#helpButton,
+QPushButton#settingsButton,
+QPushButton#graphButton {
+    background: transparent;
+    color: #4f46e5;
+    border: 1px solid #c7d2fe;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+}
+QPushButton#helpButton:hover,
+QPushButton#settingsButton:hover,
+QPushButton#graphButton:hover {
+    background: #eef2ff;
+}
+QPushButton#helpButton:disabled,
+QPushButton#settingsButton:disabled,
+QPushButton#graphButton:disabled {
+    color: #a5b4fc;
+    border-color: #e0e7ff;
+}
+QLabel#statusLabel {
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 10px;
+}
+QPushButton#clearButton {
+    background: transparent;
+    color: #6b7280;
+    border: 1px solid #d1d5db;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 4px 12px;
+}
+QPushButton#clearButton:hover {
+    background: #fef2f2;
+    color: #dc2626;
+    border-color: #fca5a5;
+}
+
+/* ── Editor-ScrollArea ───────────────────────────────────────── */
+QScrollArea#editorScroll {
+    background: white;
+}
+
+/* ── CAS-Tab-Zeile (innere Tab-Leiste) ───────────────────────── */
+QWidget#casTabRow {
+    background: #f1f5f9;
+    border-bottom: 1px solid #e2e8f0;
+}
+QTabBar#casTabBar {
+    background: transparent;
+}
+QTabBar#casTabBar::tab {
+    background: transparent;
+    color: #6b7280;
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+    padding: 4px 14px;
+    font-size: 12px;
+    margin-right: 2px;
+}
+QTabBar#casTabBar::tab:hover {
+    background: #e2e8f0;
+    color: #374151;
+}
+QTabBar#casTabBar::tab:selected {
+    background: white;
+    color: #1e3a5f;
+    border-color: #e2e8f0;
+    font-weight: 600;
+}
+QTabBar#casTabBar::close-button {
+    image: none;
+    subcontrol-position: right;
+    padding: 1px;
+}
+QTabBar#casTabBar::close-button:hover {
+    background: #fecaca;
+    border-radius: 3px;
+}
+QPushButton#casAddTabBtn {
+    background: transparent;
+    color: #6b7280;
+    border: 1px solid #d1d5db;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 400;
+}
+QPushButton#casAddTabBtn:hover {
+    background: #dbeafe;
+    color: #1e3a5f;
+    border-color: #93c5fd;
+}
