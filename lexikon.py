@@ -40,7 +40,7 @@ from typing import Any, Callable, TypeAlias
 from urllib.parse import quote, unquote
 
 from PySide6.QtCore import QEasingCurve, QPropertyAnimation, Qt, QUrl
-from PySide6.QtGui import QColor, QKeySequence, QPainter, QPaintEvent, QPixmap, QShortcut
+from PySide6.QtGui import QColor, QFont, QKeySequence, QPainter, QPaintEvent, QPen, QPixmap, QShortcut
 from PySide6.QtSvg import QSvgRenderer
 from PySide6.QtSvgWidgets import QSvgWidget
 from PySide6.QtWidgets import (
@@ -138,6 +138,64 @@ class ArticleHeaderBlock:
     einheit: str | None
 
 
+@dataclass
+class SchematicBlock:
+    """Schaltplan als SVG- oder PNG-Datei mit optionalem Titel."""
+
+    path: str
+    title: str | None = None
+
+
+@dataclass
+class WaveformBlock:
+    """Zeitdiagramm mit benannten Signalspuren."""
+
+    # Jede Spur: {"name": str, "values": list[0|1]} für digitale Signale
+    # oder {"name": str, "values": list[float], "min": float, "max": float} für analog
+    signals: list[dict]
+    sample_labels: list[str] | None = None  # Beschriftung der X-Achse
+
+
+@dataclass
+class PinoutBlock:
+    """IC- oder Stecker-Pinbelegung: Pin-Nummer → Funktionsname."""
+
+    component: str                   # z.B. "NE555", "RJ45"
+    pins: list[dict]                 # [{"nr": 1, "name": "GND", "info": "..."}, ...]
+    package: str | None = None       # z.B. "DIP-8", "SOT-23"
+
+
+@dataclass
+class TruthTableBlock:
+    """Wahrheitstabelle fuer Logikgatter/-schaltungen."""
+
+    inputs: list[str]                # Eingangsvariablen, z.B. ["A", "B"]
+    outputs: list[str]               # Ausgangsvariablen, z.B. ["Q", "Q̄"]
+    rows: list[list[int]]            # Werte 0/1 pro Zeile (inputs + outputs)
+
+
+@dataclass
+class NoteBlock:
+    """Hervorgehobener Hinweis-Block (Warnung, Tipp, Info etc.)."""
+
+    text: str
+    kind: str = "info"               # "info" | "tip" | "warning" | "danger"
+
+
+@dataclass
+class HBoxBlock:
+    """Horizontales Layout: Kinder-Bloecke nebeneinander."""
+
+    children: list["ArticleBlock"]
+
+
+@dataclass
+class VBoxBlock:
+    """Vertikales Layout: Kinder-Bloecke untereinander."""
+
+    children: list["ArticleBlock"]
+
+
 ArticleBlock: TypeAlias = (
     HeadingBlock
     | ParagraphBlock
@@ -146,6 +204,13 @@ ArticleBlock: TypeAlias = (
     | ImageBlock
     | TableBlock
     | ArticleHeaderBlock
+    | SchematicBlock
+    | WaveformBlock
+    | PinoutBlock
+    | TruthTableBlock
+    | NoteBlock
+    | HBoxBlock
+    | VBoxBlock
 )
 
 
@@ -314,6 +379,27 @@ def parse_article_blocks(
     while i < len(lines):
         line = lines[i]
 
+        # :::typ [args] ... ::: Direktive (mit Verschachtelungs-Unterstützung)
+        if line.strip().startswith(":::") and line.strip() != ":::":
+            flush_list()
+            depth = 1
+            body: list[str] = []
+            j = i + 1
+            while j < len(lines) and depth > 0:
+                inner = lines[j].strip()
+                if inner.startswith(":::") and inner != ":::":
+                    depth += 1
+                elif inner == ":::":
+                    depth -= 1
+                if depth > 0:
+                    body.append(lines[j])
+                j += 1
+            blk = _parse_directive(line.strip(), body, all_articles)
+            if blk is not None:
+                blocks.append(blk)
+            i = j
+            continue
+
         if line.strip().startswith("```"):
             flush_list()
             if not in_code:
@@ -429,6 +515,154 @@ def format_inline(text: str) -> str:
         text,
     )
     return text
+
+
+# ── Direktiven-Parser ────────────────────────────────────────────────────────
+
+def _parse_directive(
+    header_line: str,
+    body_lines: list[str],
+    all_articles: dict[str, Any],
+) -> ArticleBlock | None:
+    """Parst einen :::typ [args] ... ::: Direktiven-Block in ein Block-Objekt."""
+    stripped = header_line.strip()[3:].strip()
+    parts = stripped.split(None, 1)
+    if not parts:
+        return None
+    kind = parts[0].lower()
+    args = parts[1].strip() if len(parts) > 1 else ""
+    body_text = "\n".join(body_lines).strip()
+
+    if kind in ("warning", "info", "tip", "danger"):
+        return NoteBlock(text=body_text, kind=kind)
+    if kind == "note":
+        note_kind = args if args in ("warning", "info", "tip", "danger") else "info"
+        return NoteBlock(text=body_text, kind=note_kind)
+    if kind == "schematic":
+        return SchematicBlock(path=body_text, title=args or None)
+    if kind == "waveform":
+        return _parse_waveform_body(body_lines)
+    if kind == "pinout":
+        return _parse_pinout_body(args, body_lines)
+    if kind == "truth":
+        return _parse_truth_body(args, body_lines)
+    if kind == "hbox":
+        return HBoxBlock(children=parse_article_blocks(body_text, all_articles))
+    if kind == "vbox":
+        return VBoxBlock(children=parse_article_blocks(body_text, all_articles))
+    return None
+
+
+def _parse_waveform_body(body_lines: list[str]) -> WaveformBlock:
+    """Parst Waveform-Zeilen in ein WaveformBlock-Objekt.
+
+    Syntax pro Zeile::
+
+        labels: T0,T1,T2,T3
+        CLK: 0,1,0,1
+        ANALOG: ~0.0,1.5,3.3,0.0   # Tilde = analoges Signal
+    """
+    signals: list[dict] = []
+    sample_labels: list[str] | None = None
+    for line in body_lines:
+        line = line.strip()
+        if not line or ":" not in line:
+            continue
+        name, _, raw = line.partition(":")
+        name = name.strip()
+        raw_vals = [v.strip() for v in raw.strip().split(",")]
+        if name.lower() == "labels":
+            sample_labels = raw_vals
+            continue
+        if raw_vals and raw_vals[0].startswith("~"):
+            raw_vals[0] = raw_vals[0][1:]
+            try:
+                values = [float(v) for v in raw_vals]
+                signals.append({
+                    "name": name, "values": values,
+                    "min": min(values), "max": max(values), "analog": True,
+                })
+            except ValueError:
+                pass
+        else:
+            try:
+                values = [int(v) for v in raw_vals]
+                signals.append({"name": name, "values": values, "analog": False})
+            except ValueError:
+                pass
+    return WaveformBlock(signals=signals, sample_labels=sample_labels)
+
+
+def _parse_pinout_body(args: str, body_lines: list[str]) -> PinoutBlock:
+    """Parst Pinbelegungs-Zeilen in ein PinoutBlock-Objekt.
+
+    Syntax Kopfzeile: ``NE555 DIP-8`` oder ``NE555 (DIP-8)``
+    Syntax Pin-Zeile: ``1: GND | Masse``
+    """
+    package: str | None = None
+    paren = re.search(r"\(([^)]+)\)", args)
+    if paren:
+        package = paren.group(1).strip()
+        component = args[: paren.start()].strip()
+    else:
+        p = args.rsplit(None, 1)
+        if len(p) == 2 and re.match(r"[A-Za-z]{2,}-\d+", p[1]):
+            component, package = p[0], p[1]
+        else:
+            component = args or "?"
+
+    pins: list[dict] = []
+    for line in body_lines:
+        line = line.strip()
+        m = re.match(r"(\d+)\s*:\s*(.+)", line)
+        if not m:
+            continue
+        nr = int(m.group(1))
+        rest = m.group(2).strip()
+        if "|" in rest:
+            name, _, info = rest.partition("|")
+            pins.append({"nr": nr, "name": name.strip(), "info": info.strip()})
+        else:
+            pins.append({"nr": nr, "name": rest, "info": ""})
+    return PinoutBlock(component=component, pins=pins, package=package)
+
+
+def _parse_truth_body(args: str, body_lines: list[str]) -> TruthTableBlock:
+    """Parst eine Wahrheitstabelle aus einer :::truth-Direktive.
+
+    Syntax Kopf: ``A,B | Q,Q̄``   (Eingänge | Ausgänge)
+    Syntax Zeile: ``0,1 | 1,0``  oder ``0,1,1,0``
+    """
+    inputs: list[str] = []
+    outputs: list[str] = []
+    if "|" in args:
+        in_part, _, out_part = args.partition("|")
+        inputs = [s.strip() for s in in_part.split(",") if s.strip()]
+        outputs = [s.strip() for s in out_part.split(",") if s.strip()]
+
+    rows: list[list[int]] = []
+    for line in body_lines:
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            if "|" in line:
+                in_p, _, out_p = line.partition("|")
+                vals = [int(v.strip()) for v in in_p.split(",") if v.strip()]
+                vals += [int(v.strip()) for v in out_p.split(",") if v.strip()]
+            else:
+                vals = [int(v.strip()) for v in line.split(",") if v.strip()]
+            rows.append(vals)
+        except ValueError:
+            pass
+
+    if not inputs and not outputs and rows:
+        total = len(rows[0])
+        in_count = max(1, total // 2)
+        inputs = [chr(ord("A") + i) for i in range(in_count)]
+        outputs = [chr(ord("Q") + i) for i in range(total - in_count)]
+
+    return TruthTableBlock(inputs=inputs, outputs=outputs, rows=rows)
 
 
 # ── ViewModel ────────────────────────────────────────────────────────────────
@@ -654,30 +888,31 @@ class LexiconViewModel:
         return result
 
     def article_formulas(self, title: str) -> list[str]:
-        """Extrahiert ausfuehrbare Formeln aus Inline-Code und Code-Bloecken.
+        """Extrahiert Formeln ausschliesslich aus CodeBlock-Objekten des Artikels.
+
+        Nur explizit als Formel-Block (``` ... ```) ausgezeichnete Zeilen
+        werden uebernommen — kein Regex-Scan ueber den Rohtext, damit
+        Aufzaehlungen, Pinout-Zeilen oder Kommentare nicht faelschlich
+        als Formeln erscheinen.
 
         Returns:
-            Deduplizierte Liste von Formel-Strings (mind. 3 Zeichen,
-            enthalten mindestens ein Rechenzeichen).
+            Deduplizierte Liste von Formel-Strings (mind. 3 Zeichen).
         """
         if title not in self.all_articles:
             return []
         article = self.all_articles[title]
         ensure_article_text(article)
-        text = article["text"]
-        formulas: list[str] = re.findall(r"`([^`]*[=+\-*/][^`]*)`", text)
-        for block in re.findall(r"```\n?(.*?)\n?```", text, re.DOTALL):
-            for line in block.strip().splitlines():
-                line = line.strip()
-                if line and any(ch in line for ch in "=+-*/"):
-                    formulas.append(line)
+        blocks = parse_article_blocks(article["text"], self.all_articles)
         seen: set[str] = set()
         result: list[str] = []
-        for formula in formulas:
-            formula = formula.strip()
-            if formula not in seen and len(formula) >= 3:
-                seen.add(formula)
-                result.append(formula)
+        for block in blocks:
+            if isinstance(block, CodeBlock):
+                for line in block.lines:
+                    # Bedingung ("# ...") abstreifen — CAS bekommt nur die Formel
+                    formula = line.partition("#")[0].strip()
+                    if formula and formula not in seen and len(formula) >= 3:
+                        seen.add(formula)
+                        result.append(formula)
         return result
 
 
@@ -713,6 +948,124 @@ class HamburgerButton(QPushButton):
         painter.end()
 
 
+class WaveformWidget(QWidget):
+    """Zeichnet digitale und analoge Signalspuren im Oszilloskop-Stil.
+
+    Digitale Spuren (values: list[0|1]) werden als Rechteck-Waveform
+    dargestellt; analoge Spuren (analog=True) als Liniengraph.
+    """
+
+    _BG = QColor("#1a1a2e")
+    _TRACK_BG = QColor("#16213e")
+    _GRID = QColor("#2d2d4e")
+    _LABEL_COLOR = QColor("#94a3b8")
+    _DIGITAL_COLOR = QColor("#34d399")
+    _ANALOG_COLOR = QColor("#60a5fa")
+
+    _LABEL_W = 72
+    _TRACK_H = 46
+    _BOTTOM_H = 20
+    _TOP_PAD = 6
+
+    def __init__(
+        self, block: WaveformBlock, parent: QWidget | None = None
+    ) -> None:
+        super().__init__(parent)
+        self._block = block
+        n = len(block.signals)
+        total_h = self._TOP_PAD + n * self._TRACK_H + self._BOTTOM_H
+        self.setFixedHeight(total_h)
+        self.setSizePolicy(
+            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed
+        )
+        self.setMinimumWidth(200)
+
+    def paintEvent(self, event: QPaintEvent) -> None:  # noqa: N802
+        signals = self._block.signals
+        if not signals:
+            return
+        p = QPainter(self)
+        p.setRenderHint(QPainter.RenderHint.Antialiasing)
+        W = self.width()
+        plot_w = W - self._LABEL_W - 8
+        n_samples = max((len(s["values"]) for s in signals), default=0)
+        if n_samples == 0:
+            p.end()
+            return
+        sample_w = plot_w / n_samples
+
+        p.fillRect(0, 0, W, self.height(), self._BG)
+
+        for si, sig in enumerate(signals):
+            y0 = self._TOP_PAD + si * self._TRACK_H
+            y1 = y0 + self._TRACK_H - 2
+
+            p.fillRect(self._LABEL_W, y0, plot_w, self._TRACK_H - 2, self._TRACK_BG)
+
+            grid_pen = QPen(self._GRID)
+            grid_pen.setWidth(1)
+            p.setPen(grid_pen)
+            for gi in range(n_samples + 1):
+                gx = self._LABEL_W + int(gi * sample_w)
+                p.drawLine(gx, y0, gx, y1)
+
+            p.setPen(QPen(self._LABEL_COLOR))
+            f: QFont = p.font()
+            f.setPixelSize(11)
+            p.setFont(f)
+            p.drawText(
+                2, y0, self._LABEL_W - 4, self._TRACK_H - 2,
+                Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight,
+                sig["name"],
+            )
+
+            values = sig["values"]
+            is_analog = sig.get("analog", False)
+            sig_pen = QPen(self._ANALOG_COLOR if is_analog else self._DIGITAL_COLOR)
+            sig_pen.setWidth(2)
+            p.setPen(sig_pen)
+
+            if is_analog:
+                min_v: float = sig.get("min", 0.0)
+                max_v: float = sig.get("max", 1.0)
+                span = (max_v - min_v) or 1.0
+                pts: list[tuple[int, int]] = []
+                for idx, v in enumerate(values):
+                    x = self._LABEL_W + int((idx + 0.5) * sample_w)
+                    norm = 1.0 - (v - min_v) / span
+                    y = y0 + 3 + int(norm * (self._TRACK_H - 8))
+                    pts.append((x, y))
+                for idx in range(len(pts) - 1):
+                    p.drawLine(pts[idx][0], pts[idx][1], pts[idx + 1][0], pts[idx + 1][1])
+            else:
+                y_hi = y0 + 5
+                y_lo = y1 - 5
+                x_cur = self._LABEL_W
+                for idx, v in enumerate(values):
+                    x_next = self._LABEL_W + int((idx + 1) * sample_w)
+                    y_cur = y_hi if v else y_lo
+                    if idx > 0 and values[idx] != values[idx - 1]:
+                        y_prev = y_hi if values[idx - 1] else y_lo
+                        p.drawLine(x_cur, y_prev, x_cur, y_cur)
+                    p.drawLine(x_cur, y_cur, x_next, y_cur)
+                    x_cur = x_next
+
+        if self._block.sample_labels:
+            p.setPen(QPen(self._LABEL_COLOR))
+            f2: QFont = p.font()
+            f2.setPixelSize(9)
+            p.setFont(f2)
+            y_lbl = self._TOP_PAD + len(signals) * self._TRACK_H
+            for idx, lbl in enumerate(self._block.sample_labels[:n_samples]):
+                x = self._LABEL_W + int(idx * sample_w)
+                p.drawText(
+                    x, y_lbl, int(sample_w), self._BOTTOM_H - 2,
+                    Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop,
+                    lbl,
+                )
+        p.end()
+
+
 class FormulaBlockWidget(QFrame):
     """Zeigt eine Formelzeile als 2D-Darstellung mit CAS-Schaltflaeche.
 
@@ -729,19 +1082,45 @@ class FormulaBlockWidget(QFrame):
         parent: QWidget | None = None,
     ) -> None:
         super().__init__(parent)
-        layout = QHBoxLayout(self)
+
+        # Formel und optionale Bedingung trennen: "U = R*I  # Gleichstrom"
+        if "#" in formula:
+            formula_part, _, condition = formula.partition("#")
+            formula_part = formula_part.strip()
+            condition = condition.strip()
+        else:
+            formula_part = formula.strip()
+            condition = ""
+
+        outer = QVBoxLayout(self)
+        outer.setContentsMargins(0, 0, 0, 0)
+        outer.setSpacing(0)
+
+        row = QWidget()
+        layout = QHBoxLayout(row)
         layout.setContentsMargins(10, 6, 6, 6)
         layout.setSpacing(8)
 
-        display = MathFormulaDisplay(formula)
+        display = MathFormulaDisplay(formula_part)
         layout.addWidget(display, stretch=1)
 
         copy_btn = QPushButton("⎘")
         copy_btn.setFixedWidth(28)
         copy_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         copy_btn.setToolTip("In Zwischenablage kopieren")
-        copy_btn.clicked.connect(lambda: QApplication.clipboard().setText(formula))
+        copy_btn.clicked.connect(
+            lambda: QApplication.clipboard().setText(formula_part)
+        )
         layout.addWidget(copy_btn)
+        outer.addWidget(row)
+
+        if condition:
+            cond_label = QLabel(f"  ↳ {condition}")
+            cond_label.setStyleSheet(
+                "color:#6b7280;font-size:11px;padding:0 10px 4px 10px;"
+                "font-style:italic;"
+            )
+            outer.addWidget(cond_label)
 
 
 class ArticleContentWidget(QScrollArea):
@@ -830,6 +1209,20 @@ class ArticleContentWidget(QScrollArea):
             return self._make_table(block)
         if isinstance(block, ImageBlock):
             return self._make_image(block, article_folder)
+        if isinstance(block, SchematicBlock):
+            return self._make_schematic(block, article_folder)
+        if isinstance(block, WaveformBlock):
+            return self._make_waveform(block)
+        if isinstance(block, PinoutBlock):
+            return self._make_pinout(block)
+        if isinstance(block, TruthTableBlock):
+            return self._make_truth_table(block)
+        if isinstance(block, NoteBlock):
+            return self._make_note(block)
+        if isinstance(block, HBoxBlock):
+            return self._make_hbox(block, article_folder)
+        if isinstance(block, VBoxBlock):
+            return self._make_vbox(block, article_folder)
         return None
 
     def _make_header(self, block: ArticleHeaderBlock) -> QWidget:
@@ -1029,6 +1422,237 @@ class ArticleContentWidget(QScrollArea):
             alt_label.setObjectName("imageAlt")
             alt_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
             layout.addWidget(alt_label)
+        return container
+
+    def _make_schematic(
+        self, block: SchematicBlock, article_folder: Path
+    ) -> QWidget:
+        container = QWidget()
+        layout = QVBoxLayout(container)
+        layout.setContentsMargins(0, 8, 0, 8)
+        layout.setSpacing(6)
+
+        if block.title:
+            title_lbl = QLabel(block.title)
+            title_lbl.setStyleSheet(
+                "color:#374151;font-size:13px;font-weight:600;"
+            )
+            layout.addWidget(title_lbl)
+
+        img_path = article_folder / block.path
+        if not img_path.exists():
+            err = QLabel(f"[Schaltplan nicht gefunden: {block.path}]")
+            err.setObjectName("imageError")
+            layout.addWidget(err)
+            return container
+
+        suffix = img_path.suffix.lower()
+        if suffix == ".svg":
+            svg = QSvgWidget(str(img_path))
+            renderer: QSvgRenderer = svg.renderer()
+            if renderer.isValid():
+                ds = renderer.defaultSize()
+                src_w = ds.width() if ds.width() > 0 else 700
+                src_h = ds.height() if ds.height() > 0 else 500
+                w = min(src_w, 700)
+                h = max(int(src_h * w / src_w), 20)
+                svg.setFixedSize(w, h)
+            layout.addWidget(svg)
+        elif suffix in _RASTER_SUFFIXES:
+            pixmap = QPixmap(str(img_path))
+            if pixmap.isNull():
+                err = QLabel(f"[Bild nicht lesbar: {block.path}]")
+                err.setObjectName("imageError")
+                layout.addWidget(err)
+            else:
+                if pixmap.width() > 700:
+                    pixmap = pixmap.scaledToWidth(
+                        700, Qt.TransformationMode.SmoothTransformation
+                    )
+                pix_lbl = QLabel()
+                pix_lbl.setPixmap(pixmap)
+                layout.addWidget(pix_lbl)
+        else:
+            err = QLabel(f"[Format nicht unterstützt: {block.path}]")
+            err.setObjectName("imageError")
+            layout.addWidget(err)
+        return container
+
+    def _make_waveform(self, block: WaveformBlock) -> QWidget:
+        container = QWidget()
+        layout = QVBoxLayout(container)
+        layout.setContentsMargins(0, 8, 0, 8)
+        layout.setSpacing(0)
+        layout.addWidget(WaveformWidget(block))
+        return container
+
+    def _make_pinout(self, block: PinoutBlock) -> QWidget:
+        container = QFrame()
+        container.setStyleSheet(
+            "QFrame{background:#f8fafc;border:1px solid #e2e8f0;"
+            "border-radius:8px;}"
+        )
+        outer = QVBoxLayout(container)
+        outer.setContentsMargins(0, 0, 0, 0)
+        outer.setSpacing(0)
+
+        header_text = block.component
+        if block.package:
+            header_text += f"  ·  {block.package}"
+        header_lbl = QLabel(f"  {header_text}")
+        header_lbl.setStyleSheet(
+            "background:#1e293b;color:#f1f5f9;font-weight:700;"
+            "font-size:13px;padding:7px 12px;"
+            "border-radius:7px 7px 0 0;border:none;"
+        )
+        outer.addWidget(header_lbl)
+
+        grid_host = QWidget()
+        grid_host.setStyleSheet("background:transparent;")
+        grid = QGridLayout(grid_host)
+        grid.setContentsMargins(10, 8, 10, 8)
+        grid.setHorizontalSpacing(10)
+        grid.setVerticalSpacing(3)
+
+        for row, pin in enumerate(sorted(block.pins, key=lambda p: p["nr"])):
+            nr_lbl = QLabel(str(pin["nr"]))
+            nr_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            nr_lbl.setFixedSize(26, 26)
+            nr_lbl.setStyleSheet(
+                "background:#3b82f6;color:#fff;font-weight:700;"
+                "font-size:11px;border-radius:13px;border:none;"
+            )
+            grid.addWidget(nr_lbl, row, 0)
+
+            name_lbl = QLabel(pin["name"])
+            name_lbl.setStyleSheet(
+                "color:#0f172a;font-weight:600;font-size:13px;border:none;"
+            )
+            grid.addWidget(name_lbl, row, 1)
+
+            if pin.get("info"):
+                info_lbl = QLabel(pin["info"])
+                info_lbl.setStyleSheet(
+                    "color:#64748b;font-size:12px;border:none;"
+                )
+                grid.addWidget(info_lbl, row, 2)
+
+        grid.setColumnStretch(2, 1)
+        outer.addWidget(grid_host)
+        return container
+
+    def _make_truth_table(self, block: TruthTableBlock) -> QWidget:
+        container = QFrame()
+        container.setObjectName("truthTableBlock")
+        container.setStyleSheet(
+            "QFrame#truthTableBlock{background:#fff;border:1px solid #e5e7eb;"
+            "border-radius:6px;}"
+        )
+        outer = QVBoxLayout(container)
+        outer.setContentsMargins(0, 0, 0, 0)
+        outer.setSpacing(0)
+
+        grid_host = QWidget()
+        grid = QGridLayout(grid_host)
+        grid.setContentsMargins(0, 0, 0, 0)
+        grid.setHorizontalSpacing(0)
+        grid.setVerticalSpacing(0)
+
+        all_headers = block.inputs + block.outputs
+        n_in = len(block.inputs)
+
+        for col, name in enumerate(all_headers):
+            is_in = col < n_in
+            lbl = QLabel(name)
+            lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            lbl.setStyleSheet(
+                f"background:{'#e0f2fe' if is_in else '#dcfce7'};"
+                f"color:{'#0369a1' if is_in else '#166534'};"
+                "font-weight:700;font-size:13px;"
+                "padding:6px 14px;border-bottom:2px solid #e5e7eb;"
+            )
+            grid.addWidget(lbl, 0, col)
+
+        for r, row_vals in enumerate(block.rows):
+            for col in range(len(all_headers)):
+                v = row_vals[col] if col < len(row_vals) else 0
+                is_in = col < n_in
+                stripe = "#f9fafb" if r % 2 == 0 else "#fff"
+                if v == 1 and not is_in:
+                    bg, fg = "#bbf7d0", "#166534"
+                else:
+                    bg, fg = stripe, ("#374151" if v else "#9ca3af")
+                cell = QLabel("1" if v else "0")
+                cell.setAlignment(Qt.AlignmentFlag.AlignCenter)
+                cell.setStyleSheet(
+                    f"background:{bg};color:{fg};"
+                    "font-size:13px;font-family:monospace;"
+                    "padding:5px 14px;border-top:1px solid #f1f5f9;"
+                )
+                grid.addWidget(cell, r + 1, col)
+
+        for col in range(len(all_headers)):
+            grid.setColumnStretch(col, 1)
+
+        outer.addWidget(grid_host)
+        return container
+
+    def _make_note(self, block: NoteBlock) -> QWidget:
+        _styles: dict[str, tuple[str, str, str]] = {
+            "info":    ("#dbeafe", "#1d4ed8", "ℹ"),
+            "tip":     ("#dcfce7", "#16a34a", "✓"),
+            "warning": ("#fef3c7", "#b45309", "⚠"),
+            "danger":  ("#fee2e2", "#dc2626", "⛔"),
+        }
+        bg, border, icon = _styles.get(block.kind, _styles["info"])
+
+        container = QFrame()
+        container.setStyleSheet(
+            f"QFrame{{background:{bg};border-left:4px solid {border};"
+            "border-radius:0 6px 6px 0;border-top:none;"
+            "border-right:none;border-bottom:none;}}"
+        )
+        layout = QHBoxLayout(container)
+        layout.setContentsMargins(12, 10, 14, 10)
+        layout.setSpacing(10)
+
+        icon_lbl = QLabel(icon)
+        icon_lbl.setStyleSheet(
+            f"color:{border};font-size:16px;"
+            "background:transparent;border:none;"
+        )
+        icon_lbl.setFixedWidth(22)
+        layout.addWidget(icon_lbl)
+
+        text_lbl = QLabel(block.text)
+        text_lbl.setWordWrap(True)
+        text_lbl.setStyleSheet(
+            "color:#1e293b;font-size:14px;"
+            "background:transparent;border:none;"
+        )
+        layout.addWidget(text_lbl, stretch=1)
+        return container
+
+    def _make_hbox(self, block: HBoxBlock, article_folder: Path) -> QWidget:
+        container = QWidget()
+        layout = QHBoxLayout(container)
+        layout.setContentsMargins(0, 4, 0, 4)
+        layout.setSpacing(12)
+        for child in block.children:
+            w = self._block_to_widget(child, article_folder)
+            if w is not None:
+                layout.addWidget(w, stretch=1)
+        return container
+
+    def _make_vbox(self, block: VBoxBlock, article_folder: Path) -> QWidget:
+        container = QWidget()
+        layout = QVBoxLayout(container)
+        layout.setContentsMargins(0, 4, 0, 4)
+        layout.setSpacing(4)
+        for child in block.children:
+            w = self._block_to_widget(child, article_folder)
+            if w is not None:
+                layout.addWidget(w)
         return container
 
 
@@ -1507,27 +2131,14 @@ class LexiconWidget(QWidget):
         self._clear_layout(self.formulas_layout)
         formulas = self.view_model.article_formulas(title)
         for formula in formulas:
-            row = QWidget()
-            row_layout = QHBoxLayout(row)
-            row_layout.setContentsMargins(0, 0, 0, 0)
-            row_layout.setSpacing(4)
             cas_btn = QPushButton(formula)
             cas_btn.setObjectName("formulaButton")
             cas_btn.setCursor(Qt.CursorShape.PointingHandCursor)
-            cas_btn.setToolTip("In CAS-Rechner uebernehmen")
+            cas_btn.setToolTip("In CAS-Rechner übernehmen")
             cas_btn.clicked.connect(
                 lambda _checked, f=formula: self._send_formula_to_calculator(f)
             )
-            row_layout.addWidget(cas_btn, stretch=1)
-            copy_btn = QPushButton("⎘")
-            copy_btn.setFixedWidth(28)
-            copy_btn.setCursor(Qt.CursorShape.PointingHandCursor)
-            copy_btn.setToolTip("In Zwischenablage kopieren")
-            copy_btn.clicked.connect(
-                lambda _checked, f=formula: QApplication.clipboard().setText(f)
-            )
-            row_layout.addWidget(copy_btn)
-            self.formulas_layout.addWidget(row)
+            self.formulas_layout.addWidget(cas_btn)
         if not formulas:
             no_formulas = QLabel("Keine Formeln")
             no_formulas.setObjectName("emptyLabel")

@@ -1,0 +1,1340 @@
+================================================================================
+LEXIKON VERLINKUNGSMATRIX — PHASE 1 ABGESCHLOSSEN
+================================================================================
+Stand: Phase 1 — Alle Kategorien geplant
+Zielgruppe: Elektroniker EFZ + Techniker/Ingenieure (zwei Ebenen pro Artikel)
+
+Artikelstruktur (jeder Artikel):
+  - Kurzzusammenfassung (für beide Zielgruppen)
+  - 🟢 Grundlagen (EFZ: Analogien, einfache Erklärung, wenig Formeln)
+  - 🔵 Vertiefung (Techniker: Formeln, Praxisbezug, Randeffekte)
+
+Kategorien:
+  ET — Elektrotechnik
+  EK — Elektronik
+  SH — Software & Hardware
+  SI — Sicherheit & Normen
+  MT — Messtechnik
+  FT — Fertigungstechnik
+  EN — Entwicklungsprozess
+
+Strukturregeln:
+  - ET = Passive Bauelemente (Widerstand, Kondensator, Spule, Transformator)
+  - EK = Aktive Bauelemente + Halbleiter (inkl. Diode)
+  - RLC/RC/RL-Grundlagen in ET, als Filter referenziert in EK
+  - Leitungsauslegung = ein Artikel mit drei Abschnitten
+  - Messprotokoll = kein Artikel (firmaspezifisch)
+
+================================================================================
+ET — ELEKTROTECHNIK
+================================================================================
+
+GRUNDLAGEN
+----------
+Artikel: Strom, Spannung, Widerstand
+  Voraussetzungen : —
+  Verwandte Artikel: Ohmsches Gesetz
+  Führt weiter zu : Ohmsches Gesetz, Reihenschaltung, Parallelschaltung
+
+Artikel: Ohmsches Gesetz
+  Voraussetzungen : Strom, Spannung, Widerstand
+  Verwandte Artikel: Kirchhoffsche Gesetze
+  Führt weiter zu : Spannungs- & Stromteiler, Leitungsauslegung
+
+Artikel: Elektrisches Feld
+  Voraussetzungen : Strom, Spannung, Widerstand
+  Verwandte Artikel: Kondensator, Magnetfelder
+  Führt weiter zu : Kondensator
+
+BAUELEMENTE — PASSIV
+--------------------
+Artikel: Widerstand
+  Voraussetzungen : Ohmsches Gesetz
+  Verwandte Artikel: Reihenschaltung, Parallelschaltung
+  Führt weiter zu : Leitungsauslegung, Thermomanagement
+
+Artikel: Kondensator (Übersicht)
+  Voraussetzungen : Elektrisches Feld
+  Verwandte Artikel: Spule, Wechselstrom
+  Führt weiter zu : RLC-Schaltungen, Filter (EK)
+
+Artikel: Spule (Übersicht)
+  Voraussetzungen : Magnetfelder
+  Verwandte Artikel: Kondensator, Transformator
+  Führt weiter zu : RLC-Schaltungen, Transformator
+
+KONDENSATOR (DETAIL)
+--------------------
+Artikel: Kapazität & Einheiten
+  Voraussetzungen : Elektrisches Feld
+  Verwandte Artikel: Kondensator allgemein
+  Führt weiter zu : Auf- und Entladung
+
+Artikel: Auf- und Entladung
+  Voraussetzungen : Kapazität & Einheiten, Ohmsches Gesetz
+  Verwandte Artikel: RC-Filter (EK)
+  Führt weiter zu : Zeitkonstante τ
+
+Artikel: Kondensator Typen
+  Voraussetzungen : Kapazität & Einheiten
+  Verwandte Artikel: Auf- und Entladung
+  Führt weiter zu : Bauteilauswahl (EN)
+
+Artikel: Kondensator im Wechselstrom
+  Voraussetzungen : Auf- und Entladung, Sinuswellen
+  Verwandte Artikel: Impedanz, Spule im Wechselstrom
+  Führt weiter zu : RLC-Schaltungen
+
+SPULE (DETAIL)
+--------------
+Artikel: Induktivität & Einheiten
+  Voraussetzungen : Magnetfelder
+  Verwandte Artikel: Spule allgemein
+  Führt weiter zu : Selbstinduktion
+
+Artikel: Selbstinduktion
+  Voraussetzungen : Induktivität & Einheiten
+  Verwandte Artikel: Transformator
+  Führt weiter zu : Flyback, Boost-Wandler (EK)
+
+Artikel: Spule Typen
+  Voraussetzungen : Induktivität & Einheiten
+  Verwandte Artikel: Selbstinduktion
+  Führt weiter zu : Bauteilauswahl (EN)
+
+Artikel: Spule im Wechselstrom
+  Voraussetzungen : Selbstinduktion, Sinuswellen
+  Verwandte Artikel: Kondensator im Wechselstrom
+  Führt weiter zu : RLC-Schaltungen, Transformator
+
+MAGNETFELDER
+------------
+Artikel: Grundlagen & Feldlinien
+  Voraussetzungen : Strom, Spannung
+  Verwandte Artikel: Elektromagnet, Lorentzkraft
+  Führt weiter zu : Transformator, Motor (EK)
+
+Artikel: Magnetische Flussdichte
+  Voraussetzungen : Grundlagen Magnetfelder
+  Verwandte Artikel: Lorentzkraft
+  Führt weiter zu : Transformator, BLDC (EK)
+
+Artikel: Lorentzkraft
+  Voraussetzungen : Magnetische Flussdichte
+  Verwandte Artikel: Elektromagnet
+  Führt weiter zu : DC-Motor, Schrittmotor (EK)
+
+Artikel: Elektromagnet
+  Voraussetzungen : Lorentzkraft, Selbstinduktion
+  Verwandte Artikel: Transformator
+  Führt weiter zu : Relais & Schütze (EK)
+
+TRANSFORMATOR
+-------------
+Artikel: Aufbau & Funktionsprinzip
+  Voraussetzungen : Spule, Elektromagnet
+  Verwandte Artikel: Drehstrom, Wirkungsgrad
+  Führt weiter zu : Frequenzumrichter (EK), Netzteile
+
+Artikel: Übersetzungsverhältnis
+  Voraussetzungen : Transformator Aufbau
+  Verwandte Artikel: Wirkungsgrad & Verluste
+  Führt weiter zu : Netzteile, Leitungsauslegung
+
+Artikel: Wirkungsgrad & Verluste
+  Voraussetzungen : Übersetzungsverhältnis
+  Verwandte Artikel: Thermomanagement (EK)
+  Führt weiter zu : Derating (EK)
+
+Artikel: Transformator Typen
+  Voraussetzungen : Wirkungsgrad & Verluste
+  Verwandte Artikel: Transformator Aufbau
+  Führt weiter zu : Bauteilauswahl (EN)
+
+SCHALTKREISE
+------------
+Artikel: Reihenschaltung
+  Voraussetzungen : Ohmsches Gesetz
+  Verwandte Artikel: Parallelschaltung, Kirchhoff
+  Führt weiter zu : Spannungsteiler
+
+Artikel: Parallelschaltung
+  Voraussetzungen : Ohmsches Gesetz
+  Verwandte Artikel: Reihenschaltung, Kirchhoff
+  Führt weiter zu : Stromteiler
+
+Artikel: Kirchhoffsche Gesetze
+  Voraussetzungen : Reihen- & Parallelschaltung
+  Verwandte Artikel: Spannungs- & Stromteiler
+  Führt weiter zu : Komplexe Netzwerke, Wechselstrom
+
+Artikel: Spannungs- & Stromteiler
+  Voraussetzungen : Kirchhoffsche Gesetze
+  Verwandte Artikel: Reihenschaltung, Parallelschaltung
+  Führt weiter zu : Messbrücken, Wheatstone, Sensorik (EK)
+
+Artikel: Wheatstone-Brücke  [NEU]
+  Voraussetzungen : Spannungs- & Stromteiler
+  Verwandte Artikel: DMS (EK), Temperatursensoren (EK)
+  Führt weiter zu : Sensorik (EK), Vierleitermessung (MT)
+
+WECHSELSTROM
+------------
+Artikel: Sinuswellen (Amplitude, Frequenz, Phase)
+  Voraussetzungen : Strom, Spannung
+  Verwandte Artikel: Zeigerdiagramm
+  Führt weiter zu : Impedanz, RLC
+
+Artikel: Zeigerdiagramm (Phasor)
+  Voraussetzungen : Sinuswellen
+  Verwandte Artikel: Impedanz
+  Führt weiter zu : Komplexe Rechnung
+
+Artikel: Impedanz
+  Voraussetzungen : Zeigerdiagramm, Kondensator/Spule im AC
+  Verwandte Artikel: Komplexe Rechnung
+  Führt weiter zu : RLC-Schaltungen, Filter
+
+Artikel: Komplexe Wechselstromrechnung (j-Operator)
+  Voraussetzungen : Impedanz, Zeigerdiagramm
+  Verwandte Artikel: RLC-Schaltungen
+  Führt weiter zu : Resonanz, Filter (EK)
+
+Artikel: RLC-Schaltungen
+  Voraussetzungen : Impedanz, Kondensator, Spule
+  Verwandte Artikel: Resonanz, Filter
+  Führt weiter zu : Filter (EK), Resonanz
+
+Artikel: Resonanz
+  Voraussetzungen : RLC-Schaltungen
+  Verwandte Artikel: Filter (EK)
+  Führt weiter zu : LC-Filter (EK), Quarz-Oszillator (EK)
+
+DREHSTROM
+---------
+Artikel: Grundlagen 3-Phasen-Wechselstrom
+  Voraussetzungen : Sinuswellen, Transformator
+  Verwandte Artikel: Stern- & Dreieckschaltung
+  Führt weiter zu : Frequenzumrichter (EK)
+
+Artikel: Sternschaltung
+  Voraussetzungen : Drehstrom Grundlagen
+  Verwandte Artikel: Dreieckschaltung
+  Führt weiter zu : Verkettete Spannung
+
+Artikel: Dreieckschaltung
+  Voraussetzungen : Drehstrom Grundlagen
+  Verwandte Artikel: Sternschaltung
+  Führt weiter zu : Verkettete Spannung
+
+Artikel: Verkettete Spannung
+  Voraussetzungen : Stern- & Dreieckschaltung
+  Verwandte Artikel: Leistung
+  Führt weiter zu : Frequenzumrichter (EK)
+
+LEISTUNG
+--------
+Artikel: Wirkleistung
+  Voraussetzungen : Ohmsches Gesetz, Sinuswellen
+  Verwandte Artikel: Blind- & Scheinleistung
+  Führt weiter zu : Leistungsfaktor
+
+Artikel: Blindleistung
+  Voraussetzungen : Impedanz, RLC
+  Verwandte Artikel: Wirkleistung, Scheinleistung
+  Führt weiter zu : Leistungsfaktor, THD
+
+Artikel: Scheinleistung
+  Voraussetzungen : Wirk- & Blindleistung
+  Verwandte Artikel: Leistungsfaktor
+  Führt weiter zu : Leitungsauslegung
+
+Artikel: Leistungsfaktor cos φ
+  Voraussetzungen : Scheinleistung
+  Verwandte Artikel: Blindleistung
+  Führt weiter zu : Kompensation, Netzqualität
+
+NETZQUALITÄT
+------------
+Artikel: Oberschwingungen
+  Voraussetzungen : Sinuswellen, Leistungsfaktor
+  Verwandte Artikel: THD, Nichtlineare Lasten
+  Führt weiter zu : EMV (SI), Filter (EK)
+
+Artikel: Nichtlineare Lasten
+  Voraussetzungen : Oberschwingungen
+  Verwandte Artikel: THD
+  Führt weiter zu : EMV (SI)
+
+Artikel: Total Harmonic Distortion (THD)
+  Voraussetzungen : Oberschwingungen
+  Verwandte Artikel: Netzqualität
+  Führt weiter zu : EMV-Prüfverfahren (SI)
+
+LEITUNGSAUSLEGUNG (ein Artikel, drei Abschnitte)
+------------------------------------------------
+Artikel: Leitungsauslegung
+  Abschnitt 1: Querschnittsberechnung
+  Abschnitt 2: Spannungsabfall über Leitungen
+  Abschnitt 3: Absicherung: Sicherungen & Leitungsschutzschalter
+  Voraussetzungen : Ohmsches Gesetz, Leistung
+  Verwandte Artikel: Schutzklassen (SI)
+  Führt weiter zu : Not-Halt (SI)
+
+================================================================================
+EK — ELEKTRONIK
+================================================================================
+
+HALBLEITER — GRUNDLAGEN
+-----------------------
+Artikel: Halbleitermaterial (Si, Ge)
+  Voraussetzungen : Strom, Spannung, Widerstand (ET)
+  Verwandte Artikel: p-n-Übergang
+  Führt weiter zu : p-n-Übergang, Diode
+
+Artikel: p-n-Übergang
+  Voraussetzungen : Halbleitermaterial
+  Verwandte Artikel: Diode, Zener-Diode
+  Führt weiter zu : Diode, BJT
+
+Artikel: Diode
+  Voraussetzungen : p-n-Übergang
+  Verwandte Artikel: Zener-Diode, Gleichrichter
+  Führt weiter zu : Zener-Diode, Thyristor, LED
+
+Artikel: Zener-Diode
+  Voraussetzungen : Diode
+  Verwandte Artikel: Spannungsregler
+  Führt weiter zu : Lineare Regler, Schutzbeschaltung
+
+Artikel: Gleichrichter  [NEU]
+  Voraussetzungen : Diode, Sinuswellen (ET)
+  Verwandte Artikel: Lineare Regler, Transformator (ET)
+  Führt weiter zu : Stromversorgung, Buck/Boost
+
+TRANSISTOREN
+------------
+Artikel: Bipolartransistor (BJT)
+  Voraussetzungen : p-n-Übergang, Diode
+  Verwandte Artikel: FET/MOSFET
+  Führt weiter zu : Als Schalter, Als Verstärker
+
+Artikel: FET / MOSFET
+  Voraussetzungen : BJT
+  Verwandte Artikel: IGBT, Leistungshalbleiter
+  Führt weiter zu : Als Schalter, Buck/Boost
+
+Artikel: Als Schalter
+  Voraussetzungen : BJT, MOSFET
+  Verwandte Artikel: PWM, Relais & Schütze
+  Führt weiter zu : Frequenzumrichter, Buck/Boost
+
+Artikel: Als Verstärker (Arbeitspunkt)
+  Voraussetzungen : BJT, Impedanz (ET)
+  Verwandte Artikel: Grundschaltungen, OPV
+  Führt weiter zu : Verstärkungsfaktor, Frequenzgang
+
+VERSTÄRKER
+----------
+Artikel: Grundschaltungen
+  Voraussetzungen : Als Verstärker
+  Verwandte Artikel: Verstärkungsfaktor
+  Führt weiter zu : Frequenzgang, OPV
+
+Artikel: Verstärkungsfaktor
+  Voraussetzungen : Grundschaltungen
+  Verwandte Artikel: Frequenzgang
+  Führt weiter zu : OPV, Filter
+
+Artikel: Frequenzgang
+  Voraussetzungen : Verstärkungsfaktor
+  Verwandte Artikel: Filter, Bode-Diagramm
+  Führt weiter zu : Aktive Filter, DSP
+
+Artikel: Bode-Diagramm  [NEU]
+  Voraussetzungen : Frequenzgang, Impedanz (ET)
+  Verwandte Artikel: Stabilität & Schwingneigung
+  Führt weiter zu : Regelungstechnik, Filter
+
+OPERATIONSVERSTÄRKER
+--------------------
+Artikel: OPV Aufbau & Kennwerte
+  Voraussetzungen : Verstärker Grundschaltungen
+  Verwandte Artikel: Invertierend, Nichtinvertierend
+  Führt weiter zu : Komparator, Integrierer
+
+Artikel: OPV Invertierend
+  Voraussetzungen : OPV Aufbau
+  Verwandte Artikel: Nichtinvertierend
+  Führt weiter zu : Aktive Filter, Summierer
+
+Artikel: OPV Nichtinvertierend
+  Voraussetzungen : OPV Aufbau
+  Verwandte Artikel: Invertierend
+  Führt weiter zu : Impedanzwandler, Filter
+
+Artikel: OPV Komparator
+  Voraussetzungen : OPV Aufbau
+  Verwandte Artikel: Schmitt-Trigger
+  Führt weiter zu : Schwellwertschalter, Sensorik
+
+Artikel: OPV Integrierer & Differenzierer
+  Voraussetzungen : OPV Invertierend
+  Verwandte Artikel: DSP, Filter
+  Führt weiter zu : Regler (PID), DSP
+
+LEISTUNGSHALBLEITER
+-------------------
+Artikel: Thyristor
+  Voraussetzungen : Diode, MOSFET
+  Verwandte Artikel: Triac & Diac
+  Führt weiter zu : Leistungssteuerung, Frequenzumrichter
+
+Artikel: Triac & Diac
+  Voraussetzungen : Thyristor
+  Verwandte Artikel: IGBT
+  Führt weiter zu : Dimmerschaltungen
+
+Artikel: IGBT
+  Voraussetzungen : MOSFET, Thyristor
+  Verwandte Artikel: Frequenzumrichter
+  Führt weiter zu : Buck/Boost, Motorenansteuerung
+
+Artikel: Anwendungen Leistungshalbleiter
+  Voraussetzungen : Thyristor, Triac, IGBT
+  Verwandte Artikel: Frequenzumrichter, PWM
+  Führt weiter zu : Motorenansteuerung
+
+OSZILLATOREN
+------------
+Artikel: Grundprinzip Oszillatoren
+  Voraussetzungen : Verstärker, RLC (ET)
+  Verwandte Artikel: RC-, LC-, Quarz-Oszillator
+  Führt weiter zu : Taktgeber, FPGA (SH)
+
+Artikel: RC-Oszillator
+  Voraussetzungen : Grundprinzip, RC (ET)
+  Verwandte Artikel: LC-Oszillator
+  Führt weiter zu : Signalgeneratoren (MT)
+
+Artikel: LC-Oszillator
+  Voraussetzungen : Grundprinzip, LC/Resonanz (ET)
+  Verwandte Artikel: Quarz-Oszillator
+  Führt weiter zu : HF-Anwendungen
+
+Artikel: Quarz-Oszillator
+  Voraussetzungen : LC-Oszillator
+  Verwandte Artikel: Taktgeber
+  Führt weiter zu : Mikrocontroller, FPGA (SH)
+
+FILTER
+------
+Artikel: Filter Grundlagen
+  Voraussetzungen : Impedanz, RLC (ET)
+  Verwandte Artikel: RC-Tiefpass & Hochpass
+  Führt weiter zu : Aktive Filter, DSP
+
+Artikel: RC-Tiefpass & Hochpass
+  Voraussetzungen : Filter Grundlagen, RC (ET)
+  Verwandte Artikel: LC-Filter
+  Führt weiter zu : Aktive Filter
+
+Artikel: LC-Filter
+  Voraussetzungen : RC-Filter, Resonanz (ET)
+  Verwandte Artikel: Aktive Filter
+  Führt weiter zu : EMV-Entstörung (SI)
+
+Artikel: Aktive Filter
+  Voraussetzungen : RC-Filter, OPV
+  Verwandte Artikel: Bandpass & Bandsperre
+  Führt weiter zu : DSP, Audiotechnik
+
+Artikel: Bandpass & Bandsperre
+  Voraussetzungen : Aktive Filter, Resonanz (ET)
+  Verwandte Artikel: LC-Filter
+  Führt weiter zu : DSP, Kommunikation
+
+STROMVERSORGUNG
+---------------
+Artikel: Lineare Regler (z.B. 7805)
+  Voraussetzungen : Zener-Diode, Transistor
+  Verwandte Artikel: Buck, Boost
+  Führt weiter zu : Stromversorgung allgemein
+
+Artikel: Buck (Step-down)
+  Voraussetzungen : MOSFET, IGBT, Spule (ET)
+  Verwandte Artikel: Boost, Lineare Regler
+  Führt weiter zu : BMS, Motorenansteuerung
+
+Artikel: Boost (Step-up)
+  Voraussetzungen : Buck, Spule (ET)
+  Verwandte Artikel: Buck
+  Führt weiter zu : BMS, Hochvoltanwendungen
+
+Artikel: Batterietechnik (Li-Ion, LiPo, NiMH)
+  Voraussetzungen : Strom, Spannung (ET)
+  Verwandte Artikel: BMS
+  Führt weiter zu : SOC, SOH, Tiefentladeschutz
+
+Artikel: EMV Schirmung, Entstörung, Erdung
+  Voraussetzungen : Oberschwingungen (ET), LC-Filter
+  Verwandte Artikel: EMV-Prüfung (SI)
+  Führt weiter zu : Signalintegrität, RE/CE-Tests
+
+BATTERIEMANAGEMENTSYSTEM (BMS)
+------------------------------
+Artikel: BMS Balancing
+  Voraussetzungen : Batterietechnik
+  Verwandte Artikel: SOC, SOH
+  Führt weiter zu : Schutzbeschaltung
+
+Artikel: SOC (State of Charge)
+  Voraussetzungen : BMS Balancing, Batterietechnik
+  Verwandte Artikel: SOH
+  Führt weiter zu : Tiefentladeschutz
+
+Artikel: SOH (State of Health)
+  Voraussetzungen : SOC
+  Verwandte Artikel: Batterietechnik
+  Führt weiter zu : Lifecycle (EN)
+
+Artikel: Schutzbeschaltung & Tiefentladeschutz
+  Voraussetzungen : SOC, SOH, Zener-Diode
+  Verwandte Artikel: Relais & Schütze
+  Führt weiter zu : Sicherheitsregeln (SI)
+
+MOTORENANSTEUERUNG
+------------------
+Artikel: Frequenzumrichter (Grundlagen)
+  Voraussetzungen : IGBT, Drehstrom (ET)
+  Verwandte Artikel: PWM-Arten, Encoder
+  Führt weiter zu : Motorenansteuerung
+
+Artikel: PWM-Arten (SVPWM)
+  Voraussetzungen : Frequenzumrichter, Als Schalter
+  Verwandte Artikel: Encoder & Resolver
+  Führt weiter zu : BLDC, Schrittmotor
+
+Artikel: Encoder & Resolver
+  Voraussetzungen : PWM-Arten
+  Verwandte Artikel: Positionsrückführung
+  Führt weiter zu : Servomotor, Regelungstechnik
+
+OPTOELEKTRONIK
+--------------
+Artikel: Optokoppler (galvanische Trennung)
+  Voraussetzungen : Diode, Als Schalter
+  Verwandte Artikel: LED-Ansteuerung
+  Führt weiter zu : Galvanische Trennung, UART (SH)
+
+Artikel: LED-Ansteuerung
+  Voraussetzungen : Optokoppler, Diode
+  Verwandte Artikel: Photodioden
+  Führt weiter zu : PWM-Dimmung
+
+Artikel: Photodioden & Phototransistoren
+  Voraussetzungen : LED-Ansteuerung, BJT
+  Verwandte Artikel: Abstandssensoren
+  Führt weiter zu : Lichtschranken, Sensorik
+
+SENSORIK
+--------
+Artikel: Temperatursensoren (PT100/1000, NTC, PTC, Thermoelemente)
+  Voraussetzungen : Widerstand (ET), Wheatstone (ET)
+  Verwandte Artikel: Abstandssensoren, DMS
+  Führt weiter zu : Regelungstechnik, Thermomanagement
+
+Artikel: Abstandssensoren (Induktiv, Kapazitiv, Ultraschall, Optisch)
+  Voraussetzungen : Kondensator, Spule (ET)
+  Verwandte Artikel: Temperatursensoren
+  Führt weiter zu : Maschinensicherheit (SI)
+
+Artikel: Druck & Kraft (DMS)
+  Voraussetzungen : Wheatstone (ET), Widerstand (ET)
+  Verwandte Artikel: Temperatursensoren
+  Führt weiter zu : Regelungstechnik
+
+AKTORIK
+-------
+Artikel: Relais & Schütze (inkl. Freilaufdiode)
+  Voraussetzungen : Elektromagnet (ET), Als Schalter
+  Verwandte Artikel: Schütze, Freilaufdiode
+  Führt weiter zu : Not-Halt (SI), Maschinensicherheit
+
+Artikel: DC-Motor
+  Voraussetzungen : Lorentzkraft (ET), Relais
+  Verwandte Artikel: Schrittmotor, BLDC
+  Führt weiter zu : Regelungstechnik, Encoder
+
+Artikel: Schrittmotor
+  Voraussetzungen : DC-Motor, PWM
+  Verwandte Artikel: Servomotor
+  Führt weiter zu : CNC, Positionierung
+
+Artikel: Servomotor
+  Voraussetzungen : Schrittmotor, Encoder
+  Verwandte Artikel: BLDC
+  Führt weiter zu : Regelungstechnik
+
+Artikel: BLDC
+  Voraussetzungen : Servomotor, MOSFET, PWM
+  Verwandte Artikel: Frequenzumrichter
+  Führt weiter zu : SVPWM, Encoder
+
+Artikel: Magnetventile & Solenoids
+  Voraussetzungen : Elektromagnet (ET), Relais
+  Verwandte Artikel: Schütze
+  Führt weiter zu : Hydraulik, Pneumatik
+
+REGELUNGSTECHNIK
+----------------
+Artikel: Regelkreis
+  Voraussetzungen : Strom, Spannung (ET)
+  Verwandte Artikel: P-, I-, D-Regler
+  Führt weiter zu : PID-Regler
+
+Artikel: P-, I-, D-Regler
+  Voraussetzungen : Regelkreis
+  Verwandte Artikel: PID-Regler
+  Führt weiter zu : Stabilität & Schwingneigung
+
+Artikel: PID-Regler
+  Voraussetzungen : P-, I-, D-Regler
+  Verwandte Artikel: Stabilität
+  Führt weiter zu : Motorregelung, Temperaturregelung
+
+Artikel: Stabilität & Schwingneigung
+  Voraussetzungen : PID-Regler, Frequenzgang
+  Verwandte Artikel: Bode-Diagramm
+  Führt weiter zu : DSP, Regelungstechnik
+
+THERMOMANAGEMENT
+----------------
+Artikel: Kühlkörperberechnung (R_th)
+  Voraussetzungen : Widerstand (ET), Leistung (ET)
+  Verwandte Artikel: Thermal Vias, Derating
+  Führt weiter zu : Thermomanagement allgemein
+
+Artikel: Thermal Vias
+  Voraussetzungen : Kühlkörperberechnung
+  Verwandte Artikel: PCB-Aufbau (FT)
+  Führt weiter zu : DFM (EN)
+
+Artikel: Derating-Kurven
+  Voraussetzungen : Kühlkörperberechnung
+  Verwandte Artikel: Datenblatt-Analyse (EN)
+  Führt weiter zu : Bauteilmanagement (EN)
+
+SIGNALINTEGRITÄT (HIGH-SPEED)
+-----------------------------
+Artikel: Reflexionen auf Leitungen
+  Voraussetzungen : Wellenwiderstand
+  Verwandte Artikel: Crosstalk
+  Führt weiter zu : Signalintegrität allgemein
+
+Artikel: Wellenwiderstand & Terminierung
+  Voraussetzungen : Reflexionen
+  Verwandte Artikel: Crosstalk
+  Führt weiter zu : PCB-Layout (FT), EMV
+
+Artikel: Crosstalk
+  Voraussetzungen : Wellenwiderstand
+  Verwandte Artikel: Reflexionen
+  Führt weiter zu : PCB-Layout (FT), EMV (SI)
+
+FORTGESCHRITTENE ANALOGTECHNIK & DSP
+--------------------------------------
+Artikel: AD-Wandler Fehlerquellen (Quantisierungsrauschen, Aliasing)
+  Voraussetzungen : AD/DA Grundlagen (SH)
+  Verwandte Artikel: DSP, SNR
+  Führt weiter zu : Quantisierungsrauschen, Aliasing
+
+Artikel: DSP: FIR- und IIR-Filter
+  Voraussetzungen : AD-Wandler, Filter Grundlagen
+  Verwandte Artikel: Frequenzgang
+  Führt weiter zu : Signalverarbeitung, Audio
+
+Artikel: Rauschen (Thermisch, Schrotrauschen, SNR)
+  Voraussetzungen : AD-Wandler Fehlerquellen
+  Verwandte Artikel: DSP
+  Führt weiter zu : Verstärkerdesign, Messtechnik
+
+================================================================================
+SH — SOFTWARE & HARDWARE
+================================================================================
+
+BASIC
+-----
+Artikel: Signale
+  Voraussetzungen : —
+  Verwandte Artikel: Zahlensysteme, Logikgatter
+  Führt weiter zu : Zahlensysteme, AD/DA (EK)
+
+Artikel: Zahlensysteme
+  Voraussetzungen : Signale
+  Verwandte Artikel: Logikgatter, Binäre Arithmetik
+  Führt weiter zu : Binäre Arithmetik, Codes
+
+Artikel: Logikgatter
+  Voraussetzungen : Zahlensysteme
+  Verwandte Artikel: Schaltalgebra
+  Führt weiter zu : Schaltalgebra, Multiplexer
+
+Artikel: Schaltalgebra
+  Voraussetzungen : Logikgatter
+  Verwandte Artikel: Binäre Arithmetik
+  Führt weiter zu : Flipflops, Multiplexer
+
+Artikel: Binäre Arithmetik
+  Voraussetzungen : Zahlensysteme, Schaltalgebra
+  Verwandte Artikel: Digitale Codes
+  Führt weiter zu : Codes, CPU Aufbau
+
+Artikel: Multiplexer & Demultiplexer
+  Voraussetzungen : Schaltalgebra, Logikgatter
+  Verwandte Artikel: Digitale Codes
+  Führt weiter zu : Busse, FPGA
+
+CODES
+-----
+Artikel: Digitale Codes
+  Voraussetzungen : Binäre Arithmetik
+  Verwandte Artikel: Codewandler
+  Führt weiter zu : Codewandler, Schnittstellen
+
+Artikel: Codewandler
+  Voraussetzungen : Digitale Codes
+  Verwandte Artikel: Multiplexer
+  Führt weiter zu : FPGA, Programmierbare Logik
+
+FLIPFLOP
+--------
+Artikel: Flipflops
+  Voraussetzungen : Schaltalgebra, Logikgatter
+  Verwandte Artikel: Frequenzteiler
+  Führt weiter zu : Zähler, Schieberegister
+
+Artikel: Frequenzteiler
+  Voraussetzungen : Flipflops
+  Verwandte Artikel: Asynchrone Zähler
+  Führt weiter zu : Zähler, Quarz-Oszillator (EK)
+
+Artikel: Asynchrone Vorwärtszähler
+  Voraussetzungen : Frequenzteiler, Flipflops
+  Verwandte Artikel: Asynchrone Rückwärtszähler
+  Führt weiter zu : Synchrone Zähler
+
+Artikel: Asynchrone Rückwärtszähler
+  Voraussetzungen : Asynchrone Vorwärtszähler
+  Verwandte Artikel: Synchrone Vorwärtszähler
+  Führt weiter zu : Synchrone Zähler
+
+Artikel: Synchrone Vorwärtszähler
+  Voraussetzungen : Asynchrone Zähler, Flipflops
+  Verwandte Artikel: Synchrone Rückwärtszähler
+  Führt weiter zu : Schieberegister, FPGA
+
+Artikel: Synchrone Rückwärtszähler
+  Voraussetzungen : Synchrone Vorwärtszähler
+  Verwandte Artikel: Schieberegister
+  Führt weiter zu : FPGA, FSM
+
+Artikel: Schieberegister
+  Voraussetzungen : Synchrone Zähler, Flipflops
+  Verwandte Artikel: SPI (Schnittstellen)
+  Führt weiter zu : FPGA, Serielle Kommunikation
+
+PROZESSOR
+---------
+Artikel: Computerarchitektur & Busse
+  Voraussetzungen : Zahlensysteme, Binäre Arithmetik
+  Verwandte Artikel: CPU Aufbau, Speicherarten
+  Führt weiter zu : CPU Aufbau, Schnittstellen
+
+Artikel: CPU Aufbau
+  Voraussetzungen : Computerarchitektur
+  Verwandte Artikel: Speicherarten
+  Führt weiter zu : Programmierbare Logik, Embedded Linux
+
+Artikel: Speicherarten
+  Voraussetzungen : CPU Aufbau
+  Verwandte Artikel: Programmierbare Logik
+  Führt weiter zu : FPGA, Embedded Linux
+
+Artikel: Programmierbare Logik
+  Voraussetzungen : Speicherarten, Schaltalgebra
+  Verwandte Artikel: FPGA-Architektur
+  Führt weiter zu : FPGA, VHDL, Verilog
+
+Artikel: Mikrocontroller  [NEU]
+  Voraussetzungen : CPU Aufbau, Speicherarten
+  Verwandte Artikel: Schnittstellen, Embedded Software
+  Führt weiter zu : UART, SPI, I2C, Embedded Linux
+
+AD/DA-WANDLER
+-------------
+Artikel: AD/DA Grundlagen
+  Voraussetzungen : Signale, Zahlensysteme
+  Verwandte Artikel: R-2R-Netzwerk, Flash-Wandler
+  Führt weiter zu : AD-Wandler Fehlerquellen (EK)
+
+Artikel: R-2R-Netzwerk
+  Voraussetzungen : AD/DA Grundlagen, Widerstand (ET)
+  Verwandte Artikel: Flash-Wandler
+  Führt weiter zu : Sukzessive Approximation
+
+Artikel: Flash-Wandler
+  Voraussetzungen : AD/DA Grundlagen
+  Verwandte Artikel: R-2R-Netzwerk
+  Führt weiter zu : Sukzessive Approximation
+
+Artikel: Sukzessive Approximation
+  Voraussetzungen : Flash-Wandler, R-2R
+  Verwandte Artikel: Sigma-Delta
+  Führt weiter zu : AD-Wandler Fehlerquellen (EK)
+
+Artikel: Sigma-Delta-Wandler
+  Voraussetzungen : Sukzessive Approximation
+  Verwandte Artikel: DSP (EK)
+  Führt weiter zu : Audio, Präzisionsmessung
+
+FPGA & DIGITALE HARDWAREBESCHREIBUNG
+-------------------------------------
+Artikel: FPGA-Architektur (LUTs, Flip-Flops, Routing)
+  Voraussetzungen : Programmierbare Logik, Flipflops
+  Verwandte Artikel: VHDL, Verilog
+  Führt weiter zu : FSM, Hardwarebeschreibung
+
+Artikel: VHDL Grundlagen
+  Voraussetzungen : FPGA-Architektur, Schaltalgebra
+  Verwandte Artikel: Verilog, FSM
+  Führt weiter zu : FSM, FPGA-Design
+
+Artikel: Verilog Grundlagen
+  Voraussetzungen : FPGA-Architektur, Schaltalgebra
+  Verwandte Artikel: VHDL, FSM
+  Führt weiter zu : FSM, FPGA-Design
+
+Artikel: FSM: Moore- vs. Mealy-Maschinen
+  Voraussetzungen : VHDL oder Verilog, Flipflops
+  Verwandte Artikel: Zustandsdiagramme
+  Führt weiter zu : FPGA-Design, Embedded Software
+
+SCHNITTSTELLEN
+--------------
+Artikel: UART
+  Voraussetzungen : Digitale Codes, Schieberegister
+  Verwandte Artikel: SPI, I2C
+  Führt weiter zu : RS-232, Embedded Software
+
+Artikel: SPI
+  Voraussetzungen : UART, Schieberegister
+  Verwandte Artikel: I2C, UART
+  Führt weiter zu : Embedded Software, Sensoren
+
+Artikel: I2C
+  Voraussetzungen : UART, SPI
+  Verwandte Artikel: SPI, UART
+  Führt weiter zu : Embedded Software, Sensoren
+
+Artikel: RS-232 / RS-485
+  Voraussetzungen : UART
+  Verwandte Artikel: CAN-Bus
+  Führt weiter zu : Industriekommunikation
+
+Artikel: CAN-Bus
+  Voraussetzungen : RS-232/485
+  Verwandte Artikel: Profibus, Profinet
+  Führt weiter zu : Automotive, Maschinensicherheit (SI)
+
+Artikel: Ethernet
+  Voraussetzungen : Computerarchitektur
+  Verwandte Artikel: Profibus, Profinet, TCP/IP
+  Führt weiter zu : Embedded Linux, IoT
+
+Artikel: Profibus / Profinet
+  Voraussetzungen : Ethernet, CAN-Bus
+  Verwandte Artikel: Feldbusse allgemein
+  Führt weiter zu : Industrieautomation
+
+Artikel: Bluetooth
+  Voraussetzungen : UART, Ethernet
+  Verwandte Artikel: WLAN, ZigBee, LoRaWAN
+  Führt weiter zu : IoT, RED-Zulassung (SI)
+
+Artikel: WLAN
+  Voraussetzungen : Ethernet, Bluetooth
+  Verwandte Artikel: LoRaWAN, ZigBee
+  Führt weiter zu : IoT, RED-Zulassung (SI)
+
+Artikel: LoRaWAN
+  Voraussetzungen : WLAN, Bluetooth
+  Verwandte Artikel: ZigBee
+  Führt weiter zu : IoT, Fernüberwachung
+
+Artikel: ZigBee
+  Voraussetzungen : LoRaWAN, Bluetooth
+  Verwandte Artikel: WLAN
+  Führt weiter zu : IoT, Mesh-Netzwerke
+
+PROGRAMMIERSPRACHEN
+-------------------
+Artikel: Überblick & Vergleich (C, C++, Python)
+  Voraussetzungen : —
+  Verwandte Artikel: Kompilierte vs. interpretierte Sprachen
+  Führt weiter zu : C++ Grundlagen, Python Grundlagen
+
+Artikel: Kompilierte vs. interpretierte Sprachen
+  Voraussetzungen : Überblick Programmiersprachen
+  Verwandte Artikel: C++, Python
+  Führt weiter zu : Embedded Software
+
+Artikel: Python Grundlagen  [NEU]
+  Voraussetzungen : Kompilierte vs. interpretierte Sprachen
+  Verwandte Artikel: C++ Grundlagen
+  Führt weiter zu : Embedded Software, Messtechnik-Libraries
+
+C++
+---
+Artikel: C++ Grundlagen (Syntax, Datentypen, Zeiger)
+  Voraussetzungen : Kompilierte Sprachen
+  Verwandte Artikel: OOP Klassen
+  Führt weiter zu : OOP, Templates
+
+Artikel: OOP: Klassen & Objekte
+  Voraussetzungen : C++ Grundlagen
+  Verwandte Artikel: Vererbung
+  Führt weiter zu : Vererbung, Polymorphismus
+
+Artikel: OOP: Vererbung
+  Voraussetzungen : Klassen & Objekte
+  Verwandte Artikel: Polymorphismus
+  Führt weiter zu : Polymorphismus, Kapselung
+
+Artikel: OOP: Polymorphismus
+  Voraussetzungen : Vererbung
+  Verwandte Artikel: Kapselung & Abstraktion
+  Führt weiter zu : Templates & STL
+
+Artikel: OOP: Kapselung & Abstraktion
+  Voraussetzungen : Polymorphismus
+  Verwandte Artikel: Templates & STL
+  Führt weiter zu : Embedded Software
+
+Artikel: Templates & STL
+  Voraussetzungen : Kapselung & Abstraktion
+  Verwandte Artikel: Embedded Linux
+  Führt weiter zu : Embedded Software
+
+EMBEDDED SOFTWARE
+-----------------
+Artikel: Embedded Linux: Kernel vs. User Space
+  Voraussetzungen : CPU Aufbau, Speicherarten
+  Verwandte Artikel: Device Tree, Yocto/Buildroot
+  Führt weiter zu : TCP/IP Embedded, MQTT
+
+Artikel: Device Tree
+  Voraussetzungen : Embedded Linux
+  Verwandte Artikel: Yocto/Buildroot
+  Führt weiter zu : Treiber, Hardware-Abstraktion
+
+Artikel: Yocto / Buildroot
+  Voraussetzungen : Device Tree, Embedded Linux
+  Verwandte Artikel: TCP/IP Embedded
+  Führt weiter zu : Produktivsysteme
+
+Artikel: TCP/IP für Embedded
+  Voraussetzungen : Ethernet, Embedded Linux
+  Verwandte Artikel: MQTT
+  Führt weiter zu : IoT, Cloud-Anbindung
+
+Artikel: MQTT
+  Voraussetzungen : TCP/IP Embedded
+  Verwandte Artikel: LoRaWAN, ZigBee
+  Führt weiter zu : IoT, Cloud-Anbindung
+
+================================================================================
+SI — SICHERHEIT & NORMEN
+================================================================================
+
+PERSONENSCHUTZ
+--------------
+Artikel: Gefahren des Stroms
+  Voraussetzungen : Strom, Spannung (ET)
+  Verwandte Artikel: Körperwiderstand, 5 Sicherheitsregeln
+  Führt weiter zu : Schutzmassnahmen
+
+Artikel: Körperwiderstand, Loslassschwelle, Herzkammerflimmern
+  Voraussetzungen : Gefahren des Stroms
+  Verwandte Artikel: 5 Sicherheitsregeln
+  Führt weiter zu : Schutzklassen, FI/RCD
+
+Artikel: Die 5 Sicherheitsregeln
+  Voraussetzungen : Gefahren des Stroms
+  Verwandte Artikel: Schutzmassnahmen
+  Führt weiter zu : Maschinensicherheit, Not-Halt
+
+SCHUTZMASSNAHMEN
+----------------
+Artikel: Basisschutz
+  Voraussetzungen : 5 Sicherheitsregeln
+  Verwandte Artikel: Fehlerschutz
+  Führt weiter zu : Schutzklassen
+
+Artikel: Fehlerschutz (FI/RCD)
+  Voraussetzungen : Basisschutz, Schutzleiter
+  Verwandte Artikel: Zusatzschutz
+  Führt weiter zu : Schutzklassen, Leitungsauslegung (ET)
+
+Artikel: Zusatzschutz (SELV, PELV)
+  Voraussetzungen : Fehlerschutz
+  Verwandte Artikel: Schutzklassen
+  Führt weiter zu : Schutzklassen II, III
+
+Artikel: Schutzklassen I, II, III
+  Voraussetzungen : Zusatzschutz, Basisschutz
+  Verwandte Artikel: IP-Schutzarten
+  Führt weiter zu : Leitungsauslegung (ET)
+
+IP-SCHUTZARTEN
+--------------
+Artikel: IP-Schutzarten Bedeutung der Ziffern
+  Voraussetzungen : Schutzklassen
+  Verwandte Artikel: IP-Beispiele
+  Führt weiter zu : Gehäusetechnik (EN)
+
+Artikel: IP-Beispiele (IP20, IP44, IP67)
+  Voraussetzungen : IP-Schutzarten Bedeutung
+  Verwandte Artikel: Schutzklassen
+  Führt weiter zu : Gehäusetechnik (EN)
+
+MESSUNGEN NACH NORM
+-------------------
+Artikel: Isolationsmessung
+  Voraussetzungen : Schutzklassen, Widerstand (ET)
+  Verwandte Artikel: Schutzleiterwiderstand
+  Führt weiter zu : Vierleitermessung (MT)
+
+Artikel: Schutzleiterwiderstand
+  Voraussetzungen : Isolationsmessung
+  Verwandte Artikel: Ersatzableitstrom
+  Führt weiter zu : Vierleitermessung (MT)
+
+Artikel: Ersatzableitstrom
+  Voraussetzungen : Schutzleiterwiderstand
+  Verwandte Artikel: Isolationsmessung
+  Führt weiter zu : FI/RCD
+
+FUNKTIONALE SICHERHEIT
+----------------------
+Artikel: ISO 26262 (Automotive)
+  Voraussetzungen : Regelkreis (EK), CAN-Bus (SH)
+  Verwandte Artikel: IEC 61508, SIL/PL
+  Führt weiter zu : FMEA (EN)
+
+Artikel: IEC 61508 (Industrie)
+  Voraussetzungen : ISO 26262
+  Verwandte Artikel: SIL/PL
+  Führt weiter zu : Maschinensicherheit, FMEA (EN)
+
+Artikel: SIL / PL
+  Voraussetzungen : ISO 26262, IEC 61508
+  Verwandte Artikel: Zweikanalige Abschaltung
+  Führt weiter zu : Sicherheitsrelais, Not-Halt
+
+MASCHINENSICHERHEIT
+-------------------
+Artikel: Not-Halt-Konzepte
+  Voraussetzungen : SIL/PL, 5 Sicherheitsregeln
+  Verwandte Artikel: Sicherheitsrelais
+  Führt weiter zu : Zweikanalige Abschaltung
+
+Artikel: Sicherheitsrelais
+  Voraussetzungen : Not-Halt, Relais & Schütze (EK)
+  Verwandte Artikel: Zweikanalige Abschaltung
+  Führt weiter zu : Maschinensicherheit
+
+Artikel: Zweikanalige Abschaltung
+  Voraussetzungen : Sicherheitsrelais
+  Verwandte Artikel: Not-Halt
+  Führt weiter zu : SIL/PL
+
+ZULASSUNGEN & COMPLIANCE
+-------------------------
+Artikel: CE-Kennzeichnung & Konformitätserklärung
+  Voraussetzungen : —
+  Verwandte Artikel: EMV-Prüfverfahren, RoHS
+  Führt weiter zu : EMV-Prüfverfahren, RED
+
+Artikel: EMV-Prüfverfahren (Burst, Surge, ESD-Tests)
+  Voraussetzungen : CE-Kennzeichnung, EMV (EK)
+  Verwandte Artikel: Pre-Compliance (MT)
+  Führt weiter zu : Gestrahlte Emissionen
+
+Artikel: RED (Radio Equipment Directive)
+  Voraussetzungen : CE-Kennzeichnung, Bluetooth/WLAN (SH)
+  Verwandte Artikel: EMV-Prüfverfahren
+  Führt weiter zu : Zulassungsprozess
+
+Artikel: RoHS
+  Voraussetzungen : CE-Kennzeichnung
+  Verwandte Artikel: REACH, WEEE
+  Führt weiter zu : Bauteilmanagement (EN)
+
+Artikel: REACH
+  Voraussetzungen : RoHS
+  Verwandte Artikel: WEEE
+  Führt weiter zu : Bauteilmanagement (EN)
+
+Artikel: WEEE
+  Voraussetzungen : RoHS, REACH
+  Verwandte Artikel: —
+  Führt weiter zu : Entsorgung, Lifecycle (EN)
+
+================================================================================
+MT — MESSTECHNIK
+================================================================================
+
+MULTIMETER
+----------
+Artikel: Strom-, Spannungs-, Widerstandsmessung
+  Voraussetzungen : Ohmsches Gesetz (ET)
+  Verwandte Artikel: Innenwiderstand & Messfehler
+  Führt weiter zu : TrueRMS, Vierleitermessung
+
+Artikel: Innenwiderstand & Messfehler
+  Voraussetzungen : Strom/Spannungsmessung
+  Verwandte Artikel: TrueRMS vs. Mittelwert
+  Führt weiter zu : Messpräzision allgemein
+
+Artikel: TrueRMS vs. Mittelwert
+  Voraussetzungen : Innenwiderstand, Sinuswellen (ET)
+  Verwandte Artikel: Oszilloskop
+  Führt weiter zu : Oberschwingungen (ET), THD (ET)
+
+Artikel: Strommesszange  [NEU]
+  Voraussetzungen : Strom/Spannungsmessung, Magnetfelder (ET)
+  Verwandte Artikel: TrueRMS, Multimeter
+  Führt weiter zu : Netzqualität (ET), Leitungsauslegung (ET)
+
+OSZILLOSKOP
+-----------
+Artikel: Oszilloskop Aufbau & Bedienung
+  Voraussetzungen : Signale (SH), Sinuswellen (ET)
+  Verwandte Artikel: Triggerung, Tastkopf
+  Führt weiter zu : Protokoll-Decoder, Spektrum
+
+Artikel: Triggerung
+  Voraussetzungen : Oszilloskop Aufbau
+  Verwandte Artikel: AC/DC-Kopplung
+  Führt weiter zu : Digitale Fehlersuche
+
+Artikel: AC/DC-Kopplung
+  Voraussetzungen : Triggerung, Sinuswellen (ET)
+  Verwandte Artikel: Tastkopf
+  Führt weiter zu : Rauschen (EK)
+
+Artikel: Tastkopf 1:1 vs. 10:1
+  Voraussetzungen : AC/DC-Kopplung
+  Verwandte Artikel: Oszilloskop Aufbau
+  Führt weiter zu : Signalintegrität (EK)
+
+LOGIKANALYSATOR
+---------------
+Artikel: Logikanalysator Grundlagen
+  Voraussetzungen : Digitale Codes (SH), Flipflops (SH)
+  Verwandte Artikel: Protokoll-Decoder
+  Führt weiter zu : UART, SPI, I2C (SH)
+
+Artikel: Protokoll-Decoder (I2C, SPI, UART)
+  Voraussetzungen : Logikanalysator, UART/SPI/I2C (SH)
+  Verwandte Artikel: Logikanalysator
+  Führt weiter zu : Embedded Debugging
+
+SPEKTRUMANALYSE
+---------------
+Artikel: FFT (Fast Fourier Transform)
+  Voraussetzungen : Sinuswellen (ET), AD/DA (SH)
+  Verwandte Artikel: Frequenzbereichsanalyse
+  Führt weiter zu : EMV Pre-Compliance, DSP (EK)
+
+Artikel: Frequenzbereichsanalyse
+  Voraussetzungen : FFT
+  Verwandte Artikel: Spektrumanalyse allgemein
+  Führt weiter zu : EMV Pre-Compliance (SI)
+
+Artikel: EMV Pre-Compliance
+  Voraussetzungen : Frequenzbereichsanalyse, FFT
+  Verwandte Artikel: EMV-Prüfverfahren (SI)
+  Führt weiter zu : Burst, Surge, ESD-Tests (SI)
+
+SIGNALGENERATOREN
+-----------------
+Artikel: Funktionsgeneratoren
+  Voraussetzungen : Sinuswellen (ET), Oszillatoren (EK)
+  Verwandte Artikel: Arbiträrgeneratoren
+  Führt weiter zu : Schaltungstest allgemein
+
+Artikel: Arbiträrgeneratoren
+  Voraussetzungen : Funktionsgeneratoren
+  Verwandte Artikel: DSP (EK)
+  Führt weiter zu : Komplexe Signaltests
+
+VIERLEITERMESSUNG
+-----------------
+Artikel: Vierleitermessung (Kelvin) — Prinzip & Anwendung
+  Voraussetzungen : Widerstandsmessung, Ohmsches Gesetz (ET)
+  Verwandte Artikel: Innenwiderstand
+  Führt weiter zu : Schutzleiterwiderstand (SI), DMS (EK)
+
+KALIBRIERUNG
+------------
+Artikel: Kalibriertechnik  [NEU]
+  Voraussetzungen : Strom/Spannungsmessung, Innenwiderstand
+  Verwandte Artikel: Messgenauigkeit, Normen (SI)
+  Führt weiter zu : Messpräzision, ISO 9001
+
+================================================================================
+FT — FERTIGUNGSTECHNIK
+================================================================================
+
+LÖTTECHNIK
+----------
+Artikel: Weichlöten
+  Voraussetzungen : —
+  Verwandte Artikel: Bleifreies Lot, IPC-Kriterien
+  Führt weiter zu : Fehlerbilder, PCB-Aufbau
+
+Artikel: Bleifreies Lot (RoHS)
+  Voraussetzungen : Weichlöten
+  Verwandte Artikel: RoHS (SI)
+  Führt weiter zu : IPC-Kriterien
+
+Artikel: IPC-Kriterien
+  Voraussetzungen : Weichlöten, Bleifreies Lot
+  Verwandte Artikel: Fehlerbilder
+  Führt weiter zu : PCB-Aufbau, DFM (EN)
+
+Artikel: Fehlerbilder Löten
+  Voraussetzungen : IPC-Kriterien
+  Verwandte Artikel: Weichlöten
+  Führt weiter zu : Reworktechniken, DFM (EN)
+
+LEITERPLATTEN (PCB)
+-------------------
+Artikel: PCB Aufbau & Material (FR4)
+  Voraussetzungen : Widerstand, Kondensator (ET)
+  Verwandte Artikel: Einlagig/Multilayer
+  Führt weiter zu : Via, SMD/THT
+
+Artikel: Einlagig / Zweilagig / Multilayer
+  Voraussetzungen : PCB Aufbau
+  Verwandte Artikel: Durchkontaktierung
+  Führt weiter zu : Signalintegrität (EK), Thermal Vias (EK)
+
+Artikel: Durchkontaktierung (Via)
+  Voraussetzungen : Einlagig/Multilayer
+  Verwandte Artikel: Thermal Vias (EK)
+  Führt weiter zu : DFM (EN), Signalintegrität (EK)
+
+Artikel: SMD vs. THT
+  Voraussetzungen : PCB Aufbau
+  Verwandte Artikel: IPC-Kriterien
+  Führt weiter zu : DFM (EN), Bestückung
+
+ESD-SCHUTZ
+----------
+Artikel: Was ist ESD?
+  Voraussetzungen : Halbleiter (EK), Spannung (ET)
+  Verwandte Artikel: Schutzmassnahmen ESD
+  Führt weiter zu : ESD-Schutz allgemein
+
+Artikel: Schutzmassnahmen ESD
+  Voraussetzungen : Was ist ESD?
+  Verwandte Artikel: Erdungsarmband, Verpackungen
+  Führt weiter zu : Lagerung, Fertigung
+
+Artikel: Erdungsarmband, ESD-Matten, Verpackungen
+  Voraussetzungen : Schutzmassnahmen ESD
+  Verwandte Artikel: —
+  Führt weiter zu : Arbeitssicherheit (SI)
+
+================================================================================
+EN — ENTWICKLUNGSPROZESS
+================================================================================
+
+BAUTEILMANAGEMENT
+-----------------
+Artikel: Datenblatt-Analyse
+  Voraussetzungen : Grundkenntnisse ET/EK
+  Verwandte Artikel: Lifecycle & Obsolescence
+  Führt weiter zu : Bauteilauswahl, Derating (EK)
+
+Artikel: Lifecycle & Obsolescence
+  Voraussetzungen : Datenblatt-Analyse
+  Verwandte Artikel: Second-Source
+  Führt weiter zu : Bauteilmanagement allgemein
+
+Artikel: Second-Source-Komponenten
+  Voraussetzungen : Lifecycle & Obsolescence
+  Verwandte Artikel: Datenblatt-Analyse
+  Führt weiter zu : Beschaffung, Risikomanagement
+
+GEHÄUSETECHNIK
+--------------
+Artikel: 3D-Druck für Prototypen
+  Voraussetzungen : —
+  Verwandte Artikel: Mechanische Integration
+  Führt weiter zu : Gehäusetechnik allgemein
+
+Artikel: Mechanische Integration (Abstände, Montagematerial)
+  Voraussetzungen : 3D-Druck, PCB Aufbau (FT)
+  Verwandte Artikel: IP-Schutzarten (SI)
+  Führt weiter zu : Gehäusetechnik, DFM
+
+DESIGN FOR X
+------------
+Artikel: DFM: PCB-Anforderungen für Bestückungsmaschinen
+  Voraussetzungen : PCB Aufbau (FT), SMD/THT (FT)
+  Verwandte Artikel: DFT, FMEA
+  Führt weiter zu : Bestückungsmaschinen, IPC (FT)
+
+Artikel: DFT: Prüfpunkte, JTAG-Boundary Scan, ICT
+  Voraussetzungen : DFM, Computerarchitektur (SH)
+  Verwandte Artikel: FMEA
+  Führt weiter zu : Testautomation, Debugging
+
+Artikel: FMEA: Systematische Risikoanalyse
+  Voraussetzungen : DFM, DFT
+  Verwandte Artikel: ISO 26262 (SI), IEC 61508 (SI)
+  Führt weiter zu : Risikoanalyse, SIL/PL (SI)
+
+================================================================================
+NEUE ARTIKEL (ZUSAMMENFASSUNG)
+================================================================================
+
+Folgende Artikel wurden während der Planungsphase neu hinzugefügt:
+
+  ET: Wheatstone-Brücke
+  EK: Gleichrichter
+  EK: Bode-Diagramm
+  SH: Mikrocontroller
+  SH: Python Grundlagen
+  MT: Strommesszange
+  MT: Kalibriertechnik
+
+================================================================================
+PHASE 2 — NÄCHSTE SCHRITTE
+================================================================================
+
+Vorgehen: Kategorie für Kategorie detaillieren, dann schreiben.
+Reihenfolge (empfohlen): ET → EK → SH → SI → MT → FT → EN
+
+Pro Artikel:
+  1. Detailgliederung erstellen (Unterabschnitte, Formeln, Beispiele)
+  2. Schreiben mit festem Template:
+       - Kurzzusammenfassung (Was ist es? / Wozu braucht man es? / Voraussetzungen / Verwandte Artikel)
+       - 🟢 Grundlagen (EFZ)
+       - 🔵 Vertiefung (Techniker/Ingenieur)
+
+================================================================================
