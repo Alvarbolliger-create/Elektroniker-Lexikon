@@ -72,6 +72,14 @@ Wichtiger Praxishinweis — was kann schiefgehen oder worauf muss man achten.
 Praktischer Trick oder Merksatz aus der Erfahrung.
 :::
 
+:::norm
+Normreferenz — z.B. IEC 60479-1, IPC-A-610, EN 61140. Welche Norm regelt dieses Thema und was ist die relevante Aussage.
+:::
+
+:::merke
+Prüfungsrelevante Kernaussage — ein Satz, den man auswendig kennen sollte.
+:::
+
 ---
 
 ## Kenndaten

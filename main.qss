@@ -204,12 +204,10 @@ QTreeWidget#articleTree::item:selected {
 QTreeWidget#articleTree::branch:has-children:!has-siblings:closed,
 QTreeWidget#articleTree::branch:closed:has-children:has-siblings {
     border-image: none;
-    image: none;
 }
 QTreeWidget#articleTree::branch:open:has-children:!has-siblings,
 QTreeWidget#articleTree::branch:open:has-children:has-siblings {
     border-image: none;
-    image: none;
 }
 QLabel#countLabel {
     color: #9ca3af;
@@ -509,7 +507,10 @@ QTabBar#casTabBar::tab {
     color: #6b7280;
     border: 1px solid transparent;
     border-bottom: none;
-    border-radius: 5px 5px 0 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
     padding: 4px 14px;
     font-size: 12px;
     margin-right: 2px;

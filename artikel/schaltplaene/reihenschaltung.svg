@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 155" width="680" height="155">
+  <defs>
+    <marker id="arr-rot" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Spannungsquelle -->
+  <circle cx="52" cy="78" r="22" stroke="#1e293b" stroke-width="2" fill="#f8fafc"/>
+  <text x="44" y="73" font-family="sans-serif" font-size="15" font-weight="bold" fill="#1e293b">+</text>
+  <text x="46" y="91" font-family="sans-serif" font-size="15" fill="#1e293b">−</text>
+  <text x="79" y="82" font-family="sans-serif" font-size="13" fill="#0284c7">U</text>
+
+  <!-- Drähte von Quelle -->
+  <line x1="52" y1="56" x2="52" y2="22" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="52" y1="100" x2="52" y2="134" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Obere Leitung: Quelle → R1 -->
+  <line x1="52" y1="22" x2="135" y2="22" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- R1 -->
+  <rect x="135" y="11" width="90" height="22" stroke="#1e293b" stroke-width="2" fill="#f8fafc" rx="2"/>
+  <text x="163" y="8" font-family="sans-serif" font-size="12" fill="#374151">R1</text>
+  <!-- R1 → R2 -->
+  <line x1="225" y1="22" x2="295" y2="22" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- R2 -->
+  <rect x="295" y="11" width="90" height="22" stroke="#1e293b" stroke-width="2" fill="#f8fafc" rx="2"/>
+  <text x="323" y="8" font-family="sans-serif" font-size="12" fill="#374151">R2</text>
+  <!-- R2 → R3 -->
+  <line x1="385" y1="22" x2="455" y2="22" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- R3 -->
+  <rect x="455" y="11" width="90" height="22" stroke="#1e293b" stroke-width="2" fill="#f8fafc" rx="2"/>
+  <text x="483" y="8" font-family="sans-serif" font-size="12" fill="#374151">R3</text>
+  <!-- R3 → rechte Seite -->
+  <line x1="545" y1="22" x2="628" y2="22" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Rechte Seite -->
+  <line x1="628" y1="22" x2="628" y2="134" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Untere Leitung -->
+  <line x1="52" y1="134" x2="628" y2="134" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Strom-Pfeil (rot) -->
+  <line x1="72" y1="22" x2="112" y2="22" stroke="#dc2626" stroke-width="1.8" marker-end="url(#arr-rot)"/>
+  <text x="78" y="16" font-family="sans-serif" font-size="11" fill="#dc2626">I</text>
+
+  <!-- Spannungsabfall-Labels (blau) -->
+  <text x="163" y="47" font-family="sans-serif" font-size="11" fill="#0284c7">U₁</text>
+  <text x="323" y="47" font-family="sans-serif" font-size="11" fill="#0284c7">U₂</text>
+  <text x="483" y="47" font-family="sans-serif" font-size="11" fill="#0284c7">U₃</text>
+</svg>

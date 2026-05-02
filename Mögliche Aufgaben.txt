@@ -1,0 +1,158 @@
+Einfache Aufgaben
+
+1. Schaltungsanalyse & NetzwerkeGemischte
+Schaltung berechnen: Gegeben ist eine Schaltung mit einer Spannungsquelle $U$, einem Längswiderstand von $5 \, \Omega$ (Spannungsabfall $2 \, V$) und einer anschliessenden Parallelschaltung aus zwei $10 \, \Omega$ Widerständen, wobei durch einen Zweig $0.5 \, A$ fliesst. Berechne die Gesamtspannung $U$.
+Widerstandsnetzwerk: Bestimme den Gesamtwiderstand einer Schaltung, die aus einer Kombination von sieben $10 \, \Omega$ und drei $20 \, \Omega$ Widerständen in einer Brücken-ähnlichen Struktur besteht.
+Leistungsanpassung: Unter welcher Bedingung (Verhältnis von Innenwiderstand $R_i$ zu Lastwiderstand $R_a$) wird die maximale Leistung von einer Quelle an einen Verbraucher abgegeben?.
+
+2. Wechselstromtechnik (AC) & Schwingkreise
+Resonanzfrequenz: Ein Sinusgenerator besteht aus einem OPV und einem LC-Glied mit $L = 55.5 \, mH$ und $C = 7.3 \, \mu F$. Mit welcher Frequenz schwingt die Schaltung?.
+Vektordiagramme zuordnen: Dir liegen vier Zeigerdiagramme vor. Ordne sie den Schaltungstypen $RL$-Serie, $RL$-Parallel, $RC$-Serie und $RC$-Parallel korrekt zu.
+Güte und Bandbreite: Welche Bauelemente ($R, L, C$) beeinflussen in einem Serienschwingkreis direkt die Bandbreite?.
+Kondensatoren-Kombination: Du hast vier verschiedene Schaltungen (A, B, C, D) mit unterschiedlichen Kondensatorwerten (z. B. $6.8 \, \mu F, 10 \, \mu F, 2.2 \, \mu F$). Ordne diese Schaltungen nach ihrer Gesamtkapazität von gross nach klein.
+
+3. Magnetismus & Induktivität
+Magnetische Feldstärke: Eine Ringspule hat $N = 80$ Windungen und eine Feldstärke von $H = 300 \, A/m$. Wie verändert sich $H$, wenn der mittlere Durchmesser der Spule um den Faktor 1.5 vergröössert wird (bei gleichem Strom und Windungszahl)?.
+Relais-Technik: Warum kommt es beim Abschalten einer Spule (Induktivität) ohne Schutzbeschaltung zu einer Funkenbildung?.
+Freilaufdiode: Welche zwei Auswirkungen hat eine Freilaufdiode an einem Gleichstromrelais auf die Spannung und das Zeitverhalten beim Abschalten?.
+
+4. Sensorik & Messtechnik
+Temperaturmessung (PT1000): Ein Sensor hat $R_0 = 1000 \, \Omega$ bei $0^\circ C$. Wie stark ändert sich der Widerstand $\Delta R$, wenn die Temperatur auf $20^\circ C$ steigt (bei $\alpha = 3.85 \cdot 10^{-3} \, 1/K$)?.
+Leitungskompensation: Welche Anschlussart für einen PT100-Sensor (2-Leiter, 3-Leiter oder 4-Leiter) kompensiert den Leitungswiderstand am effektivsten?.
+Messbereichserweiterung: Ein Amperemeter (Endausschlag $5 \, A$, $R_i = 50 \, m\Omega$) soll auf $60 \, A$ erweitert werden. Welchen Wert muss der benötigte Shunt-Widerstand haben?.
+
+5. Energie & Installation
+Wirkungsgrad: Ein Transformator ist mit $200 \, W$ belastet. Primärseitig werden bei $50 \, V$ Spannung $4.5 \, A$ Strom gemessen. Berechne den Wirkungsgrad $\eta$ (Annahme: rein ohmsches Verhalten).
+Spannungsabfall berechnen: Eine Fotozelle ist 25 m von einer SPS entfernt (Kupferkabel). Bei $150 \, mA$ Betriebsstrom soll die Spannung von $5 \, V$ auf maximal $4.8 \, V$ abfallen. Welcher minimale Querschnitt ist nötig?.
+
+Schwere Aufgaben
+
+1. Grundlagen Elektrotechnik
+Du hast einen unbelasteten Spannungsteiler aus zwei Widerständen ($R_1$, $R_2$). Wie verändert sich die Ausgangsspannung, wenn du eine Last parallel zu $R_2$ anschliesst, und warum?
+Wie berechnet man die Ladezeit eines Kondensators? Wie lautet die Formel für die Zeitkonstante $\tau$, und nach wie vielen $\tau$ gilt der Kondensator in der Praxis als "voll" (ca. 99%)?
+Was ist der Unterschied zwischen dem Effektivwert ($U_{eff}$) und dem Spitzenwert ($U_s$) einer sinusförmigen Wechselspannung? Wie rechnet man das eine in das andere um?
+Erkläre die Begriffe Wirkleistung, Blindleistung und Scheinleistung.
+In einem Drehstromnetz hast du Stern- und Dreieckschaltung. Wie verhalten sich Strangspannung und Leiterspannung zueinander?
+Du hast zwei Kondensatoren (100 nF und 220 nF) in Serie geschaltet. Ist die Gesamtkapazität grösser oder kleiner als 100 nF?
+
+2. Bauteile & Analogtechnik
+Was ist der Unterschied in der Anwendung zwischen einer Standard-Gleichrichterdiode (z.B. 1N4007), einer Z-Diode und einer Schottky-Diode?
+Du möchtest mit einem Mikrocontroller-Pin (3.3 V, max. 10 mA) ein Relais (12 V, 100 mA) schalten. Skizziere (gedanklich) die Schaltung mit einem NPN-Bipolartransistor. Welche Bauteile brauchst du zwingend (Stichwort: Basiswiderstand, Freilaufdiode)?
+Was ist der fundamentale Unterschied zwischen einem Bipolartransistor und einem MOSFET hinsichtlich der Ansteuerung?
+Wie berechnest du die Verstärkung eines nicht-invertierenden Operationsverstärkers (OPV)?Was macht ein Komparator und warum baut man oft einen Widerstand für eine "Hysterese" (Schmitt-Trigger) ein?
+Du musst eine LED an 24 V betreiben. Die LED hat eine Durchlassspannung von 2 V und benötigt 20 mA. Wie gross muss der Vorwiderstand sein und welche Verlustleistung muss er aushalten können?
+Was ist der Unterschied zwischen einem Linearregler (z. B. 7805) und einem Schaltregler (Step-Down / Buck Converter) in Bezug auf Effizienz und Wärmeentwicklung?
+Wofür wird Pulsweitenmodulation (PWM) eingesetzt? Nenne zwei typische Anwendungsbeispiele.
+
+3. Digitaltechnik
+Erkläre die Funktion der grundlegenden Logikgatter: AND, OR, XOR, NAND.Wofür benötigt man Pull-up- oder Pull-down-Widerstände an digitalen Eingängen (z.B. Taster an einem Mikrocontroller)? Was passiert, wenn sie fehlen?
+Was bedeutet das "Prellen" eines mechanischen Schalters und wie kann man das Signal "entprellen" (Hardware- und Software-Ansätze)?
+Was ist der Unterschied zwischen kombinatorischer Logik (z.B. Logikgatter) und sequenzieller Logik (z.B. Flip-Flops)?Rechne die hexadezimale Zahl 0x1F in das Binärsystem und ins Dezimalsystem um.
+Was ist ein Schieberegister und wofür wird es in der Praxis oft verwendet?
+
+4. Mikrocontroller & Programmierung (C)
+Was ist der Unterschied zwischen RAM, ROM und Flash-Speicher in einem Mikrocontroller?
+Ein ADC (Analog-Digital-Wandler) hat eine Auflösung von 10 Bit und eine Referenzspannung von 5 V. Welcher Spannungsschritt (in mV) entspricht einem LSB (Least Significant Bit)?
+Vergleiche UART, I²C und SPI: Welche dieser Schnittstellen sind synchron (mit separater Taktleitung) und welche asynchron?
+Beim I²C-Bus: Welche Funktion haben die Leitungen SDA und SCL, und warum sind dort physikalisch Pull-up-Widerstände zwingend nötig?
+Was ist ein Interrupt und warum ist er bei der Programmierung effizienter als "Polling" (ständiges Abfragen in einer Endlosschleife)?
+Bitmanipulation in C: Wie setzt du mit logischen Operatoren (wie |, &, ~) gezielt das Bit 3 in einem 8-Bit-Register auf 1, ohne die anderen Bits zu verändern?
+Was ist die Aufgabe eines Watchdog-Timers?
+Erkläre den Unterschied zwischen einer lokalen und einer globalen Variable in C.
+
+5. Messtechnik & Fehlersuche
+Du musst den Strom durch eine Schaltung messen. Wie schliesst du das Multimeter an (Serie/Parallel) und warum muss man beim Strommessen extrem vorsichtig sein?
+Was ist am Oszilloskop der Unterschied zwischen AC-Kopplung und DC-Kopplung? Wann benutzt du was?
+Wie stellst du den Trigger am Oszilloskop ein, wenn du das Signal eines Tasters beim Loslassen einfangen willst?
+Warum darfst du mit dem Standard-Tastkopf eines netzgebundenen Oszilloskops niemals direkt an der 230-V-Netzspannung messen (Stichwort: Erdungsclip)?
+Was sagt die Bandbreite (z. B. 100 MHz) bei einem Oszilloskop aus?Was ist ein Shunt und wie wird er zur Strommessung eingesetzt?
+Ein Gerät lässt sich nicht einschalten. Welche Spannungen/Punkte misst du als Elektroniker auf der Leiterplatte zuerst, um den Fehler einzugrenzen?
+
+6. Schema, Leiterplattendesign & Fertigung
+Was ist der Unterschied zwischen einem Schema (Schaltplan) und dem Layout (PCB-Design)?
+Warum platziert man bei fast jedem digitalen IC einen 100 nF Kondensator (Bypass/Decoupling) und wo genau muss dieser auf der Leiterplatte platziert werden?
+Was sind "Vias" auf einer Leiterplatte und wofür werden sie benutzt?
+Nenne gängige SMD-Bauformen für Widerstände (z.B. 0805) und erkläre grob, was diese Zahlen bedeuten.
+Warum füllt man ungenutzte Flächen auf einer Leiterplatte oft mit Kupfer auf (Massefläche / Ground Plane)?
+In welchem Temperaturbereich lötest du typischerweise von Hand mit bleifreiem Lötzinn?
+Welche Funktion hat das Flussmittel (Flux) beim Löten?Wie erkennst du optisch eine "kalte Lötstelle" und welche elektrischen Folgen kann sie haben?
+
+7. Sicherheit, Normen & Werkstattpraxis
+Zähle die 5 Sicherheitsregeln der Elektrotechnik auf.Wie funktioniert ein FI-Schutzschalter (RCD) und wovor schützt er (im Gegensatz zum Leitungsschutzschalter/Sicherung)?
+Was ist ESD (Elektrostatische Entladung) und mit welchen Massnahmen schützt du empfindliche ICs an deinem Arbeitsplatz?
+Was sagen die Messkategorien (CAT I bis CAT IV) bei einem Multimeter aus?
+Was ist der Unterschied zwischen Schutzerde (PE) und der Signalmasse (GND)?
+Worauf musst du bei der Kabelverlegung achten, um EMV-Probleme (Elektromagnetische Verträglichkeit) zwischen Leistungskabeln und Signalkabeln zu vermeiden?
+Wie und wo entsorgst du als Elektroniker defekte Lithium-Polymer-Akkus (LiPo) fachgerecht und sicher?
+
+Sehr schwere Aufgaben:
+
+1. Grundlagen Elektrotechnik & Netzwerk-Analyse
+Wie berechnet man den Ersatzwiderstand einer komplexen, unabgeglichenen Wheatstone-Brücke (Stichwort: Stern-Dreieck-Transformation)?
+Erkläre das Zeigerdiagramm und die komplexe Wechselstromrechnung für einen RLC-Serienschwingkreis exakt im Moment der Resonanz. Was passiert mit den Spannungen an L und C?
+Was beschreibt der Begriff "Skineffekt" physikalisch und wie beeinflusst er die Leiterdimensionierung bei Hochfrequenzanwendungen?
+Wie verhält sich die magnetische Feldstärke ($H$) zur magnetischen Flussdichte ($B$) in ferromagnetischen Materialien? Erkläre die Hysteresekurve, Remanenz und Koerzitivfeldstärke.
+Erkläre die Knotenpotenzialanalyse zur Berechnung komplexer Netzwerke mit mehreren Spannungs- und Stromquellen.
+Was ist Blindleistungskompensation, warum wird sie in der Industrie zwingend angewendet und wie berechnet man die benötigte Kompensationskapazität bei induktiven Lasten?
+Wie berechnet man die Ladekurve eines Kondensators ($U_C(t)$) in einem RC-Glied mathematisch und nach wie vielen $\tau$ gilt er als "voll"?
+
+2. Analoge Elektronik & Halbleitertechnik
+Beschreibe den genauen internen Aufbau und die Funktionsweise eines N-Kanal-MOSFETs (Anreicherungstyp) auf Halbleiterebene (Dotierungen, Inversionskanal).
+Was ist der "Early-Effekt" bei Bipolartransistoren und wie zeigt er sich im Ausgangskennlinienfeld ($I_C$ in Abhängigkeit von $U_{CE}$)?
+Erkläre die Funktionsweise und die typische Beschaltung eines echten Instrumentenverstärkers (Instrumentierungsverstärkers) aus drei Operationsverstärkern. Was ist der entscheidende Vorteil gegenüber einem einfachen Differenzverstärker?
+Wie funktioniert eine Bandgap-Referenzschaltung (Bandabstandsreferenz) auf Siliziumebene zur Erzeugung einer temperaturstabilen Spannung?
+Beschreibe die vier Rückkopplungsarten bei Operationsverstärkern (Spannungs-/Strom-Serien-/Parallelrückkopplung) und deren spezifischen Einfluss auf Ein- und Ausgangsimpedanz.
+Was bedeutet "Slew Rate" (Flankensteilheit) bei einem Operationsverstärker und welches interne Bauteil im OPV begrenzt sie physikalisch?
+Erkläre die Funktion und Berechnung eines aktiven Tiefpassfilters 2. Ordnung (z.B. nach der Sallen-Key- oder Multiple-Feedback-Topologie).
+Worin unterscheiden sich Schottkydioden von Standard-Silizium-PN-Dioden im Halbleiteraufbau und in ihren elektrischen Parametern?
+Was ist thermisches Rauschen (Johnson-Nyquist-Rauschen) in Widerständen und von welchen Parametern hängt es ab?
+
+3. Leistungselektronik & Stromversorgungen
+Skizziere (gedanklich) und erkläre die Funktionsweise eines Buck-Boost-Converters (Tief-Hochsetzsteller) im Continuous Conduction Mode (CCM).
+Was versteht man unter Hard-Switching vs. Soft-Switching (ZVS - Zero Voltage Switching, ZCS - Zero Current Switching) in modernen Schaltnetzteilen?
+Wofür wird ein Snubber-Netzwerk (RC-Glied) über einem Schalttransistor verwendet und nach welchen Kriterien dimensioniert man es?
+Erkläre die Phasenanschnittsteuerung und die Phasenabschnittsteuerung – wo liegen die genauen Unterschiede und bei welchen Lastarten (induktiv vs. kapazitiv) werden sie zwingend eingesetzt?
+Wie funktioniert ein IGBT auf Halbleiterebene und in welchen Einsatzszenarien ist er einem MOSFET oder einem reinen Bipolartransistor überlegen?
+Was ist der "Proximity-Effekt" bei Schaltnetzteil-Übertragern und wie unterscheidet er sich vom Skineffekt? Wie wirkt man ihm entgegen?
+Beschreibe das Prinzip der aktiven Power-Factor-Correction (PFC) – warum ist sie gesetzlich ab gewissen Leistungen vorgeschrieben und wie sieht die typische Schaltungstopologie aus?
+Was sind die wesentlichen Vor- und Nachteile eines Sperrwandlers (Flyback) im Vergleich zu einem Durchflusswandler (Forward-Converter)?
+
+4. Digitale Elektronik & Logikdesign
+Wie ist ein D-Flip-Flop auf reiner Gatter-Ebene (z.B. aus NAND-Gattern) aufgebaut, inklusive der Master-Slave-Konfiguration zur Flankensteuerung?
+Was bedeutet "Metastabilität" in digitalen Schaltungen und wie kann man sie beim Einlesen asynchroner externer Signale in einen getakteten Baustein (z.B. FPGA) verhindern?
+Erkläre den Unterschied zwischen einem Moore- und einem Mealy-Zustandsautomaten (State Machine) in Bezug auf die Ausgangssignale.
+Wie funktioniert ein "Carry-Lookahead-Adder" (Paralleladdierer mit Übertragsvorausberechnung) und welchen Laufzeit-Vorteil hat er gegenüber einem Ripple-Carry-Adder?
+Erkläre das Konzept von Setup-Time und Hold-Time bei einem Flip-Flop. Was passiert physikalisch/logisch, wenn diese Zeiten verletzt werden?
+Beschreibe die Architektur und den grundlegenden Unterschied in der Technologie zwischen CPLDs und FPGAs (SRAM-basiert vs. Flash/Antifuse).
+
+5. Mikrocontroller & Embedded Systems
+Beschreibe den genauen internen Ablauf eines Hardware-Interrupts auf einem modernen Mikrocontroller (z.B. ARM Cortex-M): Kontextwechsel, Stack-Operationen, NVIC und Vektortabelle.
+Vergleiche die Busse I²C und SPI auf elektrischer und protokollarischer Ebene (Leitungsanzahl, Adressierung, Geschwindigkeit, Push-Pull vs. Open-Drain).
+Was ist DMA (Direct Memory Access), wie ist ein DMA-Controller in die Busmatrix eingebunden und wie entlastet er die CPU?
+Erkläre die Funktionsweise und das physikalische Protokoll des CAN-Busses. Wie funktioniert die Arbitrierung (CSMA/CR) und was ist "Bit-Stuffing"?
+Was unterscheidet einen Window-Watchdog-Timer sicherheitstechnisch von einem Standard-Watchdog-Timer?
+Worin unterscheiden sich die Harvard-Architektur und die Von-Neumann-Architektur in Bezug auf Busstruktur und Speicherzugriff?
+Erkläre den Prozess der Analog-Digital-Wandlung mittels Successive Approximation (SAR) ADC. Welche zwingende Aufgabe hat dabei die vorgeschaltete Sample-and-Hold-Schaltung?
+Beschreibe den exakten Boot-Vorgang eines Mikrocontrollers direkt nach dem Anlegen der Versorgungsspannung (Power-On-Reset, Brown-Out-Detection, Clock-Startup).
+
+6. Messtechnik & Signalanalyse
+Wie funktioniert die FFT (Fast Fourier Transform) im digitalen Oszilloskop und welche Rolle spielt das Windowing (z.B. Hanning vs. Flattop) bezogen auf Amplituden- und Frequenzgenauigkeit?
+Was besagt das Nyquist-Shannon-Abtasttheorem? Was passiert, wenn man es verletzt (Aliasing), und wie verhindert man dies hardwaretechnisch vor dem ADC?
+Erkläre den Unterschied zwischen differentiellen Messungen und Single-Ended-Messungen mit dem Oszilloskop. Warum kann das Messen an Netzspannung mit einem Standard-Tastkopf am Standard-Oszi tödlich für das Gerät sein?
+Wie misst man den Phasenwinkel zwischen zwei Signalen gleicher Frequenz mit einem Oszilloskop im XY-Betrieb (Lissajous-Figuren)?
+Was ist die Gleichtaktunterdrückung (CMRR) in dB, wie berechnet sie sich und warum ist sie bei der Messung von kleinen Signalen auf hohem Potenzial (z.B. Shunt-Messung High-Side) so kritisch?
+
+7. EMV (Elektromagnetische Verträglichkeit), PCB-Design & Normen
+Nenne die vier gängigen Koppelmechanismen für EMV-Störungen (galvanisch, kapazitiv, induktiv, elektromagnetisch) und erkläre für jeden eine spezifische Gegenmaßnahme auf dem PCB-Design.
+Was ist "Crosstalk" (Übersprechen) auf einer Leiterplatte und wie unterscheidet sich Forward-Crosstalk von Backward-Crosstalk?
+Warum verwendet man auf mehrlagigen Leiterplatten "Via Stitching" und welchen Einfluss hat es auf den Rückstrompfad (Return Path) von Hochfrequenzsignalen?
+Was versteht man unter dem Begriff "Wellenwiderstand" (Impedanz, z.B. 50 $\Omega$) einer Leiterbahn und wie berechnet/dimensioniert man eine Mikrostreifenleitung (Microstrip)?
+Was sind die wesentlichen Unterschiede zwischen den Richtlinien RoHS und REACH in Bezug auf die europäische Elektronikfertigung?
+Erkläre den prozessualen Unterschied zwischen Wellenlöten, Selektivlöten und Reflowlöten.
+Was besagen die IPC-Normen (speziell IPC-A-610) und was ist der qualitative Unterschied zwischen Baugruppen der Class 2 (Standard Industrie) und Class 3 (High-Reliability)?
+Wie schützt man eine elektronische Schnittstelle vor ESD (Electrostatic Discharge) und hochenergetischen Transienten (Surge, Burst)? Erkläre die genaue Funktion und Limitierungen von TVS-Dioden im Vergleich zu Varistoren.
+Was bedeutet das Konzept der "Sternpunkterdung" und in welchen Schaltungstypen kann es paradoxerweise eher schaden als nutzen (Stichwort: HF-Eigenschaften)?
+Erkläre den Begriff "Derating" bei elektronischen Bauteilen (z.B. bei Kondensatoren oder Widerständen) und warum dies für die Zuverlässigkeit (MTBF) essenziell ist.
+
+
+

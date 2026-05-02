@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 80" width="70" height="80">
+  <!-- TRIAC: zwei antiparallele Thyristoren mit gemeinsamen Gate -->
+  <!-- pins: A1=(35,0)  A2=(35,80)  G=(70,40) -->
+  <line x1="35" y1="0"  x2="35" y2="18" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Oberer Dreieck (A1→A2 Richtung, Spitze unten) -->
+  <polygon points="20,18 50,18 35,36" fill="#1e293b"/>
+  <!-- Querstrich -->
+  <line x1="20" y1="36" x2="50" y2="36" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Unterer Dreieck (A2→A1 Richtung, Spitze oben) -->
+  <polygon points="20,62 50,62 35,44" fill="#1e293b"/>
+  <!-- Querstrich -->
+  <line x1="20" y1="44" x2="50" y2="44" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Verbindung zwischen Querstrichen -->
+  <line x1="35" y1="36" x2="35" y2="44" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Gate vom mittleren Querstrich nach rechts -->
+  <line x1="50" y1="44" x2="70" y2="40" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <!-- A2 nach unten -->
+  <line x1="35" y1="62" x2="35" y2="80" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,303 @@
+ELEKTRONIK-LEXIKON — INHALTSVERZEICHNIS
+Status: [ ] = noch nicht geprüft | [x] = geprüft | [~] = in Bearbeitung
+========================================================================
+
+## ET — Elektrotechnik
+
+### Grundlagen
+[x] ET/Grundlagen/Elektrische_Leistung.md
+[x] ET/Grundlagen/Strom_Spannung_Widerstand.md  ← BILD FEHLT: schaltplaene/uri_dreieck.svg  (enthält Ohmsches Gesetz)
+[x] ET/Grundlagen/Elektrisches_Feld.md
+
+### Bauelemente
+[x] ET/Bauelemente/Widerstand.md  ← TODO: Farbcode-Tabelle einfärben sobald Renderer es unterstützt
+
+### Schaltkreise
+[x] ET/Schaltkreise/Reihenschaltung.md
+[x] ET/Schaltkreise/Parallelschaltung.md
+[x] ET/Schaltkreise/Spannungs_Stromteiler.md  ← BILD FEHLT: Spannungsteiler- und Stromteiler-Schaltung
+[x] ET/Schaltkreise/Kirchhoffsche_Gesetze.md
+[x] ET/Schaltkreise/Wheatstone_Bruecke.md  ← BILDER FEHLEN: wheatstone.svg, wheatstone_viertel.svg, wheatstone_halb.svg, wheatstone_voll.svg
+
+### Kondensator
+[x] ET/Kondensator/Kondensator_Uebersicht.md  ← BILDER FEHLEN: kondensator_reihe.svg, kondensator_parallel.svg
+[x] ET/Kondensator/Kapazitaet_Einheiten.md
+[x] ET/Kondensator/Kondensator_Typen.md
+[x] ET/Kondensator/Auf_und_Entladung.md
+[x] ET/Kondensator/Kondensator_Wechselstrom.md
+
+### Spule
+[x] ET/Spule/Spule_Uebersicht.md  ← BILDER FEHLEN: spule_reihe.svg, spule_kopplung.svg
+[x] ET/Spule/Induktivitaet_Einheiten.md
+[x] ET/Spule/Selbstinduktion.md
+[x] ET/Spule/Spule_Typen.md
+[x] ET/Spule/Spule_Wechselstrom.md
+
+### Magnetfelder
+[x] ET/Magnetfelder/Magnetfelder.md
+[x] ET/Magnetfelder/Saettigung_Hysterese.md
+[x] ET/Magnetfelder/Elektromagnet.md
+[x] ET/Magnetfelder/Lorentzkraft.md
+
+### Wechselstrom
+[x] ET/Wechselstrom/Sinuswellen.md
+[x] ET/Wechselstrom/Impedanz.md
+[x] ET/Wechselstrom/Zeigerdiagramm.md
+[x] ET/Wechselstrom/RLC_Schaltungen.md
+[x] ET/Wechselstrom/Resonanz.md
+[x] ET/Wechselstrom/LC_Filter.md
+[x] ET/Wechselstrom/Quarz_Oszillator.md
+
+### Leistung
+[x] ET/Leistung/Wirkleistung.md
+[x] ET/Leistung/Blindleistung.md
+[x] ET/Leistung/Scheinleistung.md
+[x] ET/Leistung/Leistungsfaktor.md
+
+### Drehstrom
+[x] ET/Drehstrom/Drehstrom_Grundlagen.md
+[x] ET/Drehstrom/Sternschaltung.md  ← BILD FEHLT: drehstrom_stern.svg
+[x] ET/Drehstrom/Dreieckschaltung.md  ← BILD FEHLT: drehstrom_dreieck.svg
+[x] ET/Drehstrom/Verkettete_Spannung.md
+
+### Transformator
+[x] ET/Transformator/Transformator_Aufbau.md
+[x] ET/Transformator/Uebersetzungsverhaeltnis.md
+[x] ET/Transformator/Transformator_Typen.md
+[x] ET/Transformator/Wirkungsgrad_Verluste.md  ← FEHLT: Derating-Kurven.md verlinkt
+
+### Leitungsauslegung
+[x] ET/Leitungsauslegung/Leitungsauslegung.md
+
+### Netzqualität
+[x] ET/Netzqualitaet/Oberschwingungen.md
+[x] ET/Netzqualitaet/Magnetische_Flussdichte.md
+
+---
+
+## EK — Elektronik
+
+### Halbleiter
+[ ] EK/Halbleiter/Halbleitermaterial.md
+[ ] EK/Halbleiter/pn_Uebergang.md
+[ ] EK/Halbleiter/Diode.md  ← TODO: Clipper/Clamper-Schaltpläne als ASCII-Art in Code-Blöcken → ersetzen durch SVGs sobald verfügbar (schaltplaene/diode_clipper.svg, schaltplaene/diode_clamper.svg)
+[ ] EK/Halbleiter/Zener_Diode.md
+[ ] EK/Halbleiter/Gleichrichter.md
+[ ] EK/Halbleiter/Thyristor.md
+[ ] EK/Halbleiter/IGBT.md
+[ ] EK/Halbleiter/Optokoppler.md
+
+### Transistoren
+[ ] EK/Transistoren/Bipolartransistor_BJT.md
+[ ] EK/Transistoren/MOSFET.md
+[ ] EK/Transistoren/Als_Schalter.md
+[ ] EK/Transistoren/Als_Verstaerker.md
+
+### OPV
+[ ] EK/OPV/OPV_Aufbau.md
+[ ] EK/OPV/OPV_Invertierend.md
+[ ] EK/OPV/OPV_Nichtinvertierend.md
+[ ] EK/OPV/OPV_Komparator.md
+[ ] EK/OPV/OPV_Integrierer.md
+[ ] EK/OPV/OPV_Verstaerker.md  ← DATEI FEHLT: Artikel wurde noch nicht erstellt
+
+### Filter
+[ ] EK/Filter/Filter_Grundlagen.md
+[ ] EK/Filter/RC_Filter.md
+[ ] EK/Filter/Aktive_Filter.md
+
+### Stromversorgung
+[ ] EK/Stromversorgung/Lineare_Regler.md
+[ ] EK/Stromversorgung/Buck.md
+[ ] EK/Stromversorgung/Boost.md
+[ ] EK/Stromversorgung/PWM_Arten.md
+[ ] EK/Stromversorgung/Batterietechnik.md
+
+### Motoren
+[ ] EK/Motoren/DC_Motor.md
+[ ] EK/Motoren/BLDC.md
+[ ] EK/Motoren/Schrittmotor.md
+[ ] EK/Motoren/Servomotor.md
+[ ] EK/Motoren/Frequenzumrichter.md
+
+### Aktorik
+[ ] EK/Aktorik/Relais_Schuetze.md
+[ ] EK/Aktorik/LED_Ansteuerung.md
+[ ] EK/Aktorik/H_Bruecke.md
+
+### Oszillatoren
+[ ] EK/Oszillatoren/Oszillatoren_Grundlagen.md
+[ ] EK/Oszillatoren/Wien_Bruecke.md
+[ ] EK/Oszillatoren/RC_Phasenschieber.md
+[ ] EK/Oszillatoren/Colpitts_Oszillator.md
+[ ] EK/Oszillatoren/Quarz_Oszillator.md
+
+### Sensorik
+[x] EK/Sensorik/Hallsensor.md
+[ ] EK/Sensorik/Temperatursensoren.md
+[ ] EK/Sensorik/DMS.md
+[ ] EK/Sensorik/Abstandssensoren.md
+
+### Regelungstechnik
+[ ] EK/Regelungstechnik/Regelkreis.md
+[ ] EK/Regelungstechnik/PID_Regler.md
+[ ] EK/Regelungstechnik/Frequenzgang.md
+[ ] EK/Regelungstechnik/Stabilitaet.md
+
+### Thermomanagement
+[ ] EK/Thermomanagement/Kuehlkoerper.md
+
+### Signalintegrität
+[ ] EK/Signalintegritaet/Signalintegritaet.md
+[ ] EK/Signalintegritaet/Wellenwiderstand.md
+[ ] EK/Signalintegritaet/Uebersprechen.md
+
+### BMS
+[ ] EK/BMS/BMS_Grundlagen.md
+[ ] EK/BMS/BMS_Balancing.md
+
+---
+
+## SH — Schaltungstechnik / Digital
+
+### Grundlagen
+[ ] SH/Grundlagen/Signale.md
+[ ] SH/Grundlagen/Zahlensysteme.md
+[ ] SH/Grundlagen/Binaere_Arithmetik.md
+[ ] SH/Grundlagen/Digitale_Codes.md
+
+### Logik
+[ ] SH/Logik/Logikgatter.md
+[ ] SH/Logik/Schaltalgebra.md
+[ ] SH/Logik/Schieberegister.md
+[ ] SH/Logik/Karnaugh.md
+[ ] SH/Logik/Logikfamilien.md
+
+### Digitaltechnik
+[ ] SH/Digitaltechnik/Addierer.md
+[ ] SH/Digitaltechnik/Multiplexer.md
+[ ] SH/Digitaltechnik/Metastabilitaet.md
+
+### Flipflop
+[ ] SH/Flipflop/Flipflops.md
+[ ] SH/Flipflop/Asynchrone_Zaehler.md
+[ ] SH/Flipflop/Synchrone_Zaehler.md
+
+### Prozessor
+[ ] SH/Prozessor/Mikrocontroller.md
+[ ] SH/Prozessor/CPU_Aufbau.md
+[ ] SH/Prozessor/Speicherarten.md
+[ ] SH/Prozessor/FSM.md
+[ ] SH/Prozessor/FPGA.md
+[ ] SH/Prozessor/VHDL_Verilog.md
+[ ] SH/Prozessor/Embedded_Linux.md
+[ ] SH/Prozessor/Device_Tree.md
+
+### Schnittstellen
+[ ] SH/Schnittstellen/UART.md
+[ ] SH/Schnittstellen/SPI.md
+[ ] SH/Schnittstellen/I2C.md
+[ ] SH/Schnittstellen/RS232_RS485.md
+[ ] SH/Schnittstellen/CAN_Bus.md
+[ ] SH/Schnittstellen/Ethernet.md
+[ ] SH/Schnittstellen/TCP_IP_MQTT.md
+[ ] SH/Schnittstellen/Bluetooth.md
+[ ] SH/Schnittstellen/LoRaWAN.md
+[ ] SH/Schnittstellen/AD_DA_Grundlagen.md
+[ ] SH/Schnittstellen/R2R_Netzwerk.md
+[ ] SH/Schnittstellen/Sukzessive_Approximation.md
+
+---
+
+## FT — Fertigungstechnik
+
+### Löttechnik
+[ ] FT/Loettechnik/Weichloeten.md
+[ ] FT/Loettechnik/Bleifreies_Lot.md
+[ ] FT/Loettechnik/Fehlerbilder_Loeten.md
+[ ] FT/Loettechnik/IPC_Kriterien.md
+
+### PCB
+[ ] FT/PCB/PCB_Aufbau.md
+[ ] FT/PCB/SMD_vs_THT.md
+[ ] FT/PCB/Durchkontaktierung.md
+
+### ESD
+[ ] FT/ESD/Was_ist_ESD.md
+[ ] FT/ESD/Schutzmassnahmen_ESD.md
+[ ] FT/ESD/Erdungsarmband.md
+
+---
+
+## MT — Messtechnik
+
+### Multimeter
+[ ] MT/Multimeter/Multimeter.md
+[ ] MT/Multimeter/Innenwiderstand_Messfehler.md
+
+### Oszilloskop
+[ ] MT/Oszilloskop/Oszilloskop.md
+[ ] MT/Oszilloskop/Tastkopf.md
+[ ] MT/Oszilloskop/Triggerung.md
+
+### Logikanalysator
+[ ] MT/Logikanalysator/Logikanalysator.md
+
+### Spektrum
+[ ] MT/Spektrum/FFT.md
+
+### Vierleitermessung
+[ ] MT/Vierleitermessung/Vierleitermessung.md
+
+### Sonstiges
+[ ] MT/Sonstiges/Strommesszange.md
+[ ] MT/Sonstiges/TrueRMS.md
+[ ] MT/Sonstiges/Signalgenerator.md
+[ ] MT/Sonstiges/Protokoll_Decoder.md
+[ ] MT/Sonstiges/Kalibrierung.md
+[x] MT/Sonstiges/EMV_Grundlagen.md
+[ ] MT/Sonstiges/EMV_PreCompliance.md
+
+---
+
+## SI — Sicherheit
+
+### Personenschutz
+[ ] SI/Personenschutz/Gefahren_des_Stroms.md
+[ ] SI/Personenschutz/Fuenf_Sicherheitsregeln.md
+
+### Schutzmassnahmen
+[ ] SI/Schutzmassnahmen/Schutzklassen.md
+[ ] SI/Schutzmassnahmen/Fehlerschutz_FI.md
+[ ] SI/Schutzmassnahmen/Isolationsmessung.md
+[ ] SI/Schutzmassnahmen/Schutzleiterwiderstand.md
+[ ] SI/Schutzmassnahmen/Ersatzableitstrom.md
+
+### Funktionale Sicherheit
+[ ] SI/Funktionale_Sicherheit/SIL_PL.md
+[ ] SI/Funktionale_Sicherheit/Not_Halt.md
+[ ] SI/Funktionale_Sicherheit/Sicherheitsrelais.md
+[ ] SI/Funktionale_Sicherheit/Zweikanalige_Abschaltung.md
+
+### IP-Schutzarten
+[ ] SI/IP_Schutzarten/IP_Schutzarten.md
+
+### Zulassungen
+[ ] SI/Zulassungen/CE_Kennzeichnung.md
+[ ] SI/Zulassungen/RoHS.md
+[ ] SI/Zulassungen/REACH_WEEE.md
+[ ] SI/Zulassungen/RED.md
+
+---
+
+## EN — Entwicklung / Engineering
+
+### Bauteilmanagement
+[ ] EN/Bauteilmanagement/Datenblatt_Analyse.md
+[ ] EN/Bauteilmanagement/Lifecycle.md
+[ ] EN/Bauteilmanagement/Second_Source.md
+
+### Design for X
+[ ] EN/DesignForX/DFM.md
+[ ] EN/DesignForX/DFT.md
+[ ] EN/DesignForX/FMEA.md

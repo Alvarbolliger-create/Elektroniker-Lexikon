@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 210" width="700" height="210">
+  <defs>
+    <marker id="arr-rot" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-blau" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#0284c7"/>
+    </marker>
+    <marker id="arr-grau" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+
+  <!-- ── Linke Hälfte: Knotenregel ── -->
+  <text x="20" y="18" font-family="sans-serif" font-size="12" font-weight="bold" fill="#374151">1. Gesetz: Knotenregel</text>
+  <text x="20" y="34" font-family="sans-serif" font-size="11" fill="#64748b">I₁ + I₂ = I₃</text>
+
+  <!-- Knoten -->
+  <circle cx="160" cy="115" r="5" fill="#1e293b"/>
+
+  <!-- I1: kommt von oben links -->
+  <line x1="65" y1="50" x2="152" y2="110" stroke="#dc2626" stroke-width="2" marker-end="url(#arr-rot)"/>
+  <text x="62" y="46" font-family="sans-serif" font-size="12" fill="#dc2626">I₁</text>
+
+  <!-- I2: kommt von unten links -->
+  <line x1="65" y1="175" x2="152" y2="120" stroke="#dc2626" stroke-width="2" marker-end="url(#arr-rot)"/>
+  <text x="62" y="188" font-family="sans-serif" font-size="12" fill="#dc2626">I₂</text>
+
+  <!-- I3: geht nach rechts -->
+  <line x1="165" y1="115" x2="265" y2="115" stroke="#dc2626" stroke-width="2" marker-end="url(#arr-rot)"/>
+  <text x="270" y="119" font-family="sans-serif" font-size="12" fill="#dc2626">I₃</text>
+
+  <!-- Trennlinie -->
+  <line x1="310" y1="10" x2="310" y2="200" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- ── Rechte Hälfte: Maschenregel ── -->
+  <text x="330" y="18" font-family="sans-serif" font-size="12" font-weight="bold" fill="#374151">2. Gesetz: Maschenregel</text>
+  <text x="330" y="34" font-family="sans-serif" font-size="11" fill="#64748b">U − U₁ − U₂ = 0</text>
+
+  <!-- Spannungsquelle (links, vertikal) -->
+  <circle cx="365" cy="115" r="20" stroke="#1e293b" stroke-width="2" fill="#f8fafc"/>
+  <text x="357" y="110" font-family="sans-serif" font-size="13" font-weight="bold" fill="#1e293b">+</text>
+  <text x="359" y="126" font-family="sans-serif" font-size="13" fill="#1e293b">−</text>
+  <text x="390" y="119" font-family="sans-serif" font-size="12" fill="#0284c7">U</text>
+
+  <!-- Drähte von Quelle -->
+  <line x1="365" y1="95" x2="365" y2="60" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="365" y1="135" x2="365" y2="170" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Obere Leitung -->
+  <line x1="365" y1="60" x2="660" y2="60" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- R1 auf der oberen Leitung -->
+  <rect x="450" y="49" width="80" height="22" stroke="#1e293b" stroke-width="2" fill="#f8fafc" rx="2"/>
+  <text x="475" y="45" font-family="sans-serif" font-size="12" fill="#374151">R1</text>
+  <text x="475" y="86" font-family="sans-serif" font-size="11" fill="#0284c7">U₁</text>
+
+  <!-- Rechte Seite -->
+  <line x1="660" y1="60" x2="660" y2="170" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- R2 auf der rechten Seite -->
+  <rect x="646" y="90" width="28" height="60" stroke="#1e293b" stroke-width="2" fill="#f8fafc" rx="2"/>
+  <text x="680" y="124" font-family="sans-serif" font-size="12" fill="#374151">R2</text>
+  <text x="618" y="124" font-family="sans-serif" font-size="11" fill="#0284c7">U₂</text>
+
+  <!-- Untere Leitung -->
+  <line x1="365" y1="170" x2="660" y2="170" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Maschenpfeil (Kreisbogen, Uhrzeigersinn) -->
+  <path d="M 530 95 A 30 25 0 1 1 529 95" stroke="#64748b" stroke-width="1.5" fill="none" marker-end="url(#arr-grau)"/>
+</svg>

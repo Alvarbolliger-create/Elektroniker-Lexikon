@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="60" height="60">
+  <!-- pins: A=(30,0)  B=(30,60) -->
+  <line x1="30" y1="0"  x2="30" y2="10" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="30" cy="30" r="20" stroke="#1e293b" stroke-width="2" fill="#f8fafc"/>
+  <!-- waagrechter Strich (90° gedreht) + Pfeil nach rechts -->
+  <line x1="14" y1="30" x2="42" y2="30" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="46,30 40,27 40,33" fill="#1e293b"/>
+  <line x1="30" y1="50" x2="30" y2="60" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+</svg>

@@ -32,6 +32,7 @@ Abkuerzungen (Initialnotation):
 from __future__ import annotations
 
 import json
+import math
 import os
 import re
 from dataclasses import dataclass
@@ -157,6 +158,29 @@ class WaveformBlock:
 
 
 @dataclass
+class PlotBlock:
+    """Mathematischer Funktionsgraph mit einer oder mehreren Kurven.
+
+    Syntax im Artikel::
+
+        :::plot
+        var: t
+        range: 0, 5
+        Laden:    1 - exp(-t)
+        Entladen: exp(-t)
+        xlabel: Zeit (τ)
+        ylabel: U / U₀
+        :::
+    """
+
+    var: str
+    x_range: tuple[float, float]
+    curves: list[dict]          # [{"label": str, "expr": str}, ...]
+    xlabel: str = ""
+    ylabel: str = ""
+
+
+@dataclass
 class PinoutBlock:
     """IC- oder Stecker-Pinbelegung: Pin-Nummer → Funktionsname."""
 
@@ -179,7 +203,7 @@ class NoteBlock:
     """Hervorgehobener Hinweis-Block (Warnung, Tipp, Info etc.)."""
 
     text: str
-    kind: str = "info"               # "info" | "tip" | "warning" | "danger"
+    kind: str = "info"               # "info" | "tip" | "warning" | "danger" | "norm" | "merke"
 
 
 @dataclass
@@ -206,6 +230,7 @@ ArticleBlock: TypeAlias = (
     | ArticleHeaderBlock
     | SchematicBlock
     | WaveformBlock
+    | PlotBlock
     | PinoutBlock
     | TruthTableBlock
     | NoteBlock
@@ -533,15 +558,17 @@ def _parse_directive(
     args = parts[1].strip() if len(parts) > 1 else ""
     body_text = "\n".join(body_lines).strip()
 
-    if kind in ("warning", "info", "tip", "danger"):
+    if kind in ("warning", "info", "tip", "danger", "norm", "merke"):
         return NoteBlock(text=body_text, kind=kind)
     if kind == "note":
-        note_kind = args if args in ("warning", "info", "tip", "danger") else "info"
+        note_kind = args if args in ("warning", "info", "tip", "danger", "norm", "merke") else "info"
         return NoteBlock(text=body_text, kind=note_kind)
     if kind == "schematic":
         return SchematicBlock(path=body_text, title=args or None)
     if kind == "waveform":
         return _parse_waveform_body(body_lines)
+    if kind == "plot":
+        return _parse_plot_body(body_lines)
     if kind == "pinout":
         return _parse_pinout_body(args, body_lines)
     if kind == "truth":
@@ -591,6 +618,65 @@ def _parse_waveform_body(body_lines: list[str]) -> WaveformBlock:
             except ValueError:
                 pass
     return WaveformBlock(signals=signals, sample_labels=sample_labels)
+
+
+# Erlaubte Funktionen für den Plot-Ausdruck-Evaluator
+_PLOT_NS: dict = {
+    "exp": math.exp, "log": math.log, "log10": math.log10,
+    "sqrt": math.sqrt, "abs": abs,
+    "sin": math.sin, "cos": math.cos, "tan": math.tan,
+    "asin": math.asin, "acos": math.acos, "atan": math.atan,
+    "pi": math.pi, "e": math.e,
+    "max": max, "min": min,
+}
+
+
+def _parse_plot_body(body_lines: list[str]) -> PlotBlock:
+    """Parst einen :::plot-Block in ein PlotBlock-Objekt.
+
+    Syntax::
+
+        var: t
+        range: 0, 5
+        Laden:    1 - exp(-t)
+        Entladen: exp(-t)
+        xlabel: Zeit (τ)
+        ylabel: U / U₀
+    """
+    var = "x"
+    x_range = (0.0, 1.0)
+    curves: list[dict] = []
+    xlabel = ""
+    ylabel = ""
+
+    for line in body_lines:
+        line = line.strip()
+        if not line or ":" not in line:
+            continue
+        key, _, val = line.partition(":")
+        key = key.strip()
+        val = val.strip()
+        key_lower = key.lower()
+
+        if key_lower == "var":
+            var = val
+        elif key_lower == "range":
+            parts = [v.strip() for v in val.split(",")]
+            if len(parts) == 2:
+                try:
+                    x_range = (float(parts[0]), float(parts[1]))
+                except ValueError:
+                    pass
+        elif key_lower == "xlabel":
+            xlabel = val
+        elif key_lower == "ylabel":
+            ylabel = val
+        else:
+            expr = val.replace("^", "**")
+            curves.append({"label": key, "expr": expr})
+
+    return PlotBlock(var=var, x_range=x_range, curves=curves,
+                     xlabel=xlabel, ylabel=ylabel)
 
 
 def _parse_pinout_body(args: str, body_lines: list[str]) -> PinoutBlock:
@@ -644,6 +730,21 @@ def _parse_truth_body(args: str, body_lines: list[str]) -> TruthTableBlock:
     for line in body_lines:
         line = line.strip()
         if not line:
+            continue
+        if not inputs and not outputs:
+            try:
+                if "|" in line:
+                    in_p, _, out_p = line.partition("|")
+                    vals = [int(v.strip()) for v in in_p.split(",") if v.strip()]
+                    vals += [int(v.strip()) for v in out_p.split(",") if v.strip()]
+                else:
+                    vals = [int(v.strip()) for v in line.split(",") if v.strip()]
+                rows.append(vals)
+            except ValueError:
+                if "|" in line:
+                    in_part, _, out_part = line.partition("|")
+                    inputs = [s.strip() for s in in_part.split(",") if s.strip()]
+                    outputs = [s.strip() for s in out_part.split(",") if s.strip()]
             continue
         try:
             if "|" in line:
@@ -1040,14 +1141,17 @@ class WaveformWidget(QWidget):
             else:
                 y_hi = y0 + 5
                 y_lo = y1 - 5
+                trap_w = max(3, int(sample_w * 0.12))
                 x_cur = self._LABEL_W
                 for idx, v in enumerate(values):
                     x_next = self._LABEL_W + int((idx + 1) * sample_w)
                     y_cur = y_hi if v else y_lo
                     if idx > 0 and values[idx] != values[idx - 1]:
                         y_prev = y_hi if values[idx - 1] else y_lo
-                        p.drawLine(x_cur, y_prev, x_cur, y_cur)
-                    p.drawLine(x_cur, y_cur, x_next, y_cur)
+                        p.drawLine(x_cur, y_prev, x_cur + trap_w, y_cur)
+                        p.drawLine(x_cur + trap_w, y_cur, x_next, y_cur)
+                    else:
+                        p.drawLine(x_cur, y_cur, x_next, y_cur)
                     x_cur = x_next
 
         if self._block.sample_labels:
@@ -1063,6 +1167,171 @@ class WaveformWidget(QWidget):
                     Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop,
                     lbl,
                 )
+        p.end()
+
+
+class PlotWidget(QWidget):
+    """Zeichnet einen mathematischen Funktionsgraphen mit Achsen und Legende."""
+
+    _COLORS = [
+        QColor("#0284c7"), QColor("#dc2626"), QColor("#16a34a"),
+        QColor("#d97706"), QColor("#7c3aed"),
+    ]
+    _BG        = QColor("#ffffff")
+    _GRID      = QColor("#e2e8f0")
+    _AXIS      = QColor("#475569")
+    _LABEL_CLR = QColor("#374151")
+
+    _PAD_L  = 58
+    _PAD_R  = 20
+    _PAD_T  = 18
+    _PAD_B  = 46
+    _N      = 300   # Stützpunkte pro Kurve
+
+    def __init__(self, block: PlotBlock, parent: QWidget | None = None) -> None:
+        super().__init__(parent)
+        self._block = block
+        self._curves_pts: list[list[tuple[float, float]]] = []
+        self._sample()
+        self.setFixedHeight(240)
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+
+    def _sample(self) -> None:
+        b = self._block
+        x0, x1 = b.x_range
+        span = (x1 - x0) or 1.0
+        ns = {**_PLOT_NS, "__builtins__": {}}
+        for curve in b.curves:
+            pts: list[tuple[float, float]] = []
+            for i in range(self._N):
+                xv = x0 + (i / (self._N - 1)) * span
+                try:
+                    ns[b.var] = xv
+                    yv = float(eval(curve["expr"], ns))  # noqa: S307
+                    pts.append((xv, yv))
+                except Exception:
+                    pass
+            self._curves_pts.append(pts)
+
+    def paintEvent(self, event: QPaintEvent) -> None:  # noqa: N802
+        p = QPainter(self)
+        p.setRenderHint(QPainter.RenderHint.Antialiasing)
+        w = self.width()
+        h = self.height()
+        plot_w = w - self._PAD_L - self._PAD_R
+        plot_h = h - self._PAD_T - self._PAD_B
+        x0_px = self._PAD_L
+        y0_px = self._PAD_T
+
+        # Hintergrund
+        p.fillRect(0, 0, w, h, self._BG)
+
+        # Y-Bereich aus allen Kurven ermitteln
+        all_y = [yv for pts in self._curves_pts for _, yv in pts]
+        if not all_y:
+            p.end()
+            return
+        y_min, y_max = min(all_y), max(all_y)
+        y_span = (y_max - y_min) or 1.0
+        y_min -= y_span * 0.08
+        y_max += y_span * 0.08
+        y_span = y_max - y_min
+
+        x0, x1 = self._block.x_range
+        x_span = (x1 - x0) or 1.0
+
+        def to_px(xv: float, yv: float) -> tuple[int, int]:
+            px = x0_px + int((xv - x0) / x_span * plot_w)
+            py = y0_px + int((1.0 - (yv - y_min) / y_span) * plot_h)
+            return px, py
+
+        # Grid
+        grid_pen = QPen(self._GRID)
+        grid_pen.setWidth(1)
+        p.setPen(grid_pen)
+        for i in range(6):
+            gx = x0_px + int(i / 5 * plot_w)
+            p.drawLine(gx, y0_px, gx, y0_px + plot_h)
+            gy = y0_px + int(i / 5 * plot_h)
+            p.drawLine(x0_px, gy, x0_px + plot_w, gy)
+
+        # Achsen
+        axis_pen = QPen(self._AXIS)
+        axis_pen.setWidth(2)
+        p.setPen(axis_pen)
+        p.drawLine(x0_px, y0_px, x0_px, y0_px + plot_h)
+        p.drawLine(x0_px, y0_px + plot_h, x0_px + plot_w, y0_px + plot_h)
+
+        # Achsenbeschriftungen
+        f = p.font()
+        f.setPixelSize(11)
+        p.setFont(f)
+        p.setPen(QPen(self._LABEL_CLR))
+
+        for i in range(6):
+            xv = x0 + i / 5 * x_span
+            gx = x0_px + int(i / 5 * plot_w)
+            p.drawText(gx - 20, y0_px + plot_h + 4, 40, 16,
+                       Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop,
+                       f"{xv:.2g}")
+            yv = y_min + (1 - i / 5) * y_span
+            gy = y0_px + int(i / 5 * plot_h)
+            p.drawText(0, gy - 8, self._PAD_L - 6, 16,
+                       Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight,
+                       f"{yv:.2g}")
+
+        if self._block.xlabel:
+            fb = p.font()
+            fb.setPixelSize(12)
+            p.setFont(fb)
+            p.drawText(x0_px, y0_px + plot_h + 22, plot_w, 18,
+                       Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop,
+                       self._block.xlabel)
+        if self._block.ylabel:
+            p.save()
+            p.translate(12, y0_px + plot_h // 2)
+            p.rotate(-90)
+            fb2 = p.font()
+            fb2.setPixelSize(12)
+            p.setFont(fb2)
+            p.drawText(-60, -8, 120, 16,
+                       Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignVCenter,
+                       self._block.ylabel)
+            p.restore()
+
+        # Kurven zeichnen
+        for ci, pts in enumerate(self._curves_pts):
+            if len(pts) < 2:
+                continue
+            color = self._COLORS[ci % len(self._COLORS)]
+            pen = QPen(color)
+            pen.setWidth(2)
+            p.setPen(pen)
+            prev = to_px(*pts[0])
+            for xv, yv in pts[1:]:
+                cur = to_px(xv, yv)
+                p.drawLine(prev[0], prev[1], cur[0], cur[1])
+                prev = cur
+
+        # Legende
+        if len(self._block.curves) > 1:
+            lx = x0_px + plot_w - 10
+            ly = y0_px + 8
+            for ci, curve in enumerate(self._block.curves):
+                color = self._COLORS[ci % len(self._COLORS)]
+                pen = QPen(color)
+                pen.setWidth(2)
+                p.setPen(pen)
+                p.drawLine(lx - 80, ly + 7, lx - 64, ly + 7)
+                p.setPen(QPen(self._LABEL_CLR))
+                fl = p.font()
+                fl.setPixelSize(11)
+                p.setFont(fl)
+                p.drawText(lx - 60, ly, 60, 16,
+                           Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft,
+                           curve["label"])
+                ly += 18
+
         p.end()
 
 
@@ -1213,6 +1482,8 @@ class ArticleContentWidget(QScrollArea):
             return self._make_schematic(block, article_folder)
         if isinstance(block, WaveformBlock):
             return self._make_waveform(block)
+        if isinstance(block, PlotBlock):
+            return self._make_plot(block)
         if isinstance(block, PinoutBlock):
             return self._make_pinout(block)
         if isinstance(block, TruthTableBlock):
@@ -1374,7 +1645,8 @@ class ArticleContentWidget(QScrollArea):
         layout = QVBoxLayout(container)
         layout.setContentsMargins(0, 8, 0, 8)
         layout.setSpacing(4)
-        img_path = article_folder / block.path
+        p = block.path.strip()
+        img_path = (ARTICLES_FOLDER / p.lstrip("/")) if p.startswith("/") else (article_folder / p)
 
         if not img_path.exists():
             err = QLabel(f"[Bild nicht gefunden: {block.path}]")
@@ -1439,7 +1711,8 @@ class ArticleContentWidget(QScrollArea):
             )
             layout.addWidget(title_lbl)
 
-        img_path = article_folder / block.path
+        sp = block.path.strip()
+        img_path = (ARTICLES_FOLDER / sp.lstrip("/")) if sp.startswith("/") else (article_folder / sp)
         if not img_path.exists():
             err = QLabel(f"[Schaltplan nicht gefunden: {block.path}]")
             err.setObjectName("imageError")
@@ -1484,6 +1757,14 @@ class ArticleContentWidget(QScrollArea):
         layout.setContentsMargins(0, 8, 0, 8)
         layout.setSpacing(0)
         layout.addWidget(WaveformWidget(block))
+        return container
+
+    def _make_plot(self, block: PlotBlock) -> QWidget:
+        container = QWidget()
+        layout = QVBoxLayout(container)
+        layout.setContentsMargins(0, 8, 0, 8)
+        layout.setSpacing(0)
+        layout.addWidget(PlotWidget(block))
         return container
 
     def _make_pinout(self, block: PinoutBlock) -> QWidget:
@@ -1603,14 +1884,17 @@ class ArticleContentWidget(QScrollArea):
             "tip":     ("#dcfce7", "#16a34a", "✓"),
             "warning": ("#fef3c7", "#b45309", "⚠"),
             "danger":  ("#fee2e2", "#dc2626", "⛔"),
+            "norm":    ("#f5f3ff", "#7c3aed", "§"),
+            "merke":   ("#fff7ed", "#c2410c", "★"),
         }
         bg, border, icon = _styles.get(block.kind, _styles["info"])
 
         container = QFrame()
         container.setStyleSheet(
             f"QFrame{{background:{bg};border-left:4px solid {border};"
-            "border-radius:0 6px 6px 0;border-top:none;"
-            "border-right:none;border-bottom:none;}}"
+            "border-top-left-radius:0px;border-top-right-radius:6px;"
+            "border-bottom-right-radius:6px;border-bottom-left-radius:0px;"
+            "border-top:none;border-right:none;border-bottom:none;}}"
         )
         layout = QHBoxLayout(container)
         layout.setContentsMargins(12, 10, 14, 10)
@@ -1759,12 +2043,6 @@ class LexiconWidget(QWidget):
             Qt.ScrollBarPolicy.ScrollBarAsNeeded
         )
         self.article_tree.itemClicked.connect(self._on_tree_item_clicked)
-        self.article_tree.itemExpanded.connect(
-            lambda item: self._set_folder_arrow(item, expanded=True)
-        )
-        self.article_tree.itemCollapsed.connect(
-            lambda item: self._set_folder_arrow(item, expanded=False)
-        )
         left_content_layout.addWidget(self.article_tree)
         self.count_label = QLabel()
         self.count_label.setObjectName("countLabel")
@@ -2009,7 +2287,7 @@ class LexiconWidget(QWidget):
         """Haengt Ordner- und Artikel-Knoten rekursiv in den Baum ein."""
         for dirname in sorted(node["dirs"]):
             folder_display = dirname.replace("_", " ").title()
-            folder_item = QTreeWidgetItem(["▶ " + folder_display])
+            folder_item = QTreeWidgetItem([folder_display])
             folder_item.setToolTip(0, dirname)
             subnode = node["dirs"][dirname]
             matching = next(
@@ -2044,13 +2322,6 @@ class LexiconWidget(QWidget):
                 item.setExpanded(True)
             return
         item.setExpanded(not item.isExpanded())
-
-    def _set_folder_arrow(self, item: QTreeWidgetItem, expanded: bool) -> None:
-        if item.childCount() == 0:
-            return
-        text = item.text(0)
-        base = text[2:] if text[:2] in ("▶ ", "▼ ") else text
-        item.setText(0, ("▼ " if expanded else "▶ ") + base)
 
     def _activate_current_tree_item(self) -> None:
         item = self.article_tree.currentItem()

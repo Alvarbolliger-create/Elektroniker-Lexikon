@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="60" height="60">
+  <!-- DIAC: zwei gegenläufige Dreiecke (4-Schicht-Trigger-Diode) -->
+  <!-- pins: A1=(0,30) oben   A2=(60,30) unten — aber DIAC ist vertikal sinnvoller -->
+  <!-- Anschluss oben (A1) und unten (A2) -->
+  <!-- Oberer Dreieck: Spitze zeigt nach unten -->
+  <line x1="30" y1="0"  x2="30" y2="12" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <polygon points="18,12 42,12 30,28" fill="#1e293b"/>
+  <!-- Unterer Dreieck: Spitze zeigt nach oben -->
+  <polygon points="18,48 42,48 30,32" fill="#1e293b"/>
+  <!-- Querbalkken oben und unten -->
+  <line x1="18" y1="12" x2="42" y2="12" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="18" y1="48" x2="42" y2="48" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Verbindung zwischen den Dreiecken -->
+  <line x1="30" y1="28" x2="30" y2="32" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Anschluss unten (A2) -->
+  <line x1="30" y1="48" x2="30" y2="60" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+</svg>

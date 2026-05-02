@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 80" width="70" height="80">
+  <!-- Thyristor (SCR): Diode mit Gate -->
+  <!-- pins: A=(35,0) Anode, K=(35,80) Kathode, G=(70,55) Gate -->
+  <!-- Anode oben -->
+  <line x1="35" y1="0"  x2="35" y2="20" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Dreieck (Anode→Kathode Richtung) -->
+  <polygon points="20,20 50,20 35,44" fill="#1e293b"/>
+  <!-- Kathoden-Balken -->
+  <line x1="20" y1="44" x2="50" y2="44" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Gate-Linie vom Kathodenbalken nach rechts -->
+  <line x1="50" y1="44" x2="70" y2="55" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Kathode nach unten -->
+  <line x1="35" y1="44" x2="35" y2="80" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Beschriftung Pinpositionen (Kommentar) -->
+  <!-- A=(35,0)  K=(35,80)  G=(70,55) -->
+</svg>

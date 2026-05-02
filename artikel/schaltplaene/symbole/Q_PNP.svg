@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 80" width="50" height="80">
+  <!-- pins: B=(0,40)  C=(30,0)  E=(30,80) -->
+  <!-- Basis -->
+  <line x1="0"  y1="40" x2="20" y2="40" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <line x1="20" y1="22" x2="20" y2="58" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+  <!-- Kollektor diagonal → oben -->
+  <line x1="20" y1="30" x2="30" y2="20" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <line x1="30" y1="20" x2="30" y2="0"  stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Emitter diagonal → unten -->
+  <line x1="20" y1="50" x2="30" y2="60" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <line x1="30" y1="60" x2="30" y2="80" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <!-- PNP Pfeil (zum Balken hin): v=(-10,-10) L=14.14 v⊥=(-0.707,0.707) wing=1.414
+       P=(22,52) W1=(21,53) W2=(23,51) tip=(20,50) -->
+  <polygon points="20,50 21,53 23,51" fill="#1e293b"/>
+</svg>

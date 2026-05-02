@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 80" width="50" height="80">
+  <!-- pins: G=(0,45)  D=(30,0)  S=(30,80)  (P-Kanal JFET) -->
+  <!-- Kanal (durchgezogen) -->
+  <line x1="26" y1="20" x2="26" y2="60" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Drain: oben -->
+  <line x1="26" y1="24" x2="30" y2="24" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <line x1="30" y1="24" x2="30" y2="0"  stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Source: unten -->
+  <line x1="26" y1="56" x2="30" y2="56" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <line x1="30" y1="56" x2="30" y2="80" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Gate Linie -->
+  <line x1="0"  y1="45" x2="20" y2="45" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <!-- P-JFET Gate-Pfeil (zeigt weg vom Kanal): tip=(20,45) -->
+  <polygon points="20,45 25,42.5 25,47.5" fill="#1e293b"/>
+</svg>

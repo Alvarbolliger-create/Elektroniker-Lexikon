@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 220" width="280" height="220">
+  <defs>
+    <marker id="arr-rot" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Basis-Anschluss (horizontal links) -->
+  <line x1="30" y1="110" x2="100" y2="110" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="10" y="115" font-family="sans-serif" font-size="14" fill="#374151">B</text>
+
+  <!-- Basis-Balken (vertikale Linie) -->
+  <line x1="100" y1="70" x2="100" y2="150" stroke="#1e293b" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Kollektor (diagonal oben rechts) -->
+  <line x1="100" y1="80" x2="180" y2="30" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="180" y1="30" x2="180" y2="10" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="188" y="25" font-family="sans-serif" font-size="14" fill="#374151">C</text>
+
+  <!-- Emitter (diagonal unten rechts, mit Pfeil) -->
+  <line x1="100" y1="140" x2="180" y2="190" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="180" y1="190" x2="180" y2="210" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="188" y="205" font-family="sans-serif" font-size="14" fill="#374151">E</text>
+
+  <!-- Emitter-Pfeil: P=start+0.8v=(164,180), Flügel=P±0.1L·v⊥, L≈94.34, v⊥=(-0.530,0.848) -->
+  <polygon points="180,190 169,172 159,188" fill="#1e293b"/>
+
+  <!-- Strom-Beschriftungen (rot) -->
+  <text x="50" y="104" font-family="sans-serif" font-size="12" fill="#dc2626">I_B</text>
+  <text x="185" y="58" font-family="sans-serif" font-size="12" fill="#dc2626">I_C</text>
+  <text x="185" y="178" font-family="sans-serif" font-size="12" fill="#dc2626">I_E</text>
+
+  <!-- NPN Label -->
+  <text x="108" y="115" font-family="sans-serif" font-size="12" fill="#64748b">NPN</text>
+</svg>

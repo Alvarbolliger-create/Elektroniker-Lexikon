@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40" width="60" height="40">
+  <!-- pins: A=(0,20)  B=(60,20) -->
+  <line x1="0" y1="20" x2="10" y2="20" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 10 20 Q 15 9 20 20 Q 25 9 30 20 Q 35 9 40 20 Q 45 9 50 20"
+        stroke="#1e293b" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="50" y1="20" x2="60" y2="20" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+</svg>
