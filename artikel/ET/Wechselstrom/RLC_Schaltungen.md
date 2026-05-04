@@ -33,10 +33,9 @@ RLC-Schaltungen kombinieren Widerstand, Spule und Kondensator. Bei der Resonanzf
 
 Bei der Resonanzfrequenz ist X_L = X_C. Die reaktiven Anteile heben sich auf.
 
-```
+:::monospace
 f_0 = 1 / (2 * pi * sqrt(L * C))   # Resonanzfrequenz
-```
-
+:::
 | Grösse | Symbol | Einheit |
 |---|---|---|
 | Resonanzfrequenz | f_0 | Hz |
@@ -47,10 +46,9 @@ f_0 = 1 / (2 * pi * sqrt(L * C))   # Resonanzfrequenz
 
 R, L und C in Reihe. Bei Resonanz ist die Impedanz minimal (nur R übrig). Der Strom ist maximal.
 
-```
+:::monospace
 Z = R + j * (X_L - X_C) = R + j * (ω*L - 1/(ω*C))
-```
-
+:::
 Bei Resonanz gilt X_L = X_C, der imaginäre Anteil verschwindet und Z = R.
 
 :::warning
@@ -69,12 +67,11 @@ Wird als Parallelresonanzfilter eingesetzt: Bei f_0 gesperrt, sonst durchgelasse
 
 Die Güte beschreibt wie scharf die Resonanz ist.
 
-```
+:::monospace
 Q = (ω_0 * L) / R      # aus Bauteilwerten (Reihenschwingkreis)
 Q = f_0 / B            # aus Resonanzfrequenz und 3dB-Bandbreite
 B = f_0 / Q            # Bandbreite in Hz
-```
-
+:::
 | Grösse | Symbol | Einheit |
 |---|---|---|
 | Güte | Q | — |

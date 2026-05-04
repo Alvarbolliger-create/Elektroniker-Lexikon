@@ -28,11 +28,10 @@ Die Kapazität beschreibt, wie viel Ladung ein Kondensator bei einer bestimmten 
 
 ## Die Grösse
 
-```
+:::monospace
 Q = C * U       # Gespeicherte Ladung
 E = 0.5 * C * U^2  # Gespeicherte Energie
-```
-
+:::
 | Grösse | Symbol | Einheit |
 |---|---|---|
 | Kapazität | C | F (Farad) |
@@ -46,11 +45,10 @@ Ein Farad ist sehr gross. In der Praxis werden meist µF, nF oder pF verwendet.
 
 Kondensatoren sind oft mit einem 3-stelligen Code beschriftet — analog zum Widerstandscode:
 
-```
+:::monospace
 1. und 2. Stelle: Zahlenwert
 3. Stelle:        Exponent (Basis 10, Ergebnis in pF)
-```
-
+:::
 | Aufdruck | Berechnung | Wert |
 |---|---|---|
 | 105 | 10 × 10⁵ pF | 1 µF |
@@ -81,10 +79,9 @@ SMD-Kondensatoren sind oft unbeschriftet.
 
 ## Abhängigkeit vom Aufbau
 
-```
+:::formel
 C = ε * A / d
-```
-
+:::
 | Grösse | Symbol | Einheit | Bedeutung |
 |---|---|---|---|
 | Permittivität | ε | F/m | ε = εᵣ × ε₀, Materialeigenschaft des Dielektrikums |

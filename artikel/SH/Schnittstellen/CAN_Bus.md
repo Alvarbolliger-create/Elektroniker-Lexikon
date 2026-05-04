@@ -49,11 +49,10 @@ CAN-Daten enthalten keine eigene Taktsynchronisation. Der Empfänger synchronisi
 
 **Lösung: Bit-Stuffing**: Nach 5 gleichen Bits in Folge fügt der Sender automatisch ein inverses Bit (Stuff-Bit) ein. Der Empfänger erkennt und entfernt dieses Bit automatisch.
 
-```
+:::formel
 Datenbits: 1 1 1 1 1 | 0 1 1 0 0 ...
                          ↑ Stuff-Bit (invertiert nach 5x '1')
-```
-
+:::
 Bit-Stuffing vergrössert die übertragene Datenmenge um maximal 25 %, erlaubt aber den Betrieb ohne separate Taktleitung.
 
 ## Rahmenaufbau

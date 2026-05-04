@@ -47,12 +47,11 @@ Bandpass (Q=5):  5*f / sqrt((1 - f*f)^2 + 25*f*f)
 
 ## Kenngrössen
 
-```
+:::monospace
 f_0 = sqrt(f_u · f_o)         # Mittenfrequenz (geometrisches Mittel)
 B   = f_o - f_u               # Bandbreite (obere minus untere Grenzfrequenz)
 Q   = f_0 / B                 # Gütefaktor (schmal = hoher Q)
-```
-
+:::
 - **f_0**: Mittenfrequenz — hier ist die Verstärkung am grössten
 - **B**: Bandbreite — Frequenzbereich zwischen den −3 dB Punkten
 - **Q**: Gütefaktor — hoher Q = schmales, selektives Band

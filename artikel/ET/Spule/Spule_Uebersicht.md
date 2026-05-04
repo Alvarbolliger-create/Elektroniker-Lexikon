@@ -46,11 +46,10 @@ Mit Kern aus Ferrit oder Eisen wird das Feld konzentriert und die Induktivität 
 
 ## Grundgrössen
 
-```
+:::monospace
 U = L * dI/dt          # Spannung proportional zur Stromänderungsrate
 E = 0.5 * L * I^2     # gespeicherte Energie
-```
-
+:::
 | Grösse | Symbol | Einheit |
 |---|---|---|
 | Induktivität | L | H (Henry) |
@@ -76,11 +75,10 @@ E = 0.5 * L * I^2     # gespeicherte Energie
 /schaltplaene/spule_reihe.svg
 :::
 
-```
+:::monospace
 L_ges = L1 + L2 + ... + Ln         # Reihenschaltung
 1/L_ges = 1/L1 + 1/L2 + ... + 1/Ln # Parallelschaltung
-```
-
+:::
 ### Mit Kopplung (gemeinsamer Kern)
 
 :::schematic Spulen mit Kopplung
@@ -89,13 +87,12 @@ L_ges = L1 + L2 + ... + Ln         # Reihenschaltung
 
 Teilen sich zwei Spulen denselben Kern, beeinflusst das Magnetfeld der einen die andere. Diese Gegeninduktivität M verändert die Gesamtinduktivität:
 
-```
+:::monospace
 M = k * sqrt(L1 * L2)              # Gegeninduktivität (k = Kopplungsfaktor, 0 bis 1)
 
 L_ges = L1 + L2 + 2 * M           # gleichsinnig gewickelt (Felder addieren sich)
 L_ges = L1 + L2 - 2 * M           # gegensinnig gewickelt (Felder schwächen sich)
-```
-
+:::
 Ein Kopplungsfaktor k = 1 bedeutet ideale Kopplung (Transformator). k = 0 bedeutet keine Kopplung.
 
 ## Verhalten

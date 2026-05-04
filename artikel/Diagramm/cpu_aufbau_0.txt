@@ -1,0 +1,1 @@
+RAM/Flash ──[gemeinsamer Bus]── CPU

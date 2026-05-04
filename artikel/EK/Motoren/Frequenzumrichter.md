@@ -39,10 +39,9 @@ Ein Frequenzumrichter (FU) stellt Frequenz und Spannung einer Drehstromversorgun
 
 Spannung und Frequenz werden proportional geändert. Bei halber Frequenz auch halbe Spannung. So bleibt das Motordrehmoment konstant.
 
-```
+:::monospace
 U / f = const.      # U/f-Verhältnis konstant halten für konstantes Drehmoment
-```
-
+:::
 ## Vorteile
 
 Sanftanlauf: kein Anlaufstrom-Spikes. Energiesparen bei Pumpen und Lüftern (Drehzahl bei halber Last senken, Leistung sinkt auf ⅛). Rückspeisung ins Netz möglich (Bremsenergie).

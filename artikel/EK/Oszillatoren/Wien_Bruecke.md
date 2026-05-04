@@ -32,22 +32,19 @@ Der OPV arbeitet als nichtinvertierender Verstärker. Das frequenzselektive Netz
 
 **Wien-Brücke**: Zwei RC-Glieder — ein Reihenschaltung und eine Parallelschaltung — hintereinandergeschaltet.
 
-```
-Ausgang → [R in Reihe mit C] → [R parallel zu C] → (+)-Eingang
-                    (Bandpass-Verhalten)
-```
-
+:::schematic
+/Diagramm/wien_bruecke_0.svg
+:::
 Bei der Resonanzfrequenz f₀ beträgt die Phasendrehung des Netzwerks genau **0°** und die Dämpfung ist **1/3**. Der Verstärker muss also mindestens Verstärkung 3 haben.
 
 ---
 
 ## Formeln
 
-```
+:::monospace
 f_0 = 1 / (2π × R × C)      # Resonanzfrequenz; R und C identisch in beiden Gliedern
 A   = 1 + R_2 / R_1 = 3     # Mindest-Verstärkung; R_2 / R_1 = 2
-```
-
+:::
 | Grösse | Symbol | Einheit | Beschreibung |
 |---|---|---|---|
 | Resonanzfrequenz | f_0 | Hz | Schwingfrequenz |

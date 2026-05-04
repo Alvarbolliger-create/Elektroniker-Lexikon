@@ -32,11 +32,10 @@ Eine Quelle gibt dann maximale Leistung an einen Verbraucher ab, wenn der Lastwi
 
 Jede reale Quelle hat einen Innenwiderstand Ri. Die Leerlaufspannung U0 teilt sich zwischen Ri und dem Lastwiderstand Ra auf.
 
-```
+:::monospace
 I = U0 / (Ri + Ra)
 P_a = I² × Ra = (U0 / (Ri + Ra))² × Ra
-```
-
+:::
 ## Bedingung für maximale Leistung
 
 Die Ableitung von P_a nach Ra und Gleichsetzen mit null ergibt:
@@ -45,28 +44,24 @@ Die Ableitung von P_a nach Ra und Gleichsetzen mit null ergibt:
 Maximale Leistungsübertragung tritt auf wenn Ra = Ri. Das ist die Leistungsanpassungsbedingung.
 :::
 
-```
+:::monospace
 Ra = Ri    # Leistungsanpassung: maximale Leistungsübertragung
-```
-
+:::
 Im Anpassungsfall gilt:
-```
+:::monospace
 P_max = U0² / (4 × Ri)    # maximale abgebbare Leistung
-```
-
+:::
 Die Spannung an der Last beträgt dann genau die Hälfte der Leerlaufspannung:
-```
+:::monospace
 U_a = U0 / 2    # bei Ra = Ri
-```
-
+:::
 ## Wirkungsgrad bei Leistungsanpassung
 
 Bei Ra = Ri fällt die gleiche Leistung im Innenwiderstand ab wie an der Last. Der Wirkungsgrad beträgt nur 50 %.
 
-```
+:::monospace
 η = P_a / P_gesamt = 50 %    # nur bei Leistungsanpassung
-```
-
+:::
 Das ist kein Problem für Signalübertragung (Antenne, Audio), aber inakzeptabel für Energieübertragung (Stromversorgung).
 
 ## Wann wird Leistungsanpassung angestrebt?

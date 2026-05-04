@@ -33,10 +33,9 @@ Die Eingangseite (LED) und Ausgangseite (Transistor) sind galvanisch getrennt. T
 
 Der CTR gibt das Verhältnis von Kollektorstrom zu LED-Strom an:
 
-```
+:::monospace
 CTR = I_C / I_LED × 100 %
-```
-
+:::
 Typischer CTR: 50-300 %. Hoher CTR: Ausgangs-Transistor kann viel Strom liefern. CTR sinkt mit Alter und Temperatur.
 
 ## Schaltbetrieb
@@ -44,9 +43,9 @@ Typischer CTR: 50-300 %. Hoher CTR: Ausgangs-Transistor kann viel Strom liefern.
 Für digitale Signalübertragung: LED an mit Vorwiderstand, Transistor schaltet Last.
 
 Vorwiderstand für die LED:
-```
+:::formel
 R = (U_in - U_F) / I_LED
-```
+:::
 Typisch: U_F = 1.2 V, I_LED = 5-20 mA.
 
 Am Ausgang zieht ein Pull-up-Widerstand das Signal auf HIGH, der Transistor zieht es auf LOW.

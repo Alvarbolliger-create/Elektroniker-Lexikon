@@ -49,20 +49,18 @@ Netzwerk: Knoten 1 (U1), Knoten 2 (U2), Bezugsknoten (0 V).
 - Stromquelle I_Q von Bezug zu Knoten 2
 
 KCL an Knoten 2:
-```
+:::formel
 (U1 - U2) × G12 + I_Q - U2 × G2 = 0
 U2 × (G12 + G2) = U1 × G12 + I_Q
 U2 = (U1 × G12 + I_Q) / (G12 + G2)
-```
-
+:::
 ## Matrix-Form (für grössere Netze)
 
 Bei n unbekannten Knoten entsteht ein n×n-Gleichungssystem in Matrix-Form:
 
-```
+:::monospace
 [G] × [U] = [I]
-```
-
+:::
 - [G]: Leitwertmatrix (Diagonalelemente: Summe aller Leitwerte am Knoten; Off-Diagonal: negativer Leitwert zwischen den Knoten)
 - [U]: Vektor der unbekannten Knotenspannungen
 - [I]: Vektor der eingespeisten Ströme (von Quellen)

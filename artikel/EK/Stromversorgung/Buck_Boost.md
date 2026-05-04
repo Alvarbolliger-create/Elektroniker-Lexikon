@@ -41,10 +41,9 @@ Die einfachste Buck-Boost-Topologie invertiert die Ausgangsspannung:
 - Drossel gibt Energie über Diode an Ausgang ab
 - Ausgang liegt zwischen GND und Diodenkatode → negativer Ausgang
 
-```
+:::monospace
 UOUT = -UIN × D / (1 - D)    # D = Tastverhältnis (Duty Cycle)
-```
-
+:::
 Nachteil: Ausgang ist invertiert. Für viele Anwendungen unpraktisch.
 
 ## Nicht-invertierende Topologie (SEPIC, Ćuk, 4-Schalter)
@@ -53,10 +52,9 @@ Nachteil: Ausgang ist invertiert. Für viele Anwendungen unpraktisch.
 
 Zwei Drosseln und ein Kopplungskondensator. Ausgang nicht invertiert, galvanisch nicht getrennt.
 
-```
+:::monospace
 UOUT = UIN × D / (1 - D)    # nicht-invertierend
-```
-
+:::
 ### Ćuk-Converter
 
 Ähnlich wie SEPIC aber invertierend. Vorteile: beide Ströme (Ein und Aus) werden gefiltert.
@@ -69,10 +67,9 @@ Vier Transistoren (zwei H-Brücke am Eingang, zwei am Ausgang mit gemeinsamer Dr
 
 Der Spulenstrom fliesst immer, bricht nie auf null ab. Gültig bei mittleren bis hohen Lasten.
 
-```
+:::monospace
 UOUT/UIN = D / (1 - D)    # CCM, invertierend
-```
-
+:::
 Im CCM: Rückkopplungsregelung stabiler, Ausgangsstrom kontinuierlich.
 
 ## DCM (Discontinuous Conduction Mode)

@@ -43,10 +43,9 @@ Die 3., 5., 7. Harmonische sind meist die stärksten.
 
 Der THD-Wert fasst alle Oberschwingungen in einer Kennzahl zusammen:
 
-```
+:::monospace
 THD = sqrt(U2^2 + U3^2 + U4^2 + ...) / U1 * 100 %
-```
-
+:::
 Ein reiner Sinus hat THD = 0 %. Ein Schaltnetzteils ohne Korrektur kann THD > 100 % erreichen.
 
 ## Wirkung auf das Netz

@@ -30,13 +30,12 @@ Digitale Schaltungen rechnen im Binärsystem. Die Regeln sind dieselben wie bei 
 
 ## Binäre Addition
 
-```
+:::formel
   0 + 0 = 0
   0 + 1 = 1
   1 + 0 = 1
   1 + 1 = 0, Übertrag 1
-```
-
+:::
 Beispiel 8-Bit: 0b00110101 (53) + 0b00001110 (14) = 0b01000011 (67)
 
 Der Übertrag (Carry) wandert von Stelle zu Stelle, genau wie beim Dezimalrechnen.
@@ -67,10 +66,9 @@ In Hardware wird der Carry-Out und das Overflow-Flag gesetzt. Software muss dies
 ## Subtraktion
 
 Subtraktion wird als Addition des Zweierkomplements ausgeführt:
-```
+:::monospace
 A - B = A + (-B) = A + (~B + 1)
-```
-
+:::
 Eine ALU braucht damit nur einen Addierer, keinen separaten Subtrahierer.
 
 ## Shift-Operationen

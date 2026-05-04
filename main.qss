@@ -1,5 +1,41 @@
 /* ═══════════════════════════════════════════════════════════════
    Elektronik Lexikon — Globales Stylesheet (main.qss)
+   Theme: Kraft (Kraftpapier / Schaltplan auf Pappe)
+   ───────────────────────────────────────────────────────────────
+   Palette:
+     surface-page      #ebe2cd   warmes Pappbeige
+     surface-card      #f0e8d4   helleres Pappbeige (Cards, Editor)
+     surface-off       #e2d8bf   abgesetzte Fläche (Toolbar, Form-Block)
+     surface-pale      #e6dcc4   Sidebars
+     surface-slate     #dccfb0   Tab-Row, Scroll-Track
+     border-soft       #c9bd9d
+     border-mid        #b6a884
+     border-strong     #9a8c68
+     brand             #5a3a22   warmes Brown (Header, Selektion, Primary)
+     brand-hover       #4a2f1c
+     brand-deep        #3d2715   dunkelste Brand-Stufe (Tab-Bar)
+     brand-pale        #e2d4be
+     brand-paler       #ebdfca
+     brand-hover-bg    #d4c3a8
+     accent            #1f2a1f   dunkle Tinte (CAS-Akzent, Outline-Buttons)
+     accent-hover      #0f1a0f
+     accent-border     #5e6a5e
+     accent-pale       #d6dad0
+     accent-paler      #dfe2d8
+     accent-disabled   #8a9088
+     success-fg        #4a5d2c
+     success-bg        #dde3d0
+     danger-fg         #7a2a18
+     danger-bg         #ecd8cc
+     danger-border     #c89880
+     text-primary      #1f1812
+     text-body         #3a2f22
+     text-muted        #6e5a44
+     text-faint        #8e7a62
+     text-disabled     #b6a884
+     text-on-brand     #ebe2cd
+   Schrift: System-Default für UI-Text. Monospace nur im CAS-Editor /
+            in Formel-Buttons (siehe formulaButton, casTabBar weiter unten).
    ═══════════════════════════════════════════════════════════════ */
 
 /* ── HamburgerButton (Standard – im Header/TabBar) ───────────── */
@@ -9,7 +45,7 @@ HamburgerButton {
     border-radius: 6px;
 }
 HamburgerButton:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(235, 226, 205, 0.18);
 }
 
 /* ── Sidebar-Close-Button (innen, dunkle Linien) ─────────────── */
@@ -19,51 +55,51 @@ HamburgerButton#sidebarCloseBtn {
     border-radius: 6px;
 }
 HamburgerButton#sidebarCloseBtn:hover {
-    background: rgba(0, 0, 0, 0.07);
+    background: rgba(31, 24, 18, 0.07);
 }
 
 /* ── Floating-Toggle-Button (kleiner Kreis, sichtbar wenn zu) ── */
 HamburgerButton#leftFloatBtn,
 HamburgerButton#rightFloatBtn {
-    background: #1e3a5f;
+    background: #5a3a22;
     border: none;
     border-radius: 18px;
 }
 HamburgerButton#leftFloatBtn:hover,
 HamburgerButton#rightFloatBtn:hover {
-    background: #1e40af;
+    background: #4a2f1c;
 }
 
 /* ── TabBar ──────────────────────────────────────────────────── */
 TabBar {
-    background: #162d4a;
+    background: #3d2715;
 }
 TabBar QPushButton {
     background: transparent;
     border: none;
-    color: #93c5fd;
+    color: #d4c3a8;
     font-size: 13px;
     padding: 5px 18px;
     border-radius: 4px;
 }
 TabBar QPushButton:hover {
-    background: rgba(70, 70, 180, 0.15);
+    background: rgba(235, 226, 205, 0.10);
 }
 TabBar QPushButton:checked {
-    background: #1e3a5f;
-    color: white;
+    background: #5a3a22;
+    color: #ebe2cd;
     font-weight: 600;
 }
 
 /* ── FormulaBlockWidget ──────────────────────────────────────── */
 FormulaBlockWidget {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    background: #e2d8bf;
+    border: 1px solid #c9bd9d;
     border-radius: 6px;
 }
 FormulaBlockWidget QPushButton {
-    background: #1e3a5f;
-    color: white;
+    background: #5a3a22;
+    color: #ebe2cd;
     border: none;
     border-radius: 4px;
     font-size: 11px;
@@ -71,45 +107,50 @@ FormulaBlockWidget QPushButton {
     padding: 4px 6px;
 }
 FormulaBlockWidget QPushButton:hover {
-    background: #1e40af;
+    background: #4a2f1c;
 }
 
 /* ── ArticleContentWidget (QScrollArea) ──────────────────────── */
 ArticleContentWidget {
-    background: white;
+    background: #f0e8d4;
 }
 ArticleContentWidget QScrollBar:vertical {
     width: 8px;
-    background: #f1f5f9;
+    background: #dccfb0;
     border-radius: 4px;
     margin: 0px;
 }
 ArticleContentWidget QScrollBar::handle:vertical {
-    background: #1e3a5f;
+    background: #5a3a22;
     min-height: 20px;
     border-radius: 4px;
 }
 ArticleContentWidget QScrollBar::handle:vertical:hover {
-    background: #1e40af;
+    background: #4a2f1c;
 }
 ArticleContentWidget QScrollBar::add-line:vertical, 
 ArticleContentWidget QScrollBar::sub-line:vertical {
     height: 0px;
 }
 QWidget#articleContent {
-    background: white;
+    background: #f0e8d4;
 }
 
 /* ── QTextBrowser im Artikel (render_html) ───────────────────── */
 QTextBrowser#articleBrowser {
     border: none;
-    background: white;
+    background: #f0e8d4;
+    color: #3a2f22;
     font-size: 15px;
 }
 
 /* ── MathEditor ──────────────────────────────────────────────── */
+/* CAS-Editor: Monospace-Schrift für Eingaben/Ergebnisse */
 MathEditor {
-    background: white;
+    background: #f0e8d4;
+    color: #3a2f22;
+    font-family: "Consolas", "Menlo", "DejaVu Sans Mono", monospace;
+    font-size: 14px;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -118,73 +159,76 @@ MathEditor {
 
 /* ── App-Header ──────────────────────────────────────────────── */
 QWidget#appHeader {
-    background: #1e3a5f;
+    background: #5a3a22;
 }
 QLabel#headerTitle {
-    color: white;
+    color: #ebe2cd;
     font-size: 16px;
     font-weight: 600;
 }
 
 /* ── Breadcrumb ──────────────────────────────────────────────── */
 QLabel#breadcrumbLabel {
-    color: #6b7280;
+    color: #6e5a44;
     font-size: 12px;
 }
 
 /* ── Zurück-Button ───────────────────────────────────────────── */
 QPushButton#backButton {
     background: transparent;
-    color: #93c5fd;
+    color: #5a3a22;
     border: none;
     font-size: 13px;
     padding: 4px 8px;
     border-radius: 4px;
 }
 QPushButton#backButton:hover {
-    background: #1e40af;
+    background: #e2d4be;
+    color: #3d2715;
 }
 QPushButton#backButton:disabled {
-    color: #374151;
+    color: #b6a884;
 }
 
 /* ── Linke Seitenleiste ──────────────────────────────────────── */
 QWidget#leftSidebar {
-    background: #f9fafb;
-    border-right: 1px solid #e5e7eb;
+    background: #e6dcc4;
+    border-right: 1px solid #c9bd9d;
 }
 QWidget#leftSidebar QScrollBar:vertical {
     width: 10px;
-    background: #f1f5f9;
+    background: #dccfb0;
     border-radius: 5px;
     margin: 0px;
 }
 QWidget#leftSidebar QScrollBar::handle:vertical {
-    background: #1e3a5f;
+    background: #5a3a22;
     min-height: 20px;
     border-radius: 5px; 
     margin: 2px;
 }
 QWidget#leftSidebar QScrollBar::handle:vertical:hover {
-    background: #1e40af;
+    background: #4a2f1c;
 }
 QWidget#leftSidebar QScrollBar::add-line:vertical, 
 QWidget#leftSidebar QScrollBar::sub-line:vertical {
     height: 0px;
 }
 QLineEdit#searchField {
-    border: 1px solid #d1d5db;
+    border: 1px solid #9a8c68;
     border-radius: 6px;
     padding: 7px 10px;
     font-size: 13px;
-    background: white;
+    background: #f0e8d4;
+    color: #3a2f22;
 }
 QLineEdit#searchField:focus {
-    border-color: #2563eb;
+    border-color: #5a3a22;
 }
 QTreeWidget#articleTree {
     border: none;
     background: transparent;
+    color: #3a2f22;
     font-size: 13px;
     outline: 0;
     show-decoration-selected: 1;
@@ -192,14 +236,14 @@ QTreeWidget#articleTree {
 QTreeWidget#articleTree::item {
     padding: 4px 4px;
     border-radius: 5px;
-    color: #374151;
+    color: #3a2f22;
 }
 QTreeWidget#articleTree::item:hover {
-    background: #e5e7eb;
+    background: #d4c3a8;
 }
 QTreeWidget#articleTree::item:selected {
-    background: #dbeafe;
-    color: #1e40af;
+    background: #e2d4be;
+    color: #3d2715;
 }
 QTreeWidget#articleTree::branch:has-children:!has-siblings:closed,
 QTreeWidget#articleTree::branch:closed:has-children:has-siblings {
@@ -210,62 +254,62 @@ QTreeWidget#articleTree::branch:open:has-children:has-siblings {
     border-image: none;
 }
 QLabel#countLabel {
-    color: #9ca3af;
+    color: #8e7a62;
     font-size: 11px;
 }
 
 /* ── Rechte Seitenleiste ─────────────────────────────────────── */
 QWidget#rightSidebar {
-    background: #f9fafb;
-    border-left: 1px solid #e5e7eb;
+    background: #e6dcc4;
+    border-left: 1px solid #c9bd9d;
 }
 QWidget#rightSidebar QScrollBar:vertical {
     width: 10px;
-    background: #f1f5f9;
+    background: #dccfb0;
     border-radius: 5px;
     margin: 0px;
 }
 QWidget#rightSidebar QScrollBar::handle:vertical {
-    background: #1e3a5f;
+    background: #5a3a22;
     min-height: 20px;
     border-radius: 5px; 
     margin: 2px;
 }
 QWidget#rightSidebar QScrollBar::handle:vertical:hover {
-    background: #1e40af;
+    background: #4a2f1c;
 }
 QWidget#rightSidebar QScrollBar::add-line:vertical, 
 QWidget#rightSidebar QScrollBar::sub-line:vertical {
     height: 0px;
 }
 QLabel#sectionLabel {
-    color: #9ca3af;
+    color: #8e7a62;
     font-size: 10px;
     letter-spacing: 0.05em;
     font-weight: 600;
 }
 QFrame#divider {
-    background: #e5e7eb;
+    background: #c9bd9d;
     max-height: 1px;
     margin: 8px 0;
 }
 
 /* ── Artikel-Header (Kategorie, Badges) ──────────────────────── */
 QLabel#categoryLabel {
-    color: #6b7280;
+    color: #6e5a44;
     font-size: 12px;
     letter-spacing: 0.05em;
 }
 QLabel#symbolBadge {
-    background: #dbeafe;
-    color: #1e40af;
+    background: #e2d4be;
+    color: #3d2715;
     padding: 2px 8px;
     border-radius: 4px;
     font-size: 12px;
 }
 QLabel#einheitBadge {
-    background: #f0fdf4;
-    color: #166534;
+    background: #dde3d0;
+    color: #4a5d2c;
     padding: 2px 8px;
     border-radius: 4px;
     font-size: 12px;
@@ -273,11 +317,11 @@ QLabel#einheitBadge {
 
 /* ── Bild-Fehler & Alt-Text ──────────────────────────────────── */
 QLabel#imageError {
-    color: #9ca3af;
+    color: #8e7a62;
     font-size: 13px;
 }
 QLabel#imageAlt {
-    color: #6b7280;
+    color: #6e5a44;
     font-size: 12px;
     font-style: italic;
 }
@@ -285,18 +329,18 @@ QLabel#imageAlt {
 /* ── Link-Buttons (Verlinkungen) ─────────────────────────────── */
 QPushButton#foundLink {
     background: transparent;
-    color: #2563eb;
+    color: #5a3a22;
     border: none;
     font-size: 12px;
     padding: 2px 4px;
     text-align: left;
 }
 QPushButton#foundLink:hover {
-    color: #1d4ed8;
+    color: #3d2715;
 }
 QPushButton#brokenLink {
     background: transparent;
-    color: #9ca3af;
+    color: #8e7a62;
     border: none;
     font-size: 12px;
     padding: 2px 4px;
@@ -305,22 +349,22 @@ QPushButton#brokenLink {
 
 /* ── Formel-Buttons (rechte Seitenleiste) ────────────────────── */
 QPushButton#formulaButton {
-    background: #e8f0fe;
-    color: #1e3a8a;
+    background: #ebdfca;
+    color: #3d2715;
     border: none;
     border-radius: 5px;
     font-size: 11px;
-    font-family: monospace;
+    font-family: "Consolas", "Menlo", "DejaVu Sans Mono", monospace;
     padding: 3px 8px;
     text-align: left;
 }
 QPushButton#formulaButton:hover {
-    background: #c7d7f9;
+    background: #d4c3a8;
 }
 
 /* ── Leerzustand-Labels (Keine Tags / Verlinkungen / Formeln) ── */
 QLabel#emptyLabel {
-    color: #d1d5db;
+    color: #b6a884;
     font-size: 12px;
 }
 
@@ -330,8 +374,8 @@ QLabel#emptyLabel {
 
 /* ── Formel-Seitenleiste (HelpView) ──────────────────────────── */
 QWidget#formulaPage {
-    background: #f8fafc;
-    border-right: 1px solid #e2e8f0;
+    background: #e2d8bf;
+    border-right: 1px solid #c9bd9d;
 }
 QListWidget#formulaList {
     background: transparent;
@@ -341,33 +385,34 @@ QListWidget#formulaList {
 }
 QListWidget#formulaList::item {
     padding: 5px 14px;
-    color: #374151;
+    color: #3a2f22;
     font-size: 13px;
     border: none;
 }
 QListWidget#formulaList::item:selected {
-    background: #e0e7ff;
-    color: #1e3a8a;
+    background: #dfe2d8;
+    color: #1f2a1f;
 }
 QListWidget#formulaList::item:hover {
-    background: #eef2ff;
+    background: #ebdfca;
 }
 QTextBrowser#formulaDisplay {
-    background: white;
+    background: #f0e8d4;
+    color: #3a2f22;
     border: none;
     padding: 28px 36px;
 }
 QTextBrowser#formulaDisplay QScrollBar:vertical {
     width: 10px;
-    background: #f1f5f9;
+    background: #dccfb0;
 }
 QTextBrowser#formulaDisplay QScrollBar::handle:vertical {
-    background: #1e3a5f;
+    background: #5a3a22;
     border-radius: 5px;
     min-height: 30px;
 }
 QTextBrowser#formulaDisplay QScrollBar::handle:vertical:hover {
-    background: #1e40af;
+    background: #4a2f1c;
 }
 QTextBrowser#formulaDisplay QScrollBar::add-line:vertical,
 QTextBrowser#formulaDisplay QScrollBar::sub-line:vertical {
@@ -376,23 +421,25 @@ QTextBrowser#formulaDisplay QScrollBar::sub-line:vertical {
 
 /* ── SettingsDialog ──────────────────────────────────────────── */
 SettingsDialog {
-    background: #ffffff;
+    background: #f0e8d4;
 }
 SettingsDialog QLabel {
-    color: #111827;
+    color: #1f1812;
 }
 SettingsDialog QRadioButton {
-    color: #374151;
+    color: #3a2f22;
     padding: 4px 0;
     font-size: 13px;
 }
 SettingsDialog QSpinBox {
     padding: 3px 6px;
-    border: 1px solid #d1d5db;
+    border: 1px solid #9a8c68;
     border-radius: 4px;
+    background: #f0e8d4;
+    color: #3a2f22;
 }
 QLabel#settingsHeading {
-    color: #6b7280;
+    color: #6e5a44;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.05em;
@@ -401,18 +448,18 @@ QLabel#settingsHeading {
 }
 QPushButton#cancelButton {
     background: transparent;
-    color: #6b7280;
-    border: 1px solid #d1d5db;
+    color: #6e5a44;
+    border: 1px solid #9a8c68;
     border-radius: 5px;
     font-size: 12px;
     padding: 5px 14px;
 }
 QPushButton#cancelButton:hover {
-    background: #f9fafb;
+    background: #e6dcc4;
 }
 QPushButton#okButton {
-    background: #4f46e5;
-    color: white;
+    background: #1f2a1f;
+    color: #ebe2cd;
     border: none;
     border-radius: 5px;
     font-size: 12px;
@@ -420,39 +467,39 @@ QPushButton#okButton {
     padding: 6px 16px;
 }
 QPushButton#okButton:hover {
-    background: #4338ca;
+    background: #0f1a0f;
 }
 
 /* ── CAS-Toolbar ─────────────────────────────────────────────── */
 QWidget#casToolbar {
-    background: #f8fafc;
-    border-bottom: 1px solid #e2e8f0;
+    background: #e2d8bf;
+    border-bottom: 1px solid #c9bd9d;
 }
 QLabel#casTitle {
-    color: #1e3a5f;
+    color: #5a3a22;
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.02em;
 }
 QFrame#casSeparator {
-    color: #e2e8f0;
+    color: #c9bd9d;
     max-width: 1px;
     margin: 10px 0;
 }
 QWidget#plotPanel {
-    background: #ffffff;
-    border-left: 1px solid #e2e8f0;
+    background: #f0e8d4;
+    border-left: 1px solid #c9bd9d;
 }
 QWidget#plotPanel QCheckBox {
-    color: #374151;
+    color: #3a2f22;
     font-size: 12px;
 }
 QPushButton#helpButton,
 QPushButton#settingsButton,
 QPushButton#graphButton {
     background: transparent;
-    color: #4f46e5;
-    border: 1px solid #c7d2fe;
+    color: #1f2a1f;
+    border: 1px solid #5e6a5e;
     border-radius: 5px;
     font-size: 12px;
     font-weight: 600;
@@ -461,50 +508,50 @@ QPushButton#graphButton {
 QPushButton#helpButton:hover,
 QPushButton#settingsButton:hover,
 QPushButton#graphButton:hover {
-    background: #eef2ff;
+    background: #d6dad0;
 }
 QPushButton#helpButton:disabled,
 QPushButton#settingsButton:disabled,
 QPushButton#graphButton:disabled {
-    color: #a5b4fc;
-    border-color: #e0e7ff;
+    color: #8a9088;
+    border-color: #dfe2d8;
 }
 QLabel#statusLabel {
-    color: #6b7280;
+    color: #6e5a44;
     font-size: 11px;
     font-weight: 500;
     padding: 2px 10px;
 }
 QPushButton#clearButton {
     background: transparent;
-    color: #6b7280;
-    border: 1px solid #d1d5db;
+    color: #6e5a44;
+    border: 1px solid #9a8c68;
     border-radius: 5px;
     font-size: 12px;
     padding: 4px 12px;
 }
 QPushButton#clearButton:hover {
-    background: #fef2f2;
-    color: #dc2626;
-    border-color: #fca5a5;
+    background: #ecd8cc;
+    color: #7a2a18;
+    border-color: #c89880;
 }
 
 /* ── Editor-ScrollArea ───────────────────────────────────────── */
 QScrollArea#editorScroll {
-    background: white;
+    background: #f0e8d4;
 }
 
 /* ── CAS-Tab-Zeile (innere Tab-Leiste) ───────────────────────── */
 QWidget#casTabRow {
-    background: #f1f5f9;
-    border-bottom: 1px solid #e2e8f0;
+    background: #dccfb0;
+    border-bottom: 1px solid #c9bd9d;
 }
 QTabBar#casTabBar {
     background: transparent;
 }
 QTabBar#casTabBar::tab {
     background: transparent;
-    color: #6b7280;
+    color: #6e5a44;
     border: 1px solid transparent;
     border-bottom: none;
     border-top-left-radius: 5px;
@@ -514,15 +561,17 @@ QTabBar#casTabBar::tab {
     padding: 4px 14px;
     font-size: 12px;
     margin-right: 2px;
+    /* CAS-Tabs in Monospace, da sie Formelnamen / CAS N tragen */
+    font-family: "Consolas", "Menlo", "DejaVu Sans Mono", monospace;
 }
 QTabBar#casTabBar::tab:hover {
-    background: #e2e8f0;
-    color: #374151;
+    background: #c9bd9d;
+    color: #3a2f22;
 }
 QTabBar#casTabBar::tab:selected {
-    background: white;
-    color: #1e3a5f;
-    border-color: #e2e8f0;
+    background: #f0e8d4;
+    color: #5a3a22;
+    border-color: #c9bd9d;
     font-weight: 600;
 }
 QTabBar#casTabBar::close-button {
@@ -531,19 +580,19 @@ QTabBar#casTabBar::close-button {
     padding: 1px;
 }
 QTabBar#casTabBar::close-button:hover {
-    background: #fecaca;
+    background: #ecd8cc;
     border-radius: 3px;
 }
 QPushButton#casAddTabBtn {
     background: transparent;
-    color: #6b7280;
-    border: 1px solid #d1d5db;
+    color: #6e5a44;
+    border: 1px solid #9a8c68;
     border-radius: 5px;
     font-size: 16px;
     font-weight: 400;
 }
 QPushButton#casAddTabBtn:hover {
-    background: #dbeafe;
-    color: #1e3a5f;
-    border-color: #93c5fd;
+    background: #e2d4be;
+    color: #5a3a22;
+    border-color: #5a3a22;
 }

@@ -36,11 +36,10 @@ Jede Logikfamilie definiert vier kritische Spannungen:
 | V_IL | Maximale Eingangsspannung, die als 0 erkannt wird |
 
 **Rauschspanne (Noise Margin)**:
-```
+:::monospace
 NM_H = V_OH - V_IH    # High-Rauschspanne
 NM_L = V_IL - V_OL    # Low-Rauschspanne
-```
-
+:::
 ---
 
 ## TTL (Transistor-Transistor-Logik)
@@ -123,11 +122,10 @@ Für hohe Geschwindigkeiten (>100 MHz, Gbits/s):
 - Sehr geringe Emission (elektromagnetisch): kleine Schwingung, hohe CMRR
 - Abschlusswiderstand: 100Ω zwischen den Leitungen am Empfänger
 
-```
+:::monospace
 Sender: D+ = 1.375V, D– = 1.025V → Diff = +350mV → logisch 1
          D+ = 1.025V, D– = 1.375V → Diff = –350mV → logisch 0
-```
-
+:::
 Anwendungen: HDMI, DisplayPort, MIPI CSI (Kamera), Hochgeschwindigkeits-ADC/DAC-Verbindungen.
 
 ---
@@ -136,10 +134,9 @@ Anwendungen: HDMI, DisplayPort, MIPI CSI (Kamera), Hochgeschwindigkeits-ADC/DAC-
 
 Fanout gibt an, wie viele gleiche Gatter-Eingänge ein Ausgang treiben kann, ohne die Pegel zu verletzen.
 
-```
+:::formel
 Fanout = min(I_OH / I_IH, I_OL / I_IL)
-```
-
+:::
 | Familie | Typischer Fanout |
 |---|---|
 | TTL | 10 |

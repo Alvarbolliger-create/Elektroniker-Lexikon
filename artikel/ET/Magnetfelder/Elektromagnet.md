@@ -34,10 +34,9 @@ Mehr Windungen, mehr Strom, besserer Kern: stärkeres Feld.
 
 ## Magnetomotorische Kraft
 
-```
+:::monospace
 H * l = N * I       # Durchflutungsgesetz; N = Windungszahl, I = Strom, l = Feldlinienlänge
-```
-
+:::
 N × I heisst auch Amperewindungen. Je mehr Amperewindungen, desto stärker das Feld.
 
 ## Remanenz

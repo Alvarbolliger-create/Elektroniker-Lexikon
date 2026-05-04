@@ -1,0 +1,8 @@
+U_ein ──[NPN-Transistor]──┬── U_aus
+       (Emitterfolger)    |
+                         [R1]
+                          |
+                     (+)──┤ OPV ──── Basis des NPN
+                [R2]──(−)─┘
+                          |
+                         GND

@@ -1,0 +1,5 @@
+Bit3 --2R-- +--2R-- +--2R-- +--2R-- Ausgang
+             |       |       |
+             R       R       R
+             |       |       |
+            GND     GND     GND

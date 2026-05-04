@@ -26,24 +26,18 @@ Das R-2R-Netzwerk ist die einfachste Methode einen DAC mit diskreten Widerständ
 
 Das Netzwerk besteht aus Widerständen R und 2R in einer Leiterstruktur. Jedes Bit steuert einen Schalter der das entsprechende 2R-Glied entweder mit Vref oder GND verbindet.
 
-```
-Bit3 --2R-- +--2R-- +--2R-- +--2R-- Ausgang
-             |       |       |
-             R       R       R
-             |       |       |
-            GND     GND     GND
-```
-
+:::schematic
+/Diagramm/r2r_netzwerk_0.svg
+:::
 ## Wirkungsprinzip
 
 Durch die R-2R-Struktur liefert jedes Bit genau die Hälfte des Strombeitrags des nächsthöheren Bits. MSB liefert Vref/2, das nächste Bit Vref/4, und so weiter.
 
 Die Ausgangsspannung ist:
 
-```
+:::formel
 U_aus = Vref × (Bit_n-1 × 2^(n-1) + ... + Bit_0 × 2^0) / 2^n
-```
-
+:::
 ## Vorteile
 
 - Nur zwei Widerstandswerte nötig

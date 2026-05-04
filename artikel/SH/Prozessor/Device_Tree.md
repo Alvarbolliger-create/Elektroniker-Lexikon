@@ -33,13 +33,12 @@ Einmal geschriebener Kernel-Code läuft auf allen Boards wenn der Device Tree st
 **DTB (Device Tree Blob)**: Kompilierte Binärversion (.dtb). Wird beim Booten vom Bootloader an den Kernel übergeben.
 
 Compiliert mit:
-```
+:::formel
 dtc -O dtb -o output.dtb input.dts
-```
-
+:::
 ## Aufbau
 
-```dts
+:::monospace
 / {
     model = "Mein Board";
     compatible = "hersteller,meinboard";
@@ -56,8 +55,7 @@ dtc -O dtb -o output.dtb input.dts
         status = "disabled";
     };
 };
-```
-
+:::
 `reg` gibt die Basisadresse und Grösse der Register an. `compatible` verbindet den Knoten mit dem richtigen Treiber.
 
 ## Overlays

@@ -29,10 +29,9 @@ Kondensatoren gibt es in vielen Ausführungen. Jeder Typ hat andere Stärken. Di
 
 Jeder reale Kondensator hat einen parasitären Serienwiderstand (ESR). Bei hohen Wechselströmen erzeugt er Wärme und begrenzt die Effizienz. In Schaltnetzteilen beeinflusst der ESR direkt die Restwelligkeit der Ausgangsspannung:
 
-```
+:::formel
 U_ripple = I_ripple * ESR
-```
-
+:::
 Niedrig-ESR-Kondensatoren sind in Netzteilen und DC/DC-Wandlern Pflicht. Im Datenblatt unter "ESR" oder "Impedanz bei 100 kHz" zu finden.
 
 ---

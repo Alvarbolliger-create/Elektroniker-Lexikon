@@ -34,10 +34,9 @@ Beim konventionellen Schalten schaltet der Transistor, während gleichzeitig Spa
 
 Die Energie aus der parasitären Drain-Source-Kapazität (COSS) wird bei jedem Einschalten vernichtet:
 
-```
+:::monospace
 P_COSS = 0.5 × C_OSS × U_DS² × f    # proportional zu Frequenz
-```
-
+:::
 Bei 1 MHz und modernen GaN-Transistoren werden diese Verluste dominant.
 
 ## ZVS (Zero Voltage Switching)

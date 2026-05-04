@@ -43,10 +43,9 @@ Jede Fehlerart wird mit drei Faktoren bewertet, je 1-10:
 - **A** (Auftretenswahrscheinlichkeit): Wie wahrscheinlich ist die Ursache?
 - **E** (Entdeckungswahrscheinlichkeit): Wie wahrscheinlich ist es, den Fehler vor dem Kunden zu entdecken?
 
-```
+:::formel
 RPZ = B × A × E
-```
-
+:::
 Hohe RPZ = hohe Priorität für Massnahmen. Schwellwert oft bei RPZ > 100 oder > 125.
 
 ## Design-FMEA vs. Prozess-FMEA

@@ -42,14 +42,9 @@ Das ist der praktischste Flipfloptype. Fast alle Register in Mikroprozessoren si
 
 Ein taktgesteuertes D-Flipflop lässt sich aus 4 NAND-Gattern aufbauen:
 
-```
-D ──┬── NAND1 ──── NAND3 ──┬── Q
-    │      \      /         │
-CLK ┤   NAND2 ──── NAND4 ──┴── Q̄
-    │
-    └── (invertiert für NAND2)
-```
-
+:::schematic
+/Diagramm/flipflops_0.svg
+:::
 Vereinfacht: Zwei SR-Flipflops (aus je 2 NAND-Gattern) werden verschaltet. Der Takt steuert, wann D eingelesen werden darf.
 
 ### Master-Slave-Konfiguration (flankengetaktetes D-FF)
@@ -58,10 +53,9 @@ Ein einfaches taktgesteuertes Flipflop ist **pegelgesteuert**: es übernimmt D s
 
 Lösung: **Master-Slave-D-Flipflop**:
 
-```
+:::monospace
 D → [Master-Latch (CLK=1)] → [Slave-Latch (CLK=0, invertierter Takt)] → Q
-```
-
+:::
 - **Master** ist offen (übernimmt D) wenn CLK = 1
 - **Slave** ist offen wenn CLK = 0 (invertierter Takt)
 - Q ändert sich nur beim Übergang CLK 1→0 (fallende Flanke)

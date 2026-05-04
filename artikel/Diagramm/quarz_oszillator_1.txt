@@ -1,0 +1,8 @@
+        Quarz
+    +---[XTAL]---+
+    |             |
+   C1            C2
+    |             |
+   GND           GND
+         ↑
+   Invertierendes Gatter (oder Transistor)

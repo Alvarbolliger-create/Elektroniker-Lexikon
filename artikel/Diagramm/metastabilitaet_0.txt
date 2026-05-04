@@ -1,0 +1,2 @@
+CLK:  ______|‾‾‾‾‾‾
+D:    ----[stabil: t_su]---[takt]---[stabil: t_h]---

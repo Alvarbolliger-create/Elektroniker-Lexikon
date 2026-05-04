@@ -30,10 +30,9 @@ Zu dünne Leitungen werden heiss. Zu schwache Sicherungen schmelzen zu früh, zu
 
 Jeder Leiter hat einen spezifischen Widerstand. Bei Kupfer sind es 0.0178 Ω × mm²/m.
 
-```
+:::monospace
 R = rho * l / A     # Leitungswiderstand; rho = 0.0178 für Kupfer
-```
-
+:::
 | Grösse | Symbol | Einheit |
 |---|---|---|
 | Spez. Widerstand Kupfer | rho | 0.0178 Ω mm²/m |
@@ -47,10 +46,9 @@ Faustformel: Für 1 mm² Kupfer, 1 m Länge: R = 0.018 Ω. Hin- und Rückleiter 
 
 Ein Leitungswiderstand bedeutet Spannungsverlust unter Last.
 
-```
+:::formel
 U_abfall = I * R_leitung
-```
-
+:::
 In der Norm wird oft ein maximaler Spannungsabfall von 3 % der Nennspannung gefordert. Bei 230 V sind das 6.9 V.
 
 ## Absicherung

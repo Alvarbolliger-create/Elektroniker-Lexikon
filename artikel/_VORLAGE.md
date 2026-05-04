@@ -47,11 +47,10 @@ schaltplaene/beispiel.svg
 
 ## Formeln
 
-```
+:::formel
 Formel_1 = Groesse_A * Groesse_B  # Bedingung: wann gilt diese Formel
 Formel_2 = Groesse_A / Groesse_C  # z.B. nur bei konstantem X
-```
-
+:::
 | Grösse | Symbol | Einheit | Beschreibung |
 |---|---|---|---|
 | Beispielgrösse A | A | V | Kurze Beschreibung |

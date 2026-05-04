@@ -1,0 +1,3 @@
+Flash (Programm) ──[Programmbus]──┐
+                                   ├── CPU
+SRAM  (Daten)    ──[Datenbus]   ──┘

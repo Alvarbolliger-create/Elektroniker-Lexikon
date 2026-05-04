@@ -35,30 +35,26 @@ Zwei Regeln für die Analyse von Schaltungen. Eine gilt an Knoten, die andere in
 
 An jedem Verzweigungspunkt ist die Summe der zufliessenden Ströme gleich der Summe der abfliessenden. Elektronen können sich nicht ansammeln.
 
-```
+:::formel
 I_zu1 + I_zu2 = I_ab1 + I_ab2
-```
-
+:::
 Allgemeine Schreibweise:
 
-```
+:::monospace
 ΣI = 0     # Summe aller Ströme am Knoten (Vorzeichen beachten)
-```
-
+:::
 ## 2. Gesetz: Maschenregel
 
 Die Summe aller Spannungen in einer geschlossenen Masche ist null. Was die Quelle liefert, fällt über den Widerständen ab.
 
-```
+:::formel
 U_quelle - U_R1 - U_R2 = 0
-```
-
+:::
 Allgemeine Schreibweise:
 
-```
+:::monospace
 ΣU = 0     # Summe aller Spannungen in der Masche (Umlaufrichtung einhalten)
-```
-
+:::
 :::warning
 Konsequente Vorzeichen sind entscheidend. Eine Umlaufrichtung wählen und durchhalten, z.B. immer im Uhrzeigersinn. Ein Vorzeichenfehler führt zu einem falschen Ergebnis ohne Hinweis.
 :::

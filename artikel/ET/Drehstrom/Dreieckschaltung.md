@@ -39,11 +39,10 @@ Symbol: Δ (Delta)
 
 Jede Wicklung liegt an der vollen verketteten Spannung. Im Netz sind das 400 V.
 
-```
+:::monospace
 U_strang = U_verkettet      # in Dreieck: Strangspannung = verkettete Spannung
 I_aussen = sqrt(3) * I_strang   # Aussenleiterstrom aus Strangstrom
-```
-
+:::
 ## Vergleich mit Stern
 
 | | Stern (Y) | Dreieck (Δ) |

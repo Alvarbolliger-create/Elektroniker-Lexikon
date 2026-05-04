@@ -32,10 +32,9 @@ Wärme verhält sich analog zu Strom: Verlustleistung ist der Strom, Temperaturd
 
 Thermische Widerstände addieren sich in Reihe: Chip → Gehäuse → Kühlkörper → Luft.
 
-```
+:::formel
 T_junction = T_ambient + P * (R_th_jc + R_th_cs + R_th_sa)
-```
-
+:::
 | Grösse | Symbol | Einheit | Bedeutung |
 |---|---|---|---|
 | Sperrschichttemperatur | T_j | °C | Temperatur im Chip |

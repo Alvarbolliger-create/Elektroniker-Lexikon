@@ -49,13 +49,12 @@ Durch Rücksetzen beim gewünschten Endwert lässt sich ein Zähler auf jede Zah
 
 Jedes Flipflop im Zähler teilt die Taktfrequenz durch 2:
 
-```
+:::formel
 f_Q0 = f_CLK / 2
 f_Q1 = f_CLK / 4
 f_Q2 = f_CLK / 8
 f_Q3 = f_CLK / 16
-```
-
+:::
 Ein 4-Bit-Zähler erzeugt vier Teilfrequenzen. Das ist der einfachste Frequenzteiler.
 
 **Modulo-N Teiler**: Mit Rücksetzlogik lässt sich auf beliebiges N teilen.

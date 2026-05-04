@@ -27,16 +27,14 @@ Der Frequenzgang beschreibt wie ein Verstärker oder Filter auf Signale verschie
 
 Der Verstärkungsfaktor A ist das Verhältnis von Ausgangs- zu Eingangssignal:
 
-```
+:::monospace
 A = U_aus / U_ein     # Spannungsverstärkung, dimensionslos
-```
-
+:::
 In Dezibel:
-```
+:::monospace
 A_dB = 20 × log10(U_aus / U_ein)    # Spannungsverstärkung
 P_dB = 10 × log10(P_aus / P_ein)    # Leistungsverstärkung
-```
-
+:::
 Faktor 10 = 20 dB (Spannung) / 10 dB (Leistung). Faktor 2 = 6 dB (U) / 3 dB (P).
 
 | Faktor | Spannung dB | Leistung dB |
@@ -48,10 +46,9 @@ Faktor 10 = 20 dB (Spannung) / 10 dB (Leistung). Faktor 2 = 6 dB (U) / 3 dB (P).
 | 100 | +40 dB | +20 dB |
 
 **Mehrere Stufen in Reihe**: dB-Werte addieren sich:
-```
+:::formel
 A_total_dB = A1_dB + A2_dB + ... + An_dB
-```
-
+:::
 Beispiel: Verstärker 30 dB, Filter –12 dB → Gesamtverstärkung 18 dB = Faktor 8.
 
 ## -3-dB-Grenzfrequenz
@@ -64,10 +61,9 @@ Sie definiert die Bandbreite des Systems.
 
 Bei OPVs ist das Produkt aus Verstärkung und Bandbreite näherungsweise konstant:
 
-```
+:::formel
 GBP = A × f_-3dB
-```
-
+:::
 Ein OPV mit GBP = 1 MHz und Verstärkung 10 hat f_-3dB ≈ 100 kHz. Mit Verstärkung 100 nur noch 10 kHz.
 
 ## Bode-Diagramm
@@ -82,8 +78,7 @@ Mit Bode-Geraden (asymptotische Näherung) können Filter und Verstärker schnel
 
 Maximale Spannungsänderungsrate am OPV-Ausgang (V/µs). Begrenzt die Amplitude bei hohen Frequenzen auch wenn die Verstärkung noch stimmt.
 
-```
+:::formel
 f_max = Slew Rate / (2π × U_peak)
-```
-
+:::
 Ein OPV mit 1 V/µs kann bei 10 V Amplitude maximal ca. 16 kHz unverzerrt ausgeben.

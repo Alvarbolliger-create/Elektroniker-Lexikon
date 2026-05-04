@@ -40,12 +40,9 @@ Quelle (+) → R1 → R2 → R3 → Quelle (−). Es gibt nur diesen einen Pfad.
 
 ## Formeln
 
-```
-R_ges = R1 + R2 + ... + Rn
-U_n   = U_ges * (R_n / R_ges)
-P_ges = P1 + P2 + ... + Pn
-```
-
+:::schematic
+/Diagramm/reihenschaltung_0.svg
+:::
 `U_n` ist die Spannung an einem einzelnen Widerstand (Spannungsteilerformel). `P_ges` ist die Summe der Verlustleistungen aller Bauteile.
 
 ## Beispiel

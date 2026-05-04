@@ -46,12 +46,11 @@ Zwei leitende Platten, getrennt durch ein Dielektrikum (Isolator). Wird Spannung
 
 ## Grundgrössen
 
-```
+:::monospace
 Q = C * U        # Ladung auf den Platten
 Q = I * t        # Ladung aus Strom und Zeit
 E = 0.5 * C * U^2   # gespeicherte Energie
-```
-
+:::
 | Grösse | Symbol | Einheit |
 |---|---|---|
 | Kapazität | C | F (Farad) |
@@ -78,20 +77,18 @@ Bei der **Reihenschaltung** addieren sich die Kehrwerte — die Gesamtkapazität
 /schaltplaene/kondensator_reihe.svg
 :::
 
-```
+:::formel
 1/C_ges = 1/C1 + 1/C2 + ... + 1/Cn
-```
-
+:::
 Bei der **Parallelschaltung** addieren sich die Kapazitäten direkt:
 
 :::schematic Kondensatoren parallel
 /schaltplaene/kondensator_parallel.svg
 :::
 
-```
+:::formel
 C_ges = C1 + C2 + ... + Cn
-```
-
+:::
 :::tip
 Parallel ist das Gegenteil von Widerständen: Kondensatoren in Reihe werden kleiner, Kondensatoren parallel werden grösser.
 :::

@@ -27,10 +27,9 @@ Die Isolationsmessung prüft ob die Isolation zwischen spannungsführenden Teile
 
 Ein Isolationsmessgerät (Megger) legt eine hohe Gleichspannung zwischen den zu prüfenden Punkten an und misst den fliessenden Strom. Daraus berechnet es den Widerstand.
 
-```
+:::formel
 R = U_prüf / I
-```
-
+:::
 Messspannungen: 250 V, 500 V, 1000 V, 2500 V je nach Nennspannung des Prüflings.
 
 ## Typische Prüfspannungen

@@ -42,10 +42,9 @@ Elektromagnetische Störungen koppeln immer über einen von vier Mechanismen. We
 
 Ein Strompuls in Schaltkreis A erzeugt einen Spannungsabfall über die gemeinsame Impedanz Z_gemeinsam. Schaltkreis B "sieht" diesen Spannungsabfall als Störung.
 
-```
+:::formel
 U_Stoerung = I_A × Z_gemeinsam
-```
-
+:::
 **PCB-Gegenmassnahme**:
 - Massefläche statt Massesternpunkt bei HF
 - Getrennte Entkopplungskondensatoren pro IC
@@ -58,10 +57,9 @@ U_Stoerung = I_A × Z_gemeinsam
 
 **Ursache**: Das elektrische Feld zwischen zwei Leitungen koppelt Spannungsänderungen. Die Kopplungskapazität hängt vom Abstand, der Parallelläuflänge und der Dielektrizität ab.
 
-```
+:::monospace
 I_koppel = C_koppel × dU/dt    # Störstrom proportional zu Spannungsänderung
-```
-
+:::
 **Typisch**: Schnelle Spannungsänderungen (PWM-Taktleitungen, Schalttransistoren) koppeln auf benachbarte Signalleitungen.
 
 **PCB-Gegenmassnahme**:
@@ -76,10 +74,9 @@ I_koppel = C_koppel × dU/dt    # Störstrom proportional zu Spannungsänderung
 
 **Ursache**: Ein sich ändernder Strom erzeugt ein magnetisches Wechselfeld, das in eine benachbarte Schleife eine Spannung induziert. Die Gegenseitigkeitsinduktivität M bestimmt die Kopplung.
 
-```
+:::monospace
 U_koppel = M × dI/dt    # Störspannung proportional zu Stromänderung
-```
-
+:::
 **Typisch**: Hohe dI/dt bei Schalttransistoren, Motoren, Relais. Koppelt auf Messleitungen, Signalkabel.
 
 **PCB-Gegenmassnahme**:

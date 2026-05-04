@@ -30,10 +30,9 @@ Zwei grundlegende Schaltungen: Der Spannungsteiler gibt eine Teilspannung aus. D
 
 R1 und R2 in Reihe an U_ein. Am Verbindungspunkt liegt U_aus.
 
-```
+:::formel
 U_aus = U_ein * R2 / (R1 + R2)
-```
-
+:::
 Die Spannung teilt sich proportional zu den Widerständen auf. Ein Potentiometer ist ein einstellbarer Spannungsteiler.
 
 **Typische Anwendungen:** Pegelanpassung, Sensor-Vorspannung, Referenzspannung für ADC-Eingänge.
@@ -42,11 +41,10 @@ Die Spannung teilt sich proportional zu den Widerständen auf. Ein Potentiometer
 
 Sobald eine Last R_L parallel zu R2 liegt, sinkt U_aus. Die Parallelschaltung aus R2 und R_L ersetzt R2 in der Formel:
 
-```
+:::formel
 U_aus = U_ein * (R2 || R_L) / (R1 + (R2 || R_L))
 R2 || R_L = (R2 * R_L) / (R2 + R_L)
-```
-
+:::
 Faustregel: Der Teiler-Ruhestrom sollte mindestens zehnmal grösser sein als der Laststrom.
 
 | R1 | R2 | U_aus bei 12 V |
@@ -62,11 +60,10 @@ Beide Teiler geben dieselbe Spannung, aber der erste zieht zehnmal mehr Ruhestro
 
 R1 und R2 parallel an einer Stromquelle I_ges. Der Strom verteilt sich umgekehrt proportional zu den Widerständen.
 
-```
+:::formel
 I_1 = I_ges * R2 / (R1 + R2)
 I_2 = I_ges * R1 / (R1 + R2)
-```
-
+:::
 **Typische Anwendungen:** Strommessung mit Shunt-Widerstand, Parallelschalten von Bauteilen.
 
 ### Beispiel

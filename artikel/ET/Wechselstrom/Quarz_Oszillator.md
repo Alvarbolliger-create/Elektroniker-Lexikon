@@ -32,10 +32,9 @@ Der Piezoeffekt bewirkt, dass mechanische Verformung eine elektrische Spannung e
 
 Elektrisch verhält sich ein Quarz wie ein RLC-Schwingkreis mit sehr hoher Güte:
 
-```
+:::monospace
 Q_quarz ≈ 10 000 bis 100 000     # typische Güte
-```
-
+:::
 Zum Vergleich: Ein LC-Schwingkreis erreicht Q ≈ 10–200.
 
 ## Serienresonanz und Parallelresonanz

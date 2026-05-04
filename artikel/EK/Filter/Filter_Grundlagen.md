@@ -41,10 +41,9 @@ Filter lassen bestimmte Frequenzen durch und dämpfen andere. Sie sind in fast j
 
 Die -3 dB Frequenz (Grenzfrequenz f_g) ist die Frequenz bei der die Ausgangsamplitude auf 70.7 % des Eingangs gesunken ist.
 
-```
+:::monospace
 f_g = 1 / (2 * pi * R * C)     # RC-Tiefpass und Hochpass
-```
-
+:::
 ## Filterordnung
 
 Jede Ordnung fügt 20 dB/Dekade Dämpfung hinzu. Ein Filter 1. Ordnung: 20 dB/Dek. 2. Ordnung: 40 dB/Dek. Mehr Ordnungen: steilere Flanke, aber komplexere Schaltung.

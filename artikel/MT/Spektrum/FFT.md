@@ -41,10 +41,9 @@ Ein reines Sinus bei 1 kHz zeigt eine einzelne Linie bei 1 kHz. Ein Rechteck bei
 
 ## Auflösung
 
-```
+:::monospace
 f_aufloesung = f_abtast / N     # Frequenzauflösung; N = Anzahl Punkte der FFT
-```
-
+:::
 Mehr Punkte: bessere Frequenzauflösung, längere Berechnung.
 
 ## Fensterung (Windowing)

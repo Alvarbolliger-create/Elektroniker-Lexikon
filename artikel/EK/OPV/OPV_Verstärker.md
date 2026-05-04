@@ -30,10 +30,9 @@ Misst die Differenz zweier Signale. Unterdrückt Gleichtaktanteile (Common Mode)
 
 Schaltung mit vier gleichen Widerständen R:
 
-```
+:::formel
 U_out = (U_2 - U_1) × R_f / R_in
-```
-
+:::
 Problem: Eingangsimpedanz abhängig von der Verstärkung, Widerstandsmatching kritisch.
 
 ## Instrumentenverstärker (INA)
@@ -43,19 +42,16 @@ Ein einfacher Differenzverstärker (ein OPV mit vier Widerständen) hat ein Prob
 Der **3-OPV-Instrumentenverstärker** löst das:
 
 **Aufbau**:
-```
-U_1 → [OPV A] ──┐
-                  ├── [OPV C (Differenzverstärker)] → U_out
-U_2 → [OPV B] ──┘
-```
-
+:::schematic
+/Diagramm/opv_verstärker_0.svg
+:::
 - OPV A und OPV B sind Pufferverstärker mit Gegenkopplung, zwischen deren invertierenden Eingängen ein einziger Widerstand R_G liegt
 - Die beiden Ausgänge von A und B gehen auf einen klassischen Differenzverstärker (OPV C)
 
 **Verstärkung**:
-```
+:::monospace
 A = (1 + 2×R / R_G) × 1    # erste Stufe verstärkt, zweite subtrahiert
-```
+:::
 Die Verstärkung lässt sich mit einem einzigen Widerstand R_G einstellen.
 
 **Entscheidender Vorteil gegenüber einfachem Differenzverstärker**:
@@ -73,20 +69,18 @@ Typische ICs: INA128, INA333, AD8221.
 
 Wandelt Strom in Spannung. Rückkopplung über Widerstand vom Ausgang zum invertierenden Eingang, Strom wird direkt in den Eingang eingespeist.
 
-```
+:::formel
 U_out = I_in × R_f
-```
-
+:::
 Einsatz: Fotodioden-Auswertung, Strommessung.
 
 ## Summerverstärker
 
 Mehrere Eingangssignale werden über Widerstände addiert:
 
-```
+:::formel
 U_out = -R_f × (U_1/R_1 + U_2/R_2 + ...)
-```
-
+:::
 DAC-Aufbau, Audiomixer.
 
 ## Spannungs-Strom-Wandler (Howland-Strom)
@@ -97,18 +91,14 @@ Liefert einen definierten Strom unabhängig von der Last. Basis für Konstantstr
 
 Der Logarithmische Verstärker erzeugt eine Ausgangsspannung proportional zum Logarithmus der Eingangsspannung. Dazu wird eine Diode oder ein BJT-Transistor in die Rückkopplungsschleife des OPV geschaltet:
 
-```
-Eingang → R_in → (−) → OPV → Ausgang
-                         ↓
-                   [Diode/BJT] in Rückkopplung
-```
-
+:::schematic
+/Diagramm/opv_verstärker_1.svg
+:::
 Das Verhalten basiert auf der exponentiellen Diodenkennlinie:
 
-```
+:::monospace
 U_out = -U_T × ln(U_in / (I_S × R_in))    # U_T = 26 mV bei 25°C (Temperaturspannung)
-```
-
+:::
 **Vorteil**: Grosse Dynamikbereiche auf wenig Aussteuerbereich darstellen (z.B. Signale von 1 µV bis 1 V auf 0–1 V komprimieren).
 
 **Nachteil**: Stark temperaturabhängig (U_T = k×T/q), Kalibration nötig. Nur für positive Eingangsspannungen.

@@ -29,7 +29,7 @@ Der DMA-Controller überträgt Daten direkt zwischen Peripherie und Speicher, oh
 
 Ohne DMA muss die CPU jeden Byte einzeln übertragen:
 
-```c
+:::monospace
 // UART Empfang ohne DMA
 while (bytes_to_receive > 0) {
     while (!UART_RxReady());    // warten
@@ -37,15 +37,14 @@ while (bytes_to_receive > 0) {
     bytes_to_receive--;
 }
 // CPU ist die ganze Zeit blockiert
-```
-
+:::
 Bei 1 Mbit/s UART und 8-Bit-Daten: 125'000 CPU-Interrupts pro Sekunde, jede mit Overhead. Das schluckt erhebliche CPU-Kapazität.
 
 ## DMA-Lösung
 
 Der DMA-Controller übernimmt die Übertragung selbst:
 
-```c
+:::monospace
 // DMA konfigurieren
 DMA_Config.Source = &UART->DR;         // Quelle: UART-Register
 DMA_Config.Destination = buffer;        // Ziel: RAM
@@ -61,20 +60,14 @@ void DMA_IRQHandler(void) {
     // Alle 1000 Bytes empfangen
     process_buffer();
 }
-```
-
+:::
 ## Architektur: Busmatrix
 
 Moderne Mikrocontroller haben eine Busmatrix — ein Kreuzschalter der mehrere Busse parallel nutzen lässt.
 
-```
-CPU ────────────────────────┐
-                            ├── RAM
-DMA-Controller ─────────────┤
-                            ├── Flash
-Peripherie (SPI, ADC...) ──┘
-```
-
+:::schematic
+/Diagramm/dma_0.svg
+:::
 CPU und DMA können gleichzeitig auf den Bus zugreifen, wenn sie auf verschiedene Speicherbereiche zugreifen. Bei Konflikt (beide auf denselben Bus) bekommt DMA meist Vorrang (da zeitkritischer).
 
 ## DMA-Transfermodi
@@ -101,7 +94,7 @@ Ein DMA-Controller hat mehrere Kanäle (typisch 4–16). Jeder Kanal hat:
 
 Bei Mikrocontrollern mit Cache (Cortex-A, Cortex-M7) muss sichergestellt werden, dass der DMA nicht auf gecachte Daten schreibt, ohne den Cache zu invalidieren. Fehlender Cache-Flush führt zu Datenkorruption — ein häufiger Fehler.
 
-```c
+:::monospace
 // Vor DMA-Transfer: Cache invalidieren
 SCB_InvalidateDCache_by_Addr(buffer, size);
-```
+:::

@@ -63,10 +63,9 @@ Die Gesamtimpedanz ist der geometrische Summenpfeil aller Zeiger.
 
 Ein Zeiger ist mathematisch eine komplexe Zahl in Polarform:
 
-```
+:::monospace
 U = |U| * e^(j*φ) = |U| * (cos(φ) + j*sin(φ))
-```
-
+:::
 Die grafische Addition von Zeigern im Diagramm entspricht der Addition komplexer Zahlen. Die Länge des resultierenden Zeigers ist der Betrag, der Winkel ist die Phase — dieselben Grössen die in [[Impedanz]] berechnet werden.
 
 :::tip

@@ -37,10 +37,9 @@ Symbol: Y
 
 ## Spannungsverhältnisse
 
-```
+:::monospace
 U_verkettet = sqrt(3) * U_strang     # verkettete Spannung aus Strangspannung
-```
-
+:::
 Im Netz: U_strang = 230 V, U_verkettet = 400 V.
 
 Strangspannung ist die Spannung von einem Aussenleiter zum Neutralleiter.

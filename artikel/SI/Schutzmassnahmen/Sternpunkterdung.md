@@ -28,12 +28,9 @@ Bei der Sternpunkterdung werden alle Masseleitungen an einem einzigen Punkt zusa
 
 Alle Massepfade führen zu einem gemeinsamen Punkt — dem Sternpunkt. Von diesem Punkt geht genau eine Verbindung zur Schutzerde (PE).
 
-```
-Analog-GND ──┐
-Digital-GND ──┤──── Sternpunkt ──── PE
-Leistungs-GND ┘
-```
-
+:::schematic
+/Diagramm/sternpunkterdung_0.svg
+:::
 Vorteil: Es gibt keine Masseschleifen. Jeder Stromkreis hat seinen eigenen, definierten Rückweg.
 
 ## Masseschleifen und Brummen
@@ -54,10 +51,9 @@ Kleinste Potenzialunterschiede zwischen den Erdungspunkten (einige Millivolt bis
 
 Bei HF-Signalen (> 1 MHz) verhält sich eine Leiterbahn nicht mehr wie ein idealer Leiter. Sie hat eine Eigenimpedanz:
 
-```
+:::monospace
 Z_Leitung = R + jωL    # bei HF dominiert ωL (Induktivität)
-```
-
+:::
 Eine lange Masseleitung zum Sternpunkt hat bei HF eine hohe Impedanz. Das Ergebnis:
 - Rückstrompfad ist nicht mehr direkt unter der Signalleitung
 - HF-Ströme fliessen unkontrolliert

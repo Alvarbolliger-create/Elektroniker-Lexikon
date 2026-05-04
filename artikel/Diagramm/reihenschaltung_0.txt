@@ -1,0 +1,3 @@
+R_ges = R1 + R2 + ... + Rn
+U_n   = U_ges * (R_n / R_ges)
+P_ges = P1 + P2 + ... + Pn

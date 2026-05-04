@@ -27,10 +27,9 @@ Abstandssensoren messen den Abstand zu einem Objekt ohne Berührung. Das Messpri
 
 Sendet einen Ultraschallimpuls aus und misst die Laufzeit des Echos.
 
-```
+:::formel
 Abstand = Laufzeit × Schallgeschwindigkeit / 2
-```
-
+:::
 Reichweite: 2 cm bis 4 m. Günstig (unter 2 CHF). Funktioniert mit den meisten Oberflächen. Problem: schräge Flächen reflektieren am Sensor vorbei.
 
 ## IR-Distanz (Sharp GP2Y)

@@ -1,0 +1,3 @@
+Ausgang → [RC] → [RC] → [RC] → (−)-Eingang
+(invertierender Verstärker: weitere 180°)
+Gesamtphasendrehung: 180° + 180° = 360° → Schwingbedingung

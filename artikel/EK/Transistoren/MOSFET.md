@@ -61,11 +61,10 @@ Der N-Kanal Anreicherungs-MOSFET (häufigste Bauform) auf Halbleiterebene:
 
 **Mit Gate-Spannung über Schwellwert U_GS_th**: Das elektrische Feld des Gates zieht Elektronen aus dem p-Substrat an die Oberfläche. Es entsteht eine dünne Inversionsschicht (n-Kanal) — eine leitfähige Verbindung von Source zu Drain. Strom kann fliessen.
 
-```
+:::monospace
 R_DS_on    # Widerstand im leitenden Zustand (aus Datenblatt)
 U_GS_th    # Schwellspannung, ab der der MOSFET leitet (typisch 1-4 V)
-```
-
+:::
 ## Wie er schaltet
 
 Das Gate ist vom Kanal durch die Oxidschicht galvanisch getrennt. Es fliesst **kein** DC-Steuerstrom. Die Steuerspannung U_GS erzeugt das elektrische Feld das den Inversionskanal bildet.
@@ -119,10 +118,9 @@ Der JFET ist ein älterer, selbstleitender FET-Typ. Aufbau: n-dotierter Kanal mi
 
 **Typische Anwendung**: Rauscharme HF-Verstärker, Konstantstromquellen.
 
-```
+:::monospace
 I_D = I_DSS × (1 - U_GS / U_GS_off)²    # Shockley-Gleichung (Sättigungsbereich)
-```
-
+:::
 - I_DSS: Drainstrom bei U_GS = 0 (aus Datenblatt)
 - U_GS_off: Gate-Spannung bei der der Kanal sperrt (negativ bei N-JFET)
 

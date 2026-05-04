@@ -31,12 +31,11 @@ Impedanz ist der Gesamtwiderstand im Wechselstromkreis. Sie fasst den ohmschen W
 
 Impedanz besteht aus zwei Teilen: dem Wirkwiderstand R (ohmsch, frequenzunabhängig) und der Reaktanz X (frequenzabhängig).
 
-```
+:::monospace
 Z = sqrt(R^2 + X^2)     # Betrag der Impedanz; X = X_L - X_C
 X_L = 2 * pi * f * L    # Induktiver Anteil
 X_C = 1 / (2 * pi * f * C)  # Kapazitiver Anteil
-```
-
+:::
 | Grösse | Symbol | Einheit |
 |---|---|---|
 | Impedanz | Z | Ω |
@@ -46,18 +45,16 @@ X_C = 1 / (2 * pi * f * C)  # Kapazitiver Anteil
 
 ## Phasenwinkel
 
-```
+:::formel
 phi = arctan(X / R)
-```
-
+:::
 phi gibt an, wie stark Strom und Spannung zeitlich versetzt sind. Bei phi = 0° ist die Last rein ohmsch. Bei phi = 90° rein reaktiv.
 
 ## Ohmsches Gesetz für Wechselstrom
 
-```
+:::formel
 U = Z * I
-```
-
+:::
 Dieselbe Form wie beim Ohmschen Gesetz, aber Z ist komplex und frequenzabhängig.
 
 :::tip
@@ -68,7 +65,7 @@ Bei niedrigen Frequenzen dominiert der kapazitive Anteil (X_C gross). Bei hohen 
 
 Der Betrag allein reicht für Phasenberechnungen nicht aus. Die vollständige komplexe Schreibweise:
 
-```
+:::monospace
 Z   = R + j*X              # komplexe Impedanz (R = Realteil, X = Imaginärteil)
 |Z| = sqrt(R^2 + X^2)      # Betrag (wie oben)
 φ   = arctan(X / R)        # Phasenwinkel
@@ -76,8 +73,7 @@ Z   = R + j*X              # komplexe Impedanz (R = Realteil, X = Imaginärteil)
 Z_R = R                    # ohmscher Widerstand (rein reell)
 Z_L = j * ω * L            # Spule (rein imaginär, positiv)
 Z_C = 1 / (j * ω * C)      # Kondensator (rein imaginär, negativ)
-```
-
+:::
 In Reihenschaltung addieren sich Impedanzen direkt: `Z_ges = Z1 + Z2 + Z3`
 
 In Parallelschaltung gilt: `1/Z_ges = 1/Z1 + 1/Z2` — oder einfacher über die Admittanz Y = 1/Z, die sich wie Leitwerte addieren lässt.
@@ -86,7 +82,7 @@ In Parallelschaltung gilt: `1/Z_ges = 1/Z1 + 1/Z2` — oder einfacher über die 
 
 Für Parallelschaltungen ist der Leitwertansatz einfacher. Statt Impedanzen zu kombinieren, addiert man Leitwerte direkt:
 
-```
+:::monospace
 Y   = 1 / Z              # Admittanz (Scheinleitwert) in S (Siemens)
 G   = 1 / R              # Wirkleitwert
 B_L = 1 / X_L            # Induktiver Blindleitwert
@@ -94,17 +90,15 @@ B_C = 1 / X_C            # Kapazitiver Blindleitwert
 
 Y = sqrt(G^2 + B^2)      # Betrag der Admittanz
 I = U * Y                # Ohmsches Gesetz mit Admittanz
-```
-
+:::
 Die Ströme im Parallelkreis:
-```
+:::monospace
 I_R = U / R              # Strom durch Widerstand
 I_L = U / X_L            # Strom durch Spule
 I_C = U / X_C            # Strom durch Kondensator
 I   = sqrt(I_R^2 + I_L^2)   # RL-Parallel
 I   = sqrt(I_R^2 + I_C^2)   # RC-Parallel
-```
-
+:::
 | Grösse | Symbol | Einheit | Bedeutung |
 |---|---|---|---|
 | Admittanz | Y | S | Kehrwert der Impedanz |

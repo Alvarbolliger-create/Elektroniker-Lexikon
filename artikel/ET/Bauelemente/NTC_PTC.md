@@ -28,10 +28,9 @@ Der Widerstand sinkt mit steigender Temperatur. Material: Halbleiterkeramik (Met
 
 **R-T-Charakteristik:**
 
-```
+:::monospace
 R(T) = R25 * e^(B * (1/T - 1/T25))     # Steinhart-Hart B-Parameter-Gleichung
-```
-
+:::
 - R25: Nennwiderstand bei 25 °C
 - B: Materialkonstante (typisch 3000–5000 K)
 - T: Temperatur in Kelvin
@@ -51,10 +50,9 @@ Der Widerstand steigt mit steigender Temperatur. Es gibt zwei Typen mit sehr unt
 
 Schwache, annähernd lineare Kennlinie. Wird ausschliesslich als Präzisionssensor eingesetzt.
 
-```
+:::monospace
 R(T) = R0 * (1 + α * T)     # α ≈ 0.00385 /°C für Pt100
-```
-
+:::
 Pt100: 100 Ω bei 0 °C. Pt1000: 1000 Ω bei 0 °C. Sehr stabile, reproduzierbare Kennlinie.
 
 ### Sprunghafter PTC (Polyfuse, PPTC)
@@ -70,10 +68,9 @@ Oberhalb: Widerstand steigt um Faktor 1000–10.000 innerhalb weniger Grad.
 
 Günstig, empfindlich, einfach auszulesen über Spannungsteiler. Für hohe Genauigkeit muss die nichtlineare Kennlinie in der Software kompensiert werden.
 
-```
+:::monospace
 U_mess = U_vers * R_NTC / (R_fix + R_NTC)    # Spannungsteiler mit Festwiderstand
-```
-
+:::
 Typisch: R_fix = R_NTC(25°C) für beste Auflösung im Arbeitsbereich.
 
 ### NTC als Einschaltstrombegrenzer

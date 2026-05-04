@@ -24,10 +24,9 @@ Wenn ein Kondensator über einen Widerstand geladen oder entladen wird, geschieh
 
 ## Die Zeitkonstante
 
-```
+:::monospace
 tau = R * C     # Zeitkonstante in Sekunden
-```
-
+:::
 Nach einer Zeitkonstante ist der Kondensator auf 63 % der Zielspannung geladen. Nach fünf Zeitkonstanten gilt er als vollständig geladen (99 %).
 
 | Zeit | Ladezustand |
@@ -39,12 +38,11 @@ Nach einer Zeitkonstante ist der Kondensator auf 63 % der Zielspannung geladen. 
 
 ## Formeln
 
-```
+:::monospace
 U_laden(t)    = U₀ * (1 - e^(-t / τ))
 U_entladen(t) = U₀ * e^(-t / τ)
 I(t)          = (U₀ / R) * e^(-t / τ)
-```
-
+:::
 Der Strom ist beim Einschalten am grössten und nimmt exponentiell ab. Die Spannung verhält sich umgekehrt.
 
 ## Aufladen

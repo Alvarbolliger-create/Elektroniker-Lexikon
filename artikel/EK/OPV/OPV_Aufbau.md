@@ -61,22 +61,19 @@ Durch Rückführung des Ausgangs auf den invertierenden Eingang entsteht ein sta
 
 Die Slew Rate (SR) ist die maximale Änderungsgeschwindigkeit des Ausgangs:
 
-```
+:::monospace
 SR = dU_out / dt_max    # z.B. 0.5 V/µs bei LM741, 13 V/µs bei TL071
-```
-
+:::
 **Physikalische Ursache**: Im internen Aufbau eines OPVs gibt es einen Kompensationskondensator C_c (typisch einige Picofarad) am Eingangs-Differenzverstärker. Er verhindert Schwingungen (stabiler Betrieb mit Gegenkopplung). Dieser Kondensator muss umgeladen werden wenn der Ausgang springt. Der maximale Ladestrom I_bias begrenzt wie schnell das geht:
 
-```
+:::monospace
 SR = I_bias / C_c    # physikalisches Limit
-```
-
+:::
 **Konsequenz**: Wenn das Eingangssignal sich schneller ändert als die Slew Rate erlaubt, verzerrt der Ausgang. Ein Sinus mit grosser Amplitude und hoher Frequenz kann "verclippt" werden.
 
-```
+:::monospace
 U_max_unverzerrung = SR / (2π × f)    # maximale unverzerrte Amplitude
-```
-
+:::
 ## Häufige Typen
 
 | Typ | Merkmal | Einsatz |

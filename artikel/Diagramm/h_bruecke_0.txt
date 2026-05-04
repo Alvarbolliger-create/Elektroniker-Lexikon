@@ -1,0 +1,9 @@
+       +VCC
+        |
+   [S1]   [S2]
+    |         |
+    +---[M]---+    ← Motor zwischen den Mittelknoten
+    |         |
+   [S3]   [S4]
+        |
+       GND

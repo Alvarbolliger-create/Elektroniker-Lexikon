@@ -55,10 +55,9 @@ Das heisst: Ein NAND-Gatter mit invertierten Eingängen entspricht einem OR-Gatt
 
 **DNF (Disjunktive Normalform)**: OR-Verknüpfung von AND-Termen (Minterme). Jeder AND-Term beschreibt eine Zeile mit Ausgang = 1 in der Wahrheitstabelle.
 
-```
+:::monospace
 F = A̅·B̅·C + A̅·B·C + A·B̅·C + A·B·C = ... = C    # Beispiel DNF
-```
-
+:::
 **KNF (Konjunktive Normalform)**: AND-Verknüpfung von OR-Termen (Maxterme). Jeder OR-Term beschreibt eine Zeile mit Ausgang = 0.
 
 **Minterm** (m_i): Ein Produktterm bei dem alle Variablen vorkommen. Er ist 1 für genau eine Eingangskombination.  

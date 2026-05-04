@@ -29,21 +29,18 @@ Elektronen in einem Leiter führen zufällige thermische Bewegungen aus (Brownsc
 
 ## Rauschspannung
 
-```
+:::monospace
 U_n = sqrt(4 × k × T × R × B)    # k = 1.38e-23 J/K, T in Kelvin, R in Ohm, B = Bandbreite in Hz
-```
-
+:::
 Oder als Rauschspannungsdichte (unabhängig von der Bandbreite):
 
-```
+:::monospace
 u_n = sqrt(4 × k × T × R)    # V/sqrt(Hz)
-```
-
+:::
 Bei Raumtemperatur (T = 300 K):
-```
+:::monospace
 u_n ≈ 4 nV/sqrt(Hz) × sqrt(R/1kΩ)    # Näherung bei 300 K
-```
-
+:::
 ## Typische Werte
 
 | Widerstand | Rauschspannungsdichte (300 K) |

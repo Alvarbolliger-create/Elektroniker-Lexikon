@@ -32,10 +32,9 @@ Ein Transistor im linearen Betrieb regelt den Spannungsabfall zwischen Ein- und 
 
 Die Verlustleistung fällt am Transistor ab:
 
-```
+:::monospace
 P_verlust = (U_ein - U_aus) * I_last     # gesamte Verlustleistung als Wärme
-```
-
+:::
 ## Typen
 
 **Standard (z.B. 7805)**: Mindestens 2 bis 3 V Dropout-Spannung. Einfach, robust, günstig.
@@ -44,10 +43,9 @@ P_verlust = (U_ein - U_aus) * I_last     # gesamte Verlustleistung als Wärme
 
 ## Wirkungsgrad
 
-```
+:::monospace
 eta = U_aus / U_ein     # Wirkungsgrad; stark lastabhängig
-```
-
+:::
 Beispiel: 12 V Eingang, 5 V Ausgang, 1 A Last. P_verlust = 7 W. Wirkungsgrad = 42 %. Der Regler braucht einen Kühlkörper.
 
 ## Wann sinnvoll?
@@ -72,17 +70,9 @@ Schlechte Wahl wenn: grosse Spannungsdifferenz, hoher Strom. Dann besser [[Buck 
 
 Statt eines fertigen IC lässt sich ein Linearregler auch diskret aufbauen. Der OPV übernimmt die Regelung, ein externer Transistor den Laststrom:
 
-```
-U_ein ──[NPN-Transistor]──┬── U_aus
-       (Emitterfolger)    |
-                         [R1]
-                          |
-                     (+)──┤ OPV ──── Basis des NPN
-                [R2]──(−)─┘
-                          |
-                         GND
-```
-
+:::schematic
+/Diagramm/lineare_regler_0.svg
+:::
 **Funktion**:
 - Spannungsteiler R1/R2 gibt einen Teil von U_aus an den (−)-Eingang des OPV
 - Zener-Diode oder Referenz-IC an (+)-Eingang liefert U_ref
@@ -91,10 +81,9 @@ U_ein ──[NPN-Transistor]──┬── U_aus
 
 **LM317 als einstellbarer Regler**:
 
-```
+:::monospace
 U_aus = 1.25 V × (1 + R2/R1)    # Formel für LM317
-```
-
+:::
 R1 = 240 Ω (typisch), R2 einstellbar. Wenn R2 = 2.16 kΩ → U_aus = 12.5 V.
 
 :::info

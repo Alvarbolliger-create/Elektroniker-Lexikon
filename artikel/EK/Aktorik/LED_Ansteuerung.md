@@ -1,24 +1,28 @@
 ---
-title: LED-Ansteuerung
+title: LED-Treiber / Licht-Aktor
 kategorie: EK
-tags: [LED, vorwiderstand, PWM, konstantstrom, WS2812, helligkeit, high-power-LED, SK6812, U_F, dimming, PT4115]
+tags: [led, led-treiber, vorwiderstand, pwm, konstantstrom, high-power-led, dimming, ws2812, pt4115, licht-aktor]
 symbol: —
 einheit: —
 ---
 
-LEDs brauchen eine definierte Strombegrenzung. Spannung direkt anlegen ohne Strombegrenzung zerstört sie sofort.
+Eine LED-Treiberschaltung versorgt LEDs sicher mit definiertem Strom. Spannung direkt an eine LED anlegen ohne Strombegrenzung zerstört sie sofort — auch kurz.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
 - [[Diode]]
 - [[PWM]]
-- [[BJT Transistor]]
+- [[Transistor als Schalter]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Optokoppler]]
 - [[Buck Converter]]
+- [[Optokoppler]]
+:::
+:::vbox
+**Führt weiter zu**
+- [[Bussystem-Aktor]]
 :::
 :::
 
@@ -26,67 +30,112 @@ LEDs brauchen eine definierte Strombegrenzung. Spannung direkt anlegen ohne Stro
 
 ## Vorwiderstand
 
-Die einfachste Strombegrenzung. Der Widerstand begrenzt den Strom abhängig von der Versorgungsspannung:
+Die einfachste Strombegrenzung für kleine LEDs. Der Widerstand begrenzt den Strom abhängig von der Versorgungsspannung:
 
-```
-R = (U_versorgung - U_F) / I_LED
-P_R = (U_versorgung - U_F) * I_LED     # Verlustleistung am Widerstand
-```
-
-Typische Werte:
-- U_F: 1.8–2.2 V (rot/gelb), 2.8–3.5 V (blau/weiss/grün)
-- I_LED: 5–20 mA für Standardanzeige-LEDs
-
-**Rechenbeispiel: LED an 24 V** (häufige Industriespannung)
-
-```
-U_versorgung = 24 V
-U_F          = 2 V   (rote LED)
-I_LED        = 20 mA
-
-R = (24 V - 2 V) / 20 mA = 22 V / 0.02 A = 1100 Ω → 1 kΩ (nächster Normwert)
-P_R = 22 V * 20 mA = 440 mW
-```
-
-Einen 0.5-W-Widerstand würde man bei 440 mW bereits überlasten. Mindestens **1 W** wählen, besser 2 W für Reserve.
-
-:::warning
-Bei hohen Versorgungsspannungen (12 V, 24 V) fällt fast die gesamte Spannung am Vorwiderstand ab — er wird warm und die Schaltung ist ineffizient. Ab ~5 Stück LEDs parallel oder bei Dauerbetrieb ist eine Konstantstromquelle oder ein PWM-gesteuerter Schaltregler effizienter.
+:::formel
+R = (U_V - U_F) / I_LED
+P_R = (U_V - U_F) * I_LED
 :::
 
-Nachteil: Helligkeit ändert sich mit Versorgungsspannung.
+:::monospace
+U_V   = Versorgungsspannung [V]
+U_F   = Vorwärtsspannung LED [V]   (1,8–2,2 V rot/gelb, 2,8–3,5 V blau/weiss)
+I_LED = gewünschter Strom [A]      (typisch 5–20 mA für Standard-LEDs)
+:::
+
+**Rechenbeispiel: Rote LED an 12 V**
+
+:::monospace
+U_V  = 12 V
+U_F  = 2 V
+I    = 20 mA
+
+R    = (12 V - 2 V) / 20 mA = 500 Ω  → 470 Ω Normwert
+P_R  = (12 V - 2 V) * 20 mA = 200 mW → 0,5-W-Widerstand wählen
+:::
+
+:::warning
+Bei hohen Versorgungsspannungen (12 V, 24 V) fällt fast die gesamte Verlustleistung am Vorwiderstand ab. Ab mehreren LEDs oder Dauerbetrieb ist eine Konstantstromlösung effizienter.
+:::
+
+---
 
 ## PWM-Dimming
 
-Durch Pulsweitenmodulation lässt sich die Helligkeit einstellen ohne den Strom zu ändern. Das menschliche Auge integriert bei Frequenzen über ca. 100 Hz.
+Pulsweitenmodulation (PWM) stellt die Helligkeit ein, ohne den Spitzenstrom zu ändern. Das menschliche Auge integriert Frequenzen oberhalb von ca. 100 Hz als konstante Helligkeit.
 
-```
-Helligkeit (%) = Tastverhältnis (%)
-```
+:::monospace
+Helligkeit [%] = Duty Cycle [%]
+:::
 
-Vorteil: Farbton bleibt konstant, da der Strom gleich bleibt.
+Vorteil gegenüber Strom-Dimming: Die Spektralfarbe der LED bleibt konstant, da der Strom im EIN-Zustand immer gleich ist.
+
+---
 
 ## Konstantstromquellen
 
-Für präzise Helligkeit und unabhängig von Versorgungsspannung: Konstantstromregler (z.B. CL2N3, AMC7135) oder einfacher Transistor-Schaltung mit Emitterwiderstand.
+Für präzise Helligkeit und Unabhängigkeit von der Versorgungsspannung: Konstantstromregler.
 
-Notwendig für High-Power-LEDs (1 W, 3 W, 10 W) und LED-Stripes.
+Einfache Lösungen:
+- **CL2N3 / NSI45020**: Zwei-Bein-Konstantstromdiode, kein IC nötig
+- **AMC7135**: 350 mA Konstantstrom, SOT-89-Gehäuse
+- **Transistorschaltung**: NPN mit Emitterwiderstand als einfacher Konstantstromregler
 
-## WS2812 und adressierbare LEDs
+Für High-Power-LEDs (1–50 W) braucht es einen Buck- oder Boost-LED-Treiber-IC:
 
-WS2812B und SK6812 sind RGB-LEDs mit integriertem Treiber-IC. Über ein einziges Datenkabel (800 kHz Signalprotokoll) werden Farbe und Helligkeit jeder einzelnen LED gesteuert.
+| IC | Topologie | Strom | Besonderheit |
+|---|---|---|---|
+| PT4115 | Buck | bis 1,2 A | Günstig, weit verbreitet |
+| LM3409 | Buck | flexibel | Einstellbar, Texas Instruments |
+| HV9910 | Buck/Boost | bis 1 A | Universell, hohe Spannung |
 
-Bis zu hunderte LEDs in Reihe, jede einzeln adressierbar. Bibliotheken: FastLED, Adafruit NeoPixel für Arduino/ESP.
+---
 
-## Hochleistungs-LEDs
+## Adressierbare LEDs (WS2812, SK6812)
 
-High-Power-LEDs (1-50 W) brauchen:
-- Konstantstromtreiber (Boost/Buck)
-- Kühlkörper (thermischer Widerstand beachten)
-- Optik (Linsen, Reflektoren)
+WS2812B und SK6812 sind RGB-LEDs mit integriertem Treiber-IC. Über ein einziges Datenkabel wird Farbe und Helligkeit jeder LED einzeln gesteuert.
 
-LED-Treiberchips: PT4115, LM3409, HV9910.
+Signalprotokoll: 800 kHz Bitstream, 24 Bit pro LED (8 Bit je Farbe). LEDs werden in Reihe geschaltet, jede gibt das Signal weiter.
+
+:::monospace
+Controller → [LED 1] → [LED 2] → [LED 3] → ...
+             R,G,B       R,G,B      R,G,B
+:::
+
+Bibliotheken: FastLED, Adafruit NeoPixel (Arduino/ESP32).
 
 :::warning
-LEDs niemals ohne Strombegrenzung direkt an eine Spannungsquelle anschliessen. Selbst eine kurze Spitze überschreitet den maximalen Strom und beschädigt die LED dauerhaft.
+WS2812-Datenleitungen sind empfindlich auf Leitungsimpedanz und Reflexionen. Bei langen Zuleitungen (> 50 cm) einen 300–500 Ω Widerstand direkt am Datenpunkt einbauen, um Schwingungen zu dämpfen.
 :::
+
+---
+
+## High-Power-LEDs
+
+LEDs mit 1–50 W brauchen:
+- Konstantstromtreiber (Buck oder Boost)
+- Kühlkörper (thermischen Widerstand beachten: T_junction < 125 °C)
+- Optik (Linsen oder Reflektoren)
+
+Der thermische Widerstand bestimmt die Betriebstemperatur des Chips:
+
+:::formel
+T_J = T_ambient + P * R_theta_JA
+:::
+
+:::monospace
+T_J         = Chip-Temperatur [°C]
+T_ambient   = Umgebungstemperatur [°C]
+P           = Verlustleistung [W]
+R_theta_JA  = thermischer Widerstand Chip-Umgebung [K/W]
+:::
+
+---
+
+## Anwendungen als Licht-Aktor
+
+- Architekturbeleuchtung (dimmbar per PWM oder DALI)
+- Industriebeleuchtung (Hochregallager, Fertigungshallen)
+- Signallichter (Status-LEDs, Ampeln, Warn-Leuchten)
+- Displays und Backlighting
+- Grow-Lights (Pflanzenwachstum, spektral abstimmbar)

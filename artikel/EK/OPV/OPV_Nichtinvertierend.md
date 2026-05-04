@@ -31,10 +31,9 @@ Eingangssignal direkt auf den nichtinvertierenden Eingang (+). Spannungsteiler R
 
 ## Verstärkung
 
-```
+:::monospace
 A = 1 + R2 / R1     # immer grösser oder gleich 1
-```
-
+:::
 | R1 | R2 | Verstärkung |
 |---|---|---|
 | — | — | 1 (Impedanzwandler, R2 = 0, R1 = offen) |

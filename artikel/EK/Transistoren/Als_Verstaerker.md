@@ -37,21 +37,19 @@ Typisch: Arbeitspunkt in der Mitte des linearen Bereichs.
 
 ## Einstellung
 
-```
+:::monospace
 I_C = (U_CC - U_CE) / R_C    # Kollektorstrom im Arbeitspunkt
 U_CE = U_CC / 2              # optimaler Arbeitspunkt für maximale Aussteuerung
-```
-
+:::
 Der Basisspannungsteiler (R1 und R2) stellt U_B ein. Damit folgt U_E und I_C.
 
 ## Kleinsignalverstärkung
 
 Das Wechselsignal wird auf den Gleichstrom-Arbeitspunkt überlagert. Die Verstärkung gilt für kleine Signale um diesen Punkt.
 
-```
+:::monospace
 A_u = -g_m * R_C    # Spannungsverstärkung; g_m = Steilheit = I_C / U_T
-```
-
+:::
 U_T = 26 mV bei Raumtemperatur (Temperaturspannung).
 
 ## Koppelkondensatoren

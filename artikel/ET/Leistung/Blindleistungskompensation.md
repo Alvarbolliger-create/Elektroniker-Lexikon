@@ -51,21 +51,19 @@ Das Netz "sieht" danach eine Gesamtlast mit kleinerem Blindleistungsanteil und d
 
 Gegeben: Wirkleistung P, bestehender Leistungsfaktor cos φ1, Zielleistungsfaktor cos φ2.
 
-```
+:::monospace
 Q_L = P × tan(φ1)           # bestehende induktive Blindleistung
 Q_C = P × tan(φ2)           # verbleibende Blindleistung nach Kompensation
 ΔQ = Q_L - Q_C              # benötigte kapazitive Kompensationsleistung
 C = ΔQ / (2π × f × U²)     # Kompensationskondensator
-```
-
+:::
 **Beispiel**: Motor 10 kW, cos φ1 = 0.7, Ziel cos φ2 = 0.95, 400 V Drehstromnetz, 50 Hz:
-```
+:::monospace
 Q_L = 10 kW × tan(45.6°) = 10.2 kvar
 Q_C_ziel = 10 kW × tan(18.2°) = 3.3 kvar
 ΔQ = 10.2 - 3.3 = 6.9 kvar
 C = 6900 / (2π × 50 × 400²) = 136 µF    # pro Phase im Dreieck
-```
-
+:::
 ## Kompensationsarten
 
 **Einzelkompensation**: Kondensator direkt am Verbraucher. Optimal — Blindstrom fliesst nicht durch interne Leitungen.

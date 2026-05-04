@@ -27,10 +27,9 @@ Die magnetische Flussdichte B beschreibt die Stärke und Richtung eines Magnetfe
 
 Die Flussdichte B ist das Verhältnis des magnetischen Flusses zur durchströmten Fläche:
 
-```
+:::monospace
 B = Φ / A     # Φ = magnetischer Fluss in Wb, A = Fläche in m²
-```
-
+:::
 Einheit: Tesla (T) = Wb/m² = V·s/m².
 
 Praktische Umrechnung: 1 T = 10.000 Gauss (Gauss = ältere, noch gebräuchliche Einheit).
@@ -53,10 +52,9 @@ Die relative Permeabilität µr beschreibt wie stark ein Material das Magnetfeld
 - Ferrit: µr = 100-10.000
 - Elektroblech (Si-Stahl): µr = 5.000-100.000
 
-```
+:::monospace
 B = µ0 × µr × H     # H = magnetische Feldstärke in A/m
-```
-
+:::
 ## Sättigung
 
 Weichmagnetische Materialien sättigen bei einem bestimmten B-Wert. Dann kann keine weitere Feldverstärkung durch den Kern erfolgen, und die Induktivität sinkt.

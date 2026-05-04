@@ -1,0 +1,5 @@
+CPU ────────────────────────┐
+                            ├── RAM
+DMA-Controller ─────────────┤
+                            ├── Flash
+Peripherie (SPI, ADC...) ──┘

@@ -36,34 +36,30 @@ Eine Bandgap-Referenz erzeugt eine stabile Referenzspannung unabhängig von Temp
 
 **PTAT (Proportional To Absolute Temperature)**: Die Differenz der VBE zweier Transistoren, die bei unterschiedlichen Stromdichten betrieben werden, steigt proportional zur absoluten Temperatur.
 
-```
+:::monospace
 ΔVBE = (kT/q) × ln(n)    # k = Boltzmann, T = Kelvin, q = Elementarladung, n = Stromdichteverhältnis
-```
-
+:::
 ## Bandgap-Prinzip
 
 Wenn CTAT und PTAT passend gewichtet (addiert) werden, heben sich die Temperaturkoeffizienten auf:
 
-```
+:::monospace
 V_BG = VBE + A × ΔVBE    # A = Gewichtungsfaktor
-```
-
+:::
 Der Gewichtungsfaktor A wird so gewählt, dass die Temperaturabhängigkeit zu null wird.
 
 Das Ergebnis ist nahezu die Bandlückenspannung von Silizium bei 0 K:
 
-```
+:::monospace
 V_BG ≈ 1.25 V    # typischer Bandgap-Referenzwert
-```
-
+:::
 ## Typische Implementierung (Widlar-Bandgap)
 
 Zwei Transistoren Q1 und Q2, wobei Q2 aus mehreren parallel geschalteten Transistoren besteht (Emitterfläche n-fach grösser). Ein OPV hält die Emitterströme gleich. Dann gilt:
 
-```
+:::monospace
 ΔVBE = VT × ln(n)    # VT = thermische Spannung = kT/q ≈ 26 mV bei 25°C
-```
-
+:::
 Ein Widerstandsverhältnis skaliert PTAT auf den richtigen Betrag zur Kompensation von CTAT.
 
 ## Praxis-ICs

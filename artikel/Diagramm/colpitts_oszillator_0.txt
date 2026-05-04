@@ -1,0 +1,10 @@
+        L
+  +----LLLL----+
+  |            |
+ C1           Ausgang
+  |            |
+  +---[Tr]----+   ← Transistor (NPN oder JFET)
+  |
+ C2
+  |
+ GND

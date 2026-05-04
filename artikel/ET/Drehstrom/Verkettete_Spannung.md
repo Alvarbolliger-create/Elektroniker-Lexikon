@@ -30,10 +30,9 @@ Die verkettete Spannung ist die Spannung zwischen zwei Aussenleitern im Drehstro
 
 Die drei Phasenspannungen sind um 120° versetzt. Die Differenz zwischen zwei Phasenvektoren ergibt geometrisch den Faktor √3 = 1.732.
 
-```
+:::monospace
 U_verkettet = sqrt(3) * U_strang    # 400 V = sqrt(3) * 230 V
-```
-
+:::
 ## Im Schweizer Netz
 
 | Spannung | Wert | Zwischen |
@@ -45,10 +44,9 @@ U_verkettet = sqrt(3) * U_strang    # 400 V = sqrt(3) * 230 V
 
 ## Leistung im Drehstromnetz
 
-```
+:::monospace
 P = sqrt(3) * U_verkettet * I * cos_phi    # Wirkleistung symmetrische Last
-```
-
+:::
 Der Faktor √3 erscheint auch in der Leistungsformel, weil drei Phasen je einen Beitrag leisten.
 
 :::tip

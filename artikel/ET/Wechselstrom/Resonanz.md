@@ -28,36 +28,33 @@ Bei der Resonanzfrequenz heben sich induktiver und kapazitiver Widerstand auf. D
 
 ## Resonanzbedingung
 
-```
+:::monospace
 ω_0 = 1 / sqrt(L * C)              # Resonanzkreisfrequenz
 f_0 = 1 / (2 * pi * sqrt(L * C))   # Resonanzfrequenz
-```
-
+:::
 Bei f_0 gilt X_L = X_C. Im Reihenschwingkreis ist die Impedanz minimal (Stromresonanz). Im Parallelschwingkreis ist sie maximal (Spannungsresonanz).
 
 ## Güte Q und Dämpfung d
 
-```
+:::monospace
 Q = (ω_0 * L) / R                  # Gütefaktor (Reihenschwingkreis)
 Q = (1 / R) * sqrt(L / C)          # Güte aus Bauteilwerten
 
 d = 1 / Q                          # Dämpfung (Kehrwert der Güte)
 d = R / (ω_0 * L)
 d = R * sqrt(C / L)
-```
-
+:::
 Hohe Güte Q: schmale Resonanzspitze, wenig Verlust. Niedriges Q (hohes d): breite, flache Kurve, stark gedämpft.
 
 Der Verlustwiderstand R der Spule (Kupferwiderstand der Wicklung) begrenzt Q in der Praxis.
 
 ## Bandbreite
 
-```
+:::monospace
 B = f_0 / Q                        # Bandbreite zwischen den −3dB-Punkten
 B = d * f_0
 B = R / (2 * pi * L)               # direkt aus Bauteilwerten (Reihenschwingkreis)
-```
-
+:::
 An den Grenzfrequenzen f1 (untere) und f2 (obere) ist der Strom auf 1/√2 (≈ 0.707) des Maximalwerts abgefallen — das entspricht −3 dB.
 
 | Grösse | Symbol | Einheit |
@@ -71,11 +68,10 @@ An den Grenzfrequenzen f1 (untere) und f2 (obere) ist der Strom auf 1/√2 (≈ 
 
 R, L und C in Reihe. Bei Resonanz ist Z = R minimal, der Strom maximal.
 
-```
+:::monospace
 Z = sqrt(R^2 + (X_L - X_C)^2)
 U_L = U_C = Q * U_ein      # Spannungsüberhöhung bei Resonanz
-```
-
+:::
 Verhalten in Abhängigkeit der Frequenz:
 
 | Frequenz | Charakter | Phasenwinkel φ |
@@ -92,10 +88,9 @@ Die Spannung über Spule und Kondensator kann im Reihenschwingkreis ein Vielfach
 
 R, L und C parallel. Bei Resonanz ist die Impedanz maximal, der Strom aus der Quelle minimal.
 
-```
+:::monospace
 Q_parallel = R / (ω_0 * L)         # Güte Parallelschwingkreis
-```
-
+:::
 Bei Resonanz heben sich die Blindströme durch L und C gegenseitig auf — der Gesamtstrom ist minimal und in Phase mit der Spannung. Man spricht von **Stromresonanz**.
 
 Der Strom zirkuliert zwischen L und C (Schwingkreisstrom), ohne die Quelle zu belasten. Je höher Q, desto grösser dieser Kreuzstrom im Vergleich zum Quellenstrom.

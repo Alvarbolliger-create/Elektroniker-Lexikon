@@ -29,10 +29,9 @@ Im Wechselstromkreis wirkt ein Kondensator wie ein frequenzabhängiger Widerstan
 
 ## Kapazitiver Widerstand
 
-```
+:::monospace
 X_C = 1 / (2 * pi * f * C)     # gilt für reine Sinusspannung
-```
-
+:::
 | Grösse | Symbol | Einheit |
 |---|---|---|
 | Kapazitiver Widerstand | X_C | Ω |
@@ -72,9 +71,8 @@ Das ist wichtig bei Leistungsberechnungen: Ein reiner Kondensator verbraucht kei
 
 Für Phasenberechnungen und RLC-Analyse wird der Kondensator als komplexe Impedanz geschrieben:
 
-```
+:::monospace
 ω   = 2 * π * f
 Z_C = 1 / (j * ω * C) = -j / (ω * C)
-```
-
+:::
 Der negative imaginäre Anteil entspricht der 90°-Phasenverschiebung (Strom eilt vor). In Simulationen und Filterberechnungen wird ausschliesslich diese Schreibweise verwendet.

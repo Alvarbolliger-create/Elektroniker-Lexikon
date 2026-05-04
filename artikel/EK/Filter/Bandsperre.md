@@ -55,10 +55,9 @@ Bei der Sperrfrequenz f_0 ist die Dämpfung maximal (theoretisch unendlich). Lin
 Passive Schaltung aus R und C in T-Anordnung (zwei T-Glieder). Einfach, aber geringe Güte (Q ≈ 0.25). Für einfache 50-Hz-Sperrung ausreichend.
 
 Sperrfrequenz:
-```
+:::formel
 f_0 = 1 / (2 · π · R · C)
-```
-
+:::
 ### Aktiv: Wien-Robinson-Brücke
 
 OPV mit Wien-Robinson-Gegenkopplung. Höhere Güte als das passive Doppel-T-Glied, abstimmbar. Wird auch in Oszillatoren verwendet (der Frequenzpunkt wo die Phasendrehung 0° ist).

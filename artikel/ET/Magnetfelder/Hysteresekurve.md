@@ -38,16 +38,14 @@ In Eisen, Ferrit und anderen ferromagnetischen Materialien richten sich magnetis
 
 **Remanenz (Br)**: H wird auf 0 zurückgesetzt. B fällt nicht auf 0 — ein Teil der Magnetisierung bleibt erhalten. Das ist die Remanenzflussdichte.
 
-```
+:::monospace
 Br = Flussdichte bei H = 0    # nach vorangegangener Sättigung
-```
-
+:::
 **Koerzitivfeldstärke (Hc)**: Um B auf 0 zu bringen, muss ein Gegenfeld angelegt werden. Hc ist das dafür nötige Gegenfeld.
 
-```
+:::monospace
 Hc = Feldstärke bei B = 0    # "Koerzitivkraft"
-```
-
+:::
 **Gegensättigung**: H wird negativ erhöht bis zur negativen Sättigung. Dann wieder positiv — die Schleife schliesst sich.
 
 ## Kennwerte verschiedener Materialien
@@ -69,10 +67,9 @@ Hc = Feldstärke bei B = 0    # "Koerzitivkraft"
 
 Jedes Durchlaufen der Hystereseschleife kostet Energie — proportional zur eingeschlossenen Fläche. Diese Energie wird in Wärme umgewandelt.
 
-```
+:::monospace
 P_hyst ∝ f × Bmax^n × V    # n ≈ 1.6–2 (Steinmetz-Exponent)
-```
-
+:::
 In Transformatoren und Motoren sind Hystereseverluste neben Wirbelstromverlusten die Hauptquelle der Kernverluste. Siliziumzusatz im Elektroblech verringert beide.
 
 ## Bedeutung für die Praxis

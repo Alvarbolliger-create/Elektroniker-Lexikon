@@ -26,23 +26,19 @@ Der RC-Phasenschieber-Oszillator nutzt drei RC-Glieder, die zusammen 180° Phase
 
 Drei identische RC-Hochpassglieder in Reihe, jedes dreht die Phase um ca. 60°. Zusammen: 180° Phasendrehung.
 
-```
-Ausgang → [RC] → [RC] → [RC] → (−)-Eingang
-(invertierender Verstärker: weitere 180°)
-Gesamtphasendrehung: 180° + 180° = 360° → Schwingbedingung
-```
-
+:::schematic
+/Diagramm/rc_phasenschieber_0.svg
+:::
 Das Rückkopplungsnetzwerk dämpft das Signal stark. Der Verstärker braucht daher eine Verstärkung von mindestens **29**, um die Dämpfung zu kompensieren.
 
 ---
 
 ## Formeln
 
-```
+:::monospace
 f_0 = 1 / (2π × R × C × √6)    # Resonanzfrequenz bei identischen R und C
 A_min = 29                       # Mindestverstärkung für stabile Schwingung
-```
-
+:::
 | Grösse | Symbol | Einheit | Beschreibung |
 |---|---|---|---|
 | Resonanzfrequenz | f₀ | Hz | Schwingfrequenz |

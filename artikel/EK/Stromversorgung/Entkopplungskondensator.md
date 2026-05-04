@@ -34,10 +34,9 @@ Ein digitales IC zieht beim Wechsel eines Ausgangs kurz einen hohen Strom aus de
 
 Leitungsimpedanz ist nicht nur der ohmschen Widerstand — bei hohen Frequenzen dominiert die Induktivität. Bereits 10 nH Leitungsinduktivität und 100 mA in 1 ns ergeben:
 
-```
+:::monospace
 U = L × dI/dt = 10 nH × 100 mA / 1 ns = 1 V    # massiver Einbruch
-```
-
+:::
 ## Lösung: Lokaler Energiespeicher
 
 Der Entkopplungskondensator sitzt direkt am IC und liefert den Strom lokal. Der lange Weg zur Versorgungsquelle wird überbrückt.

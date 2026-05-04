@@ -35,11 +35,10 @@ Kein Transformator ist verlustfrei. Die Verluste entstehen in den Wicklungen und
 
 ## Wirkungsgrad
 
-```
+:::monospace
 eta = P_aus / P_ein     # Wirkungsgrad; typisch 95 bis 99 % bei Netztransformatoren
 P_verlust = P_ein - P_aus
-```
-
+:::
 ## Leerlaufverluste
 
 Auch ohne Last verbraucht ein Transformator Strom für die Magnetisierung des Kerns. Das sind die Leerlaufverluste. Bei schlecht ausgelegten Transformatoren können sie im Dauerbetrieb relevant sein.

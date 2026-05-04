@@ -29,30 +29,19 @@ Die Felder sind so angeordnet, dass benachbarte Felder sich in genau **einem Bit
 
 **2-Variable KVD** (A, B):
 
-```
-     B=0  B=1
-A=0 |  0 |  1 |
-A=1 |  2 |  3 |
-```
-
+:::schematic
+/Diagramm/karnaugh_0.svg
+:::
 **3-Variable KVD** (A, B, C):
 
-```
-        BC=00  BC=01  BC=11  BC=10
-A=0  |   0  |   1  |   3  |   2  |
-A=1  |   4  |   5  |   7  |   6  |
-```
-
+:::schematic
+/Diagramm/karnaugh_1.svg
+:::
 **4-Variable KVD** (A, B, C, D):
 
-```
-          CD=00  CD=01  CD=11  CD=10
-AB=00  |   0  |   1  |   3  |   2  |
-AB=01  |   4  |   5  |   7  |   6  |
-AB=11  |  12  |  13  |  15  |  14  |
-AB=10  |   8  |   9  |  11  |  10  |
-```
-
+:::schematic
+/Diagramm/karnaugh_2.svg
+:::
 ---
 
 ## Vereinfachungsregeln
@@ -72,12 +61,9 @@ AB=10  |   8  |   9  |  11  |  10  |
 
 Funktion: F(A, B, C) = Σm(1, 3, 5, 7) — Minterme 1, 3, 5, 7
 
-```
-        BC=00  BC=01  BC=11  BC=10
-A=0  |   0  |   1  |   1  |   0  |
-A=1  |   0  |   1  |   1  |   0  |
-```
-
+:::schematic
+/Diagramm/karnaugh_3.svg
+:::
 Gruppe 1: {1, 3, 5, 7} — alle 4 Felder der Spalten BC=01 und BC=11  
 → B ändert sich (0→1), C=1 bleibt, A ändert sich → gemeinsam: **C = 1**
 
@@ -89,14 +75,9 @@ Ergebnis: **F = C** (minimaler Ausdruck)
 
 F(A, B, C, D) = Σm(0, 1, 4, 5, 12, 13)
 
-```
-          CD=00  CD=01  CD=11  CD=10
-AB=00  |   1  |   1  |   0  |   0  |
-AB=01  |   1  |   1  |   0  |   0  |
-AB=11  |   1  |   1  |   0  |   0  |
-AB=10  |   0  |   0  |   0  |   0  |
-```
-
+:::schematic
+/Diagramm/karnaugh_4.svg
+:::
 Gruppe: {0,1,4,5,12,13} — Spalten CD=00 und CD=01, Zeilen AB=00, 01, 11  
 A=1 tritt nur in AB=10 auf und ist nicht dabei → D=0, C=0 sind gemeinsam, B ändert sich  
 → Ablesen: **F = C̄ · D̄** (A und B fallen weg)

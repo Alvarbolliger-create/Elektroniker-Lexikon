@@ -42,13 +42,12 @@ R in Reihe, C nach Masse. Ausgang über C abgegriffen.
 Tiefe Frequenzen: C hat hohe Impedanz, Spannungsabfall fast nur über C. Signal kommt durch.
 Hohe Frequenzen: C hat tiefe Impedanz, Spannungsabfall fast nur über R. Signal gedämpft.
 
-```
+:::monospace
 f_g     = 1 / (2 * pi * R * C)             # −3 dB Grenzfrequenz
 H(s)    = 1 / (1 + s * R * C)              # Übertragungsfunktion
 |H(jω)| = 1 / sqrt(1 + (ω * R * C)^2)     # Amplitudengang
 φ(ω)    = -arctan(ω * R * C)               # Phasengang
-```
-
+:::
 | Frequenz | Amplitude | Phase |
 |---|---|---|
 | f ≪ f_g | ≈ 1 (0 dB) | ≈ 0° |
@@ -61,12 +60,11 @@ C in Reihe, R nach Masse. Ausgang über R abgegriffen. Tiefpass umgedreht.
 
 Tiefe Frequenzen gedämpft. Hohe Frequenzen durchgelassen.
 
-```
+:::monospace
 f_g     = 1 / (2 * pi * R * C)
 |H(jω)| = (ω * R * C) / sqrt(1 + (ω * R * C)^2)
 φ(ω)    = +arctan(1 / (ω * R * C))
-```
-
+:::
 ## Bode-Diagramm
 
 Das Bode-Diagramm zeigt Amplituden- und Phasengang logarithmisch. Vereinfachte Asymptoten für den Tiefpass:
@@ -75,10 +73,9 @@ Das Bode-Diagramm zeigt Amplituden- und Phasengang logarithmisch. Vereinfachte A
 - Oberhalb f_g: −20 dB pro Dekade
 - Knickpunkt genau bei f_g
 
-```
+:::formel
 Dämpfung [dB] = 20 * log10(|H(jω)|)
-```
-
+:::
 Bei f = 10 · f_g beträgt die Dämpfung ca. −20 dB. Bei f = 100 · f_g bereits −40 dB.
 
 ## Phasenverschiebung

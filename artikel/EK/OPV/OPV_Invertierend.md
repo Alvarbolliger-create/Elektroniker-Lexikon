@@ -36,10 +36,9 @@ Eingangssignal über R1 an den invertierenden Eingang (−). Rückkoppelwidersta
 
 ## Verstärkung
 
-```
+:::monospace
 A = -R2 / R1    # negatives Vorzeichen = Phasenumkehr um 180°
-```
-
+:::
 Die Verstärkung hängt nur vom Widerstandsverhältnis ab, nicht vom OPV selbst. Das macht sie sehr präzise und stabil.
 
 | R1 | R2 | Verstärkung |
@@ -70,11 +69,10 @@ Für Summierverstärker einfach mehrere Eingangswiderstände parallel am inverti
 
 Jeder OPV hat ein konstantes Gain-Bandwidth-Product (GBW):
 
-```
+:::monospace
 GBW = |A| × f_3dB    # Konstante des OPV-Typs, aus Datenblatt
 f_3dB = GBW / |A|    # Nutzbare Bandbreite bei gewählter Verstärkung
-```
-
+:::
 Beispiel: OPV mit GBW = 1 MHz, Verstärkung |A| = 10 → f_3dB = 100 kHz.
 
 | OPV-Typ | GBW | Verstärkung 10× → Bandbreite |

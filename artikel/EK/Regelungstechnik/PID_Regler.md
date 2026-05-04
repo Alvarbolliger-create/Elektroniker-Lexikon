@@ -35,10 +35,9 @@ Der PID-Regler kombiniert drei Anteile: P reagiert auf die aktuelle Abweichung, 
 
 ## Formel
 
-```
+:::monospace
 u(t) = Kp * e + Ki * integral(e) + Kd * de/dt      # Stellgrösse aus P, I, D Anteil
-```
-
+:::
 Kp, Ki, Kd sind die einstellbaren Verstärkungen.
 
 ## Einstellung (Ziegler-Nichols)
@@ -63,14 +62,13 @@ Der D-Anteil verstärkt Rauschen. Bei verrauschten Messsignalen (Sensorrauschen)
 
 Im Mikrocontroller wird der PID diskret (in Zeitschritten Δt) berechnet:
 
-```
+:::monospace
 e[k]       = Soll - Ist                    # Regelabweichung
 P_anteil   = Kp × e[k]
 I_anteil  += Ki × e[k] × Δt               # aufsummiert
 D_anteil   = Kd × (e[k] - e[k-1]) / Δt   # Differenz zum letzten Schritt
 u[k]       = P_anteil + I_anteil + D_anteil
-```
-
+:::
 **Wichtige Praxis-Details**:
 - **Abtastzeit Δt**: Muss schnell genug sein (mindestens 5–10× schneller als Regelstrecke)
 - **Anti-Windup**: Der I-Anteil kann unbegrenzt wachsen wenn der Ausgang saturiert ist → Integrator einfrieren oder begrenzen
@@ -100,20 +98,18 @@ Der Zweipunktregler ist kein PID-Regler. Er wird hier als Kontrastbeispiel gezei
 
 Der einfachste Regler: Die Stellgrösse kennt nur zwei Zustände — EIN oder AUS.
 
-```
+:::monospace
 e > 0:  Stellgrösse = MAX  (z.B. Heizung EIN)
 e < 0:  Stellgrösse = 0    (z.B. Heizung AUS)
-```
-
+:::
 **Problem**: Dauerndes Schalten um den Sollwert → Hysterese nötig.
 
 **Mit Hysterese (Zweipunktregler mit Schaltdifferenz)**:
 
-```
+:::formel
 Istwert < (Sollwert - Δ/2):  Stellgrösse EIN
 Istwert > (Sollwert + Δ/2):  Stellgrösse AUS
-```
-
+:::
 Die Schaltdifferenz Δ verhindert schnelles Pendeln (Flattern). Typisch: Thermostat, Bimetall-Schalter, einfache Temperaturregelungen.
 
 :::info

@@ -55,11 +55,10 @@ Drei Anschlüsse: B (Basis), C (Kollektor), E (Emitter). Beim NPN zeigt der Pfei
 
 Die Basis steuert ob der Transistor leitend (gesättigt) oder gesperrt ist.
 
-```
+:::monospace
 I_B = (U_ein - U_BE) / R_B   # Basisstrom; U_BE ca. 0.7 V
 I_C = h_FE * I_B             # Kollektorstrom; h_FE = Stromverstärkung
-```
-
+:::
 | Grösse | Symbol | Typischer Wert |
 |---|---|---|
 | Basis-Emitter-Spannung | U_BE | 0.6 bis 0.7 V |

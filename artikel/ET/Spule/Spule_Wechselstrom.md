@@ -30,10 +30,9 @@ Im Wechselstromkreis wirkt eine Spule wie ein frequenzabhängiger Widerstand. Je
 
 ## Induktiver Widerstand
 
-```
+:::monospace
 X_L = 2 * pi * f * L     # gilt für reine Sinusspannung
-```
-
+:::
 | Grösse | Symbol | Einheit |
 |---|---|---|
 | Induktiver Widerstand | X_L | Ω |
@@ -73,9 +72,8 @@ Wie beim Kondensator gilt: Eine reine Spule (ohne ohmschen Widerstand) verbrauch
 
 Für Phasenberechnungen und RLC-Analyse wird die Spule als komplexe Impedanz geschrieben:
 
-```
+:::monospace
 ω   = 2 * π * f
 Z_L = j * ω * L
-```
-
+:::
 Der positive imaginäre Anteil entspricht der 90°-Phasenverschiebung (Strom eilt nach). Zusammen mit dem Kondensator `Z_C = 1 / (j * ω * C)` lassen sich RLC-Schaltungen vollständig im Komplexen berechnen.

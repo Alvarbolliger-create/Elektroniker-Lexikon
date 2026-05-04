@@ -28,11 +28,10 @@ Scheinleistung ist das Produkt aus Effektivwerten von Spannung und Strom. Sie be
 
 ## Formel
 
-```
+:::monospace
 S = U * I           # Scheinleistung; U und I als Effektivwerte
 S = sqrt(P^2 + Q^2) # aus Wirk- und Blindleistung
-```
-
+:::
 | Grösse | Symbol | Einheit |
 |---|---|---|
 | Scheinleistung | S | VA |
@@ -49,7 +48,7 @@ Ein Transformator mit 1 kVA kann 1000 W liefern, aber nur wenn der Leistungsfakt
 
 Wirk-, Blind- und Scheinleistung bilden ein rechtwinkliges Dreieck. Der Phasenwinkel φ liegt zwischen S und P.
 
-```
+:::monospace
 P = S * cos(phi)    # Wirkleistung
 Q = S * sin(phi)    # Blindleistung
-```
+:::

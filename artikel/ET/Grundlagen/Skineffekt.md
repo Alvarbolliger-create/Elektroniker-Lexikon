@@ -36,16 +36,14 @@ Ein Wechselstrom erzeugt ein wechselndes Magnetfeld um den Leiter. Dieses Feld i
 
 Die Eindringtiefe δ gibt an, ab welcher Tiefe die Stromdichte auf 1/e ≈ 37 % des Oberflächenwerts abgefallen ist:
 
-```
+:::monospace
 δ = sqrt(2 × ρ / (ω × µ))    # ρ = spez. Widerstand, ω = Kreisfrequenz, µ = Permeabilität
-```
-
+:::
 Für Kupfer vereinfacht:
 
-```
+:::monospace
 δ_Cu ≈ 66 mm / sqrt(f)    # f in Hz, δ in mm
-```
-
+:::
 | Frequenz | Eindringtiefe Kupfer |
 |---|---|
 | 50 Hz | 9.3 mm |

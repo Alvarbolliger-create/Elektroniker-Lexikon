@@ -71,13 +71,12 @@ Die Regelstrecke beschreibt das dynamische Verhalten des zu regelnden Systems. D
 
 **PT1-Strecke** (häufigste in der Praxis):
 
-```
+:::monospace
 Sprungantwort: y(t) = K × (1 - e^(-t/T))
 
 K = Streckenverstärkung    # Endwert / Eingangssprung
 T = Zeitkonstante          # Zeit bis 63.2% des Endwerts erreicht
-```
-
+:::
 **Faustregeln für den Regler**:
 - PT1-Strecke → PI-Regler ausreichend
 - PT2-Strecke → PID, damit der D-Anteil das Überschwingen dämpft

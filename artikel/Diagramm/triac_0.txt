@@ -1,0 +1,3 @@
+Netz ──── R (Potentiometer) ──┬──── TRIAC (A1) ──── Last ──── Netz
+                               │
+                               C ──── DIAC ──── TRIAC (Gate)

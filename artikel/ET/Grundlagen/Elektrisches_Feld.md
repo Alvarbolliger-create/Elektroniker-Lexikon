@@ -35,10 +35,9 @@ Zwischen zwei parallelen Platten (wie im Kondensator) verlaufen die Feldlinien g
 
 Zwei Ladungen ziehen sich an oder stossen sich ab. Die Kraft hängt vom Produkt der Ladungen und vom Abstand ab:
 
-```
+:::formel
 F = (1 / (4 * π * ε)) * (Q1 * Q2) / r²
-```
-
+:::
 | Grösse | Symbol | Einheit |
 |---|---|---|
 | Kraft | F | N |
@@ -52,19 +51,17 @@ Verdoppelt sich der Abstand, sinkt die Kraft auf ein Viertel. Das ist das gleich
 
 Die elektrische Feldstärke E gibt an, wie stark das Feld an einem Punkt ist.
 
-```
+:::monospace
 E = U / d          # homogenes Feld zwischen zwei parallelen Platten
 E = F / Q          # Kraft pro Ladung an einem Punkt
-```
-
+:::
 ## Permittivität
 
 Im Vakuum gilt ε₀ = 8.854 × 10⁻¹² F/m. In Materialien wird das Feld durch die relative Permittivität εᵣ abgeschwächt:
 
-```
+:::formel
 ε = εᵣ * ε₀
-```
-
+:::
 Luft hat εᵣ ≈ 1, Glas etwa 4–10, spezielle Keramiken bis über 10 000. Das ist der Grund warum Kondensatoren mit Dielektrikum viel mehr Kapazität erreichen als ohne.
 
 ## Durchschlag
@@ -77,8 +74,7 @@ Bei Kondensatoren nennt man diesen Wert die Durchbruchspannung. Sie hängt direk
 
 Ein elektrisches Feld übt auf jede geladene Teilchen eine Kraft aus:
 
-```
+:::formel
 F = Q * E
-```
-
+:::
 In der Elektronik erscheint dieses Prinzip im MOSFET: Das Gatefeld steuert die Ladungsträger im Kanal. In älteren CRT-Bildschirmen lenkte es den Elektronenstrahl.

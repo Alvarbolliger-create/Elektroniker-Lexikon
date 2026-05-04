@@ -52,30 +52,26 @@ In Schnittzeichnungen wird die Stromrichtung im Leiterquerschnitt so dargestellt
 Die magnetische Feldstärke H beschreibt die Erregung unabhängig vom Material (Einheit: A/m).
 
 **Gerader Leiter** (im Abstand r):
-```
+:::formel
 H = I / (2 * π * r)
-```
-
+:::
 **Zylinderspule** (N Windungen, Länge l):
-```
+:::monospace
 H = I * N / l
 Θ = I * N              # Magnetische Durchflutung in A
 H = Θ / l
-```
-
+:::
 **Ringspule (Toroid)** (mittlere Feldlinienlänge l_m):
-```
+:::formel
 H = I * N / l_m
-```
-
+:::
 ## Magnetische Grössen
 
-```
+:::monospace
 Φ = B * A              # Magnetischer Fluss
 B = µ * H              # Flussdichte aus Feldstärke und Permeabilität
 µ = µr * µ0            # Permeabilität des Materials (µ0 = 4π × 10⁻⁷ H/m)
-```
-
+:::
 | Grösse | Symbol | Einheit | Bedeutung |
 |---|---|---|---|
 | Magnetischer Fluss | Φ | Wb (Weber) | Gesamtfluss durch eine Fläche |
@@ -89,10 +85,9 @@ Die Permeabilität beschreibt, wie gut ein Material das Magnetfeld leitet. Eisen
 
 Eine Änderung des magnetischen Flusses induziert eine Spannung. Das ist die Grundlage jeder Spule, jedes Transformators und jedes Generators:
 
-```
+:::formel
 U_ind = -N * dΦ/dt
-```
-
+:::
 Das Minuszeichen steht für die Lenz'sche Regel: Die induzierte Spannung wirkt der Flussänderung entgegen. Bei N Windungen addiert sich der Beitrag jeder Windung.
 
 ## Typische Flussdichten

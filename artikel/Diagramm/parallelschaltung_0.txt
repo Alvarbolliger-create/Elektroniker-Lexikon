@@ -1,0 +1,4 @@
+1/R_ges = 1/R1 + 1/R2 + ... + 1/Rn
+R_ges   = (R1 * R2) / (R1 + R2)      # Kurzform für genau zwei Widerstände
+G_ges   = G1 + G2 + ... + Gn         # G = 1/R in Siemens
+P_ges   = P1 + P2 + ... + Pn

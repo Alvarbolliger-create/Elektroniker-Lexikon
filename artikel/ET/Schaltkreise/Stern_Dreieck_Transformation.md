@@ -35,61 +35,55 @@ In manchen Netzwerken sind Widerstände so verschalten, dass sie weder in Reihe 
 
 ## Das Dreieck (Δ): Drei Knoten, drei Widerstände aussen
 
-```
+:::monospace
     A
    / \
  R12  R13
  /     \
 B--R23--C
-```
-
+:::
 Drei Widerstände R12, R23, R13 verbinden die drei Knoten A, B, C im Dreieck.
 
 ## Der Stern (Y): Drei Knoten, ein Mittelpunkt
 
-```
+:::formel
     A
     |
    Ra
     |
 B--Rb--M--Rc--C
-```
-
+:::
 Drei Widerstände Ra, Rb, Rc verbinden jeden der drei Knoten A, B, C mit einem Mittelpunkt M.
 
 ## Dreieck → Stern (Δ → Y)
 
-```
-Ra = (R12 × R13) / (R12 + R23 + R13)
-Rb = (R12 × R23) / (R12 + R23 + R13)
-Rc = (R13 × R23) / (R12 + R23 + R13)
-```
-
+:::formel
+Ra = (R12 * R13) / (R12 + R23 + R13)
+Rb = (R12 * R23) / (R12 + R23 + R13)
+Rc = (R13 * R23) / (R12 + R23 + R13)
+:::
 **Merkhilfe**: Ra hängt an Knoten A. Im Zähler stehen die beiden Dreieckswiderstände, die an A angeschlossen sind (R12 und R13). Im Nenner stehen alle drei.
 
 ## Stern → Dreieck (Y → Δ)
 
-```
-R12 = (Ra×Rb + Rb×Rc + Ra×Rc) / Rc
-R23 = (Ra×Rb + Rb×Rc + Ra×Rc) / Ra
-R13 = (Ra×Rb + Rb×Rc + Ra×Rc) / Rb
-```
-
+:::formel
+R12 = (Ra*Rb + Rb*Rc + Ra*Rc) / Rc
+R23 = (Ra*Rb + Rb*Rc + Ra*Rc) / Ra
+R13 = (Ra*Rb + Rb*Rc + Ra*Rc) / Rb
+:::
 **Merkhilfe**: Im Zähler steht immer die Summe aller Stern-Produkte. Im Nenner steht der Stern-Widerstand am gegenüberliegenden Knoten.
 
 ## Sonderfall: Alle Widerstände gleich
 
 Wenn alle Dreieckswiderstände gleich sind (R12 = R23 = R13 = R_Δ):
 
-```
+:::monospace
 R_Y = R_Δ / 3    # Sternwiderstand = Dreieckswiderstand / 3
-```
-
+:::
 Und umgekehrt:
-```
+:::formel
 R_Δ = 3 × R_Y
-```
-
+:::
 Das gilt auch für die Drehstrom-Stern/Dreieck-Schaltung bei Motoren.
 
 ## Anwendungsbeispiel: Unabgeglichene Wheatstone-Brücke

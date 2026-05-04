@@ -41,20 +41,18 @@ Spannung, Strom und Widerstand hängen linear zusammen — verdoppelt sich die S
 schaltplaene/uri_dreieck.svg
 :::
 
-```
+:::formel
 U = R * I
 R = U / I
 I = U / R
-```
-
+:::
 Das Gesetz gilt nur für lineare Bauteile: Widerstände, Heizdrähte, Leitungen. Dioden und Transistoren folgen ihm nicht.
 
 ## Leitwert
 
-```
+:::formel
 G = 1 / R
-```
-
+:::
 | Grösse | Symbol | Einheit |
 |---|---|---|
 | Leitwert | G | S (Siemens) |
@@ -76,10 +74,9 @@ Bei Dioden und Transistoren ist der Zusammenhang nicht linear. R = U / I ergibt 
 
 Für nichtlineare Bauteile verwendet man den **differenziellen Widerstand** am Arbeitspunkt:
 
-```
+:::formel
 r = ΔU / ΔI
-```
-
+:::
 Er beschreibt die Steigung der Kennlinie an einem bestimmten Punkt — wie stark sich der Strom bei einer kleinen Spannungsänderung verändert.
 
 Im Wechselstromkreis erweitert die Impedanz Z den Widerstand R um Kondensatoren und Spulen. Die Formel bleibt gleich: U = Z * I.

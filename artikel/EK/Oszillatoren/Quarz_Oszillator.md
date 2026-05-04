@@ -38,14 +38,9 @@ Dadurch hat der Quarz eine mechanische Resonanzfrequenz, die elektrisch anregbar
 
 Der Quarz verhält sich elektrisch wie ein schmaler Serienschwingkreis parallel zu einer Kapazität C₀:
 
-```
-        Ls   Cs   Rs
-    +---LLL---||---[R]---+
-    |                    |
-    +--------||----------+
-                C₀ (Gehäusekapazität)
-```
-
+:::schematic
+/Diagramm/quarz_oszillator_0.svg
+:::
 - **Ls**: Effektive Masse (grosse Induktivität, mehrere mH)
 - **Cs**: Mechanische Federsteifigkeit (sehr kleine Kapazität, fF-Bereich)
 - **Rs**: Verluste (meist 5–100 Ω)
@@ -61,17 +56,9 @@ Der Quarz verhält sich elektrisch wie ein schmaler Serienschwingkreis parallel 
 
 Quarz typisch in Pierce-Konfiguration (häufig in Mikrocontrollern):
 
-```
-        Quarz
-    +---[XTAL]---+
-    |             |
-   C1            C2
-    |             |
-   GND           GND
-         ↑
-   Invertierendes Gatter (oder Transistor)
-```
-
+:::schematic
+/Diagramm/quarz_oszillator_1.svg
+:::
 Der Quarz wird im Bereich zwischen Serien- und Parallelresonanz betrieben (kapazitiv), wo die Phase stimmt für Schwingbedingung.
 
 ---
@@ -93,10 +80,9 @@ Der Quarz wird im Bereich zwischen Serien- und Parallelresonanz betrieben (kapaz
 
 Die Resonanzfrequenz des Quarzes hängt von der externen Lastkapazität C_L ab. Im Datenblatt steht die nominale Lastkapazität (typisch 8–20 pF). Mit dieser muss der Quarz betrieben werden:
 
-```
+:::monospace
 C_L = (C1 × C2) / (C1 + C2) + C_stray    # Lastkapazität bestimmt f₀
-```
-
+:::
 Falsche Lastkapazität → Frequenzabweichung.
 
 ---

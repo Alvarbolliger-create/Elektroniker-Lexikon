@@ -71,28 +71,26 @@ Beim ARM Cortex-M lädt die CPU zuerst zwei Werte aus der Vektortabelle (im Flas
 
 Der Reset-Handler (meist vom Startup-Code der Toolchain bereitgestellt) macht folgendes:
 
-```c
+:::monospace
 // Vereinfacht: was startup.s macht
 1. Stack-Pointer setzen (aus Vektortabelle)
 2. BSS-Segment auf 0 initialisieren (globale uninit. Variablen)
 3. Data-Segment aus Flash in RAM kopieren (globale init. Variablen)
 4. Optional: SystemInit() aufrufen (Clock-Konfiguration)
 5. main() aufrufen
-```
-
+:::
 ## Reset-Ursache lesen
 
 Microcontroller speichern die Reset-Ursache in einem Register. Das erlaubt dem Programm, unterschiedlich zu reagieren:
 
-```c
+:::monospace
 if (RCC->CSR & RCC_CSR_WDGRSTF) {
     // Watchdog-Reset: Log-Eintrag, sicherer Zustand herstellen
 } else if (RCC->CSR & RCC_CSR_PORRSTF) {
     // Power-on: normale Initialisierung
 }
 RCC->CSR |= RCC_CSR_RMVF;   // Flags löschen
-```
-
+:::
 ## Startup bei Embedded Linux
 
 Bei einem Linux-System (z.B. Raspberry Pi, STM32MP1) ist die Sequenz länger:

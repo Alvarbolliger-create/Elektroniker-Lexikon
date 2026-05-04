@@ -69,12 +69,9 @@ Phasenanschnitt α=90°: (sin(t) > 0 && t % 6.28 > 1.57) ? sin(t) : (sin(t) < 0 
 
 Typische Standardschaltung für einen Dimmer oder Heizungsregler:
 
-```
-Netz ──── R (Potentiometer) ──┬──── TRIAC (A1) ──── Last ──── Netz
-                               │
-                               C ──── DIAC ──── TRIAC (Gate)
-```
-
+:::schematic
+/Diagramm/triac_0.svg
+:::
 1. R und C bilden ein RC-Glied, das die Phase verschiebt
 2. Wenn U_C die DIAC-Zündspannung (≈30 V) erreicht, zündet der DIAC
 3. DIAC schickt einen Stromimpuls ans TRIAC-Gate

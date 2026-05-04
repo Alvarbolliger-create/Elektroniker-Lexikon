@@ -1,0 +1,3 @@
+Analog-GND ──┐
+Digital-GND ──┤──── Sternpunkt ──── PE
+Leistungs-GND ┘

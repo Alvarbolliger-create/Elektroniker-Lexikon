@@ -79,18 +79,13 @@ Dioden begrenzen die Amplitude eines Signals auf einen definierten Wert.
 
 **Shunt-Begrenzer** (Parallelschaltung zur Last):
 
-```
-Signal → [R] ──┬── Ausgang
-               |
-              [D] → GND   (begrenzt auf U_F ≈ 0.7V nach unten)
-```
-
+:::schematic
+/Diagramm/diode_0.svg
+:::
 **Doppelter Zener-Begrenzer** (symmetrische Begrenzung):
-```
-         [D_Z1]──[D_Z2]
-Signal → R ──┬────(Anode-Kathode-Anode)────┬── Ausgang
-             └───────────────────────────────┘
-```
+:::schematic
+/Diagramm/diode_1.svg
+:::
 Zwei antiparallele Zenerdioden: Positive Halbwelle begrenzt auf U_Z + 0.7V, negative auf -(U_Z + 0.7V).
 
 **Anwendung**: Schutz von ADC-Eingängen, Signalkonditionierung.
@@ -101,12 +96,9 @@ Klemm-Schaltungen verschieben den Gleichspannungsanteil eines Signals, ohne die 
 
 **Positiver Klemmer**:
 
-```
-Signal → [C] ──┬── Ausgang (angehoben)
-               |
-              [D] → GND (Anode GND, Kathode oben)
-```
-
+:::schematic
+/Diagramm/diode_2.svg
+:::
 - Negative Halbwelle lädt C auf, bis Diode sperrt
 - Positive Halbwelle erscheint um U_peak angehoben am Ausgang
 - Das gesamte Signal wird so angehoben, dass das Minimum bei ~0V liegt

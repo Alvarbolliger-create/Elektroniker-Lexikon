@@ -41,12 +41,11 @@ Dazwischen (linearer Betrieb) wird vermieden. Der Transistor würde viel Verlust
 /schaltplaene/npn_schalter.svg
 :::
 
-```
+:::monospace
 R_B = (U_in - U_BE) / I_B        # Basiswiderstand berechnen
 I_B_min = I_C / h_FE             # Mindestsbasistrom für Sättigung
 I_B = 5 * I_B_min                # Übersteuern: sicherer Sättigungsbetrieb
-```
-
+:::
 U_BE ≈ 0.7 V, U_CE_sat ≈ 0.2 V im Betrieb.
 
 ## MOSFET als Schalter
@@ -68,13 +67,12 @@ Das geht nicht direkt — der Pin liefert zu wenig Strom und die falsche Spannun
 
 **Berechnung Basiswiderstand** (h_FE = 100 angenommen):
 
-```
+:::monospace
 I_C   = 100 mA          # Relaisstrom
 I_B_min = I_C / h_FE = 100 mA / 100 = 1 mA    # Mindeststrom für Sättigung
 I_B   = 5 * I_B_min = 5 mA    # Übersteuern für sicheres Schalten
 R_B   = (U_pin - U_BE) / I_B = (3.3 V - 0.7 V) / 5 mA = 520 Ω → 470 Ω
-```
-
+:::
 **Schaltungsaufbau**:
 - Basiswiderstand (470 Ω) zwischen MC-Pin und Basis
 - Kollektor über Relaisspule an +12 V
@@ -89,11 +87,10 @@ Das Gate verhält sich als Kapazität (C_iss = Eingangskapazität, typisch 1–1
 
 **Gate-Ladung Q_g** (aus Datenblatt): Bestimmt, wie viel Ladung der Treiber liefern muss.
 
-```
+:::monospace
 t_ein = Q_g / I_Treiber     # Einschaltzeit; I_Treiber = Strom des Gate-Treibers
 P_gate = Q_g × V_GS × f     # Schaltleistung (steigt mit Frequenz!)
-```
-
+:::
 **Gate-Widerstand R_G**: In Reihe zum Gate begrenzter den Schaltstromanstieg. Kleiner R_G → schnelleres Schalten, mehr EMV. Grosser R_G → langsameres Schalten, weniger EMV.
 
 **Low-Side vs. High-Side**:

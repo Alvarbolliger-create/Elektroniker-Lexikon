@@ -30,10 +30,9 @@ einheit: V
 
 Ein Magnetfeld kann nur entstehen und vergehen, wenn Energie fliesst. Die Spule nimmt Energie auf, wenn der Strom steigt, und gibt sie zurück, wenn der Strom sinkt. Diese Energiebewegung erzeugt eine Spannung.
 
-```
+:::monospace
 U_L = L * (dI / dt)     # Spannung steigt mit der Änderungsrate des Stroms
-```
-
+:::
 | Grösse | Symbol | Einheit |
 |---|---|---|
 | Induzierte Spannung | U_L | V |
@@ -42,10 +41,9 @@ U_L = L * (dI / dt)     # Spannung steigt mit der Änderungsrate des Stroms
 
 ## Zeitkonstante
 
-```
+:::formel
 τ = L / R
-```
-
+:::
 | Zeit | Stromzustand |
 |---|---|
 | 1 × τ | 63 % des Endwerts |
@@ -75,8 +73,7 @@ Jede Spule in einer geschalteten Schaltung braucht eine Freilaufdiode oder einen
 
 ## Gespeicherte Energie
 
-```
+:::monospace
 E = 0.5 * L * I^2      # Energie in der Spule bei Strom I
-```
-
+:::
 Diese Energie wird beim Abschalten irgendwo abgebaut, entweder in der Freilaufdiode oder in einem Funken.

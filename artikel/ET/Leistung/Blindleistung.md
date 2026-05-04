@@ -33,10 +33,9 @@ Eine Spule speichert Energie im Magnetfeld und gibt sie zurück. Ein Kondensator
 
 Der Strom fliesst trotzdem durch die Leitung. Das heisst: die Leitung wird belastet, obwohl keine Arbeit geleistet wird.
 
-```
+:::monospace
 Q = U * I * sin(phi)    # Blindleistung; phi = Phasenwinkel
-```
-
+:::
 | Grösse | Symbol | Einheit |
 |---|---|---|
 | Blindleistung | Q | var (Voltampere reaktiv) |

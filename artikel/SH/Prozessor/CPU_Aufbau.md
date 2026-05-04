@@ -74,19 +74,15 @@ Der entscheidende Unterschied liegt in der **Bus- und Speicherstruktur**:
 - Einfacher, flexibler (Programm kann sich selbst modifizieren)
 - Typisch: x86-PCs, klassische Mikroprozessoren
 
-```
-RAM/Flash ──[gemeinsamer Bus]── CPU
-```
-
+:::schematic
+/Diagramm/cpu_aufbau_0.svg
+:::
 **Harvard-Architektur**:
 - Getrennte Adressräume und Busse für Programm und Daten
 - CPU kann gleichzeitig einen Befehl holen UND auf Daten zugreifen → höherer Durchsatz
 - Typisch: Mikrocontroller (AVR, PIC, ARM Cortex-M im Betrieb), DSPs
 
-```
-Flash (Programm) ──[Programmbus]──┐
-                                   ├── CPU
-SRAM  (Daten)    ──[Datenbus]   ──┘
-```
-
+:::schematic
+/Diagramm/cpu_aufbau_1.svg
+:::
 **In der Praxis**: Viele moderne ARM-CPUs haben intern Harvard-Architektur (getrennte Caches für Code und Daten), aber einen gemeinsamen Adressraum nach aussen (Modified Harvard). Das gibt ihnen die Einfachheit von Von-Neumann und die Geschwindigkeit von Harvard.

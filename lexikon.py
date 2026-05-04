@@ -102,7 +102,14 @@ class ParagraphBlock:
 
 @dataclass
 class CodeBlock:
-    """Code-Block: geordnete Liste nicht-leerer Formelzeilen."""
+    """Formel-Block (:::formel): geordnete Liste nicht-leerer Formelzeilen."""
+
+    lines: list[str]
+
+
+@dataclass
+class MonospaceBlock:
+    """Monospace-Block (:::monospace): vorformatierter Text ohne Formelinterpretation."""
 
     lines: list[str]
 
@@ -224,6 +231,7 @@ ArticleBlock: TypeAlias = (
     HeadingBlock
     | ParagraphBlock
     | CodeBlock
+    | MonospaceBlock
     | ListBlock
     | ImageBlock
     | TableBlock
@@ -432,9 +440,9 @@ def parse_article_blocks(
                 code_buf = []
             else:
                 in_code = False
-                formula_lines = [ln.strip() for ln in code_buf if ln.strip()]
-                if formula_lines:
-                    blocks.append(CodeBlock(lines=formula_lines))
+                mono_lines = [ln for ln in code_buf if ln.strip()]
+                if mono_lines:
+                    blocks.append(MonospaceBlock(lines=mono_lines))
                 code_buf = []
             i += 1
             continue
@@ -563,6 +571,11 @@ def _parse_directive(
     if kind == "note":
         note_kind = args if args in ("warning", "info", "tip", "danger", "norm", "merke") else "info"
         return NoteBlock(text=body_text, kind=note_kind)
+    if kind == "formel":
+        formula_lines = [ln.strip() for ln in body_lines if ln.strip()]
+        return CodeBlock(lines=formula_lines) if formula_lines else None
+    if kind == "monospace":
+        return MonospaceBlock(lines=body_lines)
     if kind == "schematic":
         return SchematicBlock(path=body_text, title=args or None)
     if kind == "waveform":
@@ -991,7 +1004,7 @@ class LexiconViewModel:
     def article_formulas(self, title: str) -> list[str]:
         """Extrahiert Formeln ausschliesslich aus CodeBlock-Objekten des Artikels.
 
-        Nur explizit als Formel-Block (``` ... ```) ausgezeichnete Zeilen
+        Nur explizit als Formel-Block (:::formel ... :::) ausgezeichnete Zeilen
         werden uebernommen — kein Regex-Scan ueber den Rohtext, damit
         Aufzaehlungen, Pinout-Zeilen oder Kommentare nicht faelschlich
         als Formeln erscheinen.
@@ -1472,6 +1485,8 @@ class ArticleContentWidget(QScrollArea):
             return self._make_paragraph(block)
         if isinstance(block, CodeBlock):
             return self._make_code_section(block)
+        if isinstance(block, MonospaceBlock):
+            return self._make_monospace_section(block)
         if isinstance(block, ListBlock):
             return self._make_list(block)
         if isinstance(block, TableBlock):
@@ -1562,6 +1577,29 @@ class ArticleContentWidget(QScrollArea):
         layout.setSpacing(4)
         for formula in block.lines:
             layout.addWidget(FormulaBlockWidget(formula))
+        return container
+
+    def _make_monospace_section(self, block: MonospaceBlock) -> QWidget:
+        container = QFrame()
+        container.setObjectName("monoBlock")
+        container.setStyleSheet(
+            "QFrame#monoBlock{background:#f8f9fa;border:1px solid #e5e7eb;"
+            "border-radius:6px;}"
+        )
+        layout = QVBoxLayout(container)
+        layout.setContentsMargins(12, 10, 12, 10)
+        layout.setSpacing(0)
+        label = QLabel("\n".join(block.lines))
+        label.setTextFormat(Qt.TextFormat.PlainText)
+        label.setStyleSheet(
+            "font-family:'Courier New',Consolas,monospace;font-size:13px;"
+            "color:#1f2937;background:transparent;line-height:1.5;"
+        )
+        label.setWordWrap(False)
+        label.setTextInteractionFlags(
+            Qt.TextInteractionFlag.TextSelectableByMouse
+        )
+        layout.addWidget(label)
         return container
 
     def _make_list(self, block: ListBlock) -> QWidget:

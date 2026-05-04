@@ -31,7 +31,7 @@ Das Denken muss umgestellt werden: nicht "was passiert als nächstes", sondern "
 
 ## Grundelemente in VHDL
 
-```vhdl
+:::monospace
 -- Einfaches UND-Gatter
 entity and_gate is
   port (a, b : in std_logic;
@@ -42,11 +42,10 @@ architecture rtl of and_gate is
 begin
   y <= a and b;
 end architecture;
-```
-
+:::
 ## Grundelemente in Verilog
 
-```verilog
+:::monospace
 // Gleiches UND-Gatter in Verilog
 module and_gate (
   input  a, b,
@@ -54,8 +53,7 @@ module and_gate (
 );
   assign y = a & b;
 endmodule
-```
-
+:::
 ## VHDL vs. Verilog
 
 | Eigenschaft | VHDL | Verilog |

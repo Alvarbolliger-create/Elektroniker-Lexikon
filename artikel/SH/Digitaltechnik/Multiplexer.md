@@ -30,15 +30,9 @@ Ein Multiplexer (MUX) wählt aus mehreren Dateneingängen einen aus und leitet i
 
 ### 4:1 MUX (2 Steuerleitungen)
 
-```
-D0 ──┐
-D1 ──┤
-D2 ──┤  [MUX]  ──→ Y
-D3 ──┘
-      ↑
-   S1 S0
-```
-
+:::schematic
+/Diagramm/multiplexer_0.svg
+:::
 Wahrheitstabelle:
 
 | S1 | S0 | Ausgang Y |
@@ -49,19 +43,14 @@ Wahrheitstabelle:
 | 1 | 1 | D3 |
 
 **Schaltfunktion**:
-```
+:::formel
 Y = S̄1·S̄0·D0 + S̄1·S0·D1 + S1·S̄0·D2 + S1·S0·D3
-```
-
+:::
 ### Aufbau mit Logikgattern
 
-```
-S̄1·S̄0 ──[AND]──┐
-S̄1·S0  ──[AND]──┤
-S1·S̄0  ──[AND]──┤ [OR] → Y
-S1·S0  ──[AND]──┘
-```
-
+:::schematic
+/Diagramm/multiplexer_1.svg
+:::
 Jedes AND-Gatter hat zusätzlich den entsprechenden Dateneingang Di.
 
 ---
@@ -72,15 +61,9 @@ Jedes AND-Gatter hat zusätzlich den entsprechenden Dateneingang Di.
 
 ### 1:4 DMUX (2 Steuerleitungen)
 
-```
-      ┌──→ Y0
-D ──→ ┤──→ Y1
-      ├──→ Y2
-      └──→ Y3
-        ↑
-     S1 S0
-```
-
+:::schematic
+/Diagramm/multiplexer_2.svg
+:::
 | S1 | S0 | Aktiver Ausgang |
 |---|---|---|
 | 0 | 0 | Y0 = D |
@@ -91,13 +74,12 @@ D ──→ ┤──→ Y1
 Alle nicht ausgewählten Ausgänge = 0.
 
 **Schaltfunktionen**:
-```
+:::formel
 Y0 = D · S̄1 · S̄0
 Y1 = D · S̄1 · S0
 Y2 = D · S1 · S̄0
 Y3 = D · S1 · S0
-```
-
+:::
 ---
 
 ## Decoder als Sonderfall
@@ -139,14 +121,7 @@ Ein 8:1 MUX kann jede beliebige 3-Variable Boolesche Funktion realisieren: Die 3
 
 Zwei 4:1 MUX lassen sich zu einem 8:1 MUX erweitern:
 
-```
-D0..D3 ──[MUX A]──┐
-                   ├──[MUX C]── Y
-D4..D7 ──[MUX B]──┘
-         ↑
-        S1S0 (MUX A+B gemeinsam)
-                ↑
-               S2 (MUX C)
-```
-
+:::schematic
+/Diagramm/multiplexer_3.svg
+:::
 S2 wählt zwischen den beiden 4:1-Blöcken.

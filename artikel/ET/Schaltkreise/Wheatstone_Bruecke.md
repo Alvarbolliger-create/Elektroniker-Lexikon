@@ -41,20 +41,18 @@ R1 und R2 bilden den einen Spannungsteiler, R3 und R4 den anderen. Die Ausgangss
 
 Wenn R1/R2 = R3/R4 ist die Brücke abgeglichen: U_aus = 0 V.
 
-```
+:::monospace
 R_x = R3 * R2 / R1      # unbekannter Widerstand aus drei bekannten
-```
-
+:::
 In der Praxis wird R3 so lange eingestellt bis U_aus = 0. Dann gilt die Formel exakt.
 
 ## Verstimmte Brücke (Sensor)
 
 Ein Widerstand im Netz ändert sich, zum Beispiel ein NTC-Temperatursensor oder ein Dehnungsmessstreifen. Die Brücke ist nicht mehr abgeglichen. Für kleine Änderungen ΔR bei gleich grossen Grundwiderständen R gilt:
 
-```
+:::formel
 U_aus ≈ U_vers * (ΔR / (4 * R))
-```
-
+:::
 Das Ausgangssignal ist sehr klein (mV-Bereich). Es braucht einen Verstärker, meistens einen Instrumentationsverstärker.
 
 ## Brückenkonfigurationen

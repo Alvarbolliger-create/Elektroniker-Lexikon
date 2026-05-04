@@ -34,11 +34,10 @@ Moderne Digitalspeicher-Oszilloskope: Menü → Zeitbasis → XY-Mode.
 
 Zwei Signale gleicher Frequenz, verschiedener Phase:
 
-```
+:::formel
 U1 = U_peak × sin(ω × t)
 U2 = U_peak × sin(ω × t + φ)
-```
-
+:::
 Die entstehende Figur ist eine Ellipse. Aus der Ellipse kann der Phasenwinkel φ abgelesen werden.
 
 **Messung**:
@@ -46,10 +45,9 @@ Die entstehende Figur ist eine Ellipse. Aus der Ellipse kann der Phasenwinkel φ
 2. Schnittpunkt der Ellipse mit der Y-Achse ablesen: Wert A
 3. Maximale Y-Auslenkung ablesen: Wert B
 
-```
+:::monospace
 sin(φ) = A / B    →    φ = arcsin(A / B)
-```
-
+:::
 **Sonderfälle**:
 - φ = 0°: Gerade Linie (diagonal, Steigung positiv)
 - φ = 90°: Kreis (bei gleichen Amplituden)
@@ -59,10 +57,9 @@ sin(φ) = A / B    →    φ = arcsin(A / B)
 
 Bei unterschiedlichen Frequenzen entstehen komplexere Figuren. Das Frequenzverhältnis lässt sich aus der Zahl der Schnittpunkte ablesen:
 
-```
+:::formel
 f1 / f2 = Anzahl Tangentialpunkte an horizontaler Linie / an vertikaler Linie
-```
-
+:::
 | Verhältnis f1:f2 | Figurtyp |
 |---|---|
 | 1:1 | Ellipse oder Gerade |

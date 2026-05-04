@@ -37,12 +37,11 @@ Effektivwert: 0.707
 
 ## Allgemeine Gleichung
 
-```
+:::monospace
 u(t) = U_peak * sin(2 * π * f * t + φ)
 u(t) = U_peak * sin(ω * t + φ)       # kompakte Schreibweise mit Kreisfrequenz
 ω    = 2 * π * f                      # Kreisfrequenz in rad/s
-```
-
+:::
 | Grösse | Symbol | Einheit |
 |---|---|---|
 | Scheitelwert | U_peak | V |
@@ -64,11 +63,10 @@ Die Kreisfrequenz ω ist die gebräuchliche Schreibweise in Impedanzformeln (Z_C
 
 Der Effektivwert gibt die Gleichspannung an, die dieselbe Heizwirkung hätte.
 
-```
+:::monospace
 U_eff = U_peak / sqrt(2)    # gilt nur für reine Sinuswelle
 f = 1 / T                   # Frequenz aus Periodendauer
-```
-
+:::
 | Grösse | Symbol | Einheit |
 |---|---|---|
 | Effektivwert | U_eff | V |

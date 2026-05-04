@@ -1,0 +1,3 @@
+Eingang → R_in → (−) → OPV → Ausgang
+                         ↓
+                   [Diode/BJT] in Rückkopplung

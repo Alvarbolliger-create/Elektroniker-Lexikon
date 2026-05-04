@@ -1,0 +1,3 @@
+Signal → [C] ──┬── Ausgang (angehoben)
+               |
+              [D] → GND (Anode GND, Kathode oben)

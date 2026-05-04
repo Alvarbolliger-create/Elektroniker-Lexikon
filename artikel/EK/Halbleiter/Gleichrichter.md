@@ -94,10 +94,9 @@ Mittelpunktgleichrichter: abs(sin(t))
 
 Nach dem Gleichrichter wird ein grosser Elektrolytkondensator geschaltet. Er glättet die Welligkeit. Zwischen den Spannungsspitzen liefert er den Strom.
 
-```
+:::monospace
 C = I_last / (f * U_welligkeit)     # Mindestkapazität für gegebene Restwelligkeit
-```
-
+:::
 Typisch: 1000 bis 10000 µF bei kleinen Netzteilen.
 
 ## Spitzenspannung nach Gleichrichter

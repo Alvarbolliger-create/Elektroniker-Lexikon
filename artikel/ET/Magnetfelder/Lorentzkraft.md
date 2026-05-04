@@ -28,11 +28,10 @@ Ein stromdurchflossener Leiter im Magnetfeld erfährt eine Kraft. Das ist die Lo
 
 ## Die Kraft
 
-```
+:::monospace
 F = I * l * B * sin(θ)    # allgemeine Form
 F = I * l * B             # vereinfacht wenn Strom senkrecht zu B (θ = 90°)
-```
-
+:::
 | Grösse | Symbol | Einheit |
 |---|---|---|
 | Kraft | F | N |
@@ -59,10 +58,9 @@ Die Kraft wechselt die Richtung wenn der Strom wechselt. Deshalb braucht ein Gle
 
 Die Lorentzkraft wirkt auch auf einzelne Ladungsträger in einem Magnetfeld:
 
-```
+:::formel
 F = q * v * B * sin(θ)
-```
-
+:::
 Das ist die Grundlage von Kathodenstrahlröhren und Massenspektrometern.
 
 ## Halleffekt

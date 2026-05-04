@@ -27,12 +27,11 @@ Paragraph mit **Fettschrift**, `Inline-Code` und einem Wiki-Link auf [[Logikgatt
 
 ### Formel-Block (CodeBlock → CAS)
 
-```
+:::formel
 f = 1.44 / ((R_A + 2*R_B) * C)
 tau = 0.693 * (R_A + R_B) * C
 D = (R_A + R_B) / (R_A + 2*R_B)
-```
-
+:::
 ---
 
 ## Neue Blöcke

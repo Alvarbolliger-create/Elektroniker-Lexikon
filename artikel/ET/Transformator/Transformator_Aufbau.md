@@ -46,11 +46,10 @@ Zwei Spulensymbole nebeneinander, verbunden durch zwei vertikale Linien (Eisenke
 
 Das Spannungsverhältnis entspricht dem Windungszahlverhältnis.
 
-```
+:::monospace
 U1 / U2 = N1 / N2       # Spannungsübersetzung
 I1 / I2 = N2 / N1       # Stromübersetzung (umgekehrt)
-```
-
+:::
 Mehr Windungen sekundär: Spannung steigt, Strom sinkt. Weniger Windungen: Spannung sinkt, Strom steigt.
 
 ## Galvanische Trennung

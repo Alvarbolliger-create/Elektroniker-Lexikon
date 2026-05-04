@@ -32,18 +32,17 @@ Ein Interrupt unterbricht das laufende Programm sofort wenn ein Ereignis eintrit
 
 **Polling**: Die CPU fragt in einer Schleife ständig ab, ob ein Ereignis eingetroffen ist. Einfach, aber verschwenderisch — die CPU tut nichts Nützliches ausser fragen.
 
-```c
+:::monospace
 while (1) {
     if (UART_DataAvailable()) {
         byte = UART_Read();
     }
     // CPU ist die ganze Zeit beschäftigt
 }
-```
-
+:::
 **Interrupt**: Das Ereignis meldet sich selbst. Die CPU kann in der Zwischenzeit anderes tun oder schlafen.
 
-```c
+:::monospace
 // ISR wird automatisch aufgerufen wenn Byte ankommt
 void UART_IRQHandler(void) {
     byte = UART_Read();
@@ -52,8 +51,7 @@ void UART_IRQHandler(void) {
 while (1) {
     LowPower_Sleep();   // CPU schläft, verbraucht wenig Strom
 }
-```
-
+:::
 ## Ablauf eines Hardware-Interrupts (ARM Cortex-M)
 
 1. Peripherie (Timer, UART, GPIO…) setzt einen Interrupt-Flag
@@ -79,37 +77,34 @@ Ab Eintrag 16: Peripherie-Interrupt-Vektoren (herstellerabhängig)
 
 Der NVIC verwaltet Interrupt-Prioritäten. Ein Interrupt mit höherer Priorität kann eine laufende ISR unterbrechen (Nested Interrupt). ARM Cortex-M unterstützt 8 bis 256 Prioritätsstufen je nach Chip.
 
-```c
+:::monospace
 NVIC_SetPriority(USART1_IRQn, 2);  // Priorität setzen
 NVIC_EnableIRQ(USART1_IRQn);       // Interrupt freischalten
-```
-
+:::
 ## Wichtige Regeln für ISRs
 
 - So kurz wie möglich halten. Kein `delay()`, keine langen Berechnungen.
 - Gemeinsame Variablen mit `volatile` deklarieren, damit der Compiler sie nicht wegoptimiert.
 - Keine blockierenden Funktionen aufrufen (printf, malloc, ...).
 
-```c
+:::monospace
 volatile uint8_t new_data = 0;     // volatile: wichtig!
 
 void UART_IRQHandler(void) {
     buffer[idx++] = UART->DR;
     new_data = 1;                   // Flag setzen, Hauptschleife wertet aus
 }
-```
-
+:::
 ## Watchdog Timer
 
 Ein Watchdog ist ein unabhängig laufender Timer. Wenn das Programm ihn nicht regelmässig zurücksetzt ("füttert"), löst er einen System-Reset aus.
 
 Zweck: Hänger, Endlosschleifen und Deadlocks in eingebetteten Systemen automatisch beheben.
 
-```c
+:::monospace
 // Watchdog muss regelmässig getriggert werden
 IWDG_ReloadCounter();   // "Füttern" — verhindert Reset
-```
-
+:::
 ### Normaler Watchdog
 
 Wird der Timer nicht innerhalb der Timeout-Zeit gefüttert → Reset. Timeout typisch einstellbar von einigen Millisekunden bis mehrere Sekunden.

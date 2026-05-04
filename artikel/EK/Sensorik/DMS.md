@@ -27,10 +27,9 @@ Ein DMS misst Dehnung oder Stauchung eines Körpers. Dünne Metallfolienbahnen �
 
 Der Widerstand einer metallischen Leitung ändert sich mit ihrer Länge:
 
-```
+:::monospace
 ΔR/R = GF × ε     # GF = Gauge Factor (ca. 2 für Metallfolie), ε = Dehnung
-```
-
+:::
 Typische Dehnung: wenige Mikrometer pro Meter. Die Widerstandsänderung ist deshalb sehr klein (mΩ-Bereich).
 
 ## Wheatstone-Brücke

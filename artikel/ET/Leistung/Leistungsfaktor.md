@@ -27,12 +27,11 @@ Der Leistungsfaktor gibt an, wie viel der Scheinleistung tatsächlich als Wirkle
 
 ## Definition
 
-```
+:::monospace
 cos_phi = P / S     # Wirkleistungsfaktor
 sin_phi = Q / S     # Blindleistungsfaktor
 phi     = arctan(Q / P)
-```
-
+:::
 Bei cos φ = 1: gesamter Strom leistet Arbeit. Bei cos φ = 0.7: nur 70 % sind nutzbar, 30 % sind Blindstrom.
 
 ## Warum ist er wichtig?

@@ -41,62 +41,54 @@ In der Embedded-Programmierung werden Hardware-Register direkt per Bitmanipulati
 
 ## Bit setzen (auf 1)
 
-```c
+:::monospace
 register |= (1 << n);   // Bit n setzen, alle anderen unverändert
-```
-
+:::
 Beispiel: Bit 3 in einem 8-Bit-Register setzen:
-```c
+:::monospace
 PORTB |= (1 << 3);      // Bit 3 = 1, Bits 0-2, 4-7 unverändert
-```
-
+:::
 ## Bit löschen (auf 0)
 
-```c
+:::monospace
 register &= ~(1 << n);  // Bit n löschen, alle anderen unverändert
-```
-
+:::
 Beispiel: Bit 5 löschen:
-```c
+:::monospace
 PORTB &= ~(1 << 5);     // Bit 5 = 0, Rest unverändert
-```
-
+:::
 ## Bit abfragen
 
-```c
+:::monospace
 if (register & (1 << n)) { /* Bit n ist gesetzt */ }
-```
-
+:::
 Beispiel: Prüfen ob Bit 2 gesetzt ist:
-```c
+:::monospace
 if (PINB & (1 << 2)) {
     // Taste gedrückt
 }
-```
-
+:::
 ## Bit toggeln (umschalten)
 
-```c
+:::monospace
 register ^= (1 << n);   // Bit n umschalten
-```
-
+:::
 XOR mit 1 dreht ein Bit um. XOR mit 0 lässt es unverändert.
 
 ## Mehrere Bits gleichzeitig
 
-```c
+:::monospace
 // Bits 0, 2 und 4 setzen
 register |= (1 << 0) | (1 << 2) | (1 << 4);
 
 // Bits 1 und 3 löschen
 register &= ~((1 << 1) | (1 << 3));
-```
-
+:::
 ## Bitfeld lesen und schreiben
 
 Einen Wert in mehreren Bits speichern (z.B. 4-Bit-Wert ab Bit 4):
 
-```c
+:::monospace
 uint8_t wert = 0b1010;         // 4-Bit-Wert
 
 // Schreiben: Bits 4-7 auf 'wert' setzen
@@ -104,29 +96,26 @@ reg = (reg & 0x0F) | (wert << 4);
 
 // Lesen: Bits 4-7 extrahieren
 wert = (reg >> 4) & 0x0F;
-```
-
+:::
 ## Lokale vs. globale Variablen
 
 **Lokale Variable**: Existiert nur innerhalb der Funktion. Liegt auf dem Stack. Wird beim Verlassen der Funktion automatisch freigegeben.
 
-```c
+:::monospace
 void funktion(void) {
     int x = 5;   // lokal: nur hier sichtbar
 }
 // x existiert hier nicht mehr
-```
-
+:::
 **Globale Variable**: Existiert die gesamte Programmlaufzeit. Liegt im RAM (BSS/Data-Segment). Für alle Funktionen sichtbar.
 
-```c
+:::monospace
 int zaehler = 0;   // global: überall sichtbar
 
 void isr(void) {
     zaehler++;     // ISR kann auf globale Variable zugreifen
 }
-```
-
+:::
 :::warning
 Globale Variablen, die in ISRs verändert werden, immer als `volatile` deklarieren:
 `volatile int zaehler = 0;`
@@ -135,20 +124,19 @@ Sonst optimiert der Compiler den Zugriff weg und das Programm verhält sich fals
 
 **Statische lokale Variable**: Liegt im RAM wie eine globale, ist aber nur innerhalb der Funktion sichtbar. Behält ihren Wert zwischen den Aufrufen.
 
-```c
+:::monospace
 void funktion(void) {
     static int aufrufe = 0;   // bleibt erhalten
     aufrufe++;
 }
-```
-
+:::
 ## Typische Register-Makros
 
 In Mikrocontroller-Projekten werden häufig Makros verwendet:
 
-```c
+:::monospace
 #define SET_BIT(reg, bit)    ((reg) |= (1U << (bit)))
 #define CLR_BIT(reg, bit)    ((reg) &= ~(1U << (bit)))
 #define TGL_BIT(reg, bit)    ((reg) ^= (1U << (bit)))
 #define GET_BIT(reg, bit)    (((reg) >> (bit)) & 1U)
-```
+:::

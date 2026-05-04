@@ -1,0 +1,5 @@
+D ──┬── NAND1 ──── NAND3 ──┬── Q
+    │      \      /         │
+CLK ┤   NAND2 ──── NAND4 ──┴── Q̄
+    │
+    └── (invertiert für NAND2)

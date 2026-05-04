@@ -40,32 +40,29 @@ I (Strom):    sin(t - 1.05)
 
 ## Gleichstrom
 
-```
+:::formel
 P = U * I
 P = U^2 / R
 P = I^2 * R
-```
-
+:::
 Alle drei Formen sind gleichwertig und über das Ohmsche Gesetz ineinander umrechenbar. `P = I²*R` ist besonders nützlich für Verlustberechnungen in Leitungen und Widerständen.
 
 ## Wechselstrom
 
 Bei Wechselstrom mit induktiven oder kapazitiven Lasten ist Strom und Spannung nicht mehr gleichzeitig am Maximum. Der Phasenwinkel phi entsteht.
 
-```
+:::monospace
 P = U * I * cos(phi)    # phi = Phasenwinkel zwischen Strom und Spannung
-```
-
+:::
 cos(phi) heisst Leistungsfaktor. Bei rein ohmschen Lasten ist phi = 0, cos(phi) = 1. Bei rein induktiven oder kapazitiven Lasten ist phi = 90°, cos(phi) = 0, keine Wirkleistung.
 
 ## Was ist der Unterschied zu Scheinleistung?
 
 Scheinleistung S = U × I (ohne cos phi) ist das, was durch die Leitung fliesst. Wirkleistung ist der nutzbare Anteil davon.
 
-```
+:::monospace
 P = S * cos(phi)
-```
-
+:::
 Mehr dazu unter [[Scheinleistung]] und [[Leistungsfaktor cos φ]].
 
 :::tip

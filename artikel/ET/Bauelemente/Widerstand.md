@@ -95,10 +95,9 @@ Widerstände werden nicht in jedem beliebigen Wert gefertigt, sondern in normier
 
 Der k-te Wert einer E-Reihe mit N Stufen pro Dekade ergibt sich aus:
 
-```
+:::monospace
 R_k = 10^(k / N)     # k = 0, 1, 2, ... , N-1
-```
-
+:::
 Die tatsächlichen Normwerte sind auf sinnvolle Stellen gerundet. Die Formel liefert den theoretischen Idealwert.
 
 | Reihe | Werte pro Dekade | Toleranz | Typischer Einsatz |
@@ -122,12 +121,11 @@ Wenn ein berechneter Wert nicht in der E-Reihe existiert, den nächsten verfügb
 
 ## Verlustleistung
 
-```
+:::formel
 P = I^2 * R
 P = U^2 / R
 P = U * I
-```
-
+:::
 Die Leistung steigt quadratisch mit dem Strom. Der doppelte Strom bedeutet viermal mehr Wärme.
 
 :::warning

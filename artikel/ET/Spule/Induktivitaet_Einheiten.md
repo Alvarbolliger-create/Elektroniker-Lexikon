@@ -28,11 +28,10 @@ Die Induktivität beschreibt, wie stark eine Spule dem Stromfluss widersteht, we
 
 Die Einheit ist Henry (H). Ein Henry ist gross. In der Praxis sind mH und µH häufiger.
 
-```
+:::monospace
 U_L = L * (dI / dt)     # Grundformel der Induktivität
 E = 0.5 * L * I^2       # Gespeicherte Energie
-```
-
+:::
 | Grösse | Symbol | Einheit |
 |---|---|---|
 | Induktivität | L | H |
@@ -51,10 +50,9 @@ E = 0.5 * L * I^2       # Gespeicherte Energie
 
 ## Abhängigkeit vom Aufbau
 
-```
+:::formel
 L = µ * N^2 * A / l
-```
-
+:::
 | Grösse | Symbol | Einheit | Bedeutung |
 |---|---|---|---|
 | Permeabilität | µ | H/m | µ = µᵣ × µ₀, Materialeigenschaft des Kerns |

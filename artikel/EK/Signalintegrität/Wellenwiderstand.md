@@ -33,10 +33,9 @@ Differentielle Leitungen: oft 100 Ohm (USB, LVDS, Ethernet).
 
 Eine Leiterbahn auf der Aussenlage über einer Massefläche:
 
-```
+:::formel
 Z0 = (87 / sqrt(Er + 1.41)) × ln(5.98 × h / (0.8 × w + t))
-```
-
+:::
 - h = Substratdicke (µm)
 - w = Leitungsbreite (µm)
 - t = Kupferdicke (µm)

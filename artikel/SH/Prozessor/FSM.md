@@ -45,7 +45,7 @@ Beispiel Ampel:
 
 ## Implementierung in Software
 
-```c
+:::monospace
 typedef enum { ROT, ROT_GELB, GRUEN, GELB } Ampel_t;
 Ampel_t zustand = ROT;
 
@@ -57,8 +57,7 @@ void ampel_update(void) {
         case GELB:     if (timer_abgelaufen()) zustand = ROT;      break;
     }
 }
-```
-
+:::
 ## Implementierung in VHDL
 
 Zwei-Prozess-Methode: Ein Prozess für den nächsten Zustand (kombinatorisch), ein Prozess für die Zustandsregister (getaktet).

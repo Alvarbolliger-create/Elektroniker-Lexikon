@@ -32,19 +32,9 @@ Der Colpitts-Oszillator ist ein LC-Oszillator für höhere Frequenzen (100 kHz b
 
 Der Colpitts verwendet zwei Kondensatoren (C1, C2) in Reihe mit einer Spule L. Der Mittelknoten zwischen C1 und C2 liefert das Rückkopplungssignal.
 
-```
-        L
-  +----LLLL----+
-  |            |
- C1           Ausgang
-  |            |
-  +---[Tr]----+   ← Transistor (NPN oder JFET)
-  |
- C2
-  |
- GND
-```
-
+:::schematic
+/Diagramm/colpitts_oszillator_0.svg
+:::
 **Funktionsprinzip**:
 - L und C1||C2 bilden einen Parallelschwingkreis
 - Der Spannungsteiler C1/C2 liefert die Rückkopplungsspannung an die Basis
@@ -57,13 +47,12 @@ Das Verhältnis C1/C2 bestimmt den Rückkopplungsfaktor β.
 
 ## Formeln
 
-```
+:::monospace
 C_ser = C1 × C2 / (C1 + C2)         # Serienkapazität (wirksam für f₀)
 f_0   = 1 / (2π × √(L × C_ser))     # Resonanzfrequenz
 β     = C1 / C2                       # Rückkopplungsfaktor (Spannungsteiler)
 A_min = C2 / C1                       # Mindestverstärkung des Transistors
-```
-
+:::
 | Grösse | Symbol | Einheit | Beschreibung |
 |---|---|---|---|
 | Resonanzfrequenz | f₀ | Hz | Schwingfrequenz |

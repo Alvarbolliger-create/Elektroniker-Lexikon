@@ -1,0 +1,2 @@
+Ausgang → [R in Reihe mit C] → [R parallel zu C] → (+)-Eingang
+                    (Bandpass-Verhalten)

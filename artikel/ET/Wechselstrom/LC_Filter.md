@@ -35,10 +35,9 @@ Ein idealer LC-Filter hat keine Verluste. In der Praxis begrenzt der Wicklungswi
 
 Die Grenzfrequenz ergibt sich aus der Resonanzbedingung X_L = X_C:
 
-```
+:::formel
 f_g = 1 / (2 * pi * sqrt(L * C))
-```
-
+:::
 Unterhalb f_g: Spule niederohmig, Kondensator hochohmig → Durchlass.
 Oberhalb f_g: Spule hochohmig, Kondensator niederohmig → Sperr.
 

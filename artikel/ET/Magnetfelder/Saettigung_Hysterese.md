@@ -50,10 +50,9 @@ Für die Praxis relevant sind nur ferromagnetische Materialien. Para- und Diamag
 
 Beginnt man mit einem unmagnetisierten Material und erhöht H, folgt B der **Neukurve**: Zuerst langsamer Anstieg, dann starker Anstieg (maximale Permeabilität), dann flacher Verlauf zur Sättigung.
 
-```
+:::monospace
 B = µ0 * µr * H     # gilt nur im linearen Bereich
-```
-
+:::
 Im gesättigten Bereich ist µr nicht mehr konstant — die Formel gilt nicht mehr.
 
 ### Sättigung
@@ -80,11 +79,10 @@ Um B auf null zu bringen, muss H umgepolt werden — bis zur **Koerzitivfeldstä
 
 Wird das Feld weiter gesteigert, entsteht die negative Sättigung. Der vollständige Umlauf ergibt die geschlossene **Hysteresekurve**.
 
-```
+:::monospace
 B_R   # Remanenz: Restmagnetismus ohne äusseres Feld
 H_C   # Koerzitivfeldstärke: H nötig um B = 0 zu erzwingen
-```
-
+:::
 ### Hartmagnetisch vs. Weichmagnetisch
 
 | Eigenschaft | Weichmagnetisch | Hartmagnetisch |
@@ -101,10 +99,9 @@ Für Transformatoren und Drosseln wird weichmagnetisches Material verwendet: kle
 
 Die Fläche innerhalb der Hysteresekurve ist proportional zur Energie, die bei jedem Ummagnetisierungszyklus als Wärme verloren geht.
 
-```
+:::monospace
 P_hyst ~ f * B_max^n     # n ≈ 1.6 bis 2 (Steinmetz-Exponent)
-```
-
+:::
 Bei höherer Frequenz (Schaltnetzteile) nehmen Hystereseverluste proportional zu — ein Grund warum Ferritmaterialien für HF verwendet werden (kleine Hysteresefläche).
 
 ## Barkhausen-Sprünge

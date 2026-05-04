@@ -38,11 +38,10 @@ Der SAR-Algorithmus braucht für alle n Bit dieselbe Eingangsspannung. Ändert s
 
 **Lösung**: Ein Sample-and-Hold-Kondensator am Eingang speichert den Momentanwert beim Abtastzeitpunkt. Er wird aufgeladen (Sample-Phase), dann von der Eingangsquelle getrennt (Hold-Phase). Der ADC wandelt den gespeicherten Wert.
 
-```
+:::monospace
 Sample-Phase:   S (Schalter) geschlossen → C lädt auf U_ein
 Hold-Phase:     S offen → C hält U_ein konstant → ADC-Wandlung startet
-```
-
+:::
 Ohne Sample-and-Hold würde ein sich änderndes Signal während der n Taktzyklen der Bitwage zu Konversionsfehlern führen.
 
 ## Einschränkungen
