@@ -2,11 +2,10 @@
 title: Strom, Spannung, Widerstand
 kategorie: ET
 tags: [strom, spannung, widerstand, ohm, leitwert, grundlagen, ohmsches gesetz, uri, elektrisches gesetz, lineare bauelemente, ampere, volt]
-symbol: I, U, R, G
-einheit: A, V, Ω, S
+groessen: U|Spannung|V; R|Widerstand|Ω; I|Strom|A; G|Leitwert|S; r|differenzial Widerstand|Ω
 ---
 
-Spannung treibt elektrischen Strom durch einen Leiter. Wie stark er fliesst, hängt vom Widerstand ab. Der Zusammenhang zwischen allen drei Grössen ist das Ohmsche Gesetz — die Grundlage aller Schaltungsanalyse.
+Spannung treibt elektrischen Strom durch einen Leiter. Wie stark er fliesst, hängt vom Widerstand ab. Der Zusammenhang zwischen allen drei Grössen ist das Ohmsche Gesetz die Grundlage aller Schaltungsanalyse.
 
 :::hbox
 :::vbox
@@ -35,7 +34,7 @@ Spannung treibt elektrischen Strom durch einen Leiter. Wie stark er fliesst, hä
 
 ## Ohmsches Gesetz
 
-Spannung, Strom und Widerstand hängen linear zusammen — verdoppelt sich die Spannung, fliesst doppelt so viel Strom.
+Spannung, Strom und Widerstand hängen linear zusammen verdoppelt sich die Spannung, fliesst doppelt so viel Strom.
 
 :::schematic URI-Dreieck
 schaltplaene/uri_dreieck.svg
@@ -53,20 +52,8 @@ Das Gesetz gilt nur für lineare Bauteile: Widerstände, Heizdrähte, Leitungen.
 :::formel
 G = 1 / R
 :::
-| Grösse | Symbol | Einheit |
-|---|---|---|
-| Leitwert | G | S (Siemens) |
-| Widerstand | R | Ω (Ohm) |
 
-Bei Parallelschaltungen addieren sich die Leitwerte direkt — praktischer als mit Widerständen zu rechnen.
-
-## Beispiele
-
-| Spannung | Widerstand | Strom |
-|---|---|---|
-| 5 V | 100 Ω | 50 mA |
-| 12 V | 1 kΩ | 12 mA |
-| 3.3 V | 330 Ω | 10 mA |
+Bei Parallelschaltungen addieren sich die Leitwerte direkt praktischer als mit Widerständen zu rechnen.
 
 ## Wann gilt es nicht?
 
@@ -77,6 +64,6 @@ Für nichtlineare Bauteile verwendet man den **differenziellen Widerstand** am A
 :::formel
 r = ΔU / ΔI
 :::
-Er beschreibt die Steigung der Kennlinie an einem bestimmten Punkt — wie stark sich der Strom bei einer kleinen Spannungsänderung verändert.
+Er beschreibt die Steigung der Kennlinie an einem bestimmten Punkt wie stark sich der Strom bei einer kleinen Spannungsänderung verändert.
 
 Im Wechselstromkreis erweitert die Impedanz Z den Widerstand R um Kondensatoren und Spulen. Die Formel bleibt gleich: U = Z * I.

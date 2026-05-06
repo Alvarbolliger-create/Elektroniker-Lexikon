@@ -799,6 +799,7 @@ class LexiconViewModel:
             folder
         )
         self.history: list[str] = []
+        self.future: list[str] = []
         self.current_title: str | None = None
         self.recent_articles: list[str] = []
         self._load_state()
@@ -832,9 +833,11 @@ class LexiconViewModel:
             title: Zielartikel.
             push_history: Wenn True und ein aktueller Artikel offen ist,
                 wird dieser vor dem Wechsel in den Verlauf geschoben.
+                Eine neue Vorwaerts-Navigation loescht dabei den Vorwaerts-Verlauf.
         """
         if push_history and self.current_title:
             self.history.append(self.current_title)
+            self.future.clear()
         self.current_title = title
 
     def go_back(self) -> str | None:
@@ -843,11 +846,31 @@ class LexiconViewModel:
         Returns:
             Titel des vorherigen Artikels oder ``None`` wenn kein Verlauf.
         """
-        return self.history.pop() if self.history else None
+        if not self.history:
+            return None
+        if self.current_title:
+            self.future.append(self.current_title)
+        return self.history.pop()
+
+    def go_forward(self) -> str | None:
+        """Geht zum naechsten Artikel im Vorwaerts-Verlauf.
+
+        Returns:
+            Titel des naechsten Artikels oder ``None`` wenn kein Vorwaerts-Verlauf.
+        """
+        if not self.future:
+            return None
+        if self.current_title:
+            self.history.append(self.current_title)
+        return self.future.pop()
 
     def can_go_back(self) -> bool:
         """True, wenn der Navigationsverlauf mindestens einen Eintrag hat."""
         return bool(self.history)
+
+    def can_go_forward(self) -> bool:
+        """True, wenn der Vorwaerts-Verlauf mindestens einen Eintrag hat."""
+        return bool(self.future)
 
     def _state_path(self) -> Path:
         appdata = Path(os.environ.get("APPDATA", Path.home())) / "ElektronikLexikon"
@@ -1028,6 +1051,36 @@ class LexiconViewModel:
                         seen.add(formula)
                         result.append(formula)
         return result
+
+    def article_groessen(self, title: str) -> list[tuple[str, str, str]]:
+        """Liest die Grössen-Tabelle aus dem Frontmatter.
+
+        Notation im Frontmatter::
+
+            groessen: P|Leistung|W; U|Spannung|V; I|Strom|A; R|Widerstand|Ω
+
+        Jeder Eintrag ``Symbol|Name|Einheit`` wird als Zeile geliefert.
+        Fehlende Felder werden als leerer String zurückgegeben.
+        Fallback: ``symbol`` + ``einheit`` aus dem alten Schema.
+        """
+        if title not in self.all_articles:
+            return []
+        meta = self.all_articles[title]["meta"]
+        raw = meta.get("groessen", "").strip()
+        if raw:
+            result: list[tuple[str, str, str]] = []
+            for entry in raw.split(";"):
+                parts = [p.strip() for p in entry.strip().split("|")]
+                while len(parts) < 3:
+                    parts.append("")
+                result.append((parts[0], parts[1], parts[2]))
+            return result
+        # Fallback auf altes symbol/einheit-Schema
+        sym = meta.get("symbol", "")
+        ein = meta.get("einheit", "")
+        if sym or ein:
+            return [(sym, "", ein)]
+        return []
 
 
 # ── GUI-Widgets ───────────────────────────────────────────────────────────────
@@ -1519,21 +1572,6 @@ class ArticleContentWidget(QScrollArea):
         cat_label = QLabel(block.kategorie.upper())
         cat_label.setObjectName("categoryLabel")
         layout.addWidget(cat_label)
-        if block.symbol or block.einheit:
-            badges = QWidget()
-            b_layout = QHBoxLayout(badges)
-            b_layout.setContentsMargins(0, 0, 0, 0)
-            b_layout.setSpacing(6)
-            if block.symbol:
-                sym = QLabel(block.symbol)
-                sym.setObjectName("symbolBadge")
-                b_layout.addWidget(sym)
-            if block.einheit:
-                ein = QLabel(block.einheit)
-                ein.setObjectName("einheitBadge")
-                b_layout.addWidget(ein)
-            b_layout.addStretch()
-            layout.addWidget(badges)
         return container
 
     def _make_heading(self, block: HeadingBlock) -> QLabel:
@@ -2025,22 +2063,42 @@ class LexiconWidget(QWidget):
         root.setContentsMargins(0, 0, 0, 0)
         root.setSpacing(0)
 
-        # Mini-Toolbar mit Zurueck-Knopf (rechtsbuendig).
+        # Mini-Toolbar mit Navigations-Buttons (zurueck / vorwaerts / aktualisieren).
         toolbar = QWidget()
         toolbar.setObjectName("lexiconToolbar")
         toolbar.setFixedHeight(36)
         tb_layout = QHBoxLayout(toolbar)
         tb_layout.setContentsMargins(8, 4, 8, 4)
-        tb_layout.setSpacing(8)
+        tb_layout.setSpacing(4)
+
+        self.back_button = QPushButton("←")
+        self.back_button.setObjectName("navButton")
+        self.back_button.setToolTip("Zurueck (Alt+Links)")
+        self.back_button.setFixedSize(28, 26)
+        self.back_button.setEnabled(False)
+        self.back_button.clicked.connect(self._go_back)
+        tb_layout.addWidget(self.back_button)
+
+        self.forward_button = QPushButton("→")
+        self.forward_button.setObjectName("navButton")
+        self.forward_button.setToolTip("Vorwaerts (Alt+Rechts)")
+        self.forward_button.setFixedSize(28, 26)
+        self.forward_button.setEnabled(False)
+        self.forward_button.clicked.connect(self._go_forward)
+        tb_layout.addWidget(self.forward_button)
+
+        self.refresh_button = QPushButton("↻")
+        self.refresh_button.setObjectName("navButton")
+        self.refresh_button.setToolTip("Aktualisieren")
+        self.refresh_button.setFixedSize(28, 26)
+        self.refresh_button.clicked.connect(self._refresh)
+        tb_layout.addWidget(self.refresh_button)
+
+        tb_layout.addSpacing(4)
         self.breadcrumb_label = QLabel()
         self.breadcrumb_label.setObjectName("breadcrumbLabel")
         tb_layout.addWidget(self.breadcrumb_label)
         tb_layout.addStretch()
-        self.back_button = QPushButton("<- Zurueck")
-        self.back_button.setObjectName("backButton")
-        self.back_button.setEnabled(False)
-        self.back_button.clicked.connect(self._go_back)
-        tb_layout.addWidget(self.back_button)
         root.addWidget(toolbar)
 
         # Dreispaltige Hauptflaeche.
@@ -2085,6 +2143,7 @@ class LexiconWidget(QWidget):
         self.count_label = QLabel()
         self.count_label.setObjectName("countLabel")
         left_content_layout.addWidget(self.count_label)
+
         left_layout.addWidget(self.left_content, stretch=1)
 
         self.hamburger_left_inner = HamburgerButton(line_color="#374151")
@@ -2136,6 +2195,22 @@ class LexiconWidget(QWidget):
         right_content_layout.setContentsMargins(0, 0, 0, 0)
         right_content_layout.setSpacing(4)
 
+        # Grössen-Tabelle (Symbol | Name | Einheit).
+        self.groessen_section = QWidget()
+        groessen_section_layout = QVBoxLayout(self.groessen_section)
+        groessen_section_layout.setContentsMargins(0, 0, 0, 0)
+        groessen_section_layout.setSpacing(4)
+        groessen_section_layout.addWidget(make_section_label("GRÖSSEN"))
+        self.groessen_container = QWidget()
+        self.groessen_layout = QGridLayout(self.groessen_container)
+        self.groessen_layout.setContentsMargins(0, 2, 0, 0)
+        self.groessen_layout.setSpacing(2)
+        self.groessen_layout.setColumnStretch(1, 1)
+        groessen_section_layout.addWidget(self.groessen_container)
+        right_content_layout.addWidget(self.groessen_section)
+        self.groessen_section.hide()
+
+        right_content_layout.addWidget(make_divider())
         right_content_layout.addWidget(make_section_label("TAGS"))
         self.tags_container = QWidget()
         self.tags_layout = QVBoxLayout(self.tags_container)
@@ -2199,6 +2274,7 @@ class LexiconWidget(QWidget):
         self.right_float_btn.hide()
 
         QShortcut(QKeySequence("Alt+Left"), self).activated.connect(self._go_back)
+        QShortcut(QKeySequence("Alt+Right"), self).activated.connect(self._go_forward)
         QShortcut(QKeySequence("Ctrl+F"), self).activated.connect(
             lambda: (self.search.setFocus(), self.search.selectAll())
         )
@@ -2382,6 +2458,7 @@ class LexiconWidget(QWidget):
         self.view_model.navigate(title, push_history)
         self.view_model.add_recent(title)
         self.back_button.setEnabled(self.view_model.can_go_back())
+        self.forward_button.setEnabled(self.view_model.can_go_forward())
         parts = self.view_model.breadcrumb(title)
         self.breadcrumb_label.setText("  ›  ".join(parts))
 
@@ -2391,6 +2468,11 @@ class LexiconWidget(QWidget):
         self.display.render_blocks(
             self.view_model.article_blocks(title),
             article_folder,
+        )
+
+        # Grössen-Tabelle (rechte Leiste)
+        self._update_groessen_table(
+            self.view_model.article_groessen(title)
         )
 
         # Tags
@@ -2480,6 +2562,28 @@ class LexiconWidget(QWidget):
             if child.widget():
                 child.widget().deleteLater()
 
+    def _update_groessen_table(
+        self, rows: list[tuple[str, str, str]]
+    ) -> None:
+        while self.groessen_layout.count():
+            item = self.groessen_layout.takeAt(0)
+            if item.widget():
+                item.widget().deleteLater()
+        if not rows:
+            self.groessen_section.hide()
+            return
+        for r, (sym, name, unit) in enumerate(rows):
+            for col, (text, obj_name) in enumerate([
+                (sym,  "groessenSymbol"),
+                (name, "groessenName"),
+                (unit, "groessenEinheit"),
+            ]):
+                lbl = QLabel(text)
+                lbl.setObjectName(obj_name)
+                lbl.setWordWrap(False)
+                self.groessen_layout.addWidget(lbl, r, col)
+        self.groessen_section.show()
+
     def _show_home(self) -> None:
         """Zeigt die Startseite mit Kategorien-Uebersicht."""
         self.view_model.current_title = None
@@ -2489,6 +2593,7 @@ class LexiconWidget(QWidget):
             self.tags_layout, self.links_layout, self.formulas_layout
         ):
             self._clear_layout(layout)
+        self._update_groessen_table([])
 
     def _go_back(self) -> None:
         title = self.view_model.go_back()
@@ -2497,3 +2602,20 @@ class LexiconWidget(QWidget):
         else:
             self._show_home()
         self.back_button.setEnabled(self.view_model.can_go_back())
+        self.forward_button.setEnabled(self.view_model.can_go_forward())
+
+    def _go_forward(self) -> None:
+        title = self.view_model.go_forward()
+        if title is not None:
+            self._show_article(title, push_history=False)
+        self.back_button.setEnabled(self.view_model.can_go_back())
+        self.forward_button.setEnabled(self.view_model.can_go_forward())
+
+    def _refresh(self) -> None:
+        self.view_model.all_articles = load_all_articles(self.view_model.folder)
+        self._refresh_list()
+        title = self.view_model.current_title
+        if title is not None and title in self.view_model.all_articles:
+            self._show_article(title, push_history=False)
+        else:
+            self._show_home()

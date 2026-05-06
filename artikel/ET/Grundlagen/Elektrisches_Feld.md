@@ -2,8 +2,7 @@
 title: Elektrisches Feld
 kategorie: ET
 tags: [elektrisches feld, feldlinien, potential, ladung, coulomb, permittivität]
-symbol: E
-einheit: V/m
+groessen: F|Kraft|N; Q|Ladung|C; r&d|Abstand|m; ε|Permittivität|F/m; E|elektrische Feldstärke|N/C
 ---
 
 Jede elektrische Ladung erzeugt ein Kraftfeld um sich herum. Dieses Feld wirkt auf andere Ladungen, auch ohne direkten Kontakt.
@@ -38,12 +37,6 @@ Zwei Ladungen ziehen sich an oder stossen sich ab. Die Kraft hängt vom Produkt 
 :::formel
 F = (1 / (4 * π * ε)) * (Q1 * Q2) / r²
 :::
-| Grösse | Symbol | Einheit |
-|---|---|---|
-| Kraft | F | N |
-| Ladung 1 / 2 | Q1, Q2 | C (Coulomb) |
-| Abstand | r | m |
-| Permittivität | ε | F/m |
 
 Verdoppelt sich der Abstand, sinkt die Kraft auf ein Viertel. Das ist das gleiche Abstandsgesetz wie bei der Gravitation.
 
@@ -51,7 +44,7 @@ Verdoppelt sich der Abstand, sinkt die Kraft auf ein Viertel. Das ist das gleich
 
 Die elektrische Feldstärke E gibt an, wie stark das Feld an einem Punkt ist.
 
-:::monospace
+:::formel
 E = U / d          # homogenes Feld zwischen zwei parallelen Platten
 E = F / Q          # Kraft pro Ladung an einem Punkt
 :::
@@ -66,7 +59,7 @@ Luft hat εᵣ ≈ 1, Glas etwa 4–10, spezielle Keramiken bis über 10 000. Da
 
 ## Durchschlag
 
-Jedes Material hält nur eine begrenzte Feldstärke aus. Wird sie überschritten, entlädt sich das Feld schlagartig. In Luft liegt dieser Wert bei etwa 3 MV/m — das ist der physikalische Ursprung des Blitzes.
+Jedes Material hält nur eine begrenzte Feldstärke aus. Wird sie überschritten, entlädt sich das Feld schlagartig. In Luft liegt dieser Wert bei etwa 3 MV/m das ist der physikalische Ursprung des Blitzes.
 
 Bei Kondensatoren nennt man diesen Wert die Durchbruchspannung. Sie hängt direkt von d und εᵣ des Dielektrikums ab.
 

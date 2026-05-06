@@ -2,11 +2,10 @@
 title: Skineffekt & Proximity-Effekt
 kategorie: ET
 tags: [Skineffekt, Proximity-Effekt, Hochfrequenz, Eindringtiefe, Litzendraht, HF]
-symbol: δ
-einheit: m
+groessen: δ|Eindringtiefe|m; ρ|spezifische Widerstand|Ω*m; f|Frequenz|Hz; ω|Kreisfrequenz|2πf; µ|magnetische Permeabilität|H/m
 ---
 
-Bei hohen Frequenzen fliesst der Strom nicht mehr gleichmässig über den Querschnitt eines Leiters. Er konzentriert sich an der Oberfläche — das erhöht den effektiven Widerstand.
+Bei hohen Frequenzen fliesst der Strom nicht mehr gleichmässig über den Querschnitt eines Leiters. Er konzentriert sich an der Oberfläche das erhöht den effektiven Widerstand.
 
 :::hbox
 :::vbox
@@ -36,23 +35,16 @@ Ein Wechselstrom erzeugt ein wechselndes Magnetfeld um den Leiter. Dieses Feld i
 
 Die Eindringtiefe δ gibt an, ab welcher Tiefe die Stromdichte auf 1/e ≈ 37 % des Oberflächenwerts abgefallen ist:
 
-:::monospace
-δ = sqrt(2 × ρ / (ω × µ))    # ρ = spez. Widerstand, ω = Kreisfrequenz, µ = Permeabilität
+:::formel
+δ = sqrt(2 * ρ / (ω * µ_0 * µ_r))    # ρ = spez. Widerstand, ω = Kreisfrequenz, µ = Permeabilität
 :::
 Für Kupfer vereinfacht:
 
-:::monospace
+:::formel
 δ_Cu ≈ 66 mm / sqrt(f)    # f in Hz, δ in mm
 :::
-| Frequenz | Eindringtiefe Kupfer |
-|---|---|
-| 50 Hz | 9.3 mm |
-| 10 kHz | 0.66 mm |
-| 100 kHz | 0.21 mm |
-| 1 MHz | 0.066 mm |
-| 100 MHz | 6.6 µm |
 
-Bei 1 MHz ist die Eindringtiefe nur noch 66 µm — ein 1-mm-Draht nutzt dann nur noch die äusserste Schicht.
+Bei 1 MHz ist die Eindringtiefe nur noch 66 µm ein 1-mm-Draht nutzt dann nur noch die äusserste Schicht.
 
 ## Auswirkungen
 
