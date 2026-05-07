@@ -30,6 +30,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, TypeAlias
 
+from PySide6.QtGui import QKeySequence, QShortcut
 from PySide6.QtWidgets import (
     QApplication,
     QHBoxLayout,
@@ -130,7 +131,6 @@ class CasTabManager(QWidget):
         root.addWidget(self._stack, stretch=1)
 
         # Tastenkuerzel Ctrl+T
-        from PySide6.QtGui import QKeySequence, QShortcut
         QShortcut(QKeySequence("Ctrl+T"), self).activated.connect(
             lambda: self._add_tab()
         )
@@ -176,6 +176,7 @@ class CasTabManager(QWidget):
 # ── Tool-Registry (hier neue Tools eintragen) ─────────────────────────────────
 def _make_lexikon(ctx: AppContext) -> QWidget:
     """Erstellt das Lexikon-Widget mit Formel-Uebergabe an den CAS-Rechner."""
+    from PySide6.QtWidgets import QApplication
 
     def send_formula(formula: str) -> None:
         cas = ctx.get_tool("CAS Rechner")
@@ -183,7 +184,10 @@ def _make_lexikon(ctx: AppContext) -> QWidget:
             cas.insert_formula(formula)
             ctx.switch_to("CAS Rechner")
 
-    return LexiconWidget(on_send_formula=send_formula)
+    def apply_style(preset: str) -> None:
+        QApplication.instance().setStyleSheet(build_stylesheet(preset))
+
+    return LexiconWidget(on_send_formula=send_formula, on_style_changed=apply_style)
 
 
 TOOLS: list[ToolDef] = [
@@ -306,7 +310,7 @@ class MainWindow(QMainWindow):
 def main() -> None:
     app = QApplication(sys.argv)
     app.setStyle("Fusion")
-    app.setStyleSheet(build_stylesheet("Kraft (Standard)"))
+    app.setStyleSheet(build_stylesheet("Kraftpapier"))
     window = MainWindow()
     window.show()
     sys.exit(app.exec())

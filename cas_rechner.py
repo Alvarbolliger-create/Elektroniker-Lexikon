@@ -48,6 +48,7 @@ Abkuerzungen (Initialnotation):
 
 from __future__ import annotations
 
+import math
 import re
 from pathlib import Path
 from typing import Any, Callable
@@ -339,7 +340,6 @@ def _scientific_parts(x: float) -> tuple[float, int]:
     Returns:
         ``(mantissa, exp10)`` mit ``1 <= |mantissa| < 10``.
     """
-    import math
     if x == 0:
         return (0.0, 0)
     sign = -1 if x < 0 else 1
@@ -356,7 +356,6 @@ def _engineering_parts(x: float) -> tuple[float, int]:
         ``(mantissa, exp3)`` mit ``1 <= |mantissa| < 1000`` und ``exp3``
         als Vielfaches von 3.
     """
-    import math
     if x == 0:
         return (0.0, 0)
     sign = -1 if x < 0 else 1
@@ -513,8 +512,6 @@ def _build_extra_functions(sy: Any) -> dict[str, Any]:
             return sy.S(f"nsolve_error: {e}")
 
     def zeros(f: Any, x: Any) -> Any:
-        if isinstance(f, sy.Equality):
-            return sy.solve(f, x)
         return sy.solve(f, x)
 
     def poly(coeffs: Any, x: Any) -> Any:
@@ -796,6 +793,10 @@ class Engine:
         n = len(expressions)
         results: list[tuple[str, bool, Any] | None] = [None] * n
 
+        # Einmal bauen, dann pro Ausdruck kopieren — _build_extra_functions
+        # erzeugt ~30 Closures, ein Aufruf pro Zeile wäre O(n) Overhead.
+        _base_ns = self._base_namespace()
+
         # 1) Parsen: Zuweisung, Ausdruck, Kommentar oder leer.
         parsed: list[dict[str, Any]] = []
         for raw in expressions:
@@ -908,7 +909,7 @@ class Engine:
                     continue
                 i = assign_box_idx[var]
                 try:
-                    ns = self._base_namespace()
+                    ns = dict(_base_ns)
                     ns.update(user_vars)
                     value = self._parse(expr, ns)
                     value = self._normalize_units(value)
@@ -946,7 +947,7 @@ class Engine:
             if p["kind"] != "func" or results[i] is not None:
                 continue
             try:
-                ns = self._base_namespace()
+                ns = dict(_base_ns)
                 ns.update(user_vars)
                 arg_syms = tuple(self.sy.Symbol(a) for a in p["args"])
                 for sym in arg_syms:
@@ -967,7 +968,7 @@ class Engine:
                 continue
             if p["kind"] == "expr":
                 try:
-                    ns = self._base_namespace()
+                    ns = dict(_base_ns)
                     ns.update(user_vars)
                     value = self._parse(p["expr"], ns)
                     value = self._normalize_units(value)

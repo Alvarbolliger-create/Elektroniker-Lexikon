@@ -729,6 +729,17 @@ def _parse_pinout_body(args: str, body_lines: list[str]) -> PinoutBlock:
     return PinoutBlock(component=component, pins=pins, package=package)
 
 
+def _parse_truth_row(line: str) -> list[int]:
+    """Parst eine Wertezeile ``0,1 | 1,0`` oder ``0,1,1,0`` in int-Liste."""
+    if "|" in line:
+        in_p, _, out_p = line.partition("|")
+        vals = [int(v.strip()) for v in in_p.split(",") if v.strip()]
+        vals += [int(v.strip()) for v in out_p.split(",") if v.strip()]
+    else:
+        vals = [int(v.strip()) for v in line.split(",") if v.strip()]
+    return vals
+
+
 def _parse_truth_body(args: str, body_lines: list[str]) -> TruthTableBlock:
     """Parst eine Wahrheitstabelle aus einer :::truth-Direktive.
 
@@ -749,13 +760,7 @@ def _parse_truth_body(args: str, body_lines: list[str]) -> TruthTableBlock:
             continue
         if not inputs and not outputs:
             try:
-                if "|" in line:
-                    in_p, _, out_p = line.partition("|")
-                    vals = [int(v.strip()) for v in in_p.split(",") if v.strip()]
-                    vals += [int(v.strip()) for v in out_p.split(",") if v.strip()]
-                else:
-                    vals = [int(v.strip()) for v in line.split(",") if v.strip()]
-                rows.append(vals)
+                rows.append(_parse_truth_row(line))
             except ValueError:
                 if "|" in line:
                     in_part, _, out_part = line.partition("|")
@@ -763,13 +768,7 @@ def _parse_truth_body(args: str, body_lines: list[str]) -> TruthTableBlock:
                     outputs = [s.strip() for s in out_part.split(",") if s.strip()]
             continue
         try:
-            if "|" in line:
-                in_p, _, out_p = line.partition("|")
-                vals = [int(v.strip()) for v in in_p.split(",") if v.strip()]
-                vals += [int(v.strip()) for v in out_p.split(",") if v.strip()]
-            else:
-                vals = [int(v.strip()) for v in line.split(",") if v.strip()]
-            rows.append(vals)
+            rows.append(_parse_truth_row(line))
         except ValueError:
             pass
 
@@ -785,151 +784,62 @@ def _parse_truth_body(args: str, body_lines: list[str]) -> TruthTableBlock:
 # ── Stil-Voreinstellungen ────────────────────────────────────────────────────
 STYLE_DEFAULTS: dict = {
     "font_size": 15,
-    "preset":    "Kraft (Standard)",
+    "preset":    "Kraftpapier",
 }
 
-HOME_PRESETS: dict[str, dict] = {
-    "Kraft (Standard)": {
-        "tile_bg": "#ebdfca", "tile_border": "#c9bd9d", "tile_text": "#3d2715",
-        "recent_bg": "#d4c3a8", "recent_border": "#b6a884",
-        "head_text": "#5a3a22", "head_border": "#c9bd9d",
-    },
-    "Dunkel": {
-        "tile_bg": "#2e2620", "tile_border": "#4a3f36", "tile_text": "#d4c3a8",
-        "recent_bg": "#3a2f28", "recent_border": "#5a4a40",
-        "head_text": "#c9a87a", "head_border": "#5a4a40",
-    },
-    "Grün": {
-        "tile_bg": "#dde9d7", "tile_border": "#a8c49e", "tile_text": "#1e3a1a",
-        "recent_bg": "#c8ddc2", "recent_border": "#88aa80",
-        "head_text": "#2a5228", "head_border": "#a8c49e",
-    },
-    "Blau": {
-        "tile_bg": "#dbeafe", "tile_border": "#93c5fd", "tile_text": "#1e3a8a",
-        "recent_bg": "#bfdbfe", "recent_border": "#60a5fa",
-        "head_text": "#1d4ed8", "head_border": "#93c5fd",
-    },
-    "Grau": {
-        "tile_bg": "#f3f4f6", "tile_border": "#d1d5db", "tile_text": "#1f2937",
-        "recent_bg": "#e5e7eb", "recent_border": "#9ca3af",
-        "head_text": "#374151", "head_border": "#d1d5db",
-    },
+# Alte Preset-Namen aus gespeicherten Zuständen auf neue Theme-Namen abbilden.
+_PRESET_ALIASES: dict[str, str] = {
+    "Kraft (Standard)": "Kraftpapier",
+    "Dunkel":           "Dark IDE",
+    "Grün":             "Werkstatt",
+    "Blau":             "Nordisch",
+    "Grau":             "Klinisch",
 }
 
-# Vollständige QSS-Palette pro Preset (alle Token aus main.qss)
-_QSS_PALETTES: dict[str, dict[str, str]] = {
-    "Kraft (Standard)": {
-        "surface_page":    "#ebe2cd", "surface_card":    "#f0e8d4",
-        "surface_off":     "#e2d8bf", "surface_pale":    "#e6dcc4",
-        "surface_slate":   "#dccfb0", "border_soft":     "#c9bd9d",
-        "border_mid":      "#b6a884", "border_strong":   "#9a8c68",
-        "brand":           "#5a3a22", "brand_hover":     "#4a2f1c",
-        "brand_deep":      "#3d2715", "brand_pale":      "#e2d4be",
-        "brand_paler":     "#ebdfca", "brand_hover_bg":  "#d4c3a8",
-        "accent":          "#1f2a1f", "accent_hover":    "#0f1a0f",
-        "accent_border":   "#5e6a5e", "accent_pale":     "#d6dad0",
-        "accent_paler":    "#dfe2d8", "accent_disabled": "#8a9088",
-        "success_fg":      "#4a5d2c", "success_bg":      "#dde3d0",
-        "danger_fg":       "#7a2a18", "danger_bg":       "#ecd8cc",
-        "danger_border":   "#c89880", "text_primary":    "#1f1812",
-        "text_body":       "#3a2f22", "text_muted":      "#6e5a44",
-        "text_faint":      "#8e7a62", "text_disabled":   "#b6a884",
-        "rgba_surface_18": "rgba(235, 226, 205, 0.18)",
-        "rgba_surface_10": "rgba(235, 226, 205, 0.10)",
-        "rgba_text_07":    "rgba(31, 24, 18, 0.07)",
-    },
-    "Dunkel": {
-        "surface_page":    "#1e1a16", "surface_card":    "#252018",
-        "surface_off":     "#1a1610", "surface_pale":    "#201c16",
-        "surface_slate":   "#17140f", "border_soft":     "#3a3028",
-        "border_mid":      "#2e2620", "border_strong":   "#221e18",
-        "brand":           "#c9a060", "brand_hover":     "#b88a50",
-        "brand_deep":      "#a07840", "brand_pale":      "#3a3020",
-        "brand_paler":     "#2e2618", "brand_hover_bg":  "#2a2416",
-        "accent":          "#7aaa78", "accent_hover":    "#5a8a58",
-        "accent_border":   "#4a7a48", "accent_pale":     "#1e2a1c",
-        "accent_paler":    "#222e20", "accent_disabled": "#4a5848",
-        "success_fg":      "#88b060", "success_bg":      "#1e2a18",
-        "danger_fg":       "#c87a68", "danger_bg":       "#2a1e1a",
-        "danger_border":   "#5a3028", "text_primary":    "#f0e8d8",
-        "text_body":       "#d8c8a8", "text_muted":      "#9a8868",
-        "text_faint":      "#7a6848", "text_disabled":   "#5a4e38",
-        "rgba_surface_18": "rgba(30, 26, 22, 0.18)",
-        "rgba_surface_10": "rgba(30, 26, 22, 0.10)",
-        "rgba_text_07":    "rgba(240, 232, 216, 0.07)",
-    },
-    "Grün": {
-        "surface_page":    "#edf3eb", "surface_card":    "#f2f7f0",
-        "surface_off":     "#e4ede1", "surface_pale":    "#e8f0e6",
-        "surface_slate":   "#d8e6d4", "border_soft":     "#b8d0b2",
-        "border_mid":      "#9ab894", "border_strong":   "#78a070",
-        "brand":           "#2a5228", "brand_hover":     "#1e4220",
-        "brand_deep":      "#163618", "brand_pale":      "#cce4c6",
-        "brand_paler":     "#d8ecda", "brand_hover_bg":  "#b8d8b2",
-        "accent":          "#1a3a50", "accent_hover":    "#0e2838",
-        "accent_border":   "#3a6a8a", "accent_pale":     "#c8dce8",
-        "accent_paler":    "#d4e4ee", "accent_disabled": "#7a9aaa",
-        "success_fg":      "#2a6a28", "success_bg":      "#d0e8cc",
-        "danger_fg":       "#7a2a18", "danger_bg":       "#f0d8d0",
-        "danger_border":   "#c89880", "text_primary":    "#101e10",
-        "text_body":       "#283828", "text_muted":      "#506850",
-        "text_faint":      "#708070", "text_disabled":   "#9ab898",
-        "rgba_surface_18": "rgba(237, 243, 235, 0.18)",
-        "rgba_surface_10": "rgba(237, 243, 235, 0.10)",
-        "rgba_text_07":    "rgba(16, 30, 16, 0.07)",
-    },
-    "Blau": {
-        "surface_page":    "#eaf2fb", "surface_card":    "#f0f6fd",
-        "surface_off":     "#e0ecf7", "surface_pale":    "#e5eff9",
-        "surface_slate":   "#d0e4f4", "border_soft":     "#a8c8e8",
-        "border_mid":      "#88aed0", "border_strong":   "#6090b8",
-        "brand":           "#1a4a8a", "brand_hover":     "#103a78",
-        "brand_deep":      "#0c2e62", "brand_pale":      "#bad0ea",
-        "brand_paler":     "#cee0f4", "brand_hover_bg":  "#a4c0de",
-        "accent":          "#2a5a3a", "accent_hover":    "#1a4428",
-        "accent_border":   "#4a8a60", "accent_pale":     "#c4dccc",
-        "accent_paler":    "#d0e4d8", "accent_disabled": "#7aaa88",
-        "success_fg":      "#2a7a3a", "success_bg":      "#c8e4cc",
-        "danger_fg":       "#8a2a1a", "danger_bg":       "#f0d4cc",
-        "danger_border":   "#d09080", "text_primary":    "#0c1c2e",
-        "text_body":       "#1e3454", "text_muted":      "#486080",
-        "text_faint":      "#6880a0", "text_disabled":   "#a0b8d0",
-        "rgba_surface_18": "rgba(234, 242, 251, 0.18)",
-        "rgba_surface_10": "rgba(234, 242, 251, 0.10)",
-        "rgba_text_07":    "rgba(12, 28, 46, 0.07)",
-    },
-    "Grau": {
-        "surface_page":    "#f3f4f6", "surface_card":    "#f9fafb",
-        "surface_off":     "#ebedf0", "surface_pale":    "#f0f1f3",
-        "surface_slate":   "#e1e3e7", "border_soft":     "#d1d5db",
-        "border_mid":      "#b0b8c4", "border_strong":   "#8a9aaa",
-        "brand":           "#374151", "brand_hover":     "#283040",
-        "brand_deep":      "#1a2030", "brand_pale":      "#c8d0da",
-        "brand_paler":     "#d8e0e8", "brand_hover_bg":  "#b8c4d0",
-        "accent":          "#1f4060", "accent_hover":    "#142e48",
-        "accent_border":   "#3a6a90", "accent_pale":     "#c4d4e0",
-        "accent_paler":    "#d0dce8", "accent_disabled": "#7a9ab0",
-        "success_fg":      "#2a6a40", "success_bg":      "#c8e4d0",
-        "danger_fg":       "#8a2a18", "danger_bg":       "#f0d0c8",
-        "danger_border":   "#d09888", "text_primary":    "#111827",
-        "text_body":       "#374151", "text_muted":      "#6b7280",
-        "text_faint":      "#9ca3af", "text_disabled":   "#d1d5db",
-        "rgba_surface_18": "rgba(243, 244, 246, 0.18)",
-        "rgba_surface_10": "rgba(243, 244, 246, 0.10)",
-        "rgba_text_07":    "rgba(17, 24, 39, 0.07)",
-    },
-}
-
+_THEMES_PATH = Path(__file__).parent / "themes.json"
+_THEMES_CACHE: dict[str, dict[str, str]] | None = None
 _QSS_TEMPLATE: str | None = None
 
 
+def _get_themes() -> dict[str, dict[str, str]]:
+    """Laedt themes.json einmalig und gibt den Cache zurueck.
+
+    Lazy-geladen, weil JSON-Lesen beim Import unerwuenscht waere.
+    """
+    global _THEMES_CACHE
+    if _THEMES_CACHE is None:
+        raw = json.loads(_THEMES_PATH.read_text(encoding="utf-8"))
+        # Kommentar-Schluessel herausfiltern.
+        _THEMES_CACHE = {k: v for k, v in raw.items() if not k.startswith("_")}
+    return _THEMES_CACHE
+
+
+def _hex_to_rgba(hex_color: str, alpha: float) -> str:
+    """Konvertiert #RRGGBB + Alpha in einen rgba()-String fuer QSS."""
+    h = hex_color.lstrip("#")
+    r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+    return f"rgba({r}, {g}, {b}, {alpha})"
+
+
 def build_stylesheet(preset_name: str) -> str:
-    """Liest main.qss als Vorlage und füllt die Farb-Token des Presets ein."""
+    """Liest main.qss und fuellt die Token aus themes.json ein.
+
+    Unbekannte Preset-Namen (z. B. alte gespeicherte Zustaende) werden
+    ueber _PRESET_ALIASES auf den naechsten Theme-Namen gemappt.
+    """
     global _QSS_TEMPLATE
     if _QSS_TEMPLATE is None:
-        qss_path = Path(__file__).parent / "main.qss"
-        _QSS_TEMPLATE = qss_path.read_text(encoding="utf-8")
-    palette = _QSS_PALETTES.get(preset_name, _QSS_PALETTES["Kraft (Standard)"])
+        _QSS_TEMPLATE = (Path(__file__).parent / "main.qss").read_text(
+            encoding="utf-8"
+        )
+    themes = _get_themes()
+    resolved = _PRESET_ALIASES.get(preset_name, preset_name)
+    palette = dict(themes.get(resolved, themes[STYLE_DEFAULTS["preset"]]))
+    # Berechnete rgba-Tokens einsetzen — nicht in themes.json gespeichert,
+    # damit die Quelldatei schlanker bleibt.
+    palette["rgba_surface_18"] = _hex_to_rgba(palette["surface_page"], 0.18)
+    palette["rgba_surface_10"] = _hex_to_rgba(palette["surface_page"], 0.10)
+    palette["rgba_text_07"]    = _hex_to_rgba(palette["text_primary"],  0.07)
     result = _QSS_TEMPLATE
     for token, value in palette.items():
         result = result.replace(f"@{token}@", value)
@@ -1101,8 +1011,9 @@ class LexiconViewModel:
             symbol=article["meta"].get("symbol"),
             einheit=article["meta"].get("einheit"),
         )
-        content = parse_article_blocks(article["text"], self.all_articles)
-        return [header] + content
+        if "_blocks" not in article:
+            article["_blocks"] = parse_article_blocks(article["text"], self.all_articles)
+        return [header] + article["_blocks"]
 
     def home_html(self) -> str:
         """Liefert das HTML fuer die Startseite mit Kategorien-Uebersicht.
@@ -1110,15 +1021,17 @@ class LexiconViewModel:
         Farben: siehe Abschnitt "Startseite" in main.qss.
         """
         COLS = 3
-        preset_name = self.style_settings.get("preset", "Kraft (Standard)")
-        p = HOME_PRESETS.get(preset_name, HOME_PRESETS["Kraft (Standard)"])
-        C_TILE_BG     = p["tile_bg"]
-        C_TILE_BORDER = p["tile_border"]
-        C_TILE_TEXT   = p["tile_text"]
-        C_RECENT_BG   = p["recent_bg"]
-        C_RECENT_BD   = p["recent_border"]
-        C_HEAD_TEXT   = p["head_text"]
-        C_HEAD_BORDER = p["head_border"]
+        preset_name = self.style_settings.get("preset", STYLE_DEFAULTS["preset"])
+        themes = _get_themes()
+        resolved = _PRESET_ALIASES.get(preset_name, preset_name)
+        p = themes.get(resolved, themes[STYLE_DEFAULTS["preset"]])
+        C_TILE_BG     = p["brand_paler"]
+        C_TILE_BORDER = p["border_soft"]
+        C_TILE_TEXT   = p["brand_deep"]
+        C_RECENT_BG   = p["brand_hover_bg"]
+        C_RECENT_BD   = p["border_mid"]
+        C_HEAD_TEXT   = p["brand"]
+        C_HEAD_BORDER = p["border_soft"]
 
         col_width = 100 // COLS
 
@@ -1225,7 +1138,9 @@ class LexiconViewModel:
             return []
         article = self.all_articles[title]
         ensure_article_text(article)
-        blocks = parse_article_blocks(article["text"], self.all_articles)
+        if "_blocks" not in article:
+            article["_blocks"] = parse_article_blocks(article["text"], self.all_articles)
+        blocks = article["_blocks"]
         seen: set[str] = set()
         result: list[str] = []
         for block in blocks:
@@ -1316,7 +1231,6 @@ class GearButton(QPushButton):
 
     def paintEvent(self, event: QPaintEvent) -> None:
         super().paintEvent(event)
-        import math
         p = QPainter(self)
         p.setRenderHint(QPainter.RenderHint.Antialiasing)
         p.setPen(Qt.PenStyle.NoPen)
@@ -1689,6 +1603,26 @@ class ArticleContentWidget(QScrollArea):
         SVG - Scalable Vector Graphics.
     """
 
+    # (size, weight, margin, color, extra_css) pro Heading-Ebene 1-3.
+    _HEADING_STYLES: dict[int, tuple[str, str, str, str, str]] = {
+        1: ("22px", "700", "0 0 4px", "#111827", ""),
+        2: (
+            "17px", "600", "20px 0 8px", "#111827",
+            "border-bottom:1px solid #e5e7eb;padding-bottom:4px;",
+        ),
+        3: ("15px", "600", "16px 0 6px", "#374151", ""),
+    }
+
+    # (bg, border-color, icon) pro Note-Typ.
+    _NOTE_STYLES: dict[str, tuple[str, str, str]] = {
+        "info":    ("#dbeafe", "#1d4ed8", "ℹ"),
+        "tip":     ("#dcfce7", "#16a34a", "✓"),
+        "warning": ("#fef3c7", "#b45309", "⚠"),
+        "danger":  ("#fee2e2", "#dc2626", "⛔"),
+        "norm":    ("#f5f3ff", "#7c3aed", "§"),
+        "merke":   ("#fff7ed", "#c2410c", "★"),
+    }
+
     def __init__(
         self,
         on_link_clicked: Callable[[QUrl], None],
@@ -1802,16 +1736,8 @@ class ArticleContentWidget(QScrollArea):
     def _make_heading(self, block: HeadingBlock) -> QLabel:
         label = QLabel(block.text)
         label.setWordWrap(True)
-        _styles: dict[int, tuple[str, str, str, str, str]] = {
-            1: ("22px", "700", "0 0 4px", "#111827", ""),
-            2: (
-                "17px", "600", "20px 0 8px", "#111827",
-                "border-bottom:1px solid #e5e7eb;padding-bottom:4px;",
-            ),
-            3: ("15px", "600", "16px 0 6px", "#374151", ""),
-        }
-        size, weight, margin, color, extra = _styles.get(
-            block.level, _styles[3]
+        size, weight, margin, color, extra = self._HEADING_STYLES.get(
+            block.level, self._HEADING_STYLES[3]
         )
         label.setStyleSheet(
             f"font-size:{size};font-weight:{weight};margin:{margin};"
@@ -1941,6 +1867,42 @@ class ArticleContentWidget(QScrollArea):
         outer.addWidget(grid_host)
         return container
 
+    def _load_image_widget(
+        self, img_path: Path, raw_path: str, max_width: int
+    ) -> QWidget | None:
+        """Laedt SVG- oder Rasterbild als skaliertes Widget.
+
+        Extrahiert, weil _make_image und _make_schematic identische Lade-
+        und Skalierungslogik brauchen — nur max_width unterscheidet sich.
+        Gibt None zurueck wenn das Format nicht unterstuetzt wird.
+        """
+        suffix = img_path.suffix.lower()
+        if suffix == ".svg":
+            svg = QSvgWidget(str(img_path))
+            renderer: QSvgRenderer = svg.renderer()
+            if renderer.isValid():
+                ds = renderer.defaultSize()
+                src_w = ds.width() if ds.width() > 0 else max_width
+                src_h = ds.height() if ds.height() > 0 else max_width * 2 // 3
+                w = min(src_w, max_width)
+                h = max(int(src_h * w / src_w), 20)
+                svg.setFixedSize(w, h)
+            return svg
+        if suffix in _RASTER_SUFFIXES:
+            pixmap = QPixmap(str(img_path))
+            if pixmap.isNull():
+                err = QLabel(f"[Bild nicht lesbar: {raw_path}]")
+                err.setObjectName("imageError")
+                return err
+            if pixmap.width() > max_width:
+                pixmap = pixmap.scaledToWidth(
+                    max_width, Qt.TransformationMode.SmoothTransformation
+                )
+            lbl = QLabel()
+            lbl.setPixmap(pixmap)
+            return lbl
+        return None
+
     def _make_image(self, block: ImageBlock, article_folder: Path) -> QWidget:
         container = QWidget()
         layout = QVBoxLayout(container)
@@ -1955,35 +1917,8 @@ class ArticleContentWidget(QScrollArea):
             layout.addWidget(err)
             return container
 
-        suffix = img_path.suffix.lower()
-        img_widget: QWidget
-
-        if suffix == ".svg":
-            svg = QSvgWidget(str(img_path))
-            renderer: QSvgRenderer = svg.renderer()
-            if renderer.isValid():
-                ds = renderer.defaultSize()
-                src_w = ds.width() if ds.width() > 0 else 600
-                src_h = ds.height() if ds.height() > 0 else 400
-                w = min(src_w, 600)
-                h = max(int(src_h * w / src_w), 20)
-                svg.setFixedSize(w, h)
-            img_widget = svg
-        elif suffix in _RASTER_SUFFIXES:
-            pixmap = QPixmap(str(img_path))
-            if pixmap.isNull():
-                err = QLabel(f"[Bild nicht lesbar: {block.path}]")
-                err.setObjectName("imageError")
-                layout.addWidget(err)
-                return container
-            if pixmap.width() > 600:
-                pixmap = pixmap.scaledToWidth(
-                    600, Qt.TransformationMode.SmoothTransformation
-                )
-            pix_label = QLabel()
-            pix_label.setPixmap(pixmap)
-            img_widget = pix_label
-        else:
+        img_widget = self._load_image_widget(img_path, block.path, 600)
+        if img_widget is None:
             err = QLabel(f"[Bildformat nicht unterstuetzt: {block.path}]")
             err.setObjectName("imageError")
             layout.addWidget(err)
@@ -2020,36 +1955,14 @@ class ArticleContentWidget(QScrollArea):
             layout.addWidget(err)
             return container
 
-        suffix = img_path.suffix.lower()
-        if suffix == ".svg":
-            svg = QSvgWidget(str(img_path))
-            renderer: QSvgRenderer = svg.renderer()
-            if renderer.isValid():
-                ds = renderer.defaultSize()
-                src_w = ds.width() if ds.width() > 0 else 700
-                src_h = ds.height() if ds.height() > 0 else 500
-                w = min(src_w, 700)
-                h = max(int(src_h * w / src_w), 20)
-                svg.setFixedSize(w, h)
-            layout.addWidget(svg)
-        elif suffix in _RASTER_SUFFIXES:
-            pixmap = QPixmap(str(img_path))
-            if pixmap.isNull():
-                err = QLabel(f"[Bild nicht lesbar: {block.path}]")
-                err.setObjectName("imageError")
-                layout.addWidget(err)
-            else:
-                if pixmap.width() > 700:
-                    pixmap = pixmap.scaledToWidth(
-                        700, Qt.TransformationMode.SmoothTransformation
-                    )
-                pix_lbl = QLabel()
-                pix_lbl.setPixmap(pixmap)
-                layout.addWidget(pix_lbl)
-        else:
-            err = QLabel(f"[Format nicht unterstützt: {block.path}]")
+        img_widget = self._load_image_widget(img_path, block.path, 700)
+        if img_widget is None:
+            err = QLabel(f"[Format nicht unterstuetzt: {block.path}]")
             err.setObjectName("imageError")
             layout.addWidget(err)
+            return container
+
+        layout.addWidget(img_widget)
         return container
 
     def _make_waveform(self, block: WaveformBlock) -> QWidget:
@@ -2180,15 +2093,7 @@ class ArticleContentWidget(QScrollArea):
         return container
 
     def _make_note(self, block: NoteBlock) -> QWidget:
-        _styles: dict[str, tuple[str, str, str]] = {
-            "info":    ("#dbeafe", "#1d4ed8", "ℹ"),
-            "tip":     ("#dcfce7", "#16a34a", "✓"),
-            "warning": ("#fef3c7", "#b45309", "⚠"),
-            "danger":  ("#fee2e2", "#dc2626", "⛔"),
-            "norm":    ("#f5f3ff", "#7c3aed", "§"),
-            "merke":   ("#fff7ed", "#c2410c", "★"),
-        }
-        bg, border, icon = _styles.get(block.kind, _styles["info"])
+        bg, border, icon = self._NOTE_STYLES.get(block.kind, self._NOTE_STYLES["info"])
 
         container = QFrame()
         container.setStyleSheet(
@@ -2267,13 +2172,17 @@ class LexiconStyleDialog(QDialog):
         heading("FARBSCHEMA – STARTSEITE")
         self._preset_list = QListWidget()
         self._preset_list.setObjectName("presetList")
-        current = s.get("preset", STYLE_DEFAULTS["preset"])
-        for name in HOME_PRESETS:
+        themes = _get_themes()
+        current = _PRESET_ALIASES.get(
+            s.get("preset", STYLE_DEFAULTS["preset"]),
+            s.get("preset", STYLE_DEFAULTS["preset"]),
+        )
+        for name in themes:
             self._preset_list.addItem(name)
             if name == current:
                 self._preset_list.setCurrentRow(self._preset_list.count() - 1)
         self._preset_list.setFixedHeight(
-            self._preset_list.sizeHintForRow(0) * len(HOME_PRESETS) + 8
+            self._preset_list.sizeHintForRow(0) * len(themes) + 8
         )
         root.addWidget(self._preset_list)
 
@@ -2336,6 +2245,7 @@ class LexiconWidget(QWidget):
     def __init__(
         self,
         on_send_formula: Callable[[str], None] | None = None,
+        on_style_changed: Callable[[str], None] | None = None,
         folder: Path = ARTICLES_FOLDER,
         title: str = "Elektronik Lexikon",
         parent: QWidget | None = None,
@@ -2345,9 +2255,11 @@ class LexiconWidget(QWidget):
             folder=folder, title=title
         )
         self._on_send_formula_external = on_send_formula
-        QApplication.instance().setStyleSheet(
-            build_stylesheet(self.view_model.style_settings["preset"])
-        )
+        # Callback statt direktem QApplication-Zugriff, damit das Widget
+        # nicht an die App-Shell koppelt (MVVM-Grenze).
+        self._on_style_changed = on_style_changed
+        if on_style_changed:
+            on_style_changed(self.view_model.style_settings["preset"])
         self._build_ui()
         self._refresh_list()
         self._show_home()
@@ -2946,8 +2858,7 @@ class LexiconWidget(QWidget):
         self.view_model.style_settings["preset"] = new_settings["preset"]
         self.view_model.save_state()
         self.display.set_font_size(new_settings["font_size"])
-        QApplication.instance().setStyleSheet(
-            build_stylesheet(new_settings["preset"])
-        )
+        if self._on_style_changed:
+            self._on_style_changed(new_settings["preset"])
         if self.view_model.current_title is None:
             self._show_home()

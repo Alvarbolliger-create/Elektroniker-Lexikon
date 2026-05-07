@@ -55,8 +55,9 @@ Abkuerzungen (Initialnotation):
 from __future__ import annotations
 
 import copy
+from collections import deque
 from dataclasses import dataclass
-from typing import Any, List, Optional, Tuple
+from typing import Any
 
 from PySide6.QtCore import QPointF, QRectF, QSize, Qt, QTimer
 from PySide6.QtGui import (
@@ -136,7 +137,7 @@ class MathNode:
     """
 
     def __init__(self) -> None:
-        self.parent: Optional["RowNode"] = None
+        self.parent: RowNode | None = None
         self.width: float = 0.0
         self.ascent: float = 0.0
         self.descent: float = 0.0
@@ -193,13 +194,13 @@ class RowNode(MathNode):
     vom Kind i (bzw. am Ende, wenn i == len).
     """
 
-    def __init__(self, children: Optional[List[MathNode]] = None) -> None:
+    def __init__(self, children: Optional[list[MathNode]] = None) -> None:
         super().__init__()
-        self.children: List[MathNode] = []
+        self.children: list[MathNode] = []
         # Merkt sich die letzte Cursor-Position in diesem Slot, damit
         # vertikale Navigation (↑/↓, Tab) wieder dort landet, wo der
         # Cursor zuletzt war. None = Slot wurde noch nie betreten.
-        self.last_cursor_index: Optional[int] = None
+        self.last_cursor_index: int | None = None
         if children:
             for c in children:
                 self.append(c)
@@ -264,8 +265,8 @@ class FractionNode(MathNode):
     denom.height + gap - math_axis.
     """
 
-    def __init__(self, numerator: Optional[RowNode] = None,
-                 denominator: Optional[RowNode] = None) -> None:
+    def __init__(self, numerator: RowNode | None = None,
+                 denominator: RowNode | None = None) -> None:
         super().__init__()
         self.numerator: RowNode = numerator if numerator is not None else RowNode()
         self.denominator: RowNode = denominator if denominator is not None else RowNode()
@@ -321,13 +322,13 @@ class FractionNode(MathNode):
         self.denominator.paint(painter, den_x, den_y)
 
     # -- Container-Interface (wird von der Cursor-Navigation genutzt) --
-    def slots(self) -> List[RowNode]:
+    def slots(self) -> list[RowNode]:
         return [self.numerator, self.denominator]
 
-    def slot_above(self, row: RowNode) -> Optional[RowNode]:
+    def slot_above(self, row: RowNode) -> RowNode | None:
         return self.numerator if row is self.denominator else None
 
-    def slot_below(self, row: RowNode) -> Optional[RowNode]:
+    def slot_below(self, row: RowNode) -> RowNode | None:
         return self.denominator if row is self.numerator else None
 
     def first_slot(self) -> RowNode:
@@ -342,7 +343,7 @@ class SuperscriptNode(MathNode):
     Basis - also auf was sich der Exponent bezieht - steht links davor
     im umgebenden Row. Das Serialisieren fügt entsprechend `^(…)` ein."""
 
-    def __init__(self, inner: Optional[RowNode] = None) -> None:
+    def __init__(self, inner: RowNode | None = None) -> None:
         super().__init__()
         self.inner: RowNode = inner if inner is not None else RowNode()
         self.inner.parent = None
@@ -367,13 +368,13 @@ class SuperscriptNode(MathNode):
         self.inner.y = y
         self.inner.paint(painter, x, y)
 
-    def slots(self) -> List[RowNode]:
+    def slots(self) -> list[RowNode]:
         return [self.inner]
 
-    def slot_above(self, row: RowNode) -> Optional[RowNode]:
+    def slot_above(self, row: RowNode) -> RowNode | None:
         return None
 
-    def slot_below(self, row: RowNode) -> Optional[RowNode]:
+    def slot_below(self, row: RowNode) -> RowNode | None:
         return None
 
     def first_slot(self) -> RowNode:
@@ -387,7 +388,7 @@ class SubscriptNode(MathNode):
     """Tiefgestellter Slot - wird nur für Namen/Indizes verwendet, hat
     keine mathematische Wirkung. Geometrie analog zu SuperscriptNode."""
 
-    def __init__(self, inner: Optional[RowNode] = None) -> None:
+    def __init__(self, inner: RowNode | None = None) -> None:
         super().__init__()
         self.inner: RowNode = inner if inner is not None else RowNode()
         self.inner.parent = None
@@ -411,13 +412,13 @@ class SubscriptNode(MathNode):
         self.inner.y = y
         self.inner.paint(painter, x, y)
 
-    def slots(self) -> List[RowNode]:
+    def slots(self) -> list[RowNode]:
         return [self.inner]
 
-    def slot_above(self, row: RowNode) -> Optional[RowNode]:
+    def slot_above(self, row: RowNode) -> RowNode | None:
         return None
 
-    def slot_below(self, row: RowNode) -> Optional[RowNode]:
+    def slot_below(self, row: RowNode) -> RowNode | None:
         return None
 
     def first_slot(self) -> RowNode:
@@ -502,13 +503,13 @@ class LogNode(MathNode):
         painter.drawText(QPointF(close_x, baseline), ")")
         painter.restore()
 
-    def slots(self) -> List[RowNode]:
+    def slots(self) -> list[RowNode]:
         return [self.base, self.argument]
 
-    def slot_above(self, row: RowNode) -> Optional[RowNode]:
+    def slot_above(self, row: RowNode) -> RowNode | None:
         return None
 
-    def slot_below(self, row: RowNode) -> Optional[RowNode]:
+    def slot_below(self, row: RowNode) -> RowNode | None:
         return None
 
     def first_slot(self) -> RowNode:
@@ -522,7 +523,7 @@ class SqrtNode(MathNode):
     """Quadratwurzel - Wurzelzeichen + Vinculum-Strich über dem Radikanden.
     Ein einziger Slot `inner`."""
 
-    def __init__(self, inner: Optional[RowNode] = None) -> None:
+    def __init__(self, inner: RowNode | None = None) -> None:
         super().__init__()
         self.inner: RowNode = inner if inner is not None else RowNode()
         self.inner.parent = None
@@ -570,13 +571,13 @@ class SqrtNode(MathNode):
         self.inner.y = inner_top
         self.inner.paint(painter, inner_x, inner_top)
 
-    def slots(self) -> List[RowNode]:
+    def slots(self) -> list[RowNode]:
         return [self.inner]
 
-    def slot_above(self, row: RowNode) -> Optional[RowNode]:
+    def slot_above(self, row: RowNode) -> RowNode | None:
         return None
 
-    def slot_below(self, row: RowNode) -> Optional[RowNode]:
+    def slot_below(self, row: RowNode) -> RowNode | None:
         return None
 
     def first_slot(self) -> RowNode:
@@ -590,8 +591,8 @@ class NthRootNode(MathNode):
     """n-te Wurzel: wie Sqrt, aber mit einem kleinen Index-Slot oben links.
     Slots: [index, inner]. ← von rechts → inner; ↑ im inner → index."""
 
-    def __init__(self, index: Optional[RowNode] = None,
-                 inner: Optional[RowNode] = None) -> None:
+    def __init__(self, index: RowNode | None = None,
+                 inner: RowNode | None = None) -> None:
         super().__init__()
         self.index: RowNode = index if index is not None else RowNode()
         self.inner: RowNode = inner if inner is not None else RowNode()
@@ -657,13 +658,13 @@ class NthRootNode(MathNode):
         self.inner.y = inner_top
         self.inner.paint(painter, inner_x, inner_top)
 
-    def slots(self) -> List[RowNode]:
+    def slots(self) -> list[RowNode]:
         return [self.index, self.inner]
 
-    def slot_above(self, row: RowNode) -> Optional[RowNode]:
+    def slot_above(self, row: RowNode) -> RowNode | None:
         return self.index if row is self.inner else None
 
-    def slot_below(self, row: RowNode) -> Optional[RowNode]:
+    def slot_below(self, row: RowNode) -> RowNode | None:
         return self.inner if row is self.index else None
 
     def first_slot(self) -> RowNode:
@@ -788,17 +789,17 @@ class SumNode(MathNode):
         self.body.paint(painter, body_x, body_y)
 
     # -- Container-Interface --
-    def slots(self) -> List[RowNode]:
+    def slots(self) -> list[RowNode]:
         return [self.body, self.lower_var, self.lower_val, self.upper]
 
-    def slot_above(self, row: RowNode) -> Optional[RowNode]:
+    def slot_above(self, row: RowNode) -> RowNode | None:
         if row is self.lower_var or row is self.lower_val:
             return self.body
         if row is self.body:
             return self.upper
         return None
 
-    def slot_below(self, row: RowNode) -> Optional[RowNode]:
+    def slot_below(self, row: RowNode) -> RowNode | None:
         if row is self.upper:
             return self.body
         if row is self.body:
@@ -811,13 +812,13 @@ class SumNode(MathNode):
     def last_slot(self) -> RowNode:
         return self.body
 
-    def horizontal_next(self, row: RowNode) -> Optional[RowNode]:
+    def horizontal_next(self, row: RowNode) -> RowNode | None:
         # Unter dem Σ steht "var = val" horizontal - → wechselt zwischen ihnen.
         if row is self.lower_var:
             return self.lower_val
         return None
 
-    def horizontal_prev(self, row: RowNode) -> Optional[RowNode]:
+    def horizontal_prev(self, row: RowNode) -> RowNode | None:
         if row is self.lower_val:
             return self.lower_var
         return None
@@ -926,17 +927,17 @@ class IntegralNode(MathNode):
         self.var.paint(painter, var_x, var_y)
 
     # -- Container-Interface --
-    def slots(self) -> List[RowNode]:
+    def slots(self) -> list[RowNode]:
         return [self.body, self.var, self.lower, self.upper]
 
-    def slot_above(self, row: RowNode) -> Optional[RowNode]:
+    def slot_above(self, row: RowNode) -> RowNode | None:
         if row is self.lower:
             return self.upper
         if row is self.body or row is self.var:
             return self.upper
         return None
 
-    def slot_below(self, row: RowNode) -> Optional[RowNode]:
+    def slot_below(self, row: RowNode) -> RowNode | None:
         if row is self.upper:
             return self.lower
         if row is self.body or row is self.var:
@@ -949,13 +950,13 @@ class IntegralNode(MathNode):
     def last_slot(self) -> RowNode:
         return self.var
 
-    def horizontal_next(self, row: RowNode) -> Optional[RowNode]:
+    def horizontal_next(self, row: RowNode) -> RowNode | None:
         # Neben dem Body steht " d var" - → springt über das " d" in var.
         if row is self.body:
             return self.var
         return None
 
-    def horizontal_prev(self, row: RowNode) -> Optional[RowNode]:
+    def horizontal_prev(self, row: RowNode) -> RowNode | None:
         if row is self.var:
             return self.body
         return None
@@ -970,13 +971,13 @@ class MatrixNode(MathNode):
 
     def __init__(self, rows: int = 1, cols: int = 2) -> None:
         super().__init__()
-        self.cells: List[List[RowNode]] = []
+        self.cells: list[list[RowNode]] = []
         for _ in range(rows):
             self.cells.append([self._make_cell() for _ in range(cols)])
         # Layout-Zwischenwerte, in measure() gefüllt
-        self._col_widths: List[float] = []
-        self._row_heights: List[float] = []   # ascent+descent je Zeile
-        self._row_ascents: List[float] = []   # je Zeile (für baseline-align)
+        self._col_widths: list[float] = []
+        self._row_heights: list[float] = []   # ascent+descent je Zeile
+        self._row_ascents: list[float] = []   # je Zeile (für baseline-align)
         self._content_w = 0.0
         self._content_h = 0.0
 
@@ -1002,7 +1003,7 @@ class MatrixNode(MathNode):
         cols = self.n_cols
         self.cells.append([self._make_cell() for _ in range(cols)])
 
-    def find_cell(self, row_node: RowNode) -> Optional[Tuple[int, int]]:
+    def find_cell(self, row_node: RowNode) -> tuple[int, int] | None:
         for r, row in enumerate(self.cells):
             for c, cell in enumerate(row):
                 if cell is row_node:
@@ -1087,19 +1088,19 @@ class MatrixNode(MathNode):
             cy += self._row_heights[r] + MATRIX_ROW_GAP
 
     # -- Container-Interface --
-    def slots(self) -> List[RowNode]:
-        out: List[RowNode] = []
+    def slots(self) -> list[RowNode]:
+        out: list[RowNode] = []
         for row in self.cells:
             out.extend(row)
         return out
 
-    def slot_above(self, row: RowNode) -> Optional[RowNode]:
+    def slot_above(self, row: RowNode) -> RowNode | None:
         pos = self.find_cell(row)
         if pos is None or pos[0] == 0:
             return None
         return self.cells[pos[0] - 1][pos[1]]
 
-    def slot_below(self, row: RowNode) -> Optional[RowNode]:
+    def slot_below(self, row: RowNode) -> RowNode | None:
         pos = self.find_cell(row)
         if pos is None or pos[0] >= self.n_rows - 1:
             return None
@@ -1111,7 +1112,7 @@ class MatrixNode(MathNode):
     def last_slot(self) -> RowNode:
         return self.cells[-1][-1]
 
-    def horizontal_next(self, row: RowNode) -> Optional[RowNode]:
+    def horizontal_next(self, row: RowNode) -> RowNode | None:
         pos = self.find_cell(row)
         if pos is None:
             return None
@@ -1120,7 +1121,7 @@ class MatrixNode(MathNode):
             return self.cells[r][c + 1]
         return None
 
-    def horizontal_prev(self, row: RowNode) -> Optional[RowNode]:
+    def horizontal_prev(self, row: RowNode) -> RowNode | None:
         pos = self.find_cell(row)
         if pos is None:
             return None
@@ -1143,9 +1144,9 @@ class SystemNode(MathNode):
 
     def __init__(self, rows: int = 2) -> None:
         super().__init__()
-        self.rows: List[RowNode] = [self._make_row() for _ in range(rows)]
-        self._row_heights: List[float] = []
-        self._row_ascents: List[float] = []
+        self.rows: list[RowNode] = [self._make_row() for _ in range(rows)]
+        self._row_heights: list[float] = []
+        self._row_ascents: list[float] = []
         self._content_w: float = 0.0
         self._content_h: float = 0.0
 
@@ -1162,7 +1163,7 @@ class SystemNode(MathNode):
     def add_row(self) -> None:
         self.rows.append(self._make_row())
 
-    def find_row(self, row: RowNode) -> Optional[int]:
+    def find_row(self, row: RowNode) -> int | None:
         for i, r in enumerate(self.rows):
             if r is row:
                 return i
@@ -1230,16 +1231,16 @@ class SystemNode(MathNode):
             cy += self._row_heights[i] + SYSTEM_ROW_GAP
 
     # -- Container-Interface --
-    def slots(self) -> List[RowNode]:
+    def slots(self) -> list[RowNode]:
         return list(self.rows)
 
-    def slot_above(self, row: RowNode) -> Optional[RowNode]:
+    def slot_above(self, row: RowNode) -> RowNode | None:
         i = self.find_row(row)
         if i is None or i == 0:
             return None
         return self.rows[i - 1]
 
-    def slot_below(self, row: RowNode) -> Optional[RowNode]:
+    def slot_below(self, row: RowNode) -> RowNode | None:
         i = self.find_row(row)
         if i is None or i >= self.n_rows - 1:
             return None
@@ -1281,7 +1282,7 @@ def _container_of(row: RowNode) -> Optional["MathNode"]:
     return getattr(row, "_container_parent", None)
 
 
-def _find_enclosing_row(container: "MathNode") -> Tuple[Optional[RowNode], int]:
+def _find_enclosing_row(container: "MathNode") -> tuple[RowNode | None, int]:
     """Sucht die Row, in der dieser Container-Node als Kind hängt, +
     seinen Index darin. Funktioniert für jeden MathNode (Fraction,
     Superscript, Sqrt, …), der als Kind einer Row eingehängt ist."""
@@ -1317,7 +1318,7 @@ def _node_contains(node: MathNode, x: float, y: float) -> bool:
             and node.y <= y <= node.y + node.height)
 
 
-def _pick_in_row(row: RowNode, x: float, y: float) -> Tuple[RowNode, int]:
+def _pick_in_row(row: RowNode, x: float, y: float) -> tuple[RowNode, int]:
     """Sucht rekursiv die beste (Slot, Index)-Position für den Klick (x,y).
 
     Wenn der Klick auf einem Container-Kind liegt, wird in dessen Slot
@@ -1344,7 +1345,7 @@ def _pick_in_row(row: RowNode, x: float, y: float) -> Tuple[RowNode, int]:
 
 
 def _pick_slot_in_container(container: MathNode, x: float,
-                            y: float) -> Optional[RowNode]:
+                            y: float) -> RowNode | None:
     """Wählt den Slot eines Containers, dessen Bounding-Box den Punkt
     enthält. Wenn keiner direkt trifft, den nächstliegenden (anhand
     Mittelpunkt-Distanz)."""
@@ -2030,19 +2031,19 @@ class MathEditor(QWidget):
 
     PADDING = 16.0   # Innenabstand zum Widget-Rand
 
-    def __init__(self, parent: Optional[QWidget] = None) -> None:
+    def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         self.setFocusPolicy(Qt.StrongFocus)
         self.setMinimumHeight(120)
 
         # Multi-Line: jede Zeile ist eine eigene Top-Level-RowNode.
         # Die Zeilen werden vertikal gestapelt gezeichnet.
-        self.lines: List[RowNode] = [RowNode()]
+        self.lines: list[RowNode] = [RowNode()]
         # Ergebnisse pro Zeile: (text, is_error). ("", False) = kein Ergebnis.
-        self.results: List[Tuple[str, bool]] = [("", False)]
+        self.results: list[tuple[str, bool]] = [("", False)]
         # Navigierbare RowNodes für Ergebnisse (parallel zu results).
         # None = kein Ergebnis in dieser Zeile.
-        self.result_rows: List[Optional[RowNode]] = [None]
+        self.result_rows: list[RowNode | None] = [None]
         self.cursor: Cursor = Cursor(self.lines[0], 0)
 
         # Cursor-Blinken
@@ -2054,16 +2055,17 @@ class MathEditor(QWidget):
 
         # Strukturierter Backspace: Container-Nodes werden erst markiert,
         # beim zweiten Backspace gelöscht. Jede andere Taste hebt es auf.
-        self._marked_node: Optional[MathNode] = None
+        self._marked_node: MathNode | None = None
         self._mark_border: QColor = QColor("#3b82f6")
         self._mark_fill: QColor = QColor(59, 130, 246, 45)
 
         # Textauswahl: Anker-Position (Row, Index) oder None wenn keine Auswahl.
-        self._sel_anchor: Optional[Tuple[RowNode, int]] = None
+        self._sel_anchor: tuple[RowNode, int] | None = None
 
         # Undo/Redo-Historie (deep-copy-Snapshots, max. 100 Eintraege).
-        self._undo_stack: list[dict] = []
-        self._redo_stack: list[dict] = []
+        # deque(maxlen=100): das aelteste Element faellt automatisch raus — O(1).
+        self._undo_stack: deque[dict] = deque(maxlen=100)
+        self._redo_stack: deque[dict] = deque(maxlen=100)
 
         # Engine-Anbindung
         self._engine: Any = None
@@ -2150,7 +2152,7 @@ class MathEditor(QWidget):
         """True, wenn der Cursor sich in einer (schreibgeschützten) Ergebnis-Row befindet."""
         return any(r is self.cursor.row for r in self.result_rows if r is not None)
 
-    def _result_row_line_index(self) -> Optional[int]:
+    def _result_row_line_index(self) -> int | None:
         """Gibt den Zeilen-Index zurück, dessen Ergebnis-Row der Cursor enthält, oder None."""
         for i, r in enumerate(self.result_rows):
             if r is not None and r is self.cursor.row:
@@ -2166,7 +2168,7 @@ class MathEditor(QWidget):
             and self._sel_anchor[1] != self.cursor.index
         )
 
-    def _sel_range(self) -> Optional[Tuple[RowNode, int, int]]:
+    def _sel_range(self) -> tuple[RowNode, int, int] | None:
         """Gibt (row, start, end) der aktuellen Auswahl zurück oder None."""
         if not self._has_selection():
             return None
@@ -2193,8 +2195,6 @@ class MathEditor(QWidget):
     def _push_undo(self) -> None:
         """Speichert den aktuellen Zustand auf dem Undo-Stack."""
         self._undo_stack.append(self._snapshot())
-        if len(self._undo_stack) > 100:
-            self._undo_stack.pop(0)
         self._redo_stack.clear()
 
     def _restore_snapshot(self, snap: dict) -> None:
@@ -2390,7 +2390,7 @@ class MathEditor(QWidget):
         groups, line_to_group = _group_by_brackets(texts)
         engine_texts = [gt for gt, _ in groups]
 
-        force: Optional[set] = None
+        force: set | None = None
         if approx_current:
             cur_i = self._top_line_index()
             if cur_i >= 0 and cur_i in line_to_group:
@@ -2557,22 +2557,6 @@ class MathEditor(QWidget):
         p.drawRect(QRectF(x0, y, x1 - x0, h))
         p.restore()
 
-    def _paint_result(self, p: QPainter, line: RowNode,
-                      text: str, is_error: bool) -> None:
-        """Zeichnet das Ergebnis nach ▶ rechts neben der gegebenen Zeile."""
-        font = _make_font(FONT_SIZE_PT)
-        fm = QFontMetricsF(font)
-        baseline = line.y + max(line.ascent, fm.ascent())
-        sep_x = line.x + line.width + 4
-        p.save()
-        p.setFont(font)
-        p.setPen(QColor(C_SEP))
-        p.drawText(QPointF(sep_x, baseline), SEP_TEXT)
-        sep_w = fm.horizontalAdvance(SEP_TEXT)
-        p.setPen(QColor(C_RES_ERR if is_error else C_RES_OK))
-        p.drawText(QPointF(sep_x + sep_w, baseline), text)
-        p.restore()
-
     def _toggle_cursor(self) -> None:
         self._cursor_visible = not self._cursor_visible
         self.update()
@@ -2685,7 +2669,7 @@ class MathEditor(QWidget):
             self.update()
         self.setFocus()
 
-    def _pick_at(self, x: float, y: float) -> Optional[Tuple[RowNode, int]]:
+    def _pick_at(self, x: float, y: float) -> tuple[RowNode, int] | None:
         """Wandelt Widget-Koordinaten (x,y) in eine (Row, Index)-Position um.
         Wählt zunächst die Top-Level-Zeile, dann rekursiv den Slot/Index."""
         if not self.lines:
@@ -3024,7 +3008,7 @@ class MathEditor(QWidget):
         Cursor aus nach aussen; ignoriert Ctrl+Tab, wenn keiner gefunden
         wird.
         """
-        row: Optional[RowNode] = self.cursor.row
+        row: RowNode | None = self.cursor.row
         while row is not None:
             container = _container_of(row)
             if isinstance(container, MatrixNode):
@@ -3525,7 +3509,7 @@ class MathFormulaDisplay(QWidget):
     _PADDING_X: float = 10.0
     _PADDING_Y: float = 6.0
 
-    def __init__(self, formula: str, parent: Optional[QWidget] = None) -> None:
+    def __init__(self, formula: str, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         self.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self._row: RowNode = RowNode()

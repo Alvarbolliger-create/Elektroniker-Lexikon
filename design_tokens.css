@@ -1,0 +1,637 @@
+/* ═══════════════════════════════════════════════════════════════
+   Elektronik Lexikon — Design Tokens (CSS)
+   Extrahiert aus main.qss + Code. Web-Substitut der Qt-Vorlage.
+   ═══════════════════════════════════════════════════════════════ */
+
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/Inter-Variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("fonts/JetBrainsMono-Variable.woff2") format("woff2-variations");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   THEMES — alle drei sind hell und monochromatisch + 1 Akzent.
+   Default = "workshop". Überschreibbar via <html data-theme="…">:
+     • workshop       Olive/Khaki + Kupfer (Industrie-Werkstatt)
+     • oscilloscope   Cremebeige + Tiefschwarz + Akzent-Rot (Lab)
+     • kraft          Kraftpapier-Beige + Brown + Tinte (Schaltplan)
+   Die alten Variablen (--brand-navy, --indigo-*, --sky-*) bleiben als
+   Aliases bestehen, damit alter Code nicht bricht — sie zeigen jetzt
+   auf die theme-neutralen Tokens (--brand, --accent, --surface-*).
+   ═══════════════════════════════════════════════════════════════ */
+
+:root,
+:root[data-theme="workshop"] {
+  /* ── Theme: Werkstatt — komplett neu ─────────────────────── */
+  /* Warmes Papier, tiefes Forest-Green als Tinte, gesättigtes Kupfer-Orange.
+     Harmonisiert in oklch: alle Akzente teilen Chroma ≈ 0.10, vary nur Hue.
+     Surfaces in oklch L 0.97→0.92, gleiche Hue wie Brand. */
+
+  --brand:             #2c3e2a;   /* Forest-Tinte */
+  --brand-hover:       #3a4f37;
+  --brand-deep:        #1c2a1b;
+  --brand-pale:        #dce5d6;
+  --brand-paler:       #e8efe2;
+  --brand-hover-bg:    #c8d3c0;
+  --brand-soft-fg:     #5e6e58;
+
+  --accent:            #b8651c;   /* sattes Kupfer */
+  --accent-hover:      #94501a;
+  --accent-border:     #e0b890;
+  --accent-pale:       #f4e4cf;
+  --accent-paler:      #faefdd;
+  --accent-disabled:   #d8b894;
+
+  --success-fg:        #3d6b2c;
+  --success-bg:        #e3eed8;
+  --danger-fg:         #9a3a1c;
+  --danger-bg:         #f4dcce;
+  --danger-border:     #d9a583;
+  --focus-ring:        #b8651c;
+  --link-fg:           #6b4218;
+  --link-fg-hover:     #422910;
+
+  --surface-page:      #f6f1e6;   /* warmes Off-White */
+  --surface-card:      #fdfaf2;
+  --surface-off:       #ece5d3;
+  --surface-pale:      #f1ecdd;
+  --surface-slate:     #e2dac4;
+
+  --border-soft:       #d4ccb5;
+  --border-mid:        #beb59b;
+  --border-strong:     #a39a7e;
+
+  --text-primary:      #1c2a1b;
+  --text-body:         #38402e;
+  --text-muted:        #7a7560;
+  --text-faint:        #9e9882;
+  --text-disabled:     #c9c3ae;
+  --text-on-brand:     #f6f1e6;
+}
+
+:root[data-theme="oscilloscope"] {
+  /* ── Theme: Oszilloskop — komplett neu ───────────────────── */
+  /* Reines Off-White (cool, leicht blaustichig), dunkler Anthrazit als Brand,
+     ein einziger sehr gesättigter Lab-Rot Akzent. Klinisch, klar, präzise. */
+
+  --brand:             #1f2937;   /* Anthrazit-Blau */
+  --brand-hover:       #111827;
+  --brand-deep:        #0b1220;
+  --brand-pale:        #dde3eb;
+  --brand-paler:       #eaeef3;
+  --brand-hover-bg:    #c8d1dc;
+  --brand-soft-fg:     #4b5563;
+
+  --accent:            #d62828;   /* Lab-Rot, gesättigt */
+  --accent-hover:      #b51d1d;
+  --accent-border:     #f0a8a8;
+  --accent-pale:       #fadddd;
+  --accent-paler:      #fceaea;
+  --accent-disabled:   #e3b8b8;
+
+  --success-fg:        #15803d;
+  --success-bg:        #d4edda;
+  --danger-fg:         #b51d1d;
+  --danger-bg:         #fadddd;
+  --danger-border:     #f0a8a8;
+  --focus-ring:        #d62828;
+  --link-fg:           #b51d1d;
+  --link-fg-hover:     #7a1313;
+
+  --surface-page:      #f5f6f8;
+  --surface-card:      #ffffff;
+  --surface-off:       #eef0f3;
+  --surface-pale:      #f1f3f6;
+  --surface-slate:     #e4e7ec;
+
+  --border-soft:       #d8dce2;
+  --border-mid:        #c1c7d0;
+  --border-strong:     #a3aab5;
+
+  --text-primary:      #0b1220;
+  --text-body:         #1f2937;
+  --text-muted:        #6b7280;
+  --text-faint:        #9ca3af;
+  --text-disabled:     #cbd0d8;
+  --text-on-brand:     #ffffff;
+}
+
+:root[data-theme="dark-ide"] {
+  /* ── Theme: Dark IDE — VS-Code / JetBrains-artig ─────────── */
+  /* Tiefes Anthrazit, kühler Akzent-Blau wie Editor-Selection.
+     Surfaces gestaffelt: page < off < card < pale, alle blaugrau. */
+
+  --brand:             #4a9eff;
+  --brand-hover:       #66b0ff;
+  --brand-deep:        #2d7ad6;
+  --brand-pale:        #1f3147;
+  --brand-paler:       #18283c;
+  --brand-hover-bg:    #243a52;
+  --brand-soft-fg:     #8ab4dd;
+
+  --accent:            #c586c0;   /* Magenta wie VS-Code Keywords */
+  --accent-hover:      #d99cd4;
+  --accent-border:     #6e4a6c;
+  --accent-pale:       #2e1f2c;
+  --accent-paler:      #261a25;
+  --accent-disabled:   #5a3f58;
+
+  --success-fg:        #6cc070;
+  --success-bg:        #1e2e1f;
+  --danger-fg:         #f48771;
+  --danger-bg:         #3a1e1a;
+  --danger-border:     #7a3527;
+  --focus-ring:        #4a9eff;
+  --link-fg:           #4a9eff;
+  --link-fg-hover:     #80b8ff;
+
+  --surface-page:      #1e1e1e;   /* App-Hintergrund */
+  --surface-card:      #252526;   /* Editor-Panel */
+  --surface-off:       #2d2d30;   /* Toolbar */
+  --surface-pale:      #252526;   /* Sidebar */
+  --surface-slate:     #2d2d30;   /* Tab-Row */
+
+  --border-soft:       #3e3e42;
+  --border-mid:        #494950;
+  --border-strong:     #6e6e73;
+
+  --text-primary:      #e8e8e8;
+  --text-body:         #cccccc;
+  --text-muted:        #969696;
+  --text-faint:        #6e6e6e;
+  --text-disabled:     #4a4a4a;
+  --text-on-brand:     #0c1825;
+}
+
+:root[data-theme="dark-solarized"] {
+  /* ── Theme: Dark Solarized — warm, augenschonend ─────────── */
+  /* Solarized Dark Basis: base03 page, base02 card, gelb/orange als Akzent.
+     Niemals reines Schwarz oder Weiss. */
+
+  --brand:             #b58900;   /* Solarized yellow */
+  --brand-hover:       #cb9c0d;
+  --brand-deep:        #8a6800;
+  --brand-pale:        #1a3a3f;
+  --brand-paler:       #143037;
+  --brand-hover-bg:    #234a52;
+  --brand-soft-fg:     #93a1a1;
+
+  --accent:            #cb4b16;   /* Solarized orange */
+  --accent-hover:      #dc5a25;
+  --accent-border:     #6a3520;
+  --accent-pale:       #2a1a14;
+  --accent-paler:      #221510;
+  --accent-disabled:   #5c3a2a;
+
+  --success-fg:        #859900;
+  --success-bg:        #1c2a1a;
+  --danger-fg:         #dc322f;
+  --danger-bg:         #2e1a18;
+  --danger-border:     #6a2a26;
+  --focus-ring:        #b58900;
+  --link-fg:           #268bd2;   /* Solarized blue */
+  --link-fg-hover:     #4ba6e3;
+
+  --surface-page:      #002b36;   /* base03 */
+  --surface-card:      #073642;   /* base02 */
+  --surface-off:       #0a4252;
+  --surface-pale:      #073642;
+  --surface-slate:     #094656;
+
+  --border-soft:       #1d4d5b;
+  --border-mid:        #2a5e6e;
+  --border-strong:     #3e7080;
+
+  --text-primary:      #fdf6e3;   /* base3 */
+  --text-body:         #eee8d5;   /* base2 */
+  --text-muted:        #93a1a1;   /* base1 */
+  --text-faint:        #657b83;   /* base00 */
+  --text-disabled:     #455d65;
+  --text-on-brand:     #002b36;
+}
+
+:root[data-theme="klinisch"] {
+  /* ── Theme: Klinisch / Medizingerät ──────────────────────── */
+  /* Sehr neutrales Grau-Weiss, ein einziger scharfer Cyan-Akzent.
+     Alles andere ist absichtlich monochrom — der Akzent muss ploppen. */
+
+  --brand:             #1c2128;   /* fast Schwarz, neutral */
+  --brand-hover:       #0d1117;
+  --brand-deep:        #07090d;
+  --brand-pale:        #dde1e6;
+  --brand-paler:       #ebeef2;
+  --brand-hover-bg:    #c8cdd4;
+  --brand-soft-fg:     #4a525d;
+
+  --accent:            #00838f;   /* Diagnose-Cyan/Teal */
+  --accent-hover:      #006871;
+  --accent-border:     #80c4cb;
+  --accent-pale:       #d4ecef;
+  --accent-paler:      #e6f3f5;
+  --accent-disabled:   #b8d8dc;
+
+  --success-fg:        #006d3a;
+  --success-bg:        #d8ecdf;
+  --danger-fg:         #b00020;
+  --danger-bg:         #fadcdf;
+  --danger-border:     #e9a8ae;
+  --focus-ring:        #00838f;
+  --link-fg:           #006871;
+  --link-fg-hover:     #003e44;
+
+  --surface-page:      #fafbfc;
+  --surface-card:      #ffffff;
+  --surface-off:       #f3f4f6;
+  --surface-pale:      #f5f6f8;
+  --surface-slate:     #ebeef2;
+
+  --border-soft:       #dfe2e7;
+  --border-mid:        #c8ccd2;
+  --border-strong:     #a8acb4;
+
+  --text-primary:      #07090d;
+  --text-body:         #1c2128;
+  --text-muted:        #5a616b;
+  --text-faint:        #8b919b;
+  --text-disabled:     #c8ccd2;
+  --text-on-brand:     #ffffff;
+}
+
+:root[data-theme="nordisch"] {
+  /* ── Theme: Nordisch — kühl, ruhig ───────────────────────── */
+  /* Nord-Palette: polar-night Brand, frost als Akzent, snow-storm Surfaces.
+     Kühles Blaugrau, nichts zu sehr saturiert, sehr ruhig. */
+
+  --brand:             #2e3440;   /* nord0 polar night */
+  --brand-hover:       #3b4252;
+  --brand-deep:        #232831;
+  --brand-pale:        #d8dee9;   /* nord4 */
+  --brand-paler:       #e5e9f0;   /* nord5 */
+  --brand-hover-bg:    #c1c8d4;
+  --brand-soft-fg:     #4c566a;
+
+  --accent:            #5e81ac;   /* nord10 frost */
+  --accent-hover:      #4a6a91;
+  --accent-border:     #a4bcd8;
+  --accent-pale:       #d8e2ee;
+  --accent-paler:      #e6ecf3;
+  --accent-disabled:   #b8c5d6;
+
+  --success-fg:        #2d6a4f;   /* gedämpftes Nord-Grün */
+  --success-bg:        #d8e8de;
+  --danger-fg:         #bf616a;   /* nord11 */
+  --danger-bg:         #f4dde0;
+  --danger-border:     #e0a8ae;
+  --focus-ring:        #5e81ac;
+  --link-fg:           #5e81ac;
+  --link-fg-hover:     #3b5d80;
+
+  --surface-page:      #eceff4;   /* nord6 snow storm */
+  --surface-card:      #ffffff;
+  --surface-off:       #e5e9f0;
+  --surface-pale:      #e8ecf2;
+  --surface-slate:     #dde2eb;
+
+  --border-soft:       #d0d6e0;
+  --border-mid:        #b8c0cc;
+  --border-strong:     #98a2b3;
+
+  --text-primary:      #232831;
+  --text-body:         #2e3440;
+  --text-muted:        #5a6376;
+  --text-faint:        #8892a3;
+  --text-disabled:     #c1c8d4;
+  --text-on-brand:     #eceff4;
+}
+
+:root[data-theme="midcentury"] {
+  /* ── Theme: Mid-Century-Lab — Mint/Salbei + Mostard ──────── */
+  /* Salbei-Grün als Brand (gedämpft, retro), Mostard-Gelb als Akzent.
+     Surfaces in cremigem Off-White, alles leicht warm. */
+
+  --brand:             #4a6850;   /* Salbei-Grün */
+  --brand-hover:       #3a5440;
+  --brand-deep:        #2a3e2f;
+  --brand-pale:        #d5e0d4;
+  --brand-paler:       #e3eae0;
+  --brand-hover-bg:    #bccbb9;
+  --brand-soft-fg:     #6e8470;
+
+  --accent:            #c89b1f;   /* Mostard-Gelb */
+  --accent-hover:      #a98318;
+  --accent-border:     #e6cd8e;
+  --accent-pale:       #f4e8c3;
+  --accent-paler:      #f9f0d6;
+  --accent-disabled:   #d4c19a;
+
+  --success-fg:        #3a5d2c;
+  --success-bg:        #dde8d0;
+  --danger-fg:         #a64a2a;   /* Terracotta passt zur Era */
+  --danger-bg:         #f0d8c8;
+  --danger-border:     #d9a583;
+  --focus-ring:        #c89b1f;
+  --link-fg:           #4a6850;
+  --link-fg-hover:     #2a3e2f;
+
+  --surface-page:      #f3eedf;   /* Cremiges Off-White */
+  --surface-card:      #faf5e6;
+  --surface-off:       #ebe5d0;
+  --surface-pale:      #efe9d6;
+  --surface-slate:     #e2dabf;
+
+  --border-soft:       #d4ccaf;
+  --border-mid:        #beb594;
+  --border-strong:     #a39a78;
+
+  --text-primary:      #2a3026;
+  --text-body:         #3d4636;
+  --text-muted:        #6e6f5a;
+  --text-faint:        #93927a;
+  --text-disabled:     #beb594;
+  --text-on-brand:     #f3eedf;
+}
+
+:root[data-theme="highcontrast"] {
+  /* ── Theme: High Contrast — Accessibility ─────────────────── */
+  /* WCAG AAA Ziel. Reines Weiss + Schwarz, Akzent ist tiefes Royal-Blau
+     (>7:1 auf Weiss). Keine Mittelgraus für Text. */
+
+  --brand:             #000000;
+  --brand-hover:       #1a1a1a;
+  --brand-deep:        #000000;
+  --brand-pale:        #d6d6d6;
+  --brand-paler:       #ebebeb;
+  --brand-hover-bg:    #c0c0c0;
+  --brand-soft-fg:     #2b2b2b;
+
+  --accent:            #0033a0;   /* Royal-Blau, AAA auf Weiss */
+  --accent-hover:      #001f6e;
+  --accent-border:     #6680c0;
+  --accent-pale:       #d6dff0;
+  --accent-paler:      #e8eef7;
+  --accent-disabled:   #9aa6c4;
+
+  --success-fg:        #006400;
+  --success-bg:        #d4edd4;
+  --danger-fg:         #b00000;
+  --danger-bg:         #fadcdc;
+  --danger-border:     #e09898;
+  --focus-ring:        #0033a0;
+  --link-fg:           #0033a0;
+  --link-fg-hover:     #001f6e;
+
+  --surface-page:      #ffffff;
+  --surface-card:      #ffffff;
+  --surface-off:       #f4f4f4;
+  --surface-pale:      #f8f8f8;
+  --surface-slate:     #ebebeb;
+
+  --border-soft:       #999999;
+  --border-mid:        #666666;
+  --border-strong:     #000000;
+
+  --text-primary:      #000000;
+  --text-body:         #000000;
+  --text-muted:        #2b2b2b;
+  --text-faint:        #4a4a4a;
+  --text-disabled:     #767676;   /* AA Minimum auf Weiss */
+  --text-on-brand:     #ffffff;
+}
+
+:root[data-theme="kraft"] {
+  /* ── Theme: Kraftpapier / Schaltplan auf Pappe ──────────── */
+  /* Gedämpftes Pappbeige, Brown als Brand, Tinte als Text */
+
+  --brand:             #5a3a22;   /* warmes Brown */
+  --brand-hover:       #4a2f1c;
+  --brand-deep:        #3d2715;
+  --brand-pale:        #e2d4be;
+  --brand-paler:       #ebdfca;
+  --brand-hover-bg:    #d4c3a8;
+  --brand-soft-fg:     #7a5a3e;
+
+  --accent:            #1f2a1f;   /* dunkle Tinte als Akzent */
+  --accent-hover:      #0f1a0f;
+  --accent-border:     #5e6a5e;
+  --accent-pale:       #d6dad0;
+  --accent-paler:      #dfe2d8;
+  --accent-disabled:   #8a9088;
+
+  --success-fg:        #4a5d2c;
+  --success-bg:        #dde3d0;
+  --danger-fg:         #7a2a18;
+  --danger-bg:         #ecd8cc;
+  --danger-border:     #c89880;
+  --focus-ring:        #5a3a22;
+  --link-fg:           #5a3a22;
+  --link-fg-hover:     #3d2715;
+
+  --surface-page:      #ebe2cd;   /* Kraftpapier */
+  --surface-card:      #f0e8d4;
+  --surface-off:       #e2d8bf;
+  --surface-pale:      #e6dcc4;
+  --surface-slate:     #dccfb0;
+
+  --border-soft:       #c9bd9d;
+  --border-mid:        #b6a884;
+  --border-strong:     #9a8c68;
+
+  --text-primary:      #1f1812;
+  --text-body:         #3a2f22;
+  --text-muted:        #6e5a44;
+  --text-faint:        #8e7a62;
+  --text-disabled:     #b6a884;
+  --text-on-brand:     #ebe2cd;
+}
+
+:root {
+  /* ── Legacy Aliases ──────────────────────────────────────────
+     Alter Code referenziert noch --brand-navy / --indigo-* / --sky-*.
+     Wir mappen sie auf die theme-neutralen Tokens, damit Theme-Wechsel
+     überall durchschlägt. Neue Komponenten sollten direkt --brand,
+     --accent, --surface-* etc. verwenden.
+  */
+  --brand-navy:        var(--brand);
+  --brand-navy-hover:  var(--brand-hover);
+  --brand-navy-deep:   var(--brand-deep);
+  --sky-light:         var(--brand-pale);
+  --sky-pale:          var(--brand-paler);
+  --sky-paler:         var(--brand-paler);
+  --sky-hover:         var(--brand-hover-bg);
+
+  --indigo-primary:    var(--accent);
+  --indigo-hover:      var(--accent-hover);
+  --indigo-border:     var(--accent-border);
+  --indigo-pale:       var(--accent-pale);
+  --indigo-paler:      var(--accent-paler);
+  --indigo-disabled:   var(--accent-disabled);
+
+  --focus-blue:        var(--focus-ring);
+  --link-blue:         var(--link-fg);
+  --link-blue-hover:   var(--link-fg-hover);
+
+  --surface-white:     var(--surface-card);
+
+  --text-on-navy:      var(--text-on-brand);
+
+  /* ── Spacing (4px-Skala) ─────────────────────────────────── */
+  --space-1:  4px;
+  --space-2:  6px;
+  --space-3:  8px;
+  --space-4:  10px;
+  --space-5:  12px;
+  --space-6:  16px;
+  --space-7:  20px;
+  --space-8:  24px;
+  --space-10: 32px;
+
+  /* ── Radius ──────────────────────────────────────────────── */
+  --radius-xs: 3px;   /* Mini, Tab-Close */
+  --radius-sm: 4px;   /* Buttons, Badges */
+  --radius-md: 5px;   /* CAS-Buttons, List-Items */
+  --radius-lg: 6px;   /* Search-Field, Form-Block, Hamburger */
+  --radius-pill: 18px;/* Floating-Hamburger */
+
+  /* ── Borders / Lines ─────────────────────────────────────── */
+  --hairline: 1px solid var(--border-soft);
+  --hairline-mid: 1px solid var(--border-mid);
+
+  /* ── Layout-Heights ──────────────────────────────────────── */
+  --h-app-header: 52px;
+  --h-tabbar:     38px;
+  --h-cas-tabrow: 36px;
+
+  /* ── Schriften ───────────────────────────────────────────── */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* ── Type-Skala (px, ohne Einheit für rem-Mapping bei Bedarf) */
+  --fs-10:  10px;
+  --fs-11:  11px;
+  --fs-12:  12px;
+  --fs-13:  13px;
+  --fs-14:  14px;
+  --fs-15:  15px;
+  --fs-16:  16px;
+  --fs-18:  18px;
+  --fs-22:  22px;
+
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semi:    600;
+  --fw-bold:    700;
+
+  --lh-tight:   1.25;
+  --lh-normal:  1.5;
+  --lh-relaxed: 1.65;
+
+  --ls-tight:   -0.01em;
+  --ls-caps:    0.05em;
+
+  /* ── Motion ──────────────────────────────────────────────── */
+  --motion-fast: 120ms ease;
+  --motion-mid:  180ms ease;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Semantische Type-Tokens
+   ═══════════════════════════════════════════════════════════════ */
+
+.t-app-title {
+  font: var(--fw-semi) var(--fs-16)/1.25 var(--font-sans);
+  color: var(--text-on-navy);
+}
+
+.t-tool-title {
+  font: var(--fw-bold) var(--fs-14)/1.25 var(--font-sans);
+  color: var(--brand-navy);
+  letter-spacing: 0.02em;
+}
+
+.t-h1 {
+  font: var(--fw-bold) var(--fs-22)/1.25 var(--font-sans);
+  color: var(--text-primary);
+  letter-spacing: var(--ls-tight);
+}
+
+.t-h2 {
+  font: var(--fw-semi) var(--fs-18)/1.3 var(--font-sans);
+  color: var(--text-primary);
+}
+
+.t-h3 {
+  font: var(--fw-semi) var(--fs-15)/1.35 var(--font-sans);
+  color: var(--text-primary);
+}
+
+.t-body {
+  font: var(--fw-regular) var(--fs-15)/var(--lh-relaxed) var(--font-sans);
+  color: var(--text-body);
+}
+
+.t-body-sm {
+  font: var(--fw-regular) var(--fs-13)/var(--lh-normal) var(--font-sans);
+  color: var(--text-body);
+}
+
+.t-meta {
+  font: var(--fw-regular) var(--fs-12)/var(--lh-normal) var(--font-sans);
+  color: var(--text-muted);
+}
+
+.t-caption {
+  font: var(--fw-regular) var(--fs-11)/var(--lh-normal) var(--font-sans);
+  color: var(--text-muted);
+}
+
+.t-section-label {
+  font: var(--fw-semi) var(--fs-10)/1 var(--font-sans);
+  color: var(--text-faint);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+}
+
+.t-code,
+.t-mono {
+  font: var(--fw-regular) var(--fs-13)/var(--lh-normal) var(--font-mono);
+  color: var(--brand-navy-deep);
+}
+
+.t-mathbox {
+  font: var(--fw-medium) var(--fs-14)/1.5 var(--font-mono);
+  color: var(--brand-navy-deep);
+}
+
+.t-formula-pill {
+  font: var(--fw-regular) var(--fs-11)/1.2 var(--font-mono);
+  color: var(--brand-navy-deep);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Element-Defaults (wenn die Datei als Stylesheet gemountet wird)
+   ═══════════════════════════════════════════════════════════════ */
+
+html { font-family: var(--font-sans); color: var(--text-body); }
+code, kbd, samp, pre { font-family: var(--font-mono); }
+
+h1 { font: var(--fw-bold) var(--fs-22)/1.25 var(--font-sans); color: var(--text-primary); letter-spacing: var(--ls-tight); }
+h2 { font: var(--fw-semi) var(--fs-18)/1.3  var(--font-sans); color: var(--text-primary); }
+h3 { font: var(--fw-semi) var(--fs-15)/1.35 var(--font-sans); color: var(--text-primary); }
+h4 { font: var(--fw-semi) var(--fs-13)/1.35 var(--font-sans); color: var(--text-primary); }
+
+p  { font: var(--fw-regular) var(--fs-15)/var(--lh-relaxed) var(--font-sans); color: var(--text-body); margin: 0 0 var(--space-4); }
+
+a  { color: var(--link-blue); text-decoration: none; }
+a:hover { color: var(--link-blue-hover); text-decoration: underline; }
+
+hr { border: 0; border-top: var(--hairline-mid); margin: var(--space-6) 0; }
