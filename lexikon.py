@@ -46,15 +46,18 @@ from PySide6.QtSvg import QSvgRenderer
 from PySide6.QtSvgWidgets import QSvgWidget
 from PySide6.QtWidgets import (
     QApplication,
+    QDialog,
     QFrame,
     QGridLayout,
     QHBoxLayout,
     QLabel,
     QLayout,
     QLineEdit,
+    QListWidget,
     QPushButton,
     QScrollArea,
     QSizePolicy,
+    QSpinBox,
     QTextBrowser,
     QTreeWidget,
     QTreeWidgetItem,
@@ -779,6 +782,160 @@ def _parse_truth_body(args: str, body_lines: list[str]) -> TruthTableBlock:
     return TruthTableBlock(inputs=inputs, outputs=outputs, rows=rows)
 
 
+# ── Stil-Voreinstellungen ────────────────────────────────────────────────────
+STYLE_DEFAULTS: dict = {
+    "font_size": 15,
+    "preset":    "Kraft (Standard)",
+}
+
+HOME_PRESETS: dict[str, dict] = {
+    "Kraft (Standard)": {
+        "tile_bg": "#ebdfca", "tile_border": "#c9bd9d", "tile_text": "#3d2715",
+        "recent_bg": "#d4c3a8", "recent_border": "#b6a884",
+        "head_text": "#5a3a22", "head_border": "#c9bd9d",
+    },
+    "Dunkel": {
+        "tile_bg": "#2e2620", "tile_border": "#4a3f36", "tile_text": "#d4c3a8",
+        "recent_bg": "#3a2f28", "recent_border": "#5a4a40",
+        "head_text": "#c9a87a", "head_border": "#5a4a40",
+    },
+    "Grün": {
+        "tile_bg": "#dde9d7", "tile_border": "#a8c49e", "tile_text": "#1e3a1a",
+        "recent_bg": "#c8ddc2", "recent_border": "#88aa80",
+        "head_text": "#2a5228", "head_border": "#a8c49e",
+    },
+    "Blau": {
+        "tile_bg": "#dbeafe", "tile_border": "#93c5fd", "tile_text": "#1e3a8a",
+        "recent_bg": "#bfdbfe", "recent_border": "#60a5fa",
+        "head_text": "#1d4ed8", "head_border": "#93c5fd",
+    },
+    "Grau": {
+        "tile_bg": "#f3f4f6", "tile_border": "#d1d5db", "tile_text": "#1f2937",
+        "recent_bg": "#e5e7eb", "recent_border": "#9ca3af",
+        "head_text": "#374151", "head_border": "#d1d5db",
+    },
+}
+
+# Vollständige QSS-Palette pro Preset (alle Token aus main.qss)
+_QSS_PALETTES: dict[str, dict[str, str]] = {
+    "Kraft (Standard)": {
+        "surface_page":    "#ebe2cd", "surface_card":    "#f0e8d4",
+        "surface_off":     "#e2d8bf", "surface_pale":    "#e6dcc4",
+        "surface_slate":   "#dccfb0", "border_soft":     "#c9bd9d",
+        "border_mid":      "#b6a884", "border_strong":   "#9a8c68",
+        "brand":           "#5a3a22", "brand_hover":     "#4a2f1c",
+        "brand_deep":      "#3d2715", "brand_pale":      "#e2d4be",
+        "brand_paler":     "#ebdfca", "brand_hover_bg":  "#d4c3a8",
+        "accent":          "#1f2a1f", "accent_hover":    "#0f1a0f",
+        "accent_border":   "#5e6a5e", "accent_pale":     "#d6dad0",
+        "accent_paler":    "#dfe2d8", "accent_disabled": "#8a9088",
+        "success_fg":      "#4a5d2c", "success_bg":      "#dde3d0",
+        "danger_fg":       "#7a2a18", "danger_bg":       "#ecd8cc",
+        "danger_border":   "#c89880", "text_primary":    "#1f1812",
+        "text_body":       "#3a2f22", "text_muted":      "#6e5a44",
+        "text_faint":      "#8e7a62", "text_disabled":   "#b6a884",
+        "rgba_surface_18": "rgba(235, 226, 205, 0.18)",
+        "rgba_surface_10": "rgba(235, 226, 205, 0.10)",
+        "rgba_text_07":    "rgba(31, 24, 18, 0.07)",
+    },
+    "Dunkel": {
+        "surface_page":    "#1e1a16", "surface_card":    "#252018",
+        "surface_off":     "#1a1610", "surface_pale":    "#201c16",
+        "surface_slate":   "#17140f", "border_soft":     "#3a3028",
+        "border_mid":      "#2e2620", "border_strong":   "#221e18",
+        "brand":           "#c9a060", "brand_hover":     "#b88a50",
+        "brand_deep":      "#a07840", "brand_pale":      "#3a3020",
+        "brand_paler":     "#2e2618", "brand_hover_bg":  "#2a2416",
+        "accent":          "#7aaa78", "accent_hover":    "#5a8a58",
+        "accent_border":   "#4a7a48", "accent_pale":     "#1e2a1c",
+        "accent_paler":    "#222e20", "accent_disabled": "#4a5848",
+        "success_fg":      "#88b060", "success_bg":      "#1e2a18",
+        "danger_fg":       "#c87a68", "danger_bg":       "#2a1e1a",
+        "danger_border":   "#5a3028", "text_primary":    "#f0e8d8",
+        "text_body":       "#d8c8a8", "text_muted":      "#9a8868",
+        "text_faint":      "#7a6848", "text_disabled":   "#5a4e38",
+        "rgba_surface_18": "rgba(30, 26, 22, 0.18)",
+        "rgba_surface_10": "rgba(30, 26, 22, 0.10)",
+        "rgba_text_07":    "rgba(240, 232, 216, 0.07)",
+    },
+    "Grün": {
+        "surface_page":    "#edf3eb", "surface_card":    "#f2f7f0",
+        "surface_off":     "#e4ede1", "surface_pale":    "#e8f0e6",
+        "surface_slate":   "#d8e6d4", "border_soft":     "#b8d0b2",
+        "border_mid":      "#9ab894", "border_strong":   "#78a070",
+        "brand":           "#2a5228", "brand_hover":     "#1e4220",
+        "brand_deep":      "#163618", "brand_pale":      "#cce4c6",
+        "brand_paler":     "#d8ecda", "brand_hover_bg":  "#b8d8b2",
+        "accent":          "#1a3a50", "accent_hover":    "#0e2838",
+        "accent_border":   "#3a6a8a", "accent_pale":     "#c8dce8",
+        "accent_paler":    "#d4e4ee", "accent_disabled": "#7a9aaa",
+        "success_fg":      "#2a6a28", "success_bg":      "#d0e8cc",
+        "danger_fg":       "#7a2a18", "danger_bg":       "#f0d8d0",
+        "danger_border":   "#c89880", "text_primary":    "#101e10",
+        "text_body":       "#283828", "text_muted":      "#506850",
+        "text_faint":      "#708070", "text_disabled":   "#9ab898",
+        "rgba_surface_18": "rgba(237, 243, 235, 0.18)",
+        "rgba_surface_10": "rgba(237, 243, 235, 0.10)",
+        "rgba_text_07":    "rgba(16, 30, 16, 0.07)",
+    },
+    "Blau": {
+        "surface_page":    "#eaf2fb", "surface_card":    "#f0f6fd",
+        "surface_off":     "#e0ecf7", "surface_pale":    "#e5eff9",
+        "surface_slate":   "#d0e4f4", "border_soft":     "#a8c8e8",
+        "border_mid":      "#88aed0", "border_strong":   "#6090b8",
+        "brand":           "#1a4a8a", "brand_hover":     "#103a78",
+        "brand_deep":      "#0c2e62", "brand_pale":      "#bad0ea",
+        "brand_paler":     "#cee0f4", "brand_hover_bg":  "#a4c0de",
+        "accent":          "#2a5a3a", "accent_hover":    "#1a4428",
+        "accent_border":   "#4a8a60", "accent_pale":     "#c4dccc",
+        "accent_paler":    "#d0e4d8", "accent_disabled": "#7aaa88",
+        "success_fg":      "#2a7a3a", "success_bg":      "#c8e4cc",
+        "danger_fg":       "#8a2a1a", "danger_bg":       "#f0d4cc",
+        "danger_border":   "#d09080", "text_primary":    "#0c1c2e",
+        "text_body":       "#1e3454", "text_muted":      "#486080",
+        "text_faint":      "#6880a0", "text_disabled":   "#a0b8d0",
+        "rgba_surface_18": "rgba(234, 242, 251, 0.18)",
+        "rgba_surface_10": "rgba(234, 242, 251, 0.10)",
+        "rgba_text_07":    "rgba(12, 28, 46, 0.07)",
+    },
+    "Grau": {
+        "surface_page":    "#f3f4f6", "surface_card":    "#f9fafb",
+        "surface_off":     "#ebedf0", "surface_pale":    "#f0f1f3",
+        "surface_slate":   "#e1e3e7", "border_soft":     "#d1d5db",
+        "border_mid":      "#b0b8c4", "border_strong":   "#8a9aaa",
+        "brand":           "#374151", "brand_hover":     "#283040",
+        "brand_deep":      "#1a2030", "brand_pale":      "#c8d0da",
+        "brand_paler":     "#d8e0e8", "brand_hover_bg":  "#b8c4d0",
+        "accent":          "#1f4060", "accent_hover":    "#142e48",
+        "accent_border":   "#3a6a90", "accent_pale":     "#c4d4e0",
+        "accent_paler":    "#d0dce8", "accent_disabled": "#7a9ab0",
+        "success_fg":      "#2a6a40", "success_bg":      "#c8e4d0",
+        "danger_fg":       "#8a2a18", "danger_bg":       "#f0d0c8",
+        "danger_border":   "#d09888", "text_primary":    "#111827",
+        "text_body":       "#374151", "text_muted":      "#6b7280",
+        "text_faint":      "#9ca3af", "text_disabled":   "#d1d5db",
+        "rgba_surface_18": "rgba(243, 244, 246, 0.18)",
+        "rgba_surface_10": "rgba(243, 244, 246, 0.10)",
+        "rgba_text_07":    "rgba(17, 24, 39, 0.07)",
+    },
+}
+
+_QSS_TEMPLATE: str | None = None
+
+
+def build_stylesheet(preset_name: str) -> str:
+    """Liest main.qss als Vorlage und füllt die Farb-Token des Presets ein."""
+    global _QSS_TEMPLATE
+    if _QSS_TEMPLATE is None:
+        qss_path = Path(__file__).parent / "main.qss"
+        _QSS_TEMPLATE = qss_path.read_text(encoding="utf-8")
+    palette = _QSS_PALETTES.get(preset_name, _QSS_PALETTES["Kraft (Standard)"])
+    result = _QSS_TEMPLATE
+    for token, value in palette.items():
+        result = result.replace(f"@{token}@", value)
+    return result
+
+
 # ── ViewModel ────────────────────────────────────────────────────────────────
 class LexiconViewModel:
     """ViewModel des Elektronik-Lexikons.
@@ -802,6 +959,7 @@ class LexiconViewModel:
         self.future: list[str] = []
         self.current_title: str | None = None
         self.recent_articles: list[str] = []
+        self.style_settings: dict = dict(STYLE_DEFAULTS)
         self._load_state()
 
     def filtered_articles(self, query: str) -> dict[str, dict[str, Any]]:
@@ -885,13 +1043,17 @@ class LexiconViewModel:
             data = json.loads(path.read_text(encoding="utf-8"))
             recents = data.get("recent", [])
             self.recent_articles = [r for r in recents if r in self.all_articles][:5]
+            self.style_settings.update(data.get("style", {}))
         except Exception:
             pass
 
     def save_state(self) -> None:
         try:
             self._state_path().write_text(
-                json.dumps({"recent": self.recent_articles}, ensure_ascii=False),
+                json.dumps(
+                    {"recent": self.recent_articles, "style": self.style_settings},
+                    ensure_ascii=False,
+                ),
                 encoding="utf-8",
             )
         except Exception:
@@ -943,52 +1105,76 @@ class LexiconViewModel:
         return [header] + content
 
     def home_html(self) -> str:
-        """Liefert das HTML fuer die Startseite mit Kategorien-Uebersicht."""
+        """Liefert das HTML fuer die Startseite mit Kategorien-Uebersicht.
+
+        Farben: siehe Abschnitt "Startseite" in main.qss.
+        """
+        COLS = 3
+        preset_name = self.style_settings.get("preset", "Kraft (Standard)")
+        p = HOME_PRESETS.get(preset_name, HOME_PRESETS["Kraft (Standard)"])
+        C_TILE_BG     = p["tile_bg"]
+        C_TILE_BORDER = p["tile_border"]
+        C_TILE_TEXT   = p["tile_text"]
+        C_RECENT_BG   = p["recent_bg"]
+        C_RECENT_BD   = p["recent_border"]
+        C_HEAD_TEXT   = p["head_text"]
+        C_HEAD_BORDER = p["head_border"]
+
+        col_width = 100 // COLS
+
+        def make_grid(items: list[str], bg: str, border: str, text: str) -> str:
+            tbl = (
+                '<table width="100%" cellspacing="4" cellpadding="0"'
+                ' style="margin-bottom:12px;">'
+            )
+            for i in range(0, len(items), COLS):
+                tbl += "<tr>"
+                row = items[i : i + COLS]
+                for t in row:
+                    tbl += (
+                        f'<td width="{col_width}%" style="padding:2px;">'
+                        f'<a href="artikel://x/{quote(t, safe="")}" '
+                        f'style="display:block;background:{bg};color:{text};'
+                        f"padding:6px 10px;border-radius:6px;font-size:13px;"
+                        f'text-decoration:none;border:1px solid {border};">'
+                        f"{t}</a></td>"
+                    )
+                for _ in range(COLS - len(row)):
+                    tbl += f'<td width="{col_width}%"></td>'
+                tbl += "</tr>"
+            tbl += "</table>"
+            return tbl
+
+        def section_heading(label: str) -> str:
+            return (
+                f'<h2 style="font-size:14px;font-weight:600;color:{C_HEAD_TEXT};'
+                f"text-transform:uppercase;letter-spacing:.05em;"
+                f"margin:20px 0 8px;border-bottom:1px solid {C_HEAD_BORDER};"
+                f'padding-bottom:4px;">{label}</h2>'
+            )
+
         categories: dict[str, list[str]] = {}
         for title, article in self.all_articles.items():
             categories.setdefault(article["kategorie"], []).append(title)
+
         html = '<div style="max-width:700px;">'
         html += (
-            f'<h1 style="font-size:24px;font-weight:700;color:#111827;'
+            f'<h1 style="font-size:24px;font-weight:700;color:#1f1812;'
             f'margin-bottom:4px;">{self.title}</h1>'
         )
         html += (
-            f'<p style="color:#6b7280;font-size:14px;margin-bottom:24px;">'
+            f'<p style="color:#6e5a44;font-size:14px;margin-bottom:24px;">'
             f"{len(self.all_articles)} Begriffe in "
             f"{len(categories)} Kategorien</p>"
         )
         if self.recent_articles:
-            html += (
-                '<h2 style="font-size:14px;font-weight:600;color:#374151;'
-                "text-transform:uppercase;letter-spacing:.05em;"
-                "margin:20px 0 8px;border-bottom:1px solid #e5e7eb;"
-                'padding-bottom:4px;">Zuletzt geöffnet</h2><div>'
-            )
-            for t in self.recent_articles:
-                html += (
-                    f'<a href="artikel://x/{quote(t, safe="")}" '
-                    f'style="display:inline-block;background:#eff6ff;'
-                    f"color:#1e40af;padding:4px 12px;border-radius:99px;"
-                    f"font-size:13px;text-decoration:none;"
-                    f'border:1px solid #bfdbfe;margin:2px;">{t}</a>'
-                )
-            html += "</div>"
+            html += section_heading("Zuletzt geöffnet")
+            html += make_grid(self.recent_articles, C_RECENT_BG, C_RECENT_BD, C_TILE_TEXT)
         for category_name in sorted(categories):
-            html += (
-                f'<h2 style="font-size:14px;font-weight:600;color:#374151;'
-                f"text-transform:uppercase;letter-spacing:.05em;"
-                f"margin:20px 0 8px;border-bottom:1px solid #e5e7eb;"
-                f'padding-bottom:4px;">{category_name}</h2><div>'
+            html += section_heading(category_name)
+            html += make_grid(
+                sorted(categories[category_name]), C_TILE_BG, C_TILE_BORDER, C_TILE_TEXT
             )
-            for title in sorted(categories[category_name]):
-                html += (
-                    f'<a href="artikel://x/{quote(title, safe="")}" '
-                    f'style="display:inline-block;background:#f3f4f6;'
-                    f"color:#1e3a5f;padding:4px 12px;border-radius:99px;"
-                    f"font-size:13px;text-decoration:none;"
-                    f'border:1px solid #e5e7eb;margin:2px;">{title}</a>'
-                )
-            html += "</div>"
         html += "</div>"
         return html
 
@@ -1113,6 +1299,38 @@ class HamburgerButton(QPushButton):
         for dy in (-5, 0, 5):
             painter.drawRoundedRect(x, height // 2 + dy - 1, 16, 2, 1, 1)
         painter.end()
+
+
+class GearButton(QPushButton):
+    """Kleiner Button mit gezeichnetem Zahnrad-Icon (kein Emoji).
+
+    Zeichnet 8 Zaehne als abgerundete Rechtecke um einen Mittelkreis.
+    Hintergrund und Hover-Effekt kommen aus dem QSS (objectName styleButton).
+    """
+
+    def __init__(self, line_color: str = "#5a3a22", parent: QWidget | None = None) -> None:
+        super().__init__(parent)
+        self._line_color = line_color
+        self.setFixedSize(28, 26)
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
+
+    def paintEvent(self, event: QPaintEvent) -> None:
+        super().paintEvent(event)
+        import math
+        p = QPainter(self)
+        p.setRenderHint(QPainter.RenderHint.Antialiasing)
+        p.setPen(Qt.PenStyle.NoPen)
+        p.setBrush(QColor(self._line_color))
+        cx, cy = self.width() / 2.0, self.height() / 2.0
+        for i in range(8):
+            p.save()
+            p.translate(cx, cy)
+            p.rotate(i * 45.0)
+            p.drawRoundedRect(-1, 5, 3, 4, 1, 1)
+            p.restore()
+        r = 5
+        p.drawEllipse(round(cx - r), round(cy - r), r * 2, r * 2)
+        p.end()
 
 
 class WaveformWidget(QWidget):
@@ -1480,6 +1698,7 @@ class ArticleContentWidget(QScrollArea):
         super().__init__(parent)
         self._on_link_clicked: Callable[[QUrl], None] = on_link_clicked
         self._on_send_formula: Callable[[str], None] = on_send_formula
+        self._font_size: int = STYLE_DEFAULTS["font_size"]
         self.setWidgetResizable(True)
         self.setFrameShape(QFrame.Shape.NoFrame)
         self._content: QWidget = QWidget()
@@ -1488,6 +1707,9 @@ class ArticleContentWidget(QScrollArea):
         self._body.setContentsMargins(40, 32, 40, 32)
         self._body.setSpacing(4)
         self.setWidget(self._content)
+
+    def set_font_size(self, size: int) -> None:
+        self._font_size = size
 
     # ── Oeffentliche API ──────────────────────────────────────────────────────
 
@@ -1514,6 +1736,9 @@ class ArticleContentWidget(QScrollArea):
         browser.setObjectName("articleBrowser")
         browser.setOpenLinks(False)
         browser.anchorClicked.connect(self._on_link_clicked)
+        font = browser.font()
+        font.setPointSize(self._font_size)
+        browser.setFont(font)
         browser.setHtml(html)
         self._body.addWidget(browser)
 
@@ -2016,6 +2241,85 @@ class ArticleContentWidget(QScrollArea):
         return container
 
 
+# ── Stil-Einstellungs-Dialog ──────────────────────────────────────────────────
+class LexiconStyleDialog(QDialog):
+    """Dialog zum Auswaehlen eines Farb-Presets und der Schriftgroesse."""
+
+    def __init__(self, settings: dict, parent: QWidget | None = None) -> None:
+        super().__init__(parent)
+        self.setWindowTitle("Darstellung anpassen")
+        self.setModal(True)
+        self.setMinimumWidth(320)
+        self._result: dict | None = None
+        self._build_ui(settings)
+
+    def _build_ui(self, s: dict) -> None:
+        root = QVBoxLayout(self)
+        root.setSpacing(12)
+        root.setContentsMargins(20, 20, 20, 20)
+
+        def heading(text: str) -> None:
+            lbl = QLabel(text)
+            lbl.setObjectName("settingsHeading")
+            root.addWidget(lbl)
+
+        # ── Farbschema ────────────────────────────────────────────
+        heading("FARBSCHEMA – STARTSEITE")
+        self._preset_list = QListWidget()
+        self._preset_list.setObjectName("presetList")
+        current = s.get("preset", STYLE_DEFAULTS["preset"])
+        for name in HOME_PRESETS:
+            self._preset_list.addItem(name)
+            if name == current:
+                self._preset_list.setCurrentRow(self._preset_list.count() - 1)
+        self._preset_list.setFixedHeight(
+            self._preset_list.sizeHintForRow(0) * len(HOME_PRESETS) + 8
+        )
+        root.addWidget(self._preset_list)
+
+        # ── Schriftgroesse ────────────────────────────────────────
+        heading("ARTIKEL")
+        fs_row = QHBoxLayout()
+        fs_row.addWidget(QLabel("Schriftgröße"))
+        fs_row.addStretch()
+        self._font_spin = QSpinBox()
+        self._font_spin.setRange(10, 28)
+        self._font_spin.setValue(s.get("font_size", STYLE_DEFAULTS["font_size"]))
+        self._font_spin.setSuffix(" pt")
+        fs_row.addWidget(self._font_spin)
+        root.addLayout(fs_row)
+
+        # ── Buttons ───────────────────────────────────────────────
+        sep = QFrame()
+        sep.setFrameShape(QFrame.Shape.HLine)
+        sep.setObjectName("divider")
+        root.addWidget(sep)
+
+        btn_row = QHBoxLayout()
+        cancel = QPushButton("Abbrechen")
+        cancel.setObjectName("cancelButton")
+        cancel.clicked.connect(self.reject)
+        ok = QPushButton("Übernehmen")
+        ok.setObjectName("okButton")
+        ok.setDefault(True)
+        ok.clicked.connect(self._accept)
+        btn_row.addStretch()
+        btn_row.addWidget(cancel)
+        btn_row.addWidget(ok)
+        root.addLayout(btn_row)
+
+    def _accept(self) -> None:
+        item = self._preset_list.currentItem()
+        self._result = {
+            "font_size": self._font_spin.value(),
+            "preset":    item.text() if item else STYLE_DEFAULTS["preset"],
+        }
+        self.accept()
+
+    def result_settings(self) -> dict | None:
+        return self._result
+
+
 # ── Lexikon-Tool-Widget ───────────────────────────────────────────────────────
 class LexiconWidget(QWidget):
     """Komplettes Lexikon-Tool als einzelnes QWidget.
@@ -2041,6 +2345,9 @@ class LexiconWidget(QWidget):
             folder=folder, title=title
         )
         self._on_send_formula_external = on_send_formula
+        QApplication.instance().setStyleSheet(
+            build_stylesheet(self.view_model.style_settings["preset"])
+        )
         self._build_ui()
         self._refresh_list()
         self._show_home()
@@ -2099,6 +2406,13 @@ class LexiconWidget(QWidget):
         self.breadcrumb_label.setObjectName("breadcrumbLabel")
         tb_layout.addWidget(self.breadcrumb_label)
         tb_layout.addStretch()
+
+        self.style_button = GearButton()
+        self.style_button.setObjectName("styleButton")
+        self.style_button.setToolTip("Darstellung anpassen")
+        self.style_button.clicked.connect(self._open_style_settings)
+        tb_layout.addWidget(self.style_button)
+
         root.addWidget(toolbar)
 
         # Dreispaltige Hauptflaeche.
@@ -2618,4 +2932,22 @@ class LexiconWidget(QWidget):
         if title is not None and title in self.view_model.all_articles:
             self._show_article(title, push_history=False)
         else:
+            self._show_home()
+
+    def _open_style_settings(self) -> None:
+        """Oeffnet den Darstellungs-Dialog und wendet Aenderungen sofort an."""
+        dlg = LexiconStyleDialog(self.view_model.style_settings, parent=self)
+        if dlg.exec() != QDialog.DialogCode.Accepted:
+            return
+        new_settings = dlg.result_settings()
+        if new_settings is None:
+            return
+        self.view_model.style_settings["font_size"] = new_settings["font_size"]
+        self.view_model.style_settings["preset"] = new_settings["preset"]
+        self.view_model.save_state()
+        self.display.set_font_size(new_settings["font_size"])
+        QApplication.instance().setStyleSheet(
+            build_stylesheet(new_settings["preset"])
+        )
+        if self.view_model.current_title is None:
             self._show_home()

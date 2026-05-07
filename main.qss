@@ -3,37 +3,37 @@
    Theme: Kraft (Kraftpapier / Schaltplan auf Pappe)
    ───────────────────────────────────────────────────────────────
    Palette:
-     surface-page      #ebe2cd   warmes Pappbeige
-     surface-card      #f0e8d4   helleres Pappbeige (Cards, Editor)
-     surface-off       #e2d8bf   abgesetzte Fläche (Toolbar, Form-Block)
-     surface-pale      #e6dcc4   Sidebars
-     surface-slate     #dccfb0   Tab-Row, Scroll-Track
-     border-soft       #c9bd9d
-     border-mid        #b6a884
-     border-strong     #9a8c68
-     brand             #5a3a22   warmes Brown (Header, Selektion, Primary)
-     brand-hover       #4a2f1c
-     brand-deep        #3d2715   dunkelste Brand-Stufe (Tab-Bar)
-     brand-pale        #e2d4be
-     brand-paler       #ebdfca
-     brand-hover-bg    #d4c3a8
-     accent            #1f2a1f   dunkle Tinte (CAS-Akzent, Outline-Buttons)
-     accent-hover      #0f1a0f
-     accent-border     #5e6a5e
-     accent-pale       #d6dad0
-     accent-paler      #dfe2d8
-     accent-disabled   #8a9088
-     success-fg        #4a5d2c
-     success-bg        #dde3d0
-     danger-fg         #7a2a18
-     danger-bg         #ecd8cc
-     danger-border     #c89880
-     text-primary      #1f1812
-     text-body         #3a2f22
-     text-muted        #6e5a44
-     text-faint        #8e7a62
-     text-disabled     #b6a884
-     text-on-brand     #ebe2cd
+     surface-page      @surface_page@   warmes Pappbeige
+     surface-card      @surface_card@   helleres Pappbeige (Cards, Editor)
+     surface-off       @surface_off@   abgesetzte Fläche (Toolbar, Form-Block)
+     surface-pale      @surface_pale@   Sidebars
+     surface-slate     @surface_slate@   Tab-Row, Scroll-Track
+     border-soft       @border_soft@
+     border-mid        @border_mid@
+     border-strong     @border_strong@
+     brand             @brand@   warmes Brown (Header, Selektion, Primary)
+     brand-hover       @brand_hover@
+     brand-deep        @brand_deep@   dunkelste Brand-Stufe (Tab-Bar)
+     brand-pale        @brand_pale@
+     brand-paler       @brand_paler@
+     brand-hover-bg    @brand_hover_bg@
+     accent            @accent@   dunkle Tinte (CAS-Akzent, Outline-Buttons)
+     accent-hover      @accent_hover@
+     accent-border     @accent_border@
+     accent-pale       @accent_pale@
+     accent-paler      @accent_paler@
+     accent-disabled   @accent_disabled@
+     success-fg        @success_fg@
+     success-bg        @success_bg@
+     danger-fg         @danger_fg@
+     danger-bg         @danger_bg@
+     danger-border     @danger_border@
+     text-primary      @text_primary@
+     text-body         @text_body@
+     text-muted        @text_muted@
+     text-faint        @text_faint@
+     text-disabled     @border_mid@
+     text-on-brand     @surface_page@
    Schrift: System-Default für UI-Text. Monospace nur im CAS-Editor /
             in Formel-Buttons (siehe formulaButton, casTabBar weiter unten).
    ═══════════════════════════════════════════════════════════════ */
@@ -45,7 +45,7 @@ HamburgerButton {
     border-radius: 6px;
 }
 HamburgerButton:hover {
-    background: rgba(235, 226, 205, 0.18);
+    background: @rgba_surface_18@;
 }
 
 /* ── Sidebar-Close-Button (innen, dunkle Linien) ─────────────── */
@@ -55,51 +55,51 @@ HamburgerButton#sidebarCloseBtn {
     border-radius: 6px;
 }
 HamburgerButton#sidebarCloseBtn:hover {
-    background: rgba(31, 24, 18, 0.07);
+    background: @rgba_text_07@;
 }
 
 /* ── Floating-Toggle-Button (kleiner Kreis, sichtbar wenn zu) ── */
 HamburgerButton#leftFloatBtn,
 HamburgerButton#rightFloatBtn {
-    background: #5a3a22;
+    background: @brand@;
     border: none;
     border-radius: 18px;
 }
 HamburgerButton#leftFloatBtn:hover,
 HamburgerButton#rightFloatBtn:hover {
-    background: #4a2f1c;
+    background: @brand_hover@;
 }
 
 /* ── TabBar ──────────────────────────────────────────────────── */
 TabBar {
-    background: #3d2715;
+    background: @brand_deep@;
 }
 TabBar QPushButton {
     background: transparent;
     border: none;
-    color: #d4c3a8;
+    color: @brand_hover_bg@;
     font-size: 13px;
     padding: 5px 18px;
     border-radius: 4px;
 }
 TabBar QPushButton:hover {
-    background: rgba(235, 226, 205, 0.10);
+    background: @rgba_surface_10@;
 }
 TabBar QPushButton:checked {
-    background: #5a3a22;
-    color: #ebe2cd;
+    background: @brand@;
+    color: @surface_page@;
     font-weight: 600;
 }
 
 /* ── FormulaBlockWidget ──────────────────────────────────────── */
 FormulaBlockWidget {
-    background: #e2d8bf;
-    border: 1px solid #c9bd9d;
+    background: @surface_off@;
+    border: 1px solid @border_soft@;
     border-radius: 6px;
 }
 FormulaBlockWidget QPushButton {
-    background: #5a3a22;
-    color: #ebe2cd;
+    background: @brand@;
+    color: @surface_page@;
     border: none;
     border-radius: 4px;
     font-size: 11px;
@@ -107,48 +107,54 @@ FormulaBlockWidget QPushButton {
     padding: 4px 6px;
 }
 FormulaBlockWidget QPushButton:hover {
-    background: #4a2f1c;
+    background: @brand_hover@;
 }
 
 /* ── ArticleContentWidget (QScrollArea) ──────────────────────── */
 ArticleContentWidget {
-    background: #f0e8d4;
+    background: @surface_card@;
 }
 ArticleContentWidget QScrollBar:vertical {
     width: 8px;
-    background: #dccfb0;
+    background: @surface_slate@;
     border-radius: 4px;
     margin: 0px;
 }
 ArticleContentWidget QScrollBar::handle:vertical {
-    background: #5a3a22;
+    background: @brand@;
     min-height: 20px;
     border-radius: 4px;
 }
 ArticleContentWidget QScrollBar::handle:vertical:hover {
-    background: #4a2f1c;
+    background: @brand_hover@;
 }
 ArticleContentWidget QScrollBar::add-line:vertical, 
 ArticleContentWidget QScrollBar::sub-line:vertical {
     height: 0px;
 }
 QWidget#articleContent {
-    background: #f0e8d4;
+    background: @surface_card@;
 }
 
 /* ── QTextBrowser im Artikel (render_html) ───────────────────── */
 QTextBrowser#articleBrowser {
     border: none;
-    background: #f0e8d4;
-    color: #3a2f22;
+    background: @surface_card@;
+    color: @text_body@;
     font-size: 15px;
 }
+
+/* ── Startseite – Farbschema (Presets in lexikon.py) ─────────
+   Die Kachelfarben werden ueber den Darstellungs-Dialog
+   (Zahnrad-Button) gewaehlt. Die verfuegbaren Presets sind
+   in lexikon.py als HOME_PRESETS-Dictionary definiert.
+   ─────────────────────────────────────────────────────────── */
 
 /* ── MathEditor ──────────────────────────────────────────────── */
 /* CAS-Editor: Monospace-Schrift für Eingaben/Ergebnisse */
 MathEditor {
-    background: #f0e8d4;
-    color: #3a2f22;
+    background: @surface_card@;
+    color: @text_body@;
     font-family: "Consolas", "Menlo", "DejaVu Sans Mono", monospace;
     font-size: 14px;
 }
@@ -159,24 +165,41 @@ MathEditor {
 
 /* ── App-Header ──────────────────────────────────────────────── */
 QWidget#appHeader {
-    background: #5a3a22;
+    background: @brand@;
 }
 QLabel#headerTitle {
-    color: #ebe2cd;
+    color: @surface_page@;
     font-size: 16px;
     font-weight: 600;
 }
 
 /* ── Breadcrumb ──────────────────────────────────────────────── */
 QLabel#breadcrumbLabel {
-    color: #6e5a44;
+    color: @text_muted@;
     font-size: 12px;
 }
 
-/* ── Navigations-Buttons (Zurueck / Vorwaerts / Aktualisieren) ── */
+/* ── Navigations-Buttons (Zurueck / Vorwaerts / Aktualisieren / Stil) ── */
+QPushButton#styleButton {
+    background: transparent;
+    color: @brand@;
+    border: 1px solid transparent;
+    font-size: 15px;
+    border-radius: 5px;
+    padding: 0px;
+}
+QPushButton#styleButton:hover {
+    background: @brand_pale@;
+    border-color: @border_soft@;
+    color: @brand_deep@;
+}
+QPushButton#styleButton:pressed {
+    background: @brand_hover_bg@;
+    border-color: @border_mid@;
+}
 QPushButton#navButton {
     background: transparent;
-    color: #5a3a22;
+    color: @brand@;
     border: 1px solid transparent;
     font-size: 16px;
     font-weight: 600;
@@ -184,59 +207,59 @@ QPushButton#navButton {
     padding: 0px;
 }
 QPushButton#navButton:hover {
-    background: #e2d4be;
-    border-color: #c9b89a;
-    color: #3d2715;
+    background: @brand_pale@;
+    border-color: @border_soft@;
+    color: @brand_deep@;
 }
 QPushButton#navButton:pressed {
-    background: #d4c3a5;
-    border-color: #b8a07a;
+    background: @brand_hover_bg@;
+    border-color: @border_mid@;
 }
 QPushButton#navButton:disabled {
-    color: #c8b896;
+    color: @text_disabled@;
     border-color: transparent;
     background: transparent;
 }
 
 /* ── Linke Seitenleiste ──────────────────────────────────────── */
 QWidget#leftSidebar {
-    background: #e6dcc4;
-    border-right: 1px solid #c9bd9d;
+    background: @surface_pale@;
+    border-right: 1px solid @border_soft@;
 }
 QWidget#leftSidebar QScrollBar:vertical {
     width: 10px;
-    background: #dccfb0;
+    background: @surface_slate@;
     border-radius: 5px;
     margin: 0px;
 }
 QWidget#leftSidebar QScrollBar::handle:vertical {
-    background: #5a3a22;
+    background: @brand@;
     min-height: 20px;
     border-radius: 5px; 
     margin: 2px;
 }
 QWidget#leftSidebar QScrollBar::handle:vertical:hover {
-    background: #4a2f1c;
+    background: @brand_hover@;
 }
 QWidget#leftSidebar QScrollBar::add-line:vertical, 
 QWidget#leftSidebar QScrollBar::sub-line:vertical {
     height: 0px;
 }
 QLineEdit#searchField {
-    border: 1px solid #9a8c68;
+    border: 1px solid @border_strong@;
     border-radius: 6px;
     padding: 7px 10px;
     font-size: 13px;
-    background: #f0e8d4;
-    color: #3a2f22;
+    background: @surface_card@;
+    color: @text_body@;
 }
 QLineEdit#searchField:focus {
-    border-color: #5a3a22;
+    border-color: @brand@;
 }
 QTreeWidget#articleTree {
     border: none;
     background: transparent;
-    color: #3a2f22;
+    color: @text_body@;
     font-size: 13px;
     outline: 0;
     show-decoration-selected: 1;
@@ -244,14 +267,14 @@ QTreeWidget#articleTree {
 QTreeWidget#articleTree::item {
     padding: 4px 4px;
     border-radius: 5px;
-    color: #3a2f22;
+    color: @text_body@;
 }
 QTreeWidget#articleTree::item:hover {
-    background: #d4c3a8;
+    background: @brand_hover_bg@;
 }
 QTreeWidget#articleTree::item:selected {
-    background: #e2d4be;
-    color: #3d2715;
+    background: @brand_pale@;
+    color: @brand_deep@;
 }
 QTreeWidget#articleTree::branch:has-children:!has-siblings:closed,
 QTreeWidget#articleTree::branch:closed:has-children:has-siblings {
@@ -262,63 +285,63 @@ QTreeWidget#articleTree::branch:open:has-children:has-siblings {
     border-image: none;
 }
 QLabel#countLabel {
-    color: #8e7a62;
+    color: @text_faint@;
     font-size: 11px;
 }
 
 /* ── Rechte Seitenleiste ─────────────────────────────────────── */
 QWidget#rightSidebar {
-    background: #e6dcc4;
-    border-left: 1px solid #c9bd9d;
+    background: @surface_pale@;
+    border-left: 1px solid @border_soft@;
 }
 QWidget#rightSidebar QScrollBar:vertical {
     width: 10px;
-    background: #dccfb0;
+    background: @surface_slate@;
     border-radius: 5px;
     margin: 0px;
 }
 QWidget#rightSidebar QScrollBar::handle:vertical {
-    background: #5a3a22;
+    background: @brand@;
     min-height: 20px;
     border-radius: 5px; 
     margin: 2px;
 }
 QWidget#rightSidebar QScrollBar::handle:vertical:hover {
-    background: #4a2f1c;
+    background: @brand_hover@;
 }
 QWidget#rightSidebar QScrollBar::add-line:vertical, 
 QWidget#rightSidebar QScrollBar::sub-line:vertical {
     height: 0px;
 }
 QLabel#sectionLabel {
-    color: #8e7a62;
+    color: @text_faint@;
     font-size: 10px;
     letter-spacing: 0.05em;
     font-weight: 600;
 }
 QFrame#divider {
-    background: #c9bd9d;
+    background: @border_soft@;
     max-height: 1px;
     margin: 8px 0;
 }
 
 /* ── Grössen-Tabelle (rechte Seitenleiste) ───────────────────── */
 QLabel#groessenSymbol {
-    color: #3d2715;
-    background: #e2d4be;
+    color: @brand_deep@;
+    background: @brand_pale@;
     font-size: 11px;
     font-weight: 700;
     padding: 2px 5px;
     border-radius: 3px;
 }
 QLabel#groessenName {
-    color: #3a2f22;
+    color: @text_body@;
     font-size: 11px;
     padding: 2px 4px;
 }
 QLabel#groessenEinheit {
-    color: #4a5d2c;
-    background: #dde3d0;
+    color: @success_fg@;
+    background: @success_bg@;
     font-size: 11px;
     padding: 2px 5px;
     border-radius: 3px;
@@ -326,20 +349,20 @@ QLabel#groessenEinheit {
 
 /* ── Artikel-Header (Kategorie, Badges) ──────────────────────── */
 QLabel#categoryLabel {
-    color: #6e5a44;
+    color: @text_muted@;
     font-size: 12px;
     letter-spacing: 0.05em;
 }
 QLabel#symbolBadge {
-    background: #e2d4be;
-    color: #3d2715;
+    background: @brand_pale@;
+    color: @brand_deep@;
     padding: 2px 8px;
     border-radius: 4px;
     font-size: 12px;
 }
 QLabel#einheitBadge {
-    background: #dde3d0;
-    color: #4a5d2c;
+    background: @success_bg@;
+    color: @success_fg@;
     padding: 2px 8px;
     border-radius: 4px;
     font-size: 12px;
@@ -347,11 +370,11 @@ QLabel#einheitBadge {
 
 /* ── Bild-Fehler & Alt-Text ──────────────────────────────────── */
 QLabel#imageError {
-    color: #8e7a62;
+    color: @text_faint@;
     font-size: 13px;
 }
 QLabel#imageAlt {
-    color: #6e5a44;
+    color: @text_muted@;
     font-size: 12px;
     font-style: italic;
 }
@@ -359,18 +382,18 @@ QLabel#imageAlt {
 /* ── Link-Buttons (Verlinkungen) ─────────────────────────────── */
 QPushButton#foundLink {
     background: transparent;
-    color: #5a3a22;
+    color: @brand@;
     border: none;
     font-size: 12px;
     padding: 2px 4px;
     text-align: left;
 }
 QPushButton#foundLink:hover {
-    color: #3d2715;
+    color: @brand_deep@;
 }
 QPushButton#brokenLink {
     background: transparent;
-    color: #8e7a62;
+    color: @text_faint@;
     border: none;
     font-size: 12px;
     padding: 2px 4px;
@@ -379,8 +402,8 @@ QPushButton#brokenLink {
 
 /* ── Formel-Buttons (rechte Seitenleiste) ────────────────────── */
 QPushButton#formulaButton {
-    background: #ebdfca;
-    color: #3d2715;
+    background: @brand_paler@;
+    color: @brand_deep@;
     border: none;
     border-radius: 5px;
     font-size: 11px;
@@ -389,12 +412,12 @@ QPushButton#formulaButton {
     text-align: left;
 }
 QPushButton#formulaButton:hover {
-    background: #d4c3a8;
+    background: @brand_hover_bg@;
 }
 
 /* ── Leerzustand-Labels (Keine Tags / Verlinkungen / Formeln) ── */
 QLabel#emptyLabel {
-    color: #b6a884;
+    color: @border_mid@;
     font-size: 12px;
 }
 
@@ -404,8 +427,8 @@ QLabel#emptyLabel {
 
 /* ── Formel-Seitenleiste (HelpView) ──────────────────────────── */
 QWidget#formulaPage {
-    background: #e2d8bf;
-    border-right: 1px solid #c9bd9d;
+    background: @surface_off@;
+    border-right: 1px solid @border_soft@;
 }
 QListWidget#formulaList {
     background: transparent;
@@ -415,34 +438,34 @@ QListWidget#formulaList {
 }
 QListWidget#formulaList::item {
     padding: 5px 14px;
-    color: #3a2f22;
+    color: @text_body@;
     font-size: 13px;
     border: none;
 }
 QListWidget#formulaList::item:selected {
-    background: #dfe2d8;
-    color: #1f2a1f;
+    background: @accent_paler@;
+    color: @accent@;
 }
 QListWidget#formulaList::item:hover {
-    background: #ebdfca;
+    background: @brand_paler@;
 }
 QTextBrowser#formulaDisplay {
-    background: #f0e8d4;
-    color: #3a2f22;
+    background: @surface_card@;
+    color: @text_body@;
     border: none;
     padding: 28px 36px;
 }
 QTextBrowser#formulaDisplay QScrollBar:vertical {
     width: 10px;
-    background: #dccfb0;
+    background: @surface_slate@;
 }
 QTextBrowser#formulaDisplay QScrollBar::handle:vertical {
-    background: #5a3a22;
+    background: @brand@;
     border-radius: 5px;
     min-height: 30px;
 }
 QTextBrowser#formulaDisplay QScrollBar::handle:vertical:hover {
-    background: #4a2f1c;
+    background: @brand_hover@;
 }
 QTextBrowser#formulaDisplay QScrollBar::add-line:vertical,
 QTextBrowser#formulaDisplay QScrollBar::sub-line:vertical {
@@ -451,25 +474,62 @@ QTextBrowser#formulaDisplay QScrollBar::sub-line:vertical {
 
 /* ── SettingsDialog ──────────────────────────────────────────── */
 SettingsDialog {
-    background: #f0e8d4;
+    background: @surface_card@;
 }
 SettingsDialog QLabel {
-    color: #1f1812;
+    color: @text_primary@;
 }
 SettingsDialog QRadioButton {
-    color: #3a2f22;
+    color: @text_body@;
     padding: 4px 0;
     font-size: 13px;
 }
 SettingsDialog QSpinBox {
     padding: 3px 6px;
-    border: 1px solid #9a8c68;
+    border: 1px solid @border_strong@;
     border-radius: 4px;
-    background: #f0e8d4;
-    color: #3a2f22;
+    background: @surface_card@;
+    color: @text_body@;
+}
+
+/* ── LexiconStyleDialog ──────────────────────────────────────── */
+LexiconStyleDialog {
+    background: @surface_card@;
+}
+LexiconStyleDialog QLabel {
+    color: @text_body@;
+    font-size: 13px;
+}
+LexiconStyleDialog QSpinBox {
+    padding: 3px 6px;
+    border: 1px solid @border_strong@;
+    border-radius: 4px;
+    background: @surface_card@;
+    color: @text_body@;
+    min-width: 60px;
+}
+QListWidget#presetList {
+    background: @surface_page@;
+    border: 1px solid @border_soft@;
+    border-radius: 5px;
+    color: @text_body@;
+    font-size: 13px;
+    outline: none;
+    padding: 2px;
+}
+QListWidget#presetList::item {
+    padding: 7px 12px;
+    border-radius: 4px;
+}
+QListWidget#presetList::item:hover {
+    background: @brand_hover_bg@;
+}
+QListWidget#presetList::item:selected {
+    background: @brand@;
+    color: @surface_page@;
 }
 QLabel#settingsHeading {
-    color: #6e5a44;
+    color: @text_muted@;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.05em;
@@ -478,18 +538,18 @@ QLabel#settingsHeading {
 }
 QPushButton#cancelButton {
     background: transparent;
-    color: #6e5a44;
-    border: 1px solid #9a8c68;
+    color: @text_muted@;
+    border: 1px solid @border_strong@;
     border-radius: 5px;
     font-size: 12px;
     padding: 5px 14px;
 }
 QPushButton#cancelButton:hover {
-    background: #e6dcc4;
+    background: @surface_pale@;
 }
 QPushButton#okButton {
-    background: #1f2a1f;
-    color: #ebe2cd;
+    background: @accent@;
+    color: @surface_page@;
     border: none;
     border-radius: 5px;
     font-size: 12px;
@@ -497,39 +557,39 @@ QPushButton#okButton {
     padding: 6px 16px;
 }
 QPushButton#okButton:hover {
-    background: #0f1a0f;
+    background: @accent_hover@;
 }
 
 /* ── CAS-Toolbar ─────────────────────────────────────────────── */
 QWidget#casToolbar {
-    background: #e2d8bf;
-    border-bottom: 1px solid #c9bd9d;
+    background: @surface_off@;
+    border-bottom: 1px solid @border_soft@;
 }
 QLabel#casTitle {
-    color: #5a3a22;
+    color: @brand@;
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.02em;
 }
 QFrame#casSeparator {
-    color: #c9bd9d;
+    color: @border_soft@;
     max-width: 1px;
     margin: 10px 0;
 }
 QWidget#plotPanel {
-    background: #f0e8d4;
-    border-left: 1px solid #c9bd9d;
+    background: @surface_card@;
+    border-left: 1px solid @border_soft@;
 }
 QWidget#plotPanel QCheckBox {
-    color: #3a2f22;
+    color: @text_body@;
     font-size: 12px;
 }
 QPushButton#helpButton,
 QPushButton#settingsButton,
 QPushButton#graphButton {
     background: transparent;
-    color: #1f2a1f;
-    border: 1px solid #5e6a5e;
+    color: @accent@;
+    border: 1px solid @accent_border@;
     border-radius: 5px;
     font-size: 12px;
     font-weight: 600;
@@ -538,50 +598,50 @@ QPushButton#graphButton {
 QPushButton#helpButton:hover,
 QPushButton#settingsButton:hover,
 QPushButton#graphButton:hover {
-    background: #d6dad0;
+    background: @accent_pale@;
 }
 QPushButton#helpButton:disabled,
 QPushButton#settingsButton:disabled,
 QPushButton#graphButton:disabled {
-    color: #8a9088;
-    border-color: #dfe2d8;
+    color: @accent_disabled@;
+    border-color: @accent_paler@;
 }
 QLabel#statusLabel {
-    color: #6e5a44;
+    color: @text_muted@;
     font-size: 11px;
     font-weight: 500;
     padding: 2px 10px;
 }
 QPushButton#clearButton {
     background: transparent;
-    color: #6e5a44;
-    border: 1px solid #9a8c68;
+    color: @text_muted@;
+    border: 1px solid @border_strong@;
     border-radius: 5px;
     font-size: 12px;
     padding: 4px 12px;
 }
 QPushButton#clearButton:hover {
-    background: #ecd8cc;
-    color: #7a2a18;
-    border-color: #c89880;
+    background: @danger_bg@;
+    color: @danger_fg@;
+    border-color: @danger_border@;
 }
 
 /* ── Editor-ScrollArea ───────────────────────────────────────── */
 QScrollArea#editorScroll {
-    background: #f0e8d4;
+    background: @surface_card@;
 }
 
 /* ── CAS-Tab-Zeile (innere Tab-Leiste) ───────────────────────── */
 QWidget#casTabRow {
-    background: #dccfb0;
-    border-bottom: 1px solid #c9bd9d;
+    background: @surface_slate@;
+    border-bottom: 1px solid @border_soft@;
 }
 QTabBar#casTabBar {
     background: transparent;
 }
 QTabBar#casTabBar::tab {
     background: transparent;
-    color: #6e5a44;
+    color: @text_muted@;
     border: 1px solid transparent;
     border-bottom: none;
     border-top-left-radius: 5px;
@@ -595,13 +655,13 @@ QTabBar#casTabBar::tab {
     font-family: "Consolas", "Menlo", "DejaVu Sans Mono", monospace;
 }
 QTabBar#casTabBar::tab:hover {
-    background: #c9bd9d;
-    color: #3a2f22;
+    background: @border_soft@;
+    color: @text_body@;
 }
 QTabBar#casTabBar::tab:selected {
-    background: #f0e8d4;
-    color: #5a3a22;
-    border-color: #c9bd9d;
+    background: @surface_card@;
+    color: @brand@;
+    border-color: @border_soft@;
     font-weight: 600;
 }
 QTabBar#casTabBar::close-button {
@@ -610,19 +670,19 @@ QTabBar#casTabBar::close-button {
     padding: 1px;
 }
 QTabBar#casTabBar::close-button:hover {
-    background: #ecd8cc;
+    background: @danger_bg@;
     border-radius: 3px;
 }
 QPushButton#casAddTabBtn {
     background: transparent;
-    color: #6e5a44;
-    border: 1px solid #9a8c68;
+    color: @text_muted@;
+    border: 1px solid @border_strong@;
     border-radius: 5px;
     font-size: 16px;
     font-weight: 400;
 }
 QPushButton#casAddTabBtn:hover {
-    background: #e2d4be;
-    color: #5a3a22;
-    border-color: #5a3a22;
+    background: @brand_pale@;
+    color: @brand@;
+    border-color: @brand@;
 }

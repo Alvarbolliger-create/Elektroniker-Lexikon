@@ -44,7 +44,7 @@ from PySide6.QtWidgets import (
 )
 
 from cas_rechner import CasCalculator
-from lexikon import LexiconWidget
+from lexikon import LexiconWidget, build_stylesheet
 
 
 # ── Tool-Registry-API ─────────────────────────────────────────────────────────
@@ -306,9 +306,7 @@ class MainWindow(QMainWindow):
 def main() -> None:
     app = QApplication(sys.argv)
     app.setStyle("Fusion")
-    qss_path = Path(__file__).parent / "main.qss"
-    if qss_path.exists():
-        app.setStyleSheet(qss_path.read_text(encoding="utf-8"))
+    app.setStyleSheet(build_stylesheet("Kraft (Standard)"))
     window = MainWindow()
     window.show()
     sys.exit(app.exec())
