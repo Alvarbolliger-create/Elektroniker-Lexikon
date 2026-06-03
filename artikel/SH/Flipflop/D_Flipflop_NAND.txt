@@ -1,0 +1,28 @@
+SVG: D-Flipflop aus 4 NAND-Gattern
+===================================
+
+Zeigt den internen Aufbau eines taktgesteuerten D-Flipflops aus vier
+NAND-Gattern (NAND1, NAND2, NAND3, NAND4).
+
+Layout und Verschaltung:
+- Eingänge links: D (oben) und CLK (unten)
+- Vier NAND-Gatter, angeordnet in zwei Spalten:
+    Linke Spalte:  NAND1 (oben), NAND2 (unten)
+    Rechte Spalte: NAND3 (oben), NAND4 (unten)
+
+Verbindungen:
+- D geht auf NAND1 (Eingang 1)
+- D wird vor NAND2 invertiert (kleiner Kreis / NOT) → invertiertes D auf NAND2 (Eingang 1)
+- CLK geht auf NAND1 (Eingang 2) UND NAND2 (Eingang 2)
+- Ausgang NAND1 → Eingang NAND3 (Eingang 1)
+- Ausgang NAND2 → Eingang NAND4 (Eingang 1)
+- Ausgang NAND3 → Eingang NAND4 (Eingang 2) [Rückkopplung]
+- Ausgang NAND4 → Eingang NAND3 (Eingang 2) [Rückkopplung]
+- Ausgang NAND3 → Ausgang Q (rechts oben)
+- Ausgang NAND4 → Ausgang Q̄ (rechts unten, mit Überstrich: "Q̄" oder "~Q")
+
+NAND-Gatter Symbol: D-förmiger Körper mit kleinem Kreis am Ausgang (Standard-Logiksymbol)
+
+Stil: Logikschaltplan, schwarz-weiß
+Größe: ca. 550 × 250 px
+Schriftart: sans-serif, Beschriftungen an Ein- und Ausgängen

@@ -2805,6 +2805,7 @@ class MathEditor(QWidget):
                 self._insert_system()
                 return
 
+
         # Ctrl+_ (= Ctrl+Shift+Minus auf CH-Layout) → Subscript.
         # Prüfung über Text oder Key: robust gegen Layout-Unterschiede.
         if (mods & Qt.ControlModifier) and (
@@ -3492,6 +3493,7 @@ class MathEditor(QWidget):
         (oder Tab in der letzten Zeile) dazu."""
         node = SystemNode(rows=2)
         self._insert_container_at_cursor(node, node.rows[0])
+
 
 
 class MathFormulaDisplay(QWidget):

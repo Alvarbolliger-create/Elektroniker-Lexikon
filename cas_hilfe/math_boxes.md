@@ -1,45 +1,51 @@
 ---
-title: Math Boxes
+title: Zeileneditor
 kategorie: Grundlagen
 ---
 
-# Math Boxes
+# Zeileneditor
 
-Eine Math Box ist ein Textbereich, der als Rechnung ausgewertet wird. Sie ist nicht durch sichtbare Klammern begrenzt, sondern durch ihr **Format**: Text in einer Math Box ist **blau und in Monospace-Schrift**.
+Der CAS Rechner verwendet einen **zeilenbasierten** Formel-Editor. Jede Zeile ist ein eigenständiger Ausdruck — einfach eintippen, kein spezielles Format oder Zeichen nötig.
 
-## Box erzeugen
+## Wie es funktioniert
 
-- **Ctrl+M** fügt eine leere Box an der Cursor-Position ein. Du erkennst sie am gestrichelten Rahmen.
-- Alternativ der Button **+ Math Box** in der Toolbar.
+- Ausdruck eintippen und **Enter** drücken → das ganze Dokument wird ausgewertet, das Ergebnis erscheint rechts nach `▶`, der Cursor springt in die nächste Zeile.
+- Alle Zeilen werden bei jeder Auswertung gleichzeitig neu berechnet.
 
-Direkt danach kannst du den Ausdruck tippen — das Tippen „bleibt" automatisch in der Box, solange der Cursor innerhalb des blauen Bereichs steht.
-
-## Box verlassen
-
-Sobald du mit den Pfeiltasten (oder einem Klick) den blauen Bereich rechts verlässt, wird der nächste Tastendruck wieder ganz normaler schwarzer Text. Der Rahmen um die Box verschwindet; der blaue Text bleibt.
-
-## Auswerten
-
-- **Enter in einer Box** → das ganze Dokument wird neu ausgewertet. Der Cursor bleibt, wo er ist; es wird **kein** Zeilenumbruch eingefügt.
-- **Enter ausserhalb einer Box** → normale neue Zeile, und danach wird ausgewertet.
-
-## Live-Verhalten
-
-Sobald du den Inhalt einer Box änderst — egal ob du tippst oder löschst —, verschwindet das angezeigte Ergebnis sofort. Es ist ja nicht mehr aktuell. Erst beim nächsten Enter erscheint das neue Ergebnis.
-
-## Backspace rund um Boxen
-
-Backspace hat in der Nähe von Boxen eine spezielle Logik:
-
-- Innerhalb einer Box oder unmittelbar daran angrenzend → der **erste** Backspace löscht das angezeigte Ergebnis. Der Box-Inhalt bleibt erhalten.
-- Wenn kein Ergebnis mehr da ist und der Cursor direkt rechts neben einer Box steht → der Backspace markiert die ganze Box.
-- Noch einmal Backspace → die markierte Box wird gelöscht.
-- Innerhalb einer Box (kein Ergebnis, keine Auswahl): normales zeichenweises Löschen.
+```
+R := 220
+I := 0.005
+U := R * I      ▶  U := 11/10
+```
 
 ## Ergebnisse
 
-Ergebnisse erscheinen rechts neben der Box, getrennt durch `▶`:
+Ergebnisse erscheinen rechts neben der Zeile, getrennt durch `▶`:
 
 - **Grün** — alles gut.
 - **Rot** — Fehler (Syntax, Konflikt, Zyklus, …).
-- Bei rein numerischen Ausdrücken wird oft zusätzlich eine Dezimalannäherung `≈ …` angehängt.
+- Bei exakten Ergebnissen mit einem numerisch abweichenden Wert wird `≈ …` angehängt.
+
+## Kommentare
+
+Jede Zeile, die mit `#` beginnt, ist ein Kommentar — sie wird nicht ausgewertet und grau dargestellt:
+
+```
+# Widerstandsberechnung
+R := 220
+I := 0.005
+```
+
+## Ctrl+Enter — numerisch auswerten
+
+Mit **Ctrl+Enter** wird die aktuelle Zeile einmalig numerisch (aprox) ausgewertet, ohne den Text zu verändern. Das nächste **Enter** setzt zur exakten Darstellung zurück.
+
+## Strukturierter Backspace
+
+Wenn der Cursor direkt rechts neben einem strukturellen Element (Bruch, Wurzel, Exponent, …) steht:
+
+1. Erstes `Backspace` — das Element wird **markiert**.
+2. Zweites `Backspace` — das Element wird gelöscht.
+3. Jede andere Taste — Markierung wird aufgehoben.
+
+So vermeidet man versehentliches Löschen verschachtelter Konstrukte.

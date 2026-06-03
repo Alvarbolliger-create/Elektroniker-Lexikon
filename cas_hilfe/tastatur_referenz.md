@@ -14,7 +14,14 @@ kategorie: Grundlagen
 - `Tippen` — Zeichen an Cursor-Position einfügen
 - `Backspace` — links vom Cursor löschen; am Zeilenanfang mit voriger Zeile zusammenführen
 - `Delete` — rechts vom Cursor löschen
-- `Ctrl+L` — gesamtes Dokument leeren
+
+## Bearbeiten
+
+- `Ctrl+Z` — Rückgängig (bis 100 Schritte)
+- `Ctrl+Y` — Wiederholen
+- `Ctrl+C` — Aktuelle Zeile + Ergebnis kopieren (oder markierten Text)
+- `Ctrl+X` — Aktuelle Zeile ausschneiden (oder markierten Text)
+- `Ctrl+V` — Einfügen
 
 ## Strukturen einfügen
 
@@ -26,10 +33,13 @@ kategorie: Grundlagen
 - `Alt+S` — Summe Σ
 - `Alt+I` — Integral ∫
 - `Alt+V` — Vektor (initial 2×1)
+- `Alt+L` — Logarithmus log_n(x)
+- `Alt+G` — Gleichungssystem (2 Zeilen, geschweifte Klammer)
 
 ## Navigation
 
 - `←` `→` — horizontal, taucht in Container ein und springt zwischen Zeilen
+- `Shift+←` `Shift+→` — Auswahl zeichenweise erweitern
 - `↑` `↓` — vertikal: zwischen Slots eines Containers (z. B. Zähler ↔ Nenner) oder zwischen Top-Level-Zeilen
 - `Tab` — nächster Slot innerhalb des Containers
 - `Home` `End` — Anfang/Ende der aktuellen Zeile
@@ -41,6 +51,16 @@ kategorie: Grundlagen
 - `Ctrl+Tab` — Matrix: Zeile anhängen (egal wo der Cursor steht)
 - `Ctrl+Shift+Tab` — Matrix: Spalte anhängen
 - `Backspace` in einer komplett leeren Matrix-Zeile/-Spalte — diese entfernen
+
+## Gleichungssystem-Operationen
+
+- `Ctrl+Tab` — neue Gleichungszeile anhängen
+- `Tab` in der letzten Zeile — neue Gleichungszeile anhängen
+- `Backspace` in einer leeren Gleichungszeile — diese entfernen (wenn mehr als eine Zeile)
+
+## Tabs
+
+- `Ctrl+T` — neuen Tab anlegen
 
 ## Strukturierter Backspace
 

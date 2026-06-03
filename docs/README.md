@@ -7,17 +7,18 @@ separaten Dateien im Detail beschrieben.
 
 | Datei | Thema | Quellcode |
 | --- | --- | --- |
-| [lexikon.md](lexikon.md) | Artikel-Anzeige, Navigation, MVVM | [lexikon.py](../lexikon.py) |
+| [lexikon.md](lexikon.md) | Artikel-Anzeige, Navigation, MVVM, alle Block-Typen | [lexikon.py](../lexikon.py) |
+| [artikel_format.md](artikel_format.md) | Artikel-Format, alle Direktiven, Syntax-Referenz | [`artikel/`](../artikel/) |
 | [cas.md](cas.md) | CAS-Rechner, SymPy-Engine, Einheiten, Plots | [cas_rechner.py](../cas_rechner.py), [cas_plot.py](../cas_plot.py), [phasor_widget.py](../phasor_widget.py) |
 | [math_nodes.md](math_nodes.md) | 2D-Formel-Editor, Node-Baum, Cursor | [math_editor.py](../math_editor.py) |
 
 ## Architektur auf einen Blick
 
 Das Projekt besteht aus zwei Tools: dem **Lexikon** (Markdown-basierte
-Artikel mit Wiki-Verlinkung) und dem **CAS-Rechner** (symbolische Mathematik
-mit 2D-Formel-Eingabe, Plots und Phasor-Diagramm). Beide Tools leben als
-Tabs im selben Hauptfenster, das von `main.py` als schlanke App-Shell
-bereitgestellt wird.
+Artikel mit Wiki-Verlinkung und 15 Block-Typen) und dem **CAS-Rechner**
+(symbolische Mathematik mit 2D-Formel-Eingabe, Plots und Phasor-Diagramm).
+Beide Tools leben als Tabs im selben Hauptfenster, das von `main.py` als
+schlanke App-Shell bereitgestellt wird.
 
 ```mermaid
 flowchart TB
@@ -25,7 +26,7 @@ flowchart TB
         App[QApplication]
         Win[MainWindow]
         CTX[AppContext]
-        TOOLS["TOOLS-Registry<br/>ToolDef-Liste"]
+        TOOLS["TOOLS-Registry\nToolDef-Liste"]
         TabBar
         App --> Win
         Win --> TabBar
@@ -38,20 +39,20 @@ flowchart TB
         VM1[LexiconViewModel]
         ArticleWidget[ArticleContentWidget]
         FormulaBW[FormulaBlockWidget]
-        Loader["load_all_articles()<br/>parse_article_blocks()"]
+        Loader["load_all_articles()\nparse_article_blocks()"]
         LW --> VM1 --> Loader
         LW --> ArticleWidget --> FormulaBW
     end
 
     subgraph cas["CAS-Tool"]
-        CTM[CasTabManager<br/><i>main.py</i>]
-        CasCalc[CasCalculator<br/><i>cas_rechner.py</i>]
+        CTM[CasTabManager\nmain.py]
+        CasCalc[CasCalculator\ncas_rechner.py]
         CasVM[CasViewModel]
         Engine[Engine]
         HelpView
         Settings
-        PlotPanel[PlotPanel<br/><i>cas_plot.py</i>]
-        PhasorW[PhasorWidget<br/><i>phasor_widget.py</i>]
+        PlotPanel[PlotPanel\ncas_plot.py]
+        PhasorW[PhasorWidget\nphasor_widget.py]
         CTM --> CasCalc
         CasCalc --> CasVM --> Engine
         CasVM --> Settings
@@ -61,7 +62,7 @@ flowchart TB
 
     subgraph editor["2D-Formel-Editor (math_editor.py)"]
         MathEditor
-        Nodes["MathNode-Baum<br/>Fraction, Sqrt, Sum, ..."]
+        Nodes["MathNode-Baum\nFraction, Sqrt, Sum, ..."]
         Display[MathFormulaDisplay]
         MathEditor --> Nodes
         Display --> Nodes
@@ -72,6 +73,39 @@ flowchart TB
     CasCalc --> MathEditor
     FormulaBW -.->|"MathFormulaDisplay"| Display
     FormulaBW -.->|"→ CAS Button via AppContext"| CTM
+```
+
+## Projektstruktur
+
+```
+Elektroniker-Lexikon/
+├── main.py               # App-Shell, TOOLS-Registry, MainWindow, CasTabManager
+├── lexikon.py            # Lexikon-Tool (Laden, Parsen, alle Block-Typen, Widgets)
+├── cas_rechner.py        # CAS-Rechner (Engine, SymPy, Einheiten, HelpView)
+├── math_editor.py        # 2D-Formel-Editor (MathNode-Baum, Cursor, Serialisierung)
+├── cas_plot.py           # PlotPanel (2D/3D matplotlib + PhasorWidget-Tab)
+├── phasor_widget.py      # PhasorWidget (komplexe Zeiger in Gaußscher Zahlenebene)
+├── main.qss              # Zentrales Qt-Stylesheet (objectName-Selektoren)
+├── themes.json           # Zwei Farbthemen: "Werkstatt" (grün) + "Oszilloskop" (dunkel)
+├── pyproject.toml        # Abhängigkeiten: PySide6, SymPy, matplotlib
+│
+├── artikel/              # 237+ Markdown-Artikel (*.md) in 7 Kategorien
+│   ├── _VORLAGE.md       # Artikel-Template mit allen Block-Typen
+│   ├── inhaltsverzeichnis.txt  # Redaktioneller Status der Artikel
+│   ├── Diagramm/         # SVG-Beschreibungsdateien (*.txt) für externe Generierung
+│   ├── EK/               # Elektronik (13 Unterordner)
+│   ├── ET/               # Elektrotechnik (12 Unterordner)
+│   ├── SH/               # Schaltungstechnik/Digital (7 Unterordner)
+│   ├── FT/               # Fertigungstechnik (3 Unterordner)
+│   ├── MT/               # Messtechnik (7 Unterordner)
+│   ├── SI/               # Sicherheit (5 Unterordner)
+│   └── EN/               # Entwicklung/Engineering (2 Unterordner)
+│
+├── schaltplaene/         # SVG-Schaltplan-Dateien (direkt in Artikeln eingebettet)
+│   └── symbole/          # Einzelne Schaltzeichen als SVG
+│
+├── cas_hilfe/            # 21 Markdown-Hilfe-Seiten für den CAS-Rechner
+└── docs/                 # Diese Dokumentation
 ```
 
 ## Datenfluss: vom Klick auf eine Formel zum Ergebnis
@@ -96,6 +130,33 @@ sequenceDiagram
     Ed->>Eng: evaluate_all(lines)
     Eng-->>Ed: [(text, is_error), ...]
     Ed-->>User: Ergebnis rechts neben "▶"
+```
+
+## Datenfluss: Artikel öffnen und rendern
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant LW as LexiconWidget
+    participant VM as LexiconViewModel
+    participant FS as Dateisystem
+    participant ACW as ArticleContentWidget
+
+    User->>LW: Klick auf Artikel-Eintrag
+    LW->>VM: navigate(title)
+    LW->>VM: article_blocks(title)
+    VM->>VM: ensure_article_text()
+    alt Text noch nicht geladen
+        VM->>FS: read_text(*.md)
+        VM->>VM: parse_frontmatter + cachen
+    end
+    VM->>VM: parse_article_blocks()
+    VM-->>LW: [ArticleHeaderBlock, HeadingBlock, ...]
+    LW->>ACW: render_blocks(blocks, article_folder)
+    loop für jeden Block
+        ACW->>ACW: _block_to_widget(block)
+    end
+    ACW-->>User: Artikel als Qt-Widgets sichtbar
 ```
 
 ## Tool-Registry-Muster
@@ -127,6 +188,40 @@ Beide Tools folgen dem Model-View-ViewModel-Muster:
   sind frei von PySide6-Abhängigkeiten.
 - **View**: `LexiconWidget`, `CasCalculator`, `ArticleContentWidget` —
   reine Darstellung, delegieren an ihre ViewModels.
+
+```mermaid
+flowchart LR
+    subgraph Lexikon
+        LM["Model\nload_all_articles()\nparse_article_blocks()"]
+        LVM["ViewModel\nLexiconViewModel\n(kein Qt)"]
+        LV["View\nLexiconWidget\nArticleContentWidget"]
+        LM --> LVM --> LV
+    end
+    subgraph CAS
+        CM["Model\nSettings\nEngine.evaluate_all()"]
+        CVM["ViewModel\nCasViewModel\n(kein Qt)"]
+        CV["View\nCasCalculator\nMathEditor"]
+        CM --> CVM --> CV
+    end
+```
+
+## Styling und Themes
+
+Das Styling ist vollständig zentralisiert:
+
+| Datei | Zweck |
+| --- | --- |
+| [`main.qss`](../main.qss) | Qt-Stylesheet für alle Widgets via `objectName`-Selektoren |
+| [`themes.json`](../themes.json) | Zwei Farbpaletten: `"Werkstatt"` (hellgrün) und `"Oszilloskop"` (dunkel) |
+
+Wichtige `objectName`-Selektoren in `main.qss`:
+
+| Selektor | Widget |
+| --- | --- |
+| `#appHeader` | Obere App-Leiste mit Tab-Auswahl |
+| `#casToolbar` | CAS-Rechner-Toolbar |
+| `#casTabBar` | Tab-Leiste der CAS-Tabs |
+| `#lexiconToolbar` | Lexikon-Toolbar |
 
 ## Zusammenspiel auf einer Seite
 

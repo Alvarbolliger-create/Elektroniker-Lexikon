@@ -1,0 +1,22 @@
+SVG: Sternpunkterdung – Übersichtsdiagramm
+==========================================
+
+Zeigt wie drei Masseleitungen (Analog-GND, Digital-GND, Leistungs-GND)
+an einem gemeinsamen Sternpunkt zusammengeführt werden und von dort
+eine einzige Verbindung zur Schutzerde (PE) geht.
+
+Layout (horizontal, von links nach rechts):
+- Links: drei beschriftete Blöcke/Labels übereinander:
+    [Analog-GND]
+    [Digital-GND]
+    [Leistungs-GND]
+- Von jedem Block geht eine horizontale Linie nach rechts
+- Alle drei Linien treffen sich an einem senkrechten Sammelpunkt (Sternpunkt)
+  → kleiner ausgefüllter Kreis oder markierter Knoten mit Label "Sternpunkt"
+- Vom Sternpunkt geht eine weitere horizontale Linie nach rechts
+- Rechts endet die Linie am PE-Symbol (Schutzerde-Symbol: Dreieck mit drei
+  waagrechten Strichen oder Erde-Symbol) mit Label "PE"
+
+Stil: schlicht, schwarz-weiß, technisches Blockdiagramm
+Größe: ca. 400 × 150 px
+Schriftart: monospace oder sans-serif

@@ -1,0 +1,20 @@
+SVG: Harvard-Architektur – Busdiagramm
+======================================
+
+Zeigt die getrennte Bus-Struktur der Harvard-Architektur mit zwei
+unabhängigen Bussen für Programm und Daten.
+
+Layout (horizontal, von links nach rechts):
+- Links oben: rechteckiger Block [Flash (Programm)]
+- Links unten: rechteckiger Block [SRAM (Daten)]
+- Mitte: zwei horizontale Linien, beschriftet:
+    obere Linie: "Programmbus"
+    untere Linie: "Datenbus"
+- Rechts: beide Linien laufen zusammen in einen größeren rechteckigen Block [CPU]
+  Die Zusammenführung geschieht mit einer senkrechten Linie rechts und einem
+  kleinen Knoten (Vereinigungspunkt) der dann in die CPU führt.
+
+Stil: technisches Blockdiagramm, schwarz-weiß
+Größe: ca. 500 × 180 px
+Schriftart: sans-serif
+Blöcke: mit Rahmen (Rechteck), Beschriftung zentriert innen

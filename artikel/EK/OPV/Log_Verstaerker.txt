@@ -1,0 +1,32 @@
+SVG: Logarithmischer Verstärker – Schaltplan
+============================================
+
+Zeigt den Schaltplan eines logarithmischen Verstärkers (Log-Amp) mit einem
+OPV und einer Diode/BJT in der Rückkopplungsschleife.
+
+Schaltplan-Aufbau:
+
+Bauteile und Verbindungen:
+1. Eingang (links): Eingangsspannung U_in
+2. Vorwiderstand R_in (horizontal, in Reihe nach rechts)
+3. OPV (Operationsverstärker):
+   - (−)-Eingang (invertierend): verbunden mit R_in und mit dem Rückkopplungsnetzwerk
+   - (+)-Eingang (nicht-invertierend): mit GND verbunden
+   - Ausgang: rechts → U_out
+4. Rückkopplungspfad: vom OPV-Ausgang zurück zum (−)-Eingang
+   enthält eine Diode ODER einen NPN-BJT:
+   - Variante Diode: Diodensymbol (Dreieck + Strich), Anode am Ausgang, Kathode am Eingang
+   - Variante BJT: Transistor, Kollektor am Ausgang, Emitter an (−)-Eingang, Basis mit Kollektor verbunden (Diodenschaltung)
+   → Beschriftung: "D / BJT" oder zwei alternative Symbole zeigen
+5. GND unten
+
+Beschriftungen:
+- U_in (links)
+- R_in (am Widerstand)
+- "−" und "+" an den OPV-Eingängen
+- D (Diode) oder Q (BJT) im Rückkopplungspfad, mit Hinweis "Rückkopplung"
+- U_out (rechts)
+- GND (Massesymbol)
+
+Stil: Schaltplan, schwarz-weiß, technisch korrekte Symbole
+Größe: ca. 450 × 280 px

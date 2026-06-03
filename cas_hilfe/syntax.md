@@ -42,10 +42,10 @@ Details zum Unterschied: [[Gleichungen mit =]].
 Alles, was mit `_` beginnt, ist eine Einheit — nicht eine Variable. Darum können Variablennamen auch nicht mit `_` beginnen.
 
 ```
-⟦ U := 12 * _V ⟧          ▶  U := 12 V
-⟦ I := 20 * _mA ⟧         ▶  I := 1/50 A
-⟦ R := U / I ⟧            ▶  R := 600 Ω
-⟦ aprox(R) ⟧              ▶  600 Ω
+U := 12 * _V          ▶  U := 12 V
+I := 20 * _mA         ▶  I := 1/50 A
+R := U / I            ▶  R := 600 Ω
+aprox(R)              ▶  600 Ω
 ```
 
 Vollständige Liste: [[Einheiten]].

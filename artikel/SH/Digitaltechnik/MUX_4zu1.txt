@@ -1,0 +1,22 @@
+SVG: 4:1 Multiplexer (MUX) – Schaltsymbol
+==========================================
+
+Zeigt das Schaltsymbol eines 4:1-Multiplexers mit 4 Dateneingängen,
+2 Steuereingängen und 1 Ausgang.
+
+Layout:
+- Zentraler Block: Trapez oder Rechteck mit Label "MUX" oder "4:1 MUX"
+  (Trapez: breitere Seite links für Eingänge, schmale Seite rechts für Ausgang –
+   klassisches MUX-Symbol)
+- Links: vier horizontale Eingangslinien, von oben nach unten beschriftet:
+    D0
+    D1
+    D2
+    D3
+- Rechts: eine Ausgangslinie mit Pfeil → beschriftet "Y"
+- Unten (oder unten am Block): zwei Steuerleitungen, beschriftet:
+    S0 (rechts) und S1 (links)
+  mit kleinen Pfeilen nach oben zum Block
+
+Stil: Standardlogiksymbol, schwarz-weiß
+Größe: ca. 300 × 250 px

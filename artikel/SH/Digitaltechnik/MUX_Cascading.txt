@@ -1,0 +1,17 @@
+SVG: Cascading – 2× 4:1 MUX zu 8:1 MUX
+========================================
+
+Zeigt wie zwei 4:1-Multiplexer (MUX A und MUX B) zu einem 8:1-Multiplexer
+durch einen dritten MUX (MUX C) zusammengeschaltet werden.
+
+Layout (von links nach rechts):
+- Links oben: Gruppe von 4 Eingangsleitungen beschriftet "D0...D3" → MUX A (Block mit Label "MUX A")
+- Links unten: Gruppe von 4 Eingangsleitungen beschriftet "D4...D7" → MUX B (Block mit Label "MUX B")
+- MUX A und MUX B haben gemeinsame Steuerleitungen S0, S1 (von unten)
+- Ausgänge von MUX A und MUX B gehen beide auf MUX C (Block mit Label "MUX C" in der Mitte rechts)
+- MUX C hat eine eigene Steuerleitung S2 (von unten)
+- Ausgang von MUX C → Y (ganz rechts)
+
+Stil: Blockdiagramm, schwarz-weiß
+Größe: ca. 500 × 300 px
+Blöcke: Rechtecke oder Trapeze, beschriftet

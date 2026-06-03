@@ -14,21 +14,21 @@ Mit `aprox(...)` zwingst du den Rechner, das Ergebnis **numerisch** darzustellen
 Einfach `aprox(...)` um den Ausdruck schreiben:
 
 ```
-⟦ 1/3 + 1/7 ⟧             ▶  10/21
-⟦ aprox(1/3 + 1/7) ⟧      ▶  0.47619
-⟦ aprox(sqrt(2)) ⟧        ▶  1.414214
-⟦ aprox(π^2) ⟧            ▶  9.869604
+1/3 + 1/7             ▶  10/21
+aprox(1/3 + 1/7)      ▶  0.47619
+aprox(sqrt(2))        ▶  1.414214
+aprox(π^2)            ▶  9.869604
 ```
 
 `aprox` funktioniert auch auf der rechten Seite einer Zuweisung:
 
 ```
-⟦ x := aprox(U/I) ⟧       ▶  x := 1200.0 Ω
+x := aprox(U/I)       ▶  x := 1200.0 Ω
 ```
 
 ### Variante 2: Ctrl+Enter
 
-Setze den Cursor in eine Box und drück **Ctrl+Enter**. Der Rechner zeigt dann das aktuelle Ergebnis als Näherung — **ohne den Text in der Box zu verändern**. Das ist ein einmaliger „zeig's mir numerisch" — die Box bleibt inhaltlich unverändert.
+Setze den Cursor in eine Zeile und drück **Ctrl+Enter**. Der Rechner zeigt dann das aktuelle Ergebnis als Näherung — **ohne den Text zu verändern**. Das ist ein einmaliger „zeig's mir numerisch" — die Zeile bleibt inhaltlich unverändert.
 
 Zum exakten Ergebnis zurück: **Backspace** (löscht das angezeigte Ergebnis) und dann **Enter** (wertet neu aus). So pendelst du ohne Textänderung zwischen exakt und numerisch.
 
@@ -37,12 +37,12 @@ Zum exakten Ergebnis zurück: **Backspace** (löscht das angezeigte Ergebnis) un
 `aprox` glänzt bei Einheiten: Die Zahl wird numerisch, und je nach Zahlenformat wird eine passende Präfix-Darstellung gewählt (nur im ENG-Modus).
 
 ```
-⟦ R := 2200 * _Ohm ⟧
-⟦ C := 470 * _nF ⟧
-⟦ tau := R * C ⟧              ▶  tau := 517/500000 s
-⟦ aprox(tau) ⟧                ▶  1.034 ms      (ENG)
-                              ▶  1.034·10⁻³ s  (SIC)
-                              ▶  0.001034 s    (Standard)
+R := 2200 * _Ohm
+C := 470 * _nF
+tau := R * C              ▶  tau := 517/500000 s
+aprox(tau)                ▶  1.034 ms      (ENG)
+                          ▶  1.034·10⁻³ s  (SIC)
+                          ▶  0.001034 s    (Standard)
 ```
 
 Welche Formatierung benutzt wird, stellst du im Einstellungen-Dialog ein (siehe [[Einstellungen]]).
@@ -52,7 +52,7 @@ Welche Formatierung benutzt wird, stellst du im Einstellungen-Dialog ein (siehe 
 Wenn der Ausdruck noch freie Symbole enthält, werden die unverändert mitgenommen; nur die Zahlen werden numerisch:
 
 ```
-⟦ aprox(π * r^2) ⟧        ▶  3.141593*r^2
+aprox(π * r^2)        ▶  3.141593*r^2
 ```
 
 ## Wann `aprox`, wann nicht?
@@ -66,7 +66,7 @@ Wenn der Ausdruck noch freie Symbole enthält, werden die unverändert mitgenomm
 
 ## Was `aprox` nicht tut
 
-- Es ändert keine globalen Zuweisungen — wenn `R := 220` exakt ist, bleibt `R` weiterhin exakt. Nur *die Box, in der `aprox` steht*, zeigt das numerische Ergebnis.
+- Es ändert keine globalen Zuweisungen — wenn `R := 220` exakt ist, bleibt `R` weiterhin exakt. Nur *die Zeile, in der `aprox` steht*, zeigt das numerische Ergebnis.
 - Es verändert die Genauigkeit nicht über die eingestellten Nachkommastellen hinaus.
 - Es umgeht keine Fehler: Ein undefiniertes Symbol bleibt ein Fehler, auch mit `aprox` drumrum.
 
@@ -74,6 +74,6 @@ Wenn der Ausdruck noch freie Symbole enthält, werden die unverändert mitgenomm
 
 | Aspekt | `aprox(...)` im Text | Ctrl+Enter |
 |---|---|---|
-| Box-Inhalt wird geändert? | ja, `aprox(...)` steht im Text | nein, Text bleibt unverändert |
+| Zeileninhalt wird geändert? | ja, `aprox(...)` steht im Text | nein, Text bleibt unverändert |
 | Persistent? | ja — auch nach Neuladen noch da | nein — nur für diese eine Anzeige |
 | Rückgängig? | Backspace löscht auch den Text | Backspace löscht nur das Ergebnis |

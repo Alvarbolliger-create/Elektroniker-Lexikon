@@ -1,0 +1,21 @@
+SVG: 1:4 Demultiplexer (DMUX) – Schaltsymbol
+=============================================
+
+Zeigt das Schaltsymbol eines 1:4-Demultiplexers mit 1 Dateneingang,
+2 Steuereingängen und 4 Ausgängen.
+
+Layout:
+- Zentraler Block: Trapez oder Rechteck mit Label "DMUX" oder "1:4 DMUX"
+  (Trapez: schmale Seite links für Eingang, breitere Seite rechts für Ausgänge)
+- Links: eine Eingangsleitung mit Pfeil → beschriftet "D"
+- Rechts: vier Ausgangslinien mit Pfeilen, von oben nach unten beschriftet:
+    Y0
+    Y1
+    Y2
+    Y3
+- Unten (oder unten am Block): zwei Steuerleitungen, beschriftet:
+    S0 (rechts) und S1 (links)
+  mit kleinen Pfeilen nach oben zum Block
+
+Stil: Standardlogiksymbol, schwarz-weiß
+Größe: ca. 300 × 250 px

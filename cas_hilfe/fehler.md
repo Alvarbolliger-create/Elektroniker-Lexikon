@@ -12,8 +12,8 @@ Rot markierte Ergebnisse sind Fehler. Es gibt ein paar Kategorien, die der Rechn
 Jede Variable darf **nur einmal** mit `:=` zugewiesen werden:
 
 ```
-⟦ a := 2 ⟧   ▶  Konflikt: »a« wird 2× zugewiesen
-⟦ a := 3 ⟧   ▶  Konflikt: »a« wird 2× zugewiesen
+a := 2   ▶  Konflikt: »a« wird 2× zugewiesen
+a := 3   ▶  Konflikt: »a« wird 2× zugewiesen
 ```
 
 **Fix:** Eine der beiden Zeilen löschen oder die Variable umbenennen.
@@ -21,8 +21,8 @@ Jede Variable darf **nur einmal** mit `:=` zugewiesen werden:
 Tipp: Wenn du ausprobieren willst, ob `a = 3` passen würde, ohne die globale Zuweisung zu ändern, schreib es als **Gleichung** (siehe [[Gleichungen mit =]]):
 
 ```
-⟦ a := 2 ⟧
-⟦ a = 3 ⟧     ▶  False ✗   (nur lokale Verifikation)
+a := 2
+a = 3     ▶  False ✗   (nur lokale Verifikation)
 ```
 
 ## Zirkuläre Abhängigkeiten
@@ -30,8 +30,8 @@ Tipp: Wenn du ausprobieren willst, ob `a = 3` passen würde, ohne die globale Zu
 Variablen dürfen nicht im Kreis voneinander abhängen:
 
 ```
-⟦ a := b + 1 ⟧   ▶  Zirkulär: a → b → a
-⟦ b := a * 2 ⟧   ▶  Zirkulär: a → b → a
+a := b + 1   ▶  Zirkulär: a → b → a
+b := a * 2   ▶  Zirkulär: a → b → a
 ```
 
 Der Pfad in der Fehlermeldung zeigt, welche Variablen den Kreis bilden.
@@ -43,8 +43,8 @@ Der Pfad in der Fehlermeldung zeigt, welche Variablen den Kreis bilden.
 Alles, was SymPy nicht parsen kann, landet als Fehlermeldung in rot:
 
 ```
-⟦ 2 * + 3 ⟧      ▶  invalid syntax
-⟦ sin( ⟧         ▶  unexpected EOF while parsing
+2 * + 3      ▶  invalid syntax
+sin(         ▶  unexpected EOF while parsing
 ```
 
 Häufige Ursachen:

@@ -27,8 +27,8 @@ Das Zahlenformat beeinflusst nur `aprox(...)`-Ergebnisse. Ohne `aprox` bleibt di
 ### Standard — Dezimalbruch
 
 ```
-⟦ aprox(1/7) ⟧           ▶  0.142857
-⟦ aprox(1500 * _Hz) ⟧    ▶  1500 Hz
+aprox(1/7)           ▶  0.142857
+aprox(1500 * _Hz)    ▶  1500 Hz
 ```
 
 ### SIC — wissenschaftlich
@@ -36,9 +36,9 @@ Das Zahlenformat beeinflusst nur `aprox(...)`-Ergebnisse. Ohne `aprox` bleibt di
 Eine Stelle vor dem Komma, dann der Exponent. Einheiten bleiben unverändert (kein Präfix):
 
 ```
-⟦ aprox(1/7) ⟧           ▶  1.428571·10⁻¹
-⟦ aprox(1500 * _Hz) ⟧    ▶  1.5·10³ Hz
-⟦ aprox(0.000022 * _F) ⟧ ▶  2.2·10⁻⁵ F
+aprox(1/7)           ▶  1.428571·10⁻¹
+aprox(1500 * _Hz)    ▶  1.5·10³ Hz
+aprox(0.000022 * _F) ▶  2.2·10⁻⁵ F
 ```
 
 ### ENG — Ingenieurs-Notation
@@ -46,10 +46,10 @@ Eine Stelle vor dem Komma, dann der Exponent. Einheiten bleiben unverändert (ke
 Exponent als Vielfaches von 3. Wenn die Einheit ein passendes SI-Präfix hat, wird es direkt angehängt — statt `1.5·10³ Hz` also `1.5 kHz`:
 
 ```
-⟦ aprox(1/7) ⟧           ▶  142.857·10⁻³
-⟦ aprox(1500 * _Hz) ⟧    ▶  1.5 kHz
-⟦ aprox(0.000022 * _F) ⟧ ▶  22 µF
-⟦ aprox(4700 * _Ohm) ⟧   ▶  4.7 kΩ
+aprox(1/7)           ▶  142.857·10⁻³
+aprox(1500 * _Hz)    ▶  1.5 kHz
+aprox(0.000022 * _F) ▶  22 µF
+aprox(4700 * _Ohm)   ▶  4.7 kΩ
 ```
 
 ## Nachkommastellen
@@ -58,6 +58,6 @@ Wie viele signifikante Stellen nach dem Komma in `aprox`-Ergebnissen angezeigt w
 
 ## Was passiert beim Ändern?
 
-Sobald du **Übernehmen** klickst, wird das Dokument automatisch neu ausgewertet. Box-Ergebnisse mit `aprox` werden im neuen Format dargestellt; Winkel-Ergebnisse im passenden Winkelmodus.
+Sobald du **Übernehmen** klickst, wird das Dokument automatisch neu ausgewertet. Ergebnisse mit `aprox` werden im neuen Format dargestellt; Winkel-Ergebnisse im passenden Winkelmodus.
 
 **Abbrechen** verwirft deine Änderungen und lässt alles beim Alten.

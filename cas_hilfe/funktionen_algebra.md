@@ -76,3 +76,57 @@ poly([1, 0, -4], x)         ▶  x² - 4
 poly([1, -3, 3, -1], x)     ▶  x³ - 3·x² + 3·x - 1
 poly([2, 5, -3], x)         ▶  2·x² + 5·x - 3
 ```
+
+## solve — Mehrere Variablen
+
+`solve([eq1, eq2, ...], [x, y, ...])` löst ein Gleichungssystem mit mehreren Unbekannten symbolisch.
+
+```
+solve([x + y = 5, x - y = 1], [x, y])   ▶  [{x: 3, y: 2}]
+solve([U = R*I, P = U*I], [I, P])        ▶  [{I: U/R, P: U²/R}]
+```
+
+Mit `Alt+G` lässt sich das Gleichungssystem `{...}` bequem im Editor einfügen; das `solve([...], [...])` tippt man dann drumherum.
+
+## apart — Partialbruchzerlegung
+
+`apart(f, x)` zerlegt einen rationalen Ausdruck in Partialbrüche.
+
+```
+apart(1/(x^2 - 1), x)       ▶  -1/(2·(x+1)) + 1/(2·(x-1))
+apart((x+2)/(x*(x+1)), x)   ▶  2/x - 1/(x+1)
+```
+
+## together — Brüche zusammenfassen
+
+`together(f)` fasst einen Ausdruck zu einem einzigen Bruch zusammen (Umkehrung von `apart`).
+
+```
+together(1/x + 1/(x+1))     ▶  (2·x+1) / (x·(x+1))
+```
+
+## cancel — Kürzen
+
+`cancel(f)` kürzt gemeinsame Faktoren im Zähler und Nenner.
+
+```
+cancel((x^2 - 1)/(x - 1))   ▶  x + 1
+```
+
+## collect — Nach Variable sammeln
+
+`collect(expr, x)` ordnet einen Ausdruck nach Potenzen von `x`.
+
+```
+collect(x^2 + 2*x*y + x*z + y, x)   ▶  x²  + x·(2·y+z) + y
+```
+
+## nsimplify — Näherung als Bruch
+
+`nsimplify(x)` findet einen exakten symbolischen Ausdruck für einen Näherungswert.
+
+```
+nsimplify(0.5)       ▶  1/2
+nsimplify(0.1)       ▶  1/10
+nsimplify(3.14159)   ▶  pi  (näherungsweise)
+```

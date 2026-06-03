@@ -8,13 +8,13 @@ kategorie: Grundlagen
 Alle Einheiten beginnen mit einem Unterstrich `_`. So weiß der Rechner sofort, dass es eine Einheit ist und keine Variable.
 
 ```
-⟦ F := 2 * _kN ⟧          ▶  F := 2000 N
-⟦ s := 5 * _m ⟧           ▶  s := 5 m
-⟦ W := F * s ⟧            ▶  W := 10000 J
-⟦ aprox(W) ⟧              ▶  10 kJ     (im ENG-Modus)
+F := 2 * _kN          ▶  F := 2000 N
+s := 5 * _m           ▶  s := 5 m
+W := F * s            ▶  W := 10000 J
+aprox(W)              ▶  10 kJ     (im ENG-Modus)
 ```
 
-Der Rechner versucht automatisch, auf eine einzelne abgeleitete Einheit zurückzuführen: `_J/_m` wird zu `_N`, `_V/_A` zu `_Ω`, `_W/_V` zu `_A` usw.
+Der Rechner versucht automatisch, auf eine einzelne abgeleitete Einheit zurückzuführen: `_J/_m` wird zu `_N`, `_V/_A` zu `_Ω`, `_W/_V` zu `_A`, `_kWh * _Hz` wird zu `_W` usw. Ergebnisse aus `solve(...)` werden ebenfalls automatisch vereinfacht.
 
 ## Basiseinheiten
 
@@ -54,6 +54,9 @@ Der Rechner versucht automatisch, auf eine einzelne abgeleitete Einheit zurückz
 | `_L`   | Liter |
 | `_min` | Minute |
 | `_h`   | Stunde |
+| `_Wh`  | Wattstunde (= 3 600 J) |
+| `_kWh` | Kilowattstunde (= 3,6 MJ) |
+| `_MWh` | Megawattstunde |
 
 ## SI-Präfixe
 
@@ -89,15 +92,15 @@ Alle üblichen Präfixe funktionieren direkt vor dem Einheitennamen:
 Große oder kleine Zahlen kannst du mit `E` schreiben — SymPy versteht das direkt:
 
 ```
-⟦ C := 1.5E-6 * _F ⟧      ▶  C := 3/2000000 F
-⟦ aprox(C) ⟧              ▶  1.5 µF     (ENG-Modus)
+C := 1.5E-6 * _F      ▶  C := 3/2000000 F
+aprox(C)              ▶  1.5 µF     (ENG-Modus)
 ```
 
 Oder du schreibst es gleich in die Einheit: `1.5 * _µF` ist identisch mit `1.5E-6 * _F`.
 
 ## Umrechnungen mit `aprox`
 
-Für ein hübsch formatiertes Ergebnis mit passendem Präfix verwendest du `aprox(...)` oder Ctrl+Enter in der Box. Siehe [[aprox]].
+Für ein hübsch formatiertes Ergebnis mit passendem Präfix verwendest du `aprox(...)` oder Ctrl+Enter. Siehe [[aprox]].
 
 ## Was geht (noch) nicht
 

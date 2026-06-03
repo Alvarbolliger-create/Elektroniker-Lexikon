@@ -1,0 +1,22 @@
+SVG: Busmatrix – Architekturdiagramm
+=====================================
+
+Zeigt wie CPU, DMA-Controller und Peripherie gleichzeitig über eine Busmatrix
+auf RAM und Flash zugreifen können.
+
+Layout:
+- Links: drei übereinander angeordnete beschriftete Blöcke/Labels:
+    [CPU]
+    [DMA-Controller]
+    [Peripherie (SPI, ADC...)]
+- Von jedem Block führt eine horizontale Linie nach rechts zu einem
+  senkrechten Sammelbus (vertikale dicke Linie in der Mitte) → das ist die Busmatrix
+  Optional: Beschriftung "Busmatrix" an der vertikalen Linie
+- Rechts vom Sammelbus gehen zwei horizontale Linien nach rechts zu:
+    [RAM]
+    [Flash]
+
+Stil: technisches Blockdiagramm, schwarz-weiß
+Größe: ca. 500 × 200 px
+Schriftart: sans-serif
+Blöcke: Rechteck mit Beschriftung, Buslinien etwas dicker als normale Verbindungslinien

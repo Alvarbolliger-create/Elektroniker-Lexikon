@@ -1,0 +1,22 @@
+SVG: MUX-Aufbau mit Logikgattern (AND + OR)
+============================================
+
+Zeigt wie ein 4:1 MUX aus AND-Gattern und einem OR-Gatter aufgebaut wird.
+
+Layout (von links nach rechts):
+- Links: vier AND-Gatter übereinander (AND1 bis AND4)
+  Jedes AND-Gatter hat 3 Eingänge:
+    AND1: S̄1, S̄0, D0
+    AND2: S̄1, S0,  D1
+    AND3: S1,  S̄0, D2
+    AND4: S1,  S0,  D3
+  (S̄ = invertiertes S, dargestellt mit kleinem NOT-Kreis am Eingang oder "NOT"-Beschriftung)
+- Rechts: ein OR-Gatter (4-Eingänge) sammelt alle AND-Ausgänge
+  Ausgänge der vier AND-Gatter gehen alle auf das OR-Gatter
+- Ausgang des OR-Gatters → Y (ganz rechts)
+
+Steuerleitungen S0 und S1 verteilen sich (jeweils normal und invertiert) auf die AND-Gatter.
+Datenleitungen D0–D3 je einmal als weiterer AND-Eingang.
+
+Stil: Logikschaltplan, schwarz-weiß
+Größe: ca. 500 × 300 px

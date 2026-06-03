@@ -283,6 +283,7 @@ def _build_units_namespace() -> dict[str, Any]:
         "L":   u.liter,
         "min": u.minute,
         "h":   u.hour,
+        "Wh":  Rational(3600) * u.joule,
     }
     # Optionale Einheiten, die in manchen SymPy-Versionen fehlen.
     for name, attr in [("d", "day"), ("eV", "electronvolt")]:
@@ -306,7 +307,7 @@ def _build_units_namespace() -> dict[str, Any]:
     prefixable = [
         "m", "s", "A", "K", "mol", "N", "J", "W", "Pa", "Hz",
         "V", "Ohm", "ohm", "F", "C", "T", "H", "Wb", "S",
-        "g", "L", "eV",
+        "g", "L", "eV", "Wh",
     ]
 
     ns: dict[str, Any] = {}
@@ -1032,6 +1033,8 @@ class Engine:
 
         Beispiele: ``J/m -> N``, ``V/A -> Ω``.
         """
+        if isinstance(expr, list):
+            return [self._normalize_units(e) for e in expr]
         if not self._has_units(expr):
             return expr
         from sympy.physics.units import convert_to, Quantity
@@ -1041,8 +1044,11 @@ class Engine:
                 candidate = convert_to(expr, target_unit)
                 quants = candidate.atoms(Quantity)
                 if quants == {target_unit}:
-                    best = candidate
-                    break
+                    # Sicherstellen, dass die Einheit im Zaehler steht
+                    # (nicht als Kehrwert, z.B. second -> 1/Hz vermeiden).
+                    if not (candidate / target_unit).atoms(Quantity):
+                        best = candidate
+                        break
             except Exception:
                 continue
         if best is not None:
@@ -1069,7 +1075,17 @@ class Engine:
 
     def _unit_to_text(self, unit: Any) -> str:
         """Liefert eine kompakte Zeichenketten-Darstellung der Einheit."""
+        from sympy.physics.units import Quantity
+        if isinstance(unit, Quantity):
+            name = str(unit.name)
+            return self._UNIT_SYMBOL.get(name, f"_{name}")
         s = str(unit)
+        # Fallback fuer SymPy-Versionen, die "Quantity(name, abbrev)" ausgeben.
+        s = re.sub(
+            r"Quantity\((\w+),\s*\w+\)",
+            lambda m: self._UNIT_SYMBOL.get(m.group(1), f"_{m.group(1)}"),
+            s,
+        )
         for long, short in self._UNIT_SYMBOL.items():
             s = re.sub(rf"\b{long}\b", short, s)
         s = s.replace("**", "^").replace("*", "·")
@@ -1120,7 +1136,13 @@ class Engine:
         # Exakt-Darstellung.
         if has_unit:
             coeff, unit = self._split_coefficient_unit(value)
-            return f"{coeff} {self._unit_to_text(unit)}".strip()
+            unit_text = self._unit_to_text(unit)
+            if getattr(coeff, "is_Float", False):
+                try:
+                    return f"{_format_mantissa(float(coeff), places)} {unit_text}".strip()
+                except Exception:
+                    pass
+            return f"{coeff} {unit_text}".strip()
 
         s = str(value)
         try:
