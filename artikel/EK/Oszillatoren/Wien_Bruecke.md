@@ -41,7 +41,7 @@ Bei der Resonanzfrequenz f₀ beträgt die Phasendrehung des Netzwerks genau **0
 
 ## Formeln
 
-:::monospace
+:::formel
 f_0 = 1 / (2π × R × C)      # Resonanzfrequenz; R und C identisch in beiden Gliedern
 A   = 1 + R_2 / R_1 = 3     # Mindest-Verstärkung; R_2 / R_1 = 2
 :::

@@ -52,7 +52,7 @@ Unterhalb der Grenzfrequenz f_g: volle Amplitude. Oberhalb: Dämpfung mit 20 dB/
 
 Die **Grenzfrequenz f_g** ist die Frequenz, bei der die Ausgangsamplitude auf **70.7 %** des Eingangs abgefallen ist (= −3 dB):
 
-:::monospace
+:::formel
 f_g = 1 / (2 · π · R · C)     # Passiver RC-Tiefpass 1. Ordnung
 :::
 ## Passiver RC-Tiefpass (1. Ordnung)
@@ -67,7 +67,7 @@ R in Reihe, C parallel zur Last. Tiefe Frequenzen: C hat hohen Widerstand → Sp
 
 OPV als Spannungsfolger mit zwei R und zwei C. Steilheit: **40 dB/Dekade** bei halber Schaltungskomplexität gegenüber zwei passiven Stufen.
 
-:::monospace
+:::formel
 f_g = 1 / (2 · π · R · C)     # für R1 = R2 = R und C1 = C2 = C
 :::
 Vorteil gegenüber passivem Filter: Kein Einfluss auf die Lastimpedanz, kann leicht kaskadiert werden.

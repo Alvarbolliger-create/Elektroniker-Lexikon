@@ -66,7 +66,7 @@ In Hardware wird der Carry-Out und das Overflow-Flag gesetzt. Software muss dies
 ## Subtraktion
 
 Subtraktion wird als Addition des Zweierkomplements ausgeführt:
-:::monospace
+:::formel
 A - B = A + (-B) = A + (~B + 1)
 :::
 Eine ALU braucht damit nur einen Addierer, keinen separaten Subtrahierer.

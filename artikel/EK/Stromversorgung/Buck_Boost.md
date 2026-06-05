@@ -41,7 +41,7 @@ Die einfachste Buck-Boost-Topologie invertiert die Ausgangsspannung:
 - Drossel gibt Energie über Diode an Ausgang ab
 - Ausgang liegt zwischen GND und Diodenkatode → negativer Ausgang
 
-:::monospace
+:::formel
 UOUT = -UIN × D / (1 - D)    # D = Tastverhältnis (Duty Cycle)
 :::
 Nachteil: Ausgang ist invertiert. Für viele Anwendungen unpraktisch.
@@ -52,7 +52,7 @@ Nachteil: Ausgang ist invertiert. Für viele Anwendungen unpraktisch.
 
 Zwei Drosseln und ein Kopplungskondensator. Ausgang nicht invertiert, galvanisch nicht getrennt.
 
-:::monospace
+:::formel
 UOUT = UIN × D / (1 - D)    # nicht-invertierend
 :::
 ### Ćuk-Converter
@@ -67,7 +67,7 @@ Vier Transistoren (zwei H-Brücke am Eingang, zwei am Ausgang mit gemeinsamer Dr
 
 Der Spulenstrom fliesst immer, bricht nie auf null ab. Gültig bei mittleren bis hohen Lasten.
 
-:::monospace
+:::formel
 UOUT/UIN = D / (1 - D)    # CCM, invertierend
 :::
 Im CCM: Rückkopplungsregelung stabiler, Ausgangsstrom kontinuierlich.

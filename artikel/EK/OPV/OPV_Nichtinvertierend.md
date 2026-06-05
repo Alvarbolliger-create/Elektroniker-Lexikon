@@ -31,7 +31,7 @@ Eingangssignal direkt auf den nichtinvertierenden Eingang (+). Spannungsteiler R
 
 ## Verstärkung
 
-:::monospace
+:::formel
 A = 1 + R2 / R1     # immer grösser oder gleich 1
 :::
 | R1 | R2 | Verstärkung |
@@ -49,6 +49,10 @@ Zweck: Sehr hoher Eingangswiderstand, sehr tiefer Ausgangswiderstand. Schützt e
 :::info
 Spannungsteiler als Referenz für ADC: Der Teiler wird belastet wenn direkt angeschlossen. Mit Impedanzwandler dahinter: die Spannung bleibt stabil, der ADC sieht einen niederohmigen Treiber.
 :::
+
+## Bandbreite
+
+Das GBW-Produkt gilt genauso wie beim invertierenden Verstärker: f_3dB = GBW / A. Bei Verstärkung 10 und GBW = 1 MHz ist die nutzbare Bandbreite 100 kHz. Details und Tabelle → [[OPV Invertierend]].
 
 ## Unterschied zum invertierenden
 

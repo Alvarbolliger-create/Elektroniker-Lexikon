@@ -1,71 +1,58 @@
 ---
 title: Quarz-Oszillator
 kategorie: ET
-tags: [quarz, oszillator, resonanz, frequenz, takt, piezoelektrisch, TCXO, OCXO, MEMS, lastkapazität, taktgeber, güte, serienresonanz]
-symbol: —
-einheit: Hz
+tags: [quarz, oszillator, schwingkreis, frequenzreferenz, güte, piezoeffekt, serienresonanz, parallelresonanz]
+groessen: f_s|Serienresonanzfrequenz|Hz; f_p|Parallelresonanzfrequenz|Hz; Q|Güte|—
+_status: PORT  # ET_alt/Wechselstrom/Quarz_Oszillator.md
 ---
-
-Ein Quarz ist ein piezoelektrischer Kristall der bei einer definierten Frequenz mechanisch resoniert. Er wird als hochpräzises Frequenzelement in Oszillatoren, Uhren und Mikrocontrollern eingesetzt.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Resonanz]]
-- [[RLC-Schaltungen]]
-:::
-:::vbox
-**Verwandte Artikel**
-- [[LC-Filter]]
-:::
-:::vbox
-**Führt weiter zu**
-- [[Mikrocontroller]]
+- [[Resonanz & Schwingkreise]]
 :::
 :::
 
 ---
 
-## Prinzip
+Ein Quarz-Oszillator nutzt den Piezoeffekt von Quarzkristallen, um eine extrem stabile Frequenz zu erzeugen. Quarze haben Güten von Q = 10 000 bis 1 000 000 — millionenfach höher als LC-Schwingkreise.
 
-Der Piezoeffekt bewirkt, dass mechanische Verformung eine elektrische Spannung erzeugt — und umgekehrt. Ein Quarzplättchen schwingt bei seiner mechanischen Eigenfrequenz. Diese liegt je nach Schnitt und Abmessung im kHz- bis MHz-Bereich.
+## Piezoeffekt und elektrisches Ersatzschaltbild
 
-Elektrisch verhält sich ein Quarz wie ein RLC-Schwingkreis mit sehr hoher Güte:
+Quarzkristalle verformen sich, wenn eine Spannung angelegt wird (**inverser Piezoeffekt**). Umgekehrt erzeugen sie eine Spannung bei mechanischer Verformung (**direkter Piezoeffekt**). Bei einer bestimmten Frequenz gerät der Kristall in mechanische Resonanz — und hält diese Resonanz durch sein elektrisches Feld aufrecht.
 
-:::monospace
-Q_quarz ≈ 10 000 bis 100 000     # typische Güte
+Das **elektrische Ersatzschaltbild** des Quarzes zeigt zwei Resonanzstellen:
+- **Serienresonanzfrequenz f_s**: L_m und C_m in Reihe → minimale Impedanz
+- **Parallelresonanzfrequenz f_p**: Serienresonanz mit zusätzlicher Elektrodenkapazität C_0 in Parallel → maximale Impedanz
+
+Zwischen f_s und f_p (Abstand typisch einige kHz) verhält sich der Quarz induktiv — dieser Bereich wird für Oszillatoren genutzt.
+
+## Stabilität und Güte
+
+| Kennwert | LC-Schwingkreis | Quarz |
+|---|---|---|
+| Güte Q | 50 – 500 | 10 000 – 1 000 000 |
+| Frequenzgenauigkeit | ±1 % | ±20 ppm bis ±1 ppm |
+| Temperaturdrift | Hoch | Gering (temperaturkompensiert: <1 ppm) |
+
+Die hohe Güte erklärt die Stabilität: Der Quarz "akzeptiert" nur eine sehr enge Frequenz — kleine Abweichungen werden stark gedämpft.
+
+## Typische Frequenzen und Anwendungen
+
+| Frequenz | Anwendung |
+|---|---|
+| 32,768 kHz | Uhrenquarz (2¹⁵ Hz → einfache Teilung auf 1 Hz) |
+| 4 – 25 MHz | Mikroprozessor-Takt |
+| 12 MHz, 16 MHz | Arduino, Mikrocontroller |
+| 27 MHz, 433 MHz | Fernsteuerungen (SAW-Resonator) |
+| > 100 MHz | HF-Kommunikation (Oberwellenquarz) |
+
+## Temperaturkompensierung (TCXO, OCXO)
+
+Standard-Quarze driften mit der Temperatur um typisch ±50 ppm:
+- **TCXO** (Temperature Compensated Crystal Oscillator): Elektronische Kompensation, ±0,5 ppm
+- **OCXO** (Oven Controlled Crystal Oscillator): Quarz im Ofen auf konstante Temperatur gehalten, < 0,01 ppm. Verwendet in GPS, Messtechnik.
+
+:::tip
+Für Mikroprozessoren ist die absolute Frequenzgenauigkeit meist unkritisch — aber der Uhrenquarz (32,768 kHz) im RTC (Real Time Clock) muss über Jahre stabil sein: ±20 ppm bedeuten nur 10 Minuten Abweichung pro Jahr.
 :::
-Zum Vergleich: Ein LC-Schwingkreis erreicht Q ≈ 10–200.
-
-## Serienresonanz und Parallelresonanz
-
-Ein Quarz hat zwei Resonanzfrequenzen:
-
-- **Serienresonanz f_s**: Impedanz minimal, Quarz wirkt wie ein niedriger Widerstand
-- **Parallelresonanz f_p**: Impedanz maximal (durch parallele Kapazität des Gehäuses)
-
-Der Unterschied zwischen f_s und f_p ist typisch sehr klein (0.1–1 %).
-
-## Lastkapazität
-
-Quarze werden mit einer bestimmten **Lastkapazität C_L** spezifiziert (typisch 12 pF oder 18 pF). Die tatsächliche Schwingfrequenz hängt von der Lastkapazität ab. Falsche C_L verschiebt die Frequenz leicht.
-
-## Typen
-
-| Typ | Beschreibung |
-|---|---|
-| Quarz (diskret) | Standardbauteil, benötigt externe Schaltung |
-| XTAL + Mikrocontroller | Quarz direkt am µC-Oszillator-Pin |
-| TCXO | Temperature Compensated XO — stabil über Temperatur |
-| OCXO | Oven Controlled XO — im beheizten Gehäuse, sehr präzise |
-| MEMS-Oszillator | Quarzfreier Ersatz, robust gegen Vibration |
-
-## Typische Frequenzen
-
-| Anwendung | Frequenz |
-|---|---|
-| Uhrenquarz | 32.768 kHz (= 2¹⁵ Hz, einfach teilbar) |
-| Mikrocontroller | 4–25 MHz |
-| USB | 48 MHz |
-| Ethernet | 25 MHz |
-| GPS | 10 MHz |

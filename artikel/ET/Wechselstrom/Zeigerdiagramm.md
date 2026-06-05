@@ -1,17 +1,15 @@
 ---
-title: Zeigerdiagramm (Phasor)
+title: Zeigerdiagramm
 kategorie: ET
-tags: [zeigerdiagramm, phasor, phasenverschiebung, wechselstrom, zeiger, komplexe zahl, eulerformel, impedanz, wechselstromrechnung, RLC]
-symbol: —
-einheit: —
+tags: [zeigerdiagramm, phasor, komplexe zahlen, impedanz, wechselstrom, phasenverschiebung]
+groessen: U|Spannung|V; I|Strom|A; phi|Phasenwinkel|°; omega|Kreisfrequenz|rad/s
+_status: PORT  # ET_alt/Wechselstrom/Zeigerdiagramm.md
 ---
-
-Das Zeigerdiagramm stellt Wechselgrössen als rotierende Zeiger dar. Damit lassen sich Phasenverschiebungen und Beträge auf einen Blick erkennen.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Sinuswellen]]
+- [[Sinuswellen & Effektivwert]]
 :::
 :::vbox
 **Verwandte Artikel**
@@ -19,55 +17,63 @@ Das Zeigerdiagramm stellt Wechselgrössen als rotierende Zeiger dar. Damit lasse
 :::
 :::vbox
 **Führt weiter zu**
-- [[Impedanz]]
+- [[RL-Reihenschaltung]]
+- [[RC-Reihenschaltung]]
 :::
 :::
 
 ---
 
-:::schematic Zeigerdiagramm – Phasenverschiebung
-/schaltplaene/zeigerdiagramm.svg
-:::
+Im Wechselstromkreis haben Spannung und Strom nicht nur Amplituden, sondern auch Phasen — sie können zeitlich verschoben sein. Das Zeigerdiagramm ist eine grafische Methode, um diese Phasenbeziehungen sichtbar und berechenbar zu machen.
 
-## Grundidee
+## Darstellung als Zeiger
 
-Eine Sinusgrösse lässt sich als rotierender Zeiger darstellen. Die Länge des Zeigers ist der Scheitelwert. Die aktuelle Position zeigt die Phase.
+Jede sinusförmige Grösse lässt sich als rotierender Zeiger darstellen: Der Zeiger dreht sich mit der Kreisfrequenz omega im Gegenuhrzeigersinn. Seine Länge entspricht dem Scheitelwert (oder Effektivwert — muss konsequent sein), seine Winkelposition zur reellen Achse dem Phasenwinkel phi.
 
-Zwei Signale mit Phasenverschiebung: ihre Zeiger stehen um diesen Winkel versetzt, drehen sich aber mit derselben Geschwindigkeit.
+**Konvention:** In der Technik wird häufig der **Strom I** als Referenzzeiger horizontal (phi = 0°) gezeichnet — alle anderen Zeiger werden dazu in Beziehung gesetzt.
 
-## Was man abliest
-
-**Betrag**: Länge des Zeigers = Amplitude des Signals.
-
-**Phasenwinkel**: Winkel zwischen zwei Zeigern = zeitlicher Versatz der Signale.
-
-**Voreilung / Nacheilung**: Zeiger der voraus ist, eilt dem anderen vor. Bei einer Spule eilt die Spannung dem Strom um 90° vor. Bei einem Kondensator eilt der Strom der Spannung um 90° vor.
-
-| Last | Strom gegenüber Spannung | Begriff |
+| Bauteil | Phasenbeziehung (U gegenüber I) | Zeiger |
 |---|---|---|
-| Induktiv (Spule) | nacheilend | Strom kommt später |
-| Kapazitiv (Kondensator) | voreilend | Strom kommt früher |
-| Ohmsch | in Phase | kein Versatz |
+| Widerstand R | U in Phase mit I | phi = 0°, horizontal |
+| Spule L | U eilt I um 90° vor | phi = +90°, senkrecht nach oben |
+| Kondensator C | U eilt I um 90° nach | phi = −90°, senkrecht nach unten |
 
-## Im RLC-Kreis
+Gedächtnisstütze: *ELI the ICE man* — bei L eilt E (Spannung) vor I, bei C eilt I vor E.
 
-Widerstand R: Strom und Spannung zeigen in dieselbe Richtung (in Phase).
+## Addition von Zeigern
 
-Spule X_L: Spannungszeiger 90° vor dem Stromzeiger.
+Wenn mehrere Spannungen in einem Kreis wirken (Reihenschaltung), addiert man ihre Zeiger grafisch durch Aneinanderhängen. Die Resultierende zeigt Betrag und Phase der Gesamtspannung.
 
-Kondensator X_C: Spannungszeiger 90° hinter dem Stromzeiger.
-
-Die Gesamtimpedanz ist der geometrische Summenpfeil aller Zeiger.
-
-## Verbindung zur komplexen Schreibweise
-
-Ein Zeiger ist mathematisch eine komplexe Zahl in Polarform:
-
-:::monospace
-U = |U| * e^(j*φ) = |U| * (cos(φ) + j*sin(φ))
+:::formel
+U_ges = sqrt(U_R^2 + U_X^2)    # Betrag (Pythagoras, wenn U_R und U_X senkrecht)
 :::
-Die grafische Addition von Zeigern im Diagramm entspricht der Addition komplexer Zahlen. Die Länge des resultierenden Zeigers ist der Betrag, der Winkel ist die Phase — dieselben Grössen die in [[Impedanz]] berechnet werden.
+
+Das funktioniert, weil U_R und U_L (oder U_C) um genau 90° verschoben sind — also senkrecht zueinander stehen. Damit ist Pythagoras direkt anwendbar.
+
+## Impedanzdreieck
+
+Das Zeigerdiagramm der Spannungen skaliert direkt zum **Impedanzdreieck** (dividiert durch I):
+
+- Horizontal: Wirkwiderstand R
+- Vertikal: Reaktanz X (positiv = induktiv, negativ = kapazitiv)
+- Hypotenuse: Impedanz Z
+
+:::formel
+Z = sqrt(R^2 + X^2)
+:::
+
+:::formel
+phi = arctan(X / R)
+:::
+
+## Phasenverschiebung ablesen
+
+Im Zeigerdiagramm lässt sich der Phasenwinkel phi direkt ablesen oder mit arctan berechnen:
+
+- phi > 0°: induktive Last — Spannung eilt vor (Spule dominiert)
+- phi = 0°: rein ohmscher Charakter — kein Blindanteil
+- phi < 0°: kapazitive Last — Strom eilt vor (Kondensator dominiert)
 
 :::tip
-Zeigerdiagramme von Hand zeichnen üben. Wer verstanden hat wie man Zeiger addiert, versteht automatisch warum Blindleistung entsteht und was der Phasenwinkel bedeutet.
+In der Praxis gibt phi wichtige Informationen über den Blindleistungsanteil einer Last. Leistungsfaktoren (cos phi) nahe 1 sind energetisch günstig — Motoren und Transformatoren mit phi ≠ 0 müssen durch [[Blindleistungskompensation]] korrigiert werden.
 :::

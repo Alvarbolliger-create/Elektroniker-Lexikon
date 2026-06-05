@@ -35,7 +35,7 @@ RC-Servos sind günstige Stellmotoren für RC-Modelle, einfache Robotergelenke u
 
 Angesteuert über ein PWM-Signal mit fester Frequenz (50 Hz):
 
-:::monospace
+:::formel
 Impulsbreite → Position
   1,0 ms     → 0°   (linker Anschlag)
   1,5 ms     → 90°  (Mitte)
@@ -59,7 +59,7 @@ Der Servoantrieb vergleicht Soll-Position (vom Controller) mit Ist-Position (vom
 
 Typische Regelstruktur (Kaskade):
 
-:::monospace
+:::formel
 Positionsregler → Drehzahlregler → Stromregler → Motor
       ↑ enc             ↑ tach          ↑ I-Sensor
 :::

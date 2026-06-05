@@ -52,7 +52,7 @@ Unterhalb der Grenzfrequenz f_g: Dämpfung mit 20 dB/Dekade pro Ordnung. Oberhal
 
 Die **Grenzfrequenz f_g** ist die Frequenz, bei der die Ausgangsamplitude auf **70.7 %** des Eingangs abgefallen ist (= −3 dB):
 
-:::monospace
+:::formel
 f_g = 1 / (2 · π · R · C)     # Passiver RC-Hochpass 1. Ordnung
 :::
 ## Passiver RC-Hochpass (1. Ordnung)
@@ -66,7 +66,7 @@ C in Reihe, R parallel zur Last. Tiefe Frequenzen: C hat hohen Widerstand → fa
 
 Gleiche Topologie wie beim aktiven Tiefpass, aber R und C vertauscht. Steilheit: **40 dB/Dekade**.
 
-:::monospace
+:::formel
 f_g = 1 / (2 · π · R · C)     # für R1 = R2 = R und C1 = C2 = C
 :::
 ## Steilheit und Ordnung

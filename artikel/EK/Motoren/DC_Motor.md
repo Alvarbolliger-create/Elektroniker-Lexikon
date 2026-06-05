@@ -35,7 +35,7 @@ Spule (Anker) in einem permanenten Magnetfeld. Strom durch die Spule erzeugt ein
 
 ## Drehzahlregelung mit PWM
 
-:::monospace
+:::formel
 n ≈ U_motor * k     # Drehzahl proportional zur angelegten Spannung; k aus Datenblatt
 :::
 PWM (Pulsweitenmodulation) stellt die effektive Spannung ein. Höheres Tastverhältnis D = schnellerer Motor.

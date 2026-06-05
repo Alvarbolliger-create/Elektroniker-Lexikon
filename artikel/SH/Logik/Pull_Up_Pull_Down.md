@@ -36,7 +36,7 @@ Das ist ein häufiger Anfängerfehler: Taster ohne Widerstand anschliessen.
 
 ## Pull-up-Widerstand
 
-:::formel
+:::monospace
 VCC --- R --- Eingang --- Taster --- GND
 :::
 Im Ruhezustand liegt der Eingang auf High (wird durch R auf VCC gezogen). Wenn der Taster gedrückt wird, zieht er den Eingang auf GND (Low).
@@ -47,7 +47,7 @@ Typischer Wert: 4.7 kΩ bis 10 kΩ. Zu klein: viel Strom. Zu gross: langsames Au
 
 ## Pull-down-Widerstand
 
-:::formel
+:::monospace
 VCC --- Taster --- Eingang --- R --- GND
 :::
 Im Ruhezustand liegt der Eingang auf Low. Wenn der Taster gedrückt wird, zieht er den Eingang auf High.

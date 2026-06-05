@@ -59,7 +59,7 @@ Einfache Magnetventile sind EIN/AUS. Proportionalventile öffnen stufenlos propo
 Q = k * I
 :::
 
-:::monospace
+:::formel
 Q = Durchfluss
 k = Ventilkonstante
 I = Spulenstrom

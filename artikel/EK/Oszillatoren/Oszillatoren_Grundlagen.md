@@ -43,7 +43,7 @@ Das Ausgangssignal wird teilweise zurückgeführt und wieder verstärkt. Wenn Ve
 
 Damit ein Oszillator stabil schwingt, müssen zwei Bedingungen gleichzeitig erfüllt sein:
 
-:::monospace
+:::formel
 φ = φ_V + φ_R = 0°        # Phasenbedingung: Gesamtphasendrehung im Kreis = 0
 k · v_u ≥ 1               # Amplitudenbedingung: Schleifenverstärkung ≥ 1
 :::

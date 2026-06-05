@@ -36,7 +36,7 @@ Jede Logikfamilie definiert vier kritische Spannungen:
 | V_IL | Maximale Eingangsspannung, die als 0 erkannt wird |
 
 **Rauschspanne (Noise Margin)**:
-:::monospace
+:::formel
 NM_H = V_OH - V_IH    # High-Rauschspanne
 NM_L = V_IL - V_OL    # Low-Rauschspanne
 :::
@@ -122,7 +122,7 @@ Für hohe Geschwindigkeiten (>100 MHz, Gbits/s):
 - Sehr geringe Emission (elektromagnetisch): kleine Schwingung, hohe CMRR
 - Abschlusswiderstand: 100Ω zwischen den Leitungen am Empfänger
 
-:::monospace
+:::formel
 Sender: D+ = 1.375V, D– = 1.025V → Diff = +350mV → logisch 1
          D+ = 1.025V, D– = 1.375V → Diff = –350mV → logisch 0
 :::

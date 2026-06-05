@@ -31,7 +31,7 @@ Widerstand am Eingang, Kondensator in der Rückkopplung (statt Widerstand).
 
 Bei konstanter Eingangsspannung steigt der Ausgang linear als Rampe. Das entspricht einer mathematischen Integration.
 
-:::monospace
+:::formel
 U_aus = -1/(R*C) * integral(U_ein)    # Ausgangsspannung als Integral des Eingangs
 :::
 Anwendung: I-Anteil im PID-Regler, Dreieckgenerator aus einem Rechtecksignal, Tiefpassfilter.
@@ -44,7 +44,7 @@ Kondensator am Eingang, Widerstand in der Rückkopplung.
 
 Reagiert auf Änderungen. Konstantes Signal: Ausgang null. Schnelle Flanke: grosser Ausgangsimpuls.
 
-:::monospace
+:::formel
 U_aus = -R*C * dU_ein/dt    # Ausgang proportional zur Änderungsrate des Eingangs
 :::
 Anwendung: D-Anteil im PID-Regler, Flankenerkennung.

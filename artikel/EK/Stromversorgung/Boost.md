@@ -31,7 +31,7 @@ MOSFET schaltet gegen Masse. Wenn er leitet, speichert die Spule Energie. Wenn e
 
 ## Tastverhältnis
 
-:::monospace
+:::formel
 U_aus = U_ein / (1 - D)     # D = Tastverhältnis; gilt im Idealfall
 :::
 Bei D = 0.5: U_aus = 2 × U_ein. Bei D = 0.75: U_aus = 4 × U_ein.

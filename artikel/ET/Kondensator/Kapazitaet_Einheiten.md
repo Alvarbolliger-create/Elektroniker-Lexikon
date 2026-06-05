@@ -1,91 +1,67 @@
 ---
 title: Kapazität & Einheiten
 kategorie: ET
-tags: [kapazität, farad, ladung, energie, kondensator, pF, nF, µF, aufdruck, code, SMD, dielektrikum]
-symbol: C
-einheit: F
+tags: [kapazität, farad, ladung, spannung, einheiten, kondensator]
+groessen: C|Kapazität|F; Q|Ladung|C; U|Spannung|V
+_status: PORT  # ET_alt/Kondensator/Kapazitaet_Einheiten.md
 ---
-
-Die Kapazität beschreibt, wie viel Ladung ein Kondensator bei einer bestimmten Spannung speichern kann.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Elektrisches Feld]]
 - [[Kondensator (Übersicht)]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Auf- und Entladung]]
-:::
-:::vbox
-**Führt weiter zu**
-- [[Auf- und Entladung]]
+- [[Elektrische Ladung & Elementarladung]]
 :::
 :::
 
 ---
 
-## Die Grösse
+Die Kapazität ist das Mass dafür, wie viel Ladung ein Kondensator pro Volt Spannung speichern kann. Grosse Kapazität bedeutet: viel Ladung bei wenig Spannungsänderung.
 
-:::monospace
-Q = C * U       # Gespeicherte Ladung
-E = 0.5 * C * U^2  # Gespeicherte Energie
-:::
-| Grösse | Symbol | Einheit |
-|---|---|---|
-| Kapazität | C | F (Farad) |
-| Ladung | Q | C (Coulomb) |
-| Energie | E | J (Joule) |
-| Spannung | U | V |
-
-Ein Farad ist sehr gross. In der Praxis werden meist µF, nF oder pF verwendet.
-
-## Aufdruck-Code lesen
-
-Kondensatoren sind oft mit einem 3-stelligen Code beschriftet — analog zum Widerstandscode:
-
-:::monospace
-1. und 2. Stelle: Zahlenwert
-3. Stelle:        Exponent (Basis 10, Ergebnis in pF)
-:::
-| Aufdruck | Berechnung | Wert |
-|---|---|---|
-| 105 | 10 × 10⁵ pF | 1 µF |
-| 104 | 10 × 10⁴ pF | 100 nF |
-| 472 | 47 × 10² pF | 4.7 nF |
-| 100 | 10 × 10⁰ pF | 10 pF |
-
-Bei Buchstabennotation steht der Buchstabe für den Dezimalpunkt und die Einheit:
-
-| Aufdruck | Wert |
-|---|---|
-| n47 | 0.47 nF = 470 pF |
-| µ33 | 0.33 µF = 330 nF |
-| 1n0 | 1.0 nF |
-
-Steht nichts dabei, ist die Angabe meistens in nF oder pF — je nach Baugrösse entscheiden.
-
-SMD-Kondensatoren sind oft unbeschriftet.
-
-## Typische Werte
-
-| Anwendung | Typische Kapazität |
-|---|---|
-| Bypass am IC | 100 nF |
-| Siebkondensator Netzteil | 1000 µF |
-| Quarz-Lastkapazität | 18 pF |
-| Superkondensator | 1 F bis 100 F |
-
-## Abhängigkeit vom Aufbau
+## Grundformel
 
 :::formel
-C = ε * A / d
+C = Q / U    # Kapazität C (F) = Ladung Q (C) pro Spannung U (V)
 :::
-| Grösse | Symbol | Einheit | Bedeutung |
-|---|---|---|---|
-| Permittivität | ε | F/m | ε = εᵣ × ε₀, Materialeigenschaft des Dielektrikums |
-| Plattenfläche | A | m² | grössere Fläche → mehr Kapazität |
-| Plattenabstand | d | m | kleinerer Abstand → mehr Kapazität |
 
-Elkos erreichen hohe Kapazitäten durch ein extrem dünnes Dielektrikum (oxidierte Aluminiumschicht, wenige nm) und einen grossen Folienwickel als Plattenfläche.
+Umgestellt ergibt sich die im Artikel [[Auf- und Entladung (Kondensator)]] verwendete Form Q = C · U.
+
+## Einheit Farad (F)
+
+Das Farad ist eine sehr grosse Einheit — praktisch alle Kondensatoren im EFZ-Bereich liegen weit darunter.
+
+| Vorsilbe | Symbol | Wert | Typische Bauteile |
+|---|---|---|---|
+| Millifarad | mF | 10⁻³ F | Grosse Elkos (Netzteilpuffer) |
+| Mikrofarad | µF | 10⁻⁶ F | Elkos, Folienkondensatoren |
+| Nanofarad | nF | 10⁻⁹ F | Keramik-, Folienkondensatoren |
+| Pikofarad | pF | 10⁻¹² F | HF-Kondensatoren, SMD-Keramik |
+
+:::tip
+Kondensatorwerte auf Schaltplänen werden oft ohne Einheit angegeben: Werte > 1 bedeuten pF, Werte < 1 mit Dezimalpunkt können µF sein. Im Zweifel immer die Beschriftung des Bauteils prüfen.
+:::
+
+## Wichtige Grössen im Zusammenhang
+
+Die Kapazität verbindet drei Grössen miteinander:
+
+| Grösse | Symbol | Einheit | Zusammenhang |
+|---|---|---|---|
+| Kapazität | C | F | Eigenschaft des Bauteils |
+| Ladung | Q | C (Coulomb = A·s) | Q = C · U |
+| Spannung | U | V | U = Q / C |
+
+Ein Kondensator mit C = 100 µF, der auf 10 V geladen ist, trägt eine Ladung von Q = 100 · 10⁻⁶ · 10 = 1 mC (1 Millicoulomb).
+
+## Kapazität des Plattenkondensators
+
+Geometrisch hängt die Kapazität von der Plattengeometrie und dem Dielektrikum ab — ausführlicher in [[Plattenkondensator & Influenz]]:
+
+:::formel
+C = epsilon_0 * epsilon_r * A / d
+:::
+
+Dabei ist A die Plattenfläche, d der Plattenabstand, epsilon_r die relative Permittivität des Dielektrikums und epsilon_0 = 8,854 · 10⁻¹² F/m die elektrische Feldkonstante.

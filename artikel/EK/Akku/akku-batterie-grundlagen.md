@@ -60,7 +60,7 @@ Um in realen Anwendungen die gewuenschte Spannung oder Reichweite zu erzielen, w
 * **Serienschaltung (S):** Mehrere Zellen werden in Reihe geschaltet. Die Spannungen addieren sich, die Kapazitaet bleibt gleich. Dies ist noetig, um die Systemspannung zu erhoehen und Kabelquerschnitte klein zu halten.
 * **Parallelschaltung (P):** Zellen werden parallel verbunden. Die Gesamtkapazitaet und die maximale Strombelastbarkeit addieren sich, die Spannung entspricht der einer Einzelzelle.
 
-:::monospace
+:::formel
 Beispiel: E-Bike Akku 10S4P aus 18650-Zellen (3.6 V / 3 Ah)
 Spannung = 10 * 3.6 V = 36 V
 Kapazitaet = 4 * 3 Ah = 12 Ah

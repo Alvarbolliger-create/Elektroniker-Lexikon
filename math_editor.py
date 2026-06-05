@@ -78,7 +78,7 @@ C_RES_ERR: str = "#dc2626"   # Ergebnis: rot
 C_COMMENT: str = "#9ca3af"   # Kommentarzeilen (grau)
 C_SEP: str = "#9ca3af"   # Separator ▶
 
-FONT_FAMILY: str = "Cambria Math, Cambria, Segoe UI, serif"
+FONT_FAMILIES: list[str] = ["Cambria Math", "Cambria", "Georgia", "Palatino Linotype", "serif"]
 FONT_SIZE_PT: int = 18
 
 FRAC_GAP: float = 3.0   # Abstand zwischen Zähler/Strich/Nenner
@@ -1270,7 +1270,7 @@ def _make_font(pt: float) -> QFont:
     key = round(pt * 10)
     if key not in _font_cache:
         f = QFont()
-        f.setFamily(FONT_FAMILY)
+        f.setFamilies(FONT_FAMILIES)   # Qt 5.13+ – echte Fallback-Liste statt CSS-String
         f.setPointSizeF(pt)
         _font_cache[key] = f
     return _font_cache[key]
@@ -1377,7 +1377,8 @@ def _pick_slot_in_container(container: MathNode, x: float,
 # Token-Typen
 _RT_NUM = 'N'    # Zahl
 _RT_ID  = 'I'    # Bezeichner
-_RT_DS  = 'DS'   # **
+_RT_DS  = 'DS'   # ** oder ^
+_RT_US  = 'US'   # _  (Subscript)
 _RT_ST  = 'S*'   # *
 _RT_SL  = 'S/'   # /
 _RT_PL  = 'P+'   # +
@@ -1402,6 +1403,8 @@ def _lex_result(s: str) -> list:
         c = s[i]
         if s[i:i+2] == '**':
             toks.append((_RT_DS, '**')); i += 2
+        elif c == '^':
+            toks.append((_RT_DS, '^')); i += 1
         elif s[i:i+2] == ':=':
             toks.append((_RT_CE, ':=')); i += 2
         elif c == '*':
@@ -1432,9 +1435,11 @@ def _lex_result(s: str) -> list:
             while j < n and (s[j].isdigit() or s[j] == '.'):
                 j += 1
             toks.append((_RT_NUM, s[i:j])); i = j
-        elif c.isalpha() or c == '_':
+        elif c == '_':
+            toks.append((_RT_US, '_')); i += 1
+        elif c.isalpha():
             j = i
-            while j < n and (s[j].isalnum() or s[j] == '_'):
+            while j < n and s[j].isalnum():
                 j += 1
             toks.append((_RT_ID, s[i:j])); i = j
         else:
@@ -1478,6 +1483,22 @@ class _ResultParser:
             i += 1
         return self._t[i][0] if i < len(self._t) else _RT_EOF
 
+    def _parse_args_list(self, max_args: int = 16) -> list[list]:
+        """Liest kommagetrennte Ausdrücke bis ')' oder EOF; Klammer schon offen."""
+        args: list[list] = []
+        first = True
+        while self._type() not in (_RT_RP, _RT_EOF) and len(args) < max_args:
+            if not first:
+                if self._type() == _RT_CM:
+                    self._eat()
+                self._eat_sp()
+            first = False
+            args.append(self._parse_expr())
+            self._eat_sp()
+        if self._type() == _RT_RP:
+            self._eat()
+        return args
+
     def parse(self) -> RowNode:
         row = RowNode()
         # Zuweisung prüfen: IDENT SP? ':='
@@ -1506,20 +1527,24 @@ class _ResultParser:
         for n in self._parse_expr():
             row.append(n)
 
-        # '≈' prüfen (mit umgebenden Leerzeichen)
-        sp = self._eat_sp()
-        if self._type() == _RT_CH and self._val() == '≈':
-            self._eat()
-            for n in sp:
-                row.append(n)
-            row.append(TextNode('≈'))
-            for n in self._eat_sp():
-                row.append(n)
-            for n in self._parse_expr():
-                row.append(n)
-        else:
-            for n in sp:
-                row.append(n)
+        # Vergleichs-/Gleichheitsoperatoren: = ≈ ≤ ≥ ≠ < >
+        # Mehrfach-Ketten erlaubt (a = b = c, a ≤ b < c …)
+        _CMP_CHARS = {'=', '≈', '≤', '≥', '≠', '<', '>'}
+        while True:
+            sp = self._eat_sp()
+            if self._type() == _RT_CH and self._val() in _CMP_CHARS:
+                op_val = self._eat()[1]
+                for n in sp:
+                    row.append(n)
+                row.append(TextNode(op_val))
+                for n in self._eat_sp():
+                    row.append(n)
+                for n in self._parse_expr():
+                    row.append(n)
+            else:
+                for n in sp:
+                    row.append(n)
+                break
 
         self._append_tail(row)
         return row
@@ -1557,7 +1582,14 @@ class _ResultParser:
     def _parse_product(self) -> list:
         """Produkt: power ('*' power | '/' power)*  – / erzeugt FractionNode."""
         left = self._parse_power()
-        while self._type() in (_RT_ST, _RT_SL):
+        while True:
+            # Leerzeichen vor * oder / überspringen (z.B. "R2 / R1")
+            if self._type() == _RT_SP:
+                if self._peek_past_sp() not in (_RT_ST, _RT_SL):
+                    break
+                self._eat_sp()
+            if self._type() not in (_RT_ST, _RT_SL):
+                break
             op = self._eat()[0]
             self._eat_sp()
             if op == _RT_ST:
@@ -1579,17 +1611,63 @@ class _ResultParser:
                 return [FractionNode(num_row, den_row)]
         return left
 
-    def _parse_power(self) -> list:
-        """Potenz: unary ('**' unary)?"""
-        base = self._parse_unary()
-        if self._type() == _RT_DS:
+    def _parse_script_content(self) -> list:
+        """Liest Sup/Subscript-Inhalt ohne Leerzeichen/Operatoren.
+
+        Tokens werden direkt als Text übernommen (kein Funktionsaufruf),
+        damit U_C(t) nicht das (t) ins Subscript zieht.
+        Mehrere aufeinanderfolgende ID/NUM-Tokens werden zusammengefasst
+        (z.B. '3dB' aus f_3dB).
+        """
+        nodes: list = []
+        while self._type() in (_RT_ID, _RT_NUM):
+            v = self._val()
             self._eat()
-            self._eat_sp()
-            exp_nodes = self._parse_unary()
-            exp_row = RowNode()
-            for n in exp_nodes:
-                exp_row.append(n)
-            return base + [SuperscriptNode(exp_row)]
+            nodes.extend(TextNode(c) for c in v)
+        if not nodes:
+            nodes = self._parse_unary()
+        return nodes
+
+    def _parse_power(self) -> list:
+        """Potenz/Index: beliebige Kombination von ^ und _ in jeder Reihenfolge.
+
+        Erlaubt: x^2, x_n, x^2_n, x_n^2, B_max^n usw.
+        Nach Sub/Superscripts wird ein optionales (arg) konsumiert, damit
+        Notationen wie U_C(t) oder H_3dB(f) korrekt rendern: das (t) bleibt
+        normaler Text statt in _append_tail zu verschwinden.
+        """
+        base = self._parse_unary()
+        while self._type() in (_RT_DS, _RT_US):
+            if self._type() == _RT_DS:
+                self._eat()
+                self._eat_sp()
+                exp_row = RowNode()
+                for n in self._parse_script_content():
+                    exp_row.append(n)
+                base = base + [SuperscriptNode(exp_row)]
+            else:
+                self._eat()
+                self._eat_sp()
+                sub_row = RowNode()
+                for n in self._parse_script_content():
+                    sub_row.append(n)
+                base = base + [SubscriptNode(sub_row)]
+        # U_C(t), H_3dB(f) usw.: (arg) nach Sub/Superscript als Text anhängen
+        if self._type() == _RT_LP:
+            self._eat()
+            base.append(TextNode('('))
+            first = True
+            while self._type() not in (_RT_RP, _RT_EOF):
+                if not first:
+                    if self._type() == _RT_CM:
+                        self._eat()
+                    base.append(TextNode(','))
+                    base.extend(self._eat_sp())
+                first = False
+                base.extend(self._parse_expr())
+            if self._type() == _RT_RP:
+                self._eat()
+            base.append(TextNode(')'))
         return base
 
     def _parse_unary(self) -> list:
@@ -1618,6 +1696,52 @@ class _ResultParser:
                     for n in inner:
                         inner_row.append(n)
                     return [SqrtNode(inner_row)]
+                if v in ('log', 'ln', 'lg'):
+                    # log(arg)  oder  log(arg, base)
+                    args = self._parse_args_list(2)
+                    node = LogNode()
+                    for n in (args[0] if args else []): node.argument.append(n)
+                    if v == 'ln':
+                        node.base.append(TextNode('e'))
+                    elif v == 'lg':
+                        node.base.append(TextNode('1'))
+                        node.base.append(TextNode('0'))
+                    elif len(args) > 1:
+                        for n in args[1]: node.base.append(n)
+                    return [node]
+                if v == 'nthroot':
+                    # nthroot(n, x)  →  NthRootNode mit index=n, inner=x
+                    args = self._parse_args_list(2)
+                    node = NthRootNode()
+                    for n in args[0]: node.index.append(n)
+                    for n in (args[1] if len(args) > 1 else []): node.inner.append(n)
+                    return [node]
+                if v == 'int':
+                    # int(body, var, lower, upper)  →  IntegralNode
+                    args = self._parse_args_list(4)
+                    node = IntegralNode()
+                    for n in (args[0] if len(args) > 0 else []): node.body.append(n)
+                    for n in (args[1] if len(args) > 1 else []): node.var.append(n)
+                    for n in (args[2] if len(args) > 2 else []): node.lower.append(n)
+                    for n in (args[3] if len(args) > 3 else []): node.upper.append(n)
+                    return [node]
+                if v == 'sum':
+                    # sum(body, var, lower, upper)  →  SumNode
+                    args = self._parse_args_list(4)
+                    node = SumNode()
+                    for n in (args[0] if len(args) > 0 else []): node.body.append(n)
+                    for n in (args[1] if len(args) > 1 else []): node.lower_var.append(n)
+                    for n in (args[2] if len(args) > 2 else []): node.lower_val.append(n)
+                    for n in (args[3] if len(args) > 3 else []): node.upper.append(n)
+                    return [node]
+                if v == 'vec':
+                    # vec(a, b)  oder  vec(a, b, c)  →  Spaltenvektor
+                    args = self._parse_args_list()
+                    rows = max(len(args), 1)
+                    node = MatrixNode(rows=rows, cols=1)
+                    for i, arg in enumerate(args):
+                        for n in arg: node.cells[i][0].append(n)
+                    return [node]
                 # Andere Funktionen: als Text + Klammern
                 result: list = [TextNode(c) for c in v]
                 result.append(TextNode('('))
@@ -3514,10 +3638,7 @@ class MathFormulaDisplay(QWidget):
     def __init__(self, formula: str, parent: QWidget | None = None) -> None:
         super().__init__(parent)
         self.setFocusPolicy(Qt.FocusPolicy.NoFocus)
-        self._row: RowNode = RowNode()
-        for ch in formula.strip():
-            if ch.isprintable():
-                self._row.append(TextNode(ch))
+        self._row: RowNode = _parse_result_to_row(formula.strip())
         self._row.measure(FONT_SIZE_PT)
         self.setFixedHeight(max(int(self._row.height + 2 * self._PADDING_Y + 2), 32))
 

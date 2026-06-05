@@ -33,7 +33,7 @@ Ein Flipflop braucht Zeit, um das Eingangssignal sicher einzulesen. Wird diese Z
 
 Das Eingangssignal (D) muss mindestens t_su vor der Taktflanke stabil sein. Ändert sich D kurz vor der Flanke, kann das Flipflop das Signal nicht sicher einlesen.
 
-:::monospace
+:::formel
 t_su = Mindestzeit D stabil vor Taktflanke    # typisch 0.1–2 ns
 :::
 **Verletzung**: Wenn D sich weniger als t_su vor der Taktflanke ändert, ist unklar ob Q = 0 oder Q = 1 gespeichert wird.
@@ -42,7 +42,7 @@ t_su = Mindestzeit D stabil vor Taktflanke    # typisch 0.1–2 ns
 
 Das Eingangssignal muss mindestens t_h nach der Taktflanke noch stabil bleiben. Das gibt dem Flipflop Zeit, den Zustand sicher zu übernehmen.
 
-:::monospace
+:::formel
 t_h = Mindestzeit D stabil nach Taktflanke    # typisch 0–0.5 ns
 :::
 ## Timing-Diagramm
@@ -52,7 +52,7 @@ t_h = Mindestzeit D stabil nach Taktflanke    # typisch 0–0.5 ns
 :::
 Das Timing-Budget im Design:
 
-:::monospace
+:::formel
 T_clk ≥ t_co + t_propag + t_su    # T_clk = Taktperiode, t_co = Clock-to-Output des Vorgängers
 :::
 ## Metastabilität
@@ -67,7 +67,7 @@ Das Flipflop verlässt den metastabilen Zustand nach einer zufälligen Zeitspann
 
 Metastabilität lässt sich nicht verhindern, nur die Wahrscheinlichkeit reduzieren:
 
-:::monospace
+:::formel
 MTBF = (e^(t_resolve / τ)) / (f_clk × f_data × C1)    # τ und C1: Flipflop-Kennwerte
 :::
 Je länger die "Auflösezeit" t_resolve, desto unwahrscheinlicher bleibt die Metastabilität über diese Zeit hinaus bestehen.
@@ -76,7 +76,7 @@ Je länger die "Auflösezeit" t_resolve, desto unwahrscheinlicher bleibt die Met
 
 **Lösung für asynchrone Eingangssignale**: Zwei hintereinandergeschaltete Flipflops (Double-FF Synchronizer).
 
-:::monospace
+:::formel
 Async_Input → FF1 → FF2 → Verwendung im System
               (beide getaktet mit System-Clock)
 :::

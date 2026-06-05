@@ -34,7 +34,7 @@ Ein stromdurchflossener Leiter (oder Halbleiter) befindet sich in einem Magnetfe
 
 An der einen Seite des Leiters sammeln sich Elektronen (negativ), an der anderen entsteht ein Elektronenmangel (positiv). Diese Ladungstrennung erzeugt eine Spannung quer zur Stromrichtung — die **Hallspannung U_H**.
 
-:::monospace
+:::formel
 U_H = (R_H * I * B) / d     # R_H = Hallkoeffizient (materialabhängig)
                              # I = Steuerstrom, B = Flussdichte, d = Dicke
 :::
@@ -46,7 +46,7 @@ Die Hallspannung ist proportional zur magnetischen Flussdichte B. Das macht den 
 
 ## Formeln
 
-:::monospace
+:::formel
 U_H = R_H * I * B / d       # Hallspannung; R_H = 1/(q*n) für Elektronen
 B   = mu_0 * H              # magnetische Flussdichte; B in Tesla, H in A/m
 :::

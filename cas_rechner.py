@@ -116,7 +116,7 @@ def to_sympy(s: str) -> str:
     # Einheiten-Praefix: Ziffer direkt vor _ → implizite Multiplikation.
     # Muss vor der allgemeinen Ziffern-Alpha-Regel kommen.
     s = re.sub(r"(\d)(_)", r"\1*_", s)
-    s = re.sub(r"(\d)\s*([A-Za-z(])", r"\1*\2", s)
+    s = re.sub(r"(?<![A-Za-z_])(\d)\s*([A-Za-z(])", r"\1*\2", s)
     return s
 
 
@@ -729,20 +729,20 @@ class Engine:
         _N   = _u["_N"];  _J  = _u["_J"];   _C   = _u["_C"]
         _W   = _u["_W"];  _F  = _u["_F"]
 
-        ns["c"]       = _sy.Float("299792458")          * _m / _s
-        ns["G"]       = _sy.Float("6.67430e-11")        * _m**3 / (_kg * _s**2)
-        ns["g_n"]     = _sy.Float("9.80665")            * _m / _s**2
-        ns["hP"]      = _sy.Float("6.62607015e-34")     * _J * _s
-        ns["hbar"]    = _sy.Float("1.054571817e-34")    * _J * _s
-        ns["kB"]      = _sy.Float("1.380649e-23")       * _J / _K
-        ns["NA"]      = _sy.Float("6.02214076e23")      / _mol
-        ns["qe"]      = _sy.Float("1.602176634e-19")    * _C
-        ns["eps0"]    = _sy.Float("8.8541878128e-12")   * _F / _m
-        ns["mu0"]     = _sy.Float("1.25663706212e-6")   * _N / _A**2
-        ns["Rgas"]    = _sy.Float("8.314462618")        * _J / (_mol * _K)
-        ns["sigmaSB"] = _sy.Float("5.670374419e-8")     * _W / (_m**2 * _K**4)
-        ns["me"]      = _sy.Float("9.1093837015e-31")   * _kg
-        ns["mp"]      = _sy.Float("1.67262192369e-27")  * _kg
+        ns["_c"]       = _sy.Float("299792458")          * _m / _s
+        ns["_G"]       = _sy.Float("6.67430e-11")        * _m**3 / (_kg * _s**2)
+        ns["_g_n"]     = _sy.Float("9.80665")            * _m / _s**2
+        ns["_hP"]      = _sy.Float("6.62607015e-34")     * _J * _s
+        ns["_hbar"]    = _sy.Float("1.054571817e-34")    * _J * _s
+        ns["_kB"]      = _sy.Float("1.380649e-23")       * _J / _K
+        ns["_NA"]      = _sy.Float("6.02214076e23")      / _mol
+        ns["_qe"]      = _sy.Float("1.602176634e-19")    * _C
+        ns["_eps0"]    = _sy.Float("8.8541878128e-12")   * _F / _m
+        ns["_mu0"]     = _sy.Float("1.25663706212e-6")   * _N / _A**2
+        ns["_Rgas"]    = _sy.Float("8.314462618")        * _J / (_mol * _K)
+        ns["_sigmaSB"] = _sy.Float("5.670374419e-8")     * _W / (_m**2 * _K**4)
+        ns["_me"]      = _sy.Float("9.1093837015e-31")   * _kg
+        ns["_mp"]      = _sy.Float("1.67262192369e-27")  * _kg
 
         # DEG-Modus: Trigonometrie wrappen.
         if self.settings.angle_mode == "DEG":
@@ -926,7 +926,7 @@ class Engine:
                     user_vars[var] = value
                     if results[i] is None:
                         approx = parsed[i].get("approx", False)
-                        raw = None if self._has_units(value) else value
+                        raw = None if (self._has_units(value) or approx) else value
                         results[i] = (
                             f"{var} := {self._format(value, approx=approx)}",
                             False,
@@ -987,9 +987,10 @@ class Engine:
                             value = self.sy.nsimplify(value, rational=True)
                         except Exception:
                             pass
-                    raw = None if self._has_units(value) else value
+                    approx = p.get("approx", False)
+                    raw = None if (self._has_units(value) or approx) else value
                     results[i] = (
-                        self._format(value, approx=p.get("approx", False)),
+                        self._format(value, approx=approx),
                         False,
                         raw,
                     )
@@ -1112,10 +1113,7 @@ class Engine:
                 "(" + ", ".join(self._format(e, approx=approx) for e in value) + ")"
             )
         if isinstance(value, dict):
-            pairs = [
-                f"{k}: {self._format(v, approx=approx)}"
-                for k, v in value.items()
-            ]
+            pairs = [f"{k}: {self._format(v, approx=approx)}" for k, v in value.items()]
             return "{" + ", ".join(pairs) + "}"
 
         try:
@@ -1144,20 +1142,7 @@ class Engine:
                     pass
             return f"{coeff} {unit_text}".strip()
 
-        s = str(value)
-        try:
-            if (
-                hasattr(value, "free_symbols")
-                and not value.free_symbols
-                and value.is_number
-            ):
-                num = float(value)
-                num_s = f"{num:.{places}g}"
-                if num_s != s:
-                    return f"{s}  ≈  {num_s}"
-        except Exception:
-            pass
-        return s
+        return str(value)
 
     def _format_numeric(self, value: Any, fmt: str, places: int) -> str:
         try:

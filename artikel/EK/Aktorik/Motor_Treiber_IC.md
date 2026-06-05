@@ -66,7 +66,7 @@ Die Logikseite und die Motorspannungsseite sind intern getrennt. Beide brauchen 
 | PWMB | PWM-Signal für Drehzahl Motor B |
 | STBY | Standby (LOW = Treiber abschalten) |
 
-:::monospace
+:::formel
 Vorwärts:  AIN1=1, AIN2=0, PWMA=PWM-Signal
 Rückwärts: AIN1=0, AIN2=1, PWMA=PWM-Signal
 Bremsen:   AIN1=1, AIN2=1  (Kurzschluss-Bremse)

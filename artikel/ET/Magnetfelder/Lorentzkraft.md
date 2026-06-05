@@ -1,70 +1,74 @@
 ---
 title: Lorentzkraft
 kategorie: ET
-tags: [lorentzkraft, magnetfeld, kraft, motor, elektromagnet, linke-hand-regel, ampere, flussdichte]
-symbol: F
-einheit: N
+tags: [lorentzkraft, magnetfeld, kraft, leiter, motor, generator, linke-hand-regel, rechte-hand-regel]
+groessen: F|Kraft|N; I|Strom|A; l|Leiterlänge|m; B|Flussdichte|T; v|Geschwindigkeit|m/s; q|Ladung|C
+_status: PORT  # ET_alt/Magnetfelder/Lorentzkraft.md
 ---
-
-Ein stromdurchflossener Leiter im Magnetfeld erfährt eine Kraft. Das ist die Lorentzkraft. Sie ist das Grundprinzip hinter Elektromotoren.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
 - [[Magnetfelder]]
 :::
-:::vbox
-**Verwandte Artikel**
-- [[Elektromagnet]]
-:::
-:::vbox
-**Führt weiter zu**
-- [[DC-Motor]]
-- [[Schrittmotor]]
-:::
 :::
 
 ---
 
-## Die Kraft
+Die Lorentzkraft ist die Kraft, die ein Magnetfeld auf einen stromdurchflossenen Leiter oder eine bewegte Ladung ausübt. Sie ist die Ursache für die Drehbewegung in Elektromotoren und die Grundlage für die Geschwindigkeitsinduktion in Generatoren.
 
-:::monospace
-F = I * l * B * sin(θ)    # allgemeine Form
-F = I * l * B             # vereinfacht wenn Strom senkrecht zu B (θ = 90°)
+## Kraft auf einen stromdurchflossenen Leiter
+
+:::schematic
+/abbildungen/magnetfelder/lorentzkraft_leiter.svg
 :::
-| Grösse | Symbol | Einheit |
-|---|---|---|
-| Kraft | F | N |
-| Strom | I | A |
-| Leiterlänge im Feld | l | m |
-| Magnetische Flussdichte | B | T |
-| Winkel zwischen Strom und B | θ | ° |
-
-Bei θ = 90° (Strom senkrecht zum Feld) ist die Kraft maximal. Bei θ = 0° (Strom parallel zum Feld) ist die Kraft null. Grösserer Strom, stärkeres Feld oder längerer Leiter: mehr Kraft.
-
-## Richtung: Drei-Finger-Regel
-
-Rechte Hand: Daumen zeigt in Stromrichtung, Zeigefinger in Feldrichtung (Nord nach Süd). Mittelfinger zeigt die Kraftrichtung.
-
-Oder: Zeigefinger = Feld (B), Mittelfinger = Strom (I), Daumen = Kraft (F).
-
-## Im Motor
-
-Eine Spule im Magnetfeld. Strom durch die Spule erzeugt eine Kraft auf die Leiter. Diese Kraft dreht die Spule. Das ist ein Elektromotor.
-
-Die Kraft wechselt die Richtung wenn der Strom wechselt. Deshalb braucht ein Gleichstrommotor einen Kommutator um den Strom im richtigen Moment umzupolen.
-
-## Auf bewegte Ladungen
-
-Die Lorentzkraft wirkt auch auf einzelne Ladungsträger in einem Magnetfeld:
 
 :::formel
-F = q * v * B * sin(θ)
+F = I * l * B * sin(alpha)    # alpha = Winkel zwischen Leiter und Feldlinien
 :::
-Das ist die Grundlage von Kathodenstrahlröhren und Massenspektrometern.
 
-## Halleffekt
+**Was bedeutet sin(alpha)?** Der Sinus kommt daher, dass nur der Teil des Leiters Kraft erfährt, der tatsächlich Feldlinien "schneidet" — also senkrecht zu B liegt. Stellt man sich den Leiter in Bezug auf die Feldlinien vor, kann man den Leiter in zwei Komponenten zerlegen:
 
-Fliessen Ladungsträger durch einen Leiter in einem senkrechten Magnetfeld, werden sie seitlich abgelenkt. Dadurch entsteht eine messbare Querspannung — die Hallspannung. Sie ist proportional zur Flussdichte B und zum Strom I.
+- Komponente **quer** zu B (Länge l · sin(alpha)): diese schneidet Feldlinien → erzeugt Kraft
+- Komponente **parallel** zu B (Länge l · cos(alpha)): diese liegt in Richtung der Feldlinien → erzeugt keine Kraft
 
-In der Praxis steckt dieses Prinzip in **Hallsensoren**: Sie messen kontaktlos Magnetfelder, Ströme und Positionen. Mehr dazu unter [[Hallsensor]].
+| Winkel alpha | sin(alpha) | Kraft |
+|---|---|---|
+| 0° (Leiter parallel zu B) | 0 | keine Kraft |
+| 45° | 0,707 | 71 % der Maximalkraft |
+| 90° (Leiter senkrecht zu B) | 1 | maximale Kraft |
+
+Im Elektromotor werden die Leiter deshalb so eingebaut, dass sie möglichst senkrecht zum Magnetfeld liegen (alpha = 90°).
+
+## Richtungsregel
+
+**Linke-Hand-Regel** (UVW-Regel für Motorbetrieb):
+- **Zeigefinger** → Feldrichtung B (Nord nach Süd)
+- **Mittelfinger** → Technische Stromrichtung I
+- **Daumen** → Kraftrichtung F (Bewegung)
+
+**Rechte-Hand-Regel** gilt für den Generatorbetrieb: Daumen = Bewegungsrichtung, Zeigefinger = B, Mittelfinger = induzierter Strom.
+
+## Kraft auf eine bewegte Ladung
+
+Eine einzelne Ladung q, die sich mit Geschwindigkeit v senkrecht zu B bewegt, erfährt ebenfalls eine Kraft:
+
+:::formel
+F = q * v * B    # Lorentzkraft auf Einzelladung
+:::
+
+Dieser Effekt erklärt die Hall-Spannung: Fliesst Strom durch ein Halbleiterelement im Magnetfeld, werden die Ladungsträger zur Seite abgelenkt — es entsteht quer eine messbare Spannung (Hall-Effekt, Grundlage für Stromsensoren und Drehgeber).
+
+## Anwendungen
+
+| Anwendung | Prinzip |
+|---|---|
+| Elektromotor | Lorentzkraft auf Leiter im Magnetfeld → Drehmoment |
+| Generator | Bewegung im Feld → induzierte Spannung (Umkehrung) |
+| Lautsprecher | Schwingspule im Dauermagnetfeld → mechanische Schwingung |
+| Magnetbremse | Wirbelströme im leitenden Material → Bremskraft |
+| Hall-Sensor | Ablenkung von Ladungsträgern → Spannungsmessung |
+
+:::tip
+Beim Elektromotor und Generator handelt es sich um dasselbe Prinzip — nur die Richtung der Energieumwandlung ist umgekehrt. Ein Motor kann als Generator betrieben werden und umgekehrt. Das ist die Grundlage für **regeneratives Bremsen** in Elektrofahrzeugen.
+:::

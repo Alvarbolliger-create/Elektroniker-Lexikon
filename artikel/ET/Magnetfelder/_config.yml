@@ -1,0 +1,9 @@
+display_name: Magnetfelder
+# Pädagogische Reihenfolge (order-Felder in Artikel-Frontmatter):
+#   order: 10  Magnetfelder (Grundlagen)
+#   order: 20  Magnetische Flussdichte
+#   order: 30  Elektromagnet
+#   order: 40  Lorentzkraft
+#   order: 50  Magnetischer Widerstand
+#   order: 60  Hysteresekurve
+#   order: 70  Sättigung und Hysterese

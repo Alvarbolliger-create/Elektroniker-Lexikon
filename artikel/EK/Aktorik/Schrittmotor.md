@@ -55,7 +55,7 @@ Beim Mikroschritt werden die Phasenströme sinusförmig moduliert, um Zwischenpo
 
 Schrittmotor-Treiber-ICs (z.B. A4988, DRV8825, TMC2209) integrieren zwei H-Brücken, Chopper-Stromregelung und Mikroschrittteilung. Das Steuersignal von der übergeordneten Logik ist einfach:
 
-:::monospace
+:::formel
 STEP _____|‾|_|‾|_|‾|_|‾|_     → ein Impuls pro Schritt
 DIR  ________/‾‾‾‾‾‾‾‾‾‾‾     → Drehrichtung
 :::
@@ -72,7 +72,7 @@ Schrittmotor-Treiber nie unter Last vom Motor trennen. Die Spuleninduktivität e
 
 Das Drehmoment sinkt bei hoher Schrittfrequenz stark. Zu schnelle Folge: der Motor verliert Schritte (Schrittverlust) ohne Fehlermeldung.
 
-:::monospace
+:::formel
 Drehmoment
   ↑
   |‾‾\

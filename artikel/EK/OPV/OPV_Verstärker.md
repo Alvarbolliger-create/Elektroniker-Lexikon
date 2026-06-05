@@ -49,7 +49,7 @@ Der **3-OPV-Instrumentenverstärker** löst das:
 - Die beiden Ausgänge von A und B gehen auf einen klassischen Differenzverstärker (OPV C)
 
 **Verstärkung**:
-:::monospace
+:::formel
 A = (1 + 2×R / R_G) × 1    # erste Stufe verstärkt, zweite subtrahiert
 :::
 Die Verstärkung lässt sich mit einem einzigen Widerstand R_G einstellen.
@@ -96,7 +96,7 @@ Der Logarithmische Verstärker erzeugt eine Ausgangsspannung proportional zum Lo
 :::
 Das Verhalten basiert auf der exponentiellen Diodenkennlinie:
 
-:::monospace
+:::formel
 U_out = -U_T × ln(U_in / (I_S × R_in))    # U_T = 26 mV bei 25°C (Temperaturspannung)
 :::
 **Vorteil**: Grosse Dynamikbereiche auf wenig Aussteuerbereich darstellen (z.B. Signale von 1 µV bis 1 V auf 0–1 V komprimieren).

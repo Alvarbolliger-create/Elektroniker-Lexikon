@@ -1,0 +1,9 @@
+display_name: Spule
+# Pädagogische Reihenfolge (order-Felder in Artikel-Frontmatter):
+#   order: 10  Spule Übersicht
+#   order: 20  Induktivität / Einheiten
+#   order: 30  Selbstinduktion
+#   order: 40  Spule Typen
+#   order: 50  Auf- und Entladung RL
+#   order: 60  Spule im Wechselstrom
+#   order: 70  Spule Verluste

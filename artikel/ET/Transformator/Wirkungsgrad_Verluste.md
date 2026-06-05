@@ -1,60 +1,83 @@
 ---
-title: Transformator: Wirkungsgrad & Verluste
+title: Wirkungsgrad & Verluste (Transformator)
 kategorie: ET
-tags: [transformator, wirkungsgrad, verluste, kupferverluste, eisenverluste, hystereseverluste, wirbelstromverluste, derating, leerlaufverluste, eta]
-symbol: η
-einheit: —
+tags: [wirkungsgrad, verluste, kupferverluste, eisenverluste, hystereseverluste, wirbelstrom, transformator]
+groessen: eta|Wirkungsgrad|—; P_v|Verlustleistung|W; P_Cu|Kupferverluste|W; P_Fe|Eisenverluste|W; I|Strom|A; R|Wicklungswiderstand|Ohm
+_status: PORT  # ET_alt/Transformator/Wirkungsgrad_Verluste.md
 ---
-
-Kein Transformator ist verlustfrei. Die Verluste entstehen in den Wicklungen und im Kern. Gute Transformatoren erreichen 95 bis 99 % Wirkungsgrad.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
 - [[Übersetzungsverhältnis]]
+- [[Magnetisierungskurve & Hysterese]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Thermomanagement]]
-:::
-:::vbox
-**Führt weiter zu**
-- [[Derating-Kurven]]
+- [[Elektrische Leistung]]
 :::
 :::
 
 ---
 
-## Verlustarten
-
-**Kupferverluste (I²R)**: Ohmsche Verluste in den Wicklungen. Steigen quadratisch mit dem Strom. Verursachen Erwärmung der Wicklung.
-
-**Eisenverluste**: Entstehen im Kern, unabhängig vom Laststrom.
-- *Hystereseverluste*: Energie geht bei jedem Ummagnetisierungszyklus verloren. Steigen mit Frequenz und Flussdichte.
-- *Wirbelstromverluste*: Induzierte Ströme im Kern erzeugen Wärme. Werden durch geblätterten Kern (Lamellen) oder Ferrit minimiert.
+Kein realer Transformator ist verlustfrei. Die Verluste teilen sich in zwei Gruppen: **Kupferverluste** (abhängig vom Strom) und **Eisenverluste** (abhängig von Frequenz und Flussdichte). Gute Netz-Trafos erreichen Wirkungsgrade von über 98 %.
 
 ## Wirkungsgrad
 
-:::monospace
-eta = P_aus / P_ein     # Wirkungsgrad; typisch 95 bis 99 % bei Netztransformatoren
-P_verlust = P_ein - P_aus
+:::formel
+eta = P2 / P1    # P2 = Sekundärleistung, P1 = Primärleistung
 :::
-## Leerlaufverluste
 
-Auch ohne Last verbraucht ein Transformator Strom für die Magnetisierung des Kerns. Das sind die Leerlaufverluste. Bei schlecht ausgelegten Transformatoren können sie im Dauerbetrieb relevant sein.
+:::formel
+P1 = P2 + P_v    # Primärleistung = Nutzleistung + Verluste
+:::
 
-## Derating
+## Kupferverluste (Last-Verluste)
 
-Bei erhöhter Umgebungstemperatur sinkt die maximal erlaubte Last. Ein 1 kVA Transformator bei 40 °C Umgebung darf vielleicht nur 85 % belastet werden.
+Die Wicklungswiderstände R1 und R2 erzeugen ohmsche Verluste, die quadratisch mit dem Strom steigen:
+
+:::formel
+P_Cu = I1^2 * R1 + I2^2 * R2
+:::
+
+**Abhängig von:** Laststrom → bei Leerlauf null, bei Nennlast maximal.
+
+Massnahmen: Grösserer Kupferquerschnitt, hochleitfähiges Material, kurze Wicklungen.
+
+## Eisenverluste (Leerlauf-Verluste)
+
+Eisenverluste entstehen im Kern und sind unabhängig vom Laststrom — sie entstehen auch im Leerlauf:
+
+**Hystereseverluste** (→ [[Magnetisierungskurve & Hysterese]]): Jede Feldumkehr kostet Energie proportional zur Fläche der Hysteresekurve.
+
+**Wirbelstromverluste**: Der wechselnde Fluss induziert Kreisströme (Wirbelströme) im leitfähigen Kernmaterial. Diese erzeugen Wärme.
+
+:::formel
+P_Fe = P_hyst + P_wirbel
+:::
+
+**Massnahmen:**
+- **Hystereseverluste**: Kernmaterial mit schmaler Hystereseschleife (Weicheisen, Ferrit)
+- **Wirbelstromverluste**: Kern aus dünnen, isolierten Blechen (Trafoblech) oder aus nicht leitendem Ferrit
+
+## Gesamtverluste und Leistungsbilanz
+
+| Verlusttyp | Abhängigkeit | Verhalten |
+|---|---|---|
+| Kupferverluste P_Cu | I² | Bei Leerlauf ≈ 0, steigt mit Last |
+| Hystereseverluste | f · B_max^n | Konstant bei konstanter Spannung |
+| Wirbelstromverluste | f² · B_max² | Konstant bei konstanter Spannung |
+
+:::monospace
+Beispiel: Trafo 1 kVA, P_Cu_Nenn = 20 W, P_Fe = 10 W
+Bei Nennlast: P_v = 20 + 10 = 30 W
+eta = 1000 / (1000 + 30) = 97.1 %
+:::
+
+## Optimaler Betriebspunkt
+
+Der Wirkungsgrad ist maximal, wenn P_Cu = P_Fe. Netz-Trafos werden typisch auf ca. 75 % Nennlast für maximalen Wirkungsgrad ausgelegt — weil sie selten mit 100 % belastet werden.
 
 :::tip
-Effizienzklassen für Transformatoren in der EU: ErP-Richtlinie definiert Mindest-Wirkungsgrade. Beim Kauf auf die Effizienzklasse achten, besonders bei Dauerbetrieb.
+Trafos im Leerlauf verbrauchen immer noch Strom (Magnetisierungsstrom + Eisenverluste). Grosse Anlagen sollten bei Nichtbetrieb abgeschaltet werden — bei hundert Trafos in einem Industriebetrieb summieren sich die Leerlaufverluste deutlich.
 :::
-
-## Kenndaten Netztransformator
-
-| Nennleistung | Typischer Wirkungsgrad | Leerlaufverluste |
-|---|---|---|
-| 50 VA | 90 bis 94 % | 2 bis 5 W |
-| 500 VA | 95 bis 97 % | 5 bis 10 W |
-| 5 kVA | 97 bis 99 % | 20 bis 50 W |

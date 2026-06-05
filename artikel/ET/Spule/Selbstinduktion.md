@@ -1,79 +1,113 @@
 ---
-title: Selbstinduktion
+title: Selbstinduktion & Induzierte Spannung
 kategorie: ET
-tags: [selbstinduktion, spule, induktivität, gegenspannung, freilaufdiode, lenzsche regel, energiespeicher, induzierte spannung]
-symbol: U_L
-einheit: V
+tags: [selbstinduktion, induzierte spannung, lenzsche regel, flussänderung, induktionsgesetz, faraday]
+groessen: u_i|induzierte Spannung|V; N|Windungszahl|—; Phi|magnetischer Fluss|Wb; L|Induktivität|H; i|Strom|A
+_status: PORT  # ET_alt/Spule/Selbstinduktion.md
 ---
-
-Ändert sich der Strom durch eine Spule, erzeugt die Spule selbst eine Spannung, die der Änderung entgegenwirkt. Das ist Selbstinduktion.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Induktivität & Einheiten]]
+- [[Magnetfelder]]
+- [[Spule (Übersicht)]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Transformator]]
+- [[Magnetisierungskurve & Hysterese]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[Buck (Step-down)]]
-- [[Boost (Step-up)]]
+- [[Auf- und Entladung (RL)]]
 :::
 :::
 
 ---
 
-## Warum passiert das?
+Wenn sich der magnetische Fluss durch eine Spule ändert, entsteht eine Spannung — egal ob der Fluss durch eine äussere Quelle oder durch den eigenen Strom der Spule erzeugt wird. Letzteres nennt man Selbstinduktion.
 
-Ein Magnetfeld kann nur entstehen und vergehen, wenn Energie fliesst. Die Spule nimmt Energie auf, wenn der Strom steigt, und gibt sie zurück, wenn der Strom sinkt. Diese Energiebewegung erzeugt eine Spannung.
+## Faradaysches Induktionsgesetz
 
-:::monospace
-U_L = L * (dI / dt)     # Spannung steigt mit der Änderungsrate des Stroms
-:::
-| Grösse | Symbol | Einheit |
-|---|---|---|
-| Induzierte Spannung | U_L | V |
-| Induktivität | L | H |
-| Stromänderung | dI/dt | A/s |
-
-## Zeitkonstante
+Eine Flussänderung in einer Spule mit N Windungen erzeugt eine Spannung proportional zur Änderungsgeschwindigkeit. Das ist das Grundprinzip aller Transformatoren und Induktivitäten.
 
 :::formel
-τ = L / R
-:::
-| Zeit | Stromzustand |
-|---|---|
-| 1 × τ | 63 % des Endwerts |
-| 2 × τ | 86 % |
-| 3 × τ | 95 % |
-| 5 × τ | 99 % (gilt als erreicht) |
-
-## Einschalten
-
-Beim Einschalten steigt der Strom langsam. Die Spule bremst ihn. Nach fünf Zeitkonstanten hat der Strom seinen Endwert erreicht.
-
-## Ausschalten
-
-Hier wird es gefährlich. Wenn der Strom schlagartig unterbrochen wird, versucht die Spule ihn aufrechtzuerhalten. Die Spannung kann dabei auf Hunderte von Volt steigen, auch wenn die Versorgung nur 12 V hatte.
-
-## Freilaufdiode
-
-Eine Diode parallel zur Spule, in Sperrrichtung zur Versorgung. Beim Ausschalten leitet sie den Strom ab. Die Spannungsspitze ist auf etwa 0.7 V begrenzt.
-
-**Alternativen zur Freilaufdiode:**
-- **TVS-Diode**: Schnelleres Ansprechen als normale Diode, definierte Klemmspannung. Sinnvoll wenn die Abfallzeit der Spule kurz gehalten werden muss.
-- **RC-Snubber**: Widerstand und Kondensator in Reihe parallel zur Spule. Dämpft Spannungsspitzen bei hohen Schaltfrequenzen.
-
-:::warning
-Jede Spule in einer geschalteten Schaltung braucht eine Freilaufdiode oder einen anderen Schutz. Ohne sie werden Transistoren und MOSFETs zerstört.
+u_i = -N * dPhi / dt    # induzierte Spannung (negatives Vorzeichen = Lenzsche Regel)
 :::
 
-## Gespeicherte Energie
+Das Minuszeichen zeigt die Richtung an: Die induzierte Spannung wirkt immer so, dass sie ihrer Ursache entgegenwirkt ([[#Lenzsche Regel]]).
+
+## Induzierte Spannung über Stromänderung
+
+Für eine lineare Spule ist der Fluss proportional zum Strom: Phi = L · i / N. Eingesetzt ergibt sich die für Schaltungen wichtigste Form:
+
+:::formel
+U_L = L * di / dt    # Spannung an der Spule (Vorzeichen gemäss Zählpfeilrichtung)
+:::
+
+Diese Formel zeigt: Eine Spule "widersteht" Stromänderungen. Je schneller sich der Strom ändert und je grösser L, desto grösser die induzierte Spannung.
+
+:::info
+**Vorzeichenkonvention:** Manche Bücher schreiben `u_i = −L · di/dt` (Faraday-Konvention: induzierte EMK wirkt entgegen). Für Schaltungsberechnungen wird meist `U_L = L · di/dt` verwendet — die Spannung am Bauteil in Stromrichtung. Beide sind korrekt, solange die Zählpfeile konsequent definiert sind.
+:::
 
 :::monospace
-E = 0.5 * L * I^2      # Energie in der Spule bei Strom I
+Beispiel: L = 10 mH, Strom steigt in 1 ms von 0 auf 2 A
+di/dt = 2 / 0.001 = 2000 A/s
+U_L = 10e-3 * 2000 = 20 V
 :::
-Diese Energie wird beim Abschalten irgendwo abgebaut, entweder in der Freilaufdiode oder in einem Funken.
+
+## Berechnung U_L aus einem Stromdiagramm
+
+Wenn der Strom stückweise linear verläuft (wie in Prüfungsaufgaben üblich), ist di/dt in jedem Abschnitt konstant — und damit auch U_L.
+
+**Vorgehen:**
+1. Steigung jedes Abschnitts ablesen: di/dt = ΔI / Δt
+2. U_L = L × di/dt berechnen
+3. Resultat abschnittweise einzeichnen
+
+:::monospace
+Beispiel: L = 5 mH, Strom-Diagramm mit drei Abschnitten
+
+Abschnitt 1 (0–2 ms): I steigt von 0 auf 4 mA
+  di/dt = 4e-3 / 2e-3 = 2 A/s  →  U_L = 5e-3 * 2 = +10 mV
+
+Abschnitt 2 (2–4 ms): I = 4 mA konstant
+  di/dt = 0  →  U_L = 0 mV
+
+Abschnitt 3 (4–6 ms): I fällt von 4 mA auf 0
+  di/dt = -4e-3 / 2e-3 = -2 A/s  →  U_L = 5e-3 * (-2) = -10 mV
+:::
+
+:::tip
+Drei Faustregeln für Graphen:
+- Strom konstant → U_L = 0 (Spule wirkt wie Draht)
+- Strom steigt → U_L positiv
+- Strom fällt → U_L negativ
+- Steilere Flanke = grösseres |di/dt| = grösseres |U_L|
+:::
+
+## Lenzsche Regel
+
+:::schematic
+/abbildungen/spule/lenzsche_regel_gegenrichtung.svg
+:::
+
+Die induzierte Spannung (und der daraus resultierende Strom) wirkt immer **der Flussänderung entgegen** — daher das Minuszeichen. Das ist eine Folge der Energieerhaltung.
+
+**Konsequenzen:**
+- Eine Spule **verzögert** Stromänderungen — sie kann den Strom nicht sprunghaft ändern.
+- Wird ein Stromkreis mit Spule **unterbrochen**, bricht der Strom schlagartig zusammen. Die Spule versucht dagegen anzukämpfen und erzeugt dabei eine sehr hohe Induktionsspannung (Abschaltspannung).
+
+:::warning
+Beim Abschalten induktiver Lasten (Relais, Motoren, Transformatoren) entstehen hohe Induktionsspannungen — typisch das 5- bis 100-fache der Betriebsspannung. Diese zerstören Transistoren und andere Halbleiter. Schutzmassnahme: **Freilaufdiode** parallel zur Spule (→ EK-Bereich).
+:::
+
+## Induzierte Spannung (Bewegung im Feld)
+
+Ein Leiter der Länge l, der sich mit Geschwindigkeit v senkrecht zu einem Magnetfeld B bewegt, hat eine induzierte Spannung — Grundlage aller Generatoren:
+
+:::formel
+u_i = B * l * v    # Geschwindigkeitsinduktion
+:::
+
+Je schneller die Bewegung, je länger der Leiter, je stärker das Feld — desto grösser die Spannung. In einem Generator dreht sich eine Spule im Feld, was eine sinusförmige Wechselspannung ergibt.

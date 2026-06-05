@@ -51,7 +51,7 @@ Die Zener wird absichtlich in Sperrrichtung betrieben. Das ist der normale Betri
 
 Vorwiderstand in Reihe mit der Zener, Zener nach GND.
 
-:::monospace
+:::formel
 R_V = (U_ein - U_Z) / I_Z    # Vorwiderstand; I_Z = Zenerstrom (aus Datenblatt, typisch 5-20 mA)
 :::
 Die Ausgangsspannung bleibt auf U_Z, solange genug Strom durch die Zener fliesst.

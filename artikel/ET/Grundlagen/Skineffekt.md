@@ -1,71 +1,68 @@
 ---
-title: Skineffekt & Proximity-Effekt
+title: Skin-Effekt
 kategorie: ET
-tags: [Skineffekt, Proximity-Effekt, Hochfrequenz, Eindringtiefe, Litzendraht, HF]
-groessen: δ|Eindringtiefe|m; ρ|spezifische Widerstand|Ω*m; f|Frequenz|Hz; ω|Kreisfrequenz|2πf; µ|magnetische Permeabilität|H/m
+tags: [skineffekt, stromverdrängung, hochfrequenz, wechselstrom, eindringtiefe, HF, litzendraht]
+groessen: delta|Eindringtiefe|m; rho|spez. Widerstand|Ohm·m; mu_r|relative Permeabilität|—; f|Frequenz|Hz
+_status: PORT  # ET_alt/Grundlagen/Skineffekt.md
 ---
-
-Bei hohen Frequenzen fliesst der Strom nicht mehr gleichmässig über den Querschnitt eines Leiters. Er konzentriert sich an der Oberfläche das erhöht den effektiven Widerstand.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Magnetfelder]]
-- [[Selbstinduktion]]
+- [[Leiterwiderstand]]
+- [[Sinuswellen & Effektivwert]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Induktivität und Einheiten]]
-- [[Wellenwiderstand]]
-:::
-:::vbox
-**Führt weiter zu**
-- [[HF-Transformatoren]]
-- [[EMV Pre-Compliance]]
+- [[Magnetfelder]]
 :::
 :::
 
 ---
 
-## Physikalische Ursache
+Bei Wechselstrom verdrängt das eigene Magnetfeld des Leiters den Strom nach aussen — zum "Skin" (Haut) des Leiters. Mit steigender Frequenz fliesst der Strom in einer immer dünneren Randschicht, was den effektiven Widerstand erhöht.
 
-Ein Wechselstrom erzeugt ein wechselndes Magnetfeld um den Leiter. Dieses Feld induziert im Leiterinnern Wirbelströme, die dem Hauptstrom entgegenwirken (Lenz'sche Regel). Das Ergebnis: Der Strom wird nach aussen in die Oberfläche verdrängt.
+## Ursache
 
-## Eindringtiefe (Skin Depth)
+Ein Wechselstromleiter erzeugt ein wechselndes Magnetfeld. Dieses induziert nach dem Lenzschen Gesetz im Leiter selbst eine Gegenspannung, die im Zentrum stärker ist als am Rand. Das Ergebnis: Der Strom weicht nach aussen aus.
 
-Die Eindringtiefe δ gibt an, ab welcher Tiefe die Stromdichte auf 1/e ≈ 37 % des Oberflächenwerts abgefallen ist:
+Bei Gleichstrom gibt es keinen Skin-Effekt — der Strom verteilt sich gleichmässig über den gesamten Querschnitt.
+
+## Eindringtiefe
+
+Die Eindringtiefe delta gibt an, bis zu welcher Tiefe unter der Oberfläche der Strom noch merklich fliesst. Unterhalb von delta ist der Strom auf 1/e ≈ 37 % der Oberflächendichte abgefallen.
 
 :::formel
-δ = sqrt(2 * ρ / (ω * µ_0 * µ_r))    # ρ = spez. Widerstand, ω = Kreisfrequenz, µ = Permeabilität
-:::
-Für Kupfer vereinfacht:
-
-:::formel
-δ_Cu ≈ 66 mm / sqrt(f)    # f in Hz, δ in mm
+delta = sqrt(rho / (pi * f * mu_0 * mu_r))
 :::
 
-Bei 1 MHz ist die Eindringtiefe nur noch 66 µm ein 1-mm-Draht nutzt dann nur noch die äusserste Schicht.
+| Frequenz | Eindringtiefe in Kupfer |
+|---|---|
+| 50 Hz (Netz) | ≈ 9,5 mm |
+| 1 kHz | ≈ 2,1 mm |
+| 10 kHz | ≈ 0,66 mm |
+| 100 kHz | ≈ 0,21 mm |
+| 1 MHz | ≈ 66 µm |
+| 10 MHz | ≈ 21 µm |
 
-## Auswirkungen
+Bei 50 Hz ist die Eindringtiefe grösser als der Radius der meisten Kupferleiter — der Skin-Effekt ist in der Energieverteilung noch vernachlässigbar. Bei HF-Leitern (MHz-Bereich) fliesst der Strom nur noch in einer hauchdünnen Oberflächenschicht.
 
-**Erhöhter HF-Widerstand**: Ein runder Kupferleiter hat bei hohen Frequenzen einen viel höheren Widerstand als bei DC. Verluste in HF-Spulen und Übertragern steigen mit der Frequenz.
+## Konsequenzen
 
-**Leiterdimensionierung**: Einen dickeren Draht zu nehmen bringt ab einer gewissen Frequenz kaum mehr Nutzen, weil das Innere nicht mehr genutzt wird.
+**Erhöhter Wechselstromwiderstand**: Da der Strom nur den äusseren Ring nutzt, ist die effektive Querschnittsfläche kleiner → R_AC > R_DC.
 
-## Gegenmasssnahmen
+**Wärmeerzeugung an der Oberfläche**: HF-Heizung (Induktionshärten, Leiterplattenerwärmung) nutzt den Skin-Effekt gezielt.
 
-**Litzendraht**: Viele feine, gegeneinander isolierte Drähte, die verseilt sind. Jeder Einzeldraht ist dünner als die Eindringtiefe. Wird für HF-Spulen und Übertrager eingesetzt.
+**Koaxialkabel**: Das Innenleiter-Geflecht und die Abschirmung nutzen die Eindringtiefe aus. Bei GHz-Frequenzen reicht eine hauchdünne Silberschicht als Leiter.
 
-**Hohle Leiter**: Bei sehr hohen Frequenzen werden rohrförmige Leiter verwendet. Das Innere trägt ohnehin nichts bei.
+## Massnahmen bei HF
 
-**PCB-Leiterbahnen**: Bei HF-Leitungen muss die Leiterbahnbreite und -dicke auf die Frequenz abgestimmt sein.
+Um den erhöhten Widerstand bei hohen Frequenzen zu reduzieren:
 
-## Proximity-Effekt
-
-Wenn zwei Leiter eng nebeneinander verlaufen, beeinflusst das Magnetfeld des einen den Stromfluss im anderen. Der Strom konzentriert sich auf den einander zugewandten Seiten (oder der abgewandten Seite, je nach Stromrichtung).
-
-Der Proximity-Effekt ist in mehrlagigen Spulen und Übertragern oft schlimmer als der Skineffekt allein. Litzendraht mindert ihn, aber nicht vollständig.
+- **Litzendraht**: Viele dünne, gegenseitig isolierte Adern — jede Ader kleiner als delta. Damit wird die Gesamtoberfläche vergrössert.
+- **Hohlleiter**: Ab GHz-Bereich sind Hohlleiter effizienter als Koaxialkabel.
+- **Oberflächenvergoldung/-versilberung**: Bessere Leitfähigkeit an der Oberfläche.
 
 :::tip
-Für HF-Spulen und Schaltnetzteile über 100 kHz immer Litzendraht oder flache Folienwicklung verwenden, um Kupferverluste zu minimieren.
+Für EFZ-Prüfungen: Der Skin-Effekt erklärt, warum HF-Leitungen anders dimensioniert werden als NF-Leitungen. Bei 50 Hz-Netzleitern ist er normalerweise nicht relevant.
 :::

@@ -1,78 +1,95 @@
 ---
 title: Kondensator im Wechselstrom
 kategorie: ET
-tags: [kondensator, wechselstrom, impedanz, kapazitiver widerstand, phasenverschiebung, reaktanz, X_C, frequenzabhängigkeit, blindwiderstand]
-symbol: X_C
-einheit: Ω
+tags: [kondensator, wechselstrom, blindwiderstand, kapazitiver widerstand, phasenverschiebung, xc, tiefpass]
+groessen: X_C|kapazitive Reaktanz|Ohm; f|Frequenz|Hz; C|Kapazität|F; omega|Kreisfrequenz|rad/s; phi|Phasenwinkel|°
+_status: PORT  # ET_alt/Kondensator/Kondensator_Wechselstrom.md
 ---
-
-Im Wechselstromkreis wirkt ein Kondensator wie ein frequenzabhängiger Widerstand. Je höher die Frequenz, desto tiefer der Widerstand.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Auf- und Entladung]]
-- [[Sinuswellen]]
+- [[Kondensator (Übersicht)]]
+- [[Sinuswellen & Effektivwert]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Impedanz]]
 - [[Spule im Wechselstrom]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[RLC-Schaltungen]]
+- [[RC-Reihenschaltung]]
+- [[RC-Parallelschaltung]]
 :::
 :::
 
 ---
 
-## Kapazitiver Widerstand
+Beim Wechselstrom blockiert der Kondensator tiefe Frequenzen und lässt hohe durch — genau umgekehrt wie die Spule. Der kapazitive Blindwiderstand X_C erklärt dieses Verhalten.
 
-:::monospace
-X_C = 1 / (2 * pi * f * C)     # gilt für reine Sinusspannung
+## Kapazitiver Blindwiderstand X_C
+
+Der Kondensator "widersteht" dem Wechselstrom mit der kapazitiven Reaktanz X_C. Sie hängt von Frequenz und Kapazität ab:
+
+:::formel
+X_C = 1 / (omega * C)
 :::
-| Grösse | Symbol | Einheit |
-|---|---|---|
-| Kapazitiver Widerstand | X_C | Ω |
-| Frequenz | f | Hz |
-| Kapazität | C | F |
 
-Bei 0 Hz (Gleichstrom) ist X_C unendlich: kein Strom fliesst. Bei sehr hohen Frequenzen geht X_C gegen null: fast kein Widerstand.
+:::formel
+X_C = 1 / (2 * pi * f * C)
+:::
+
+**Einheit:** Ohm (Ω) — genau wie ein ohmscher Widerstand, aber frequenzabhängig.
+
+| Frequenz | Verhalten X_C | Kondensator |
+|---|---|---|
+| f → 0 (Gleichstrom) | X_C → ∞ | Sperrt vollständig |
+| f steigt | X_C sinkt | Wird "durchlässiger" |
+| f → ∞ | X_C → 0 | Kurzschluss für HF |
 
 ## Phasenverschiebung
 
-:::plot
-var: t
-range: 0, 12.56
-xlabel: Zeit
-ylabel: Amplitude
-Spannung U: sin(t)
-Strom I (+90°): sin(t + 1.5708)
+Bei einem idealen Kondensator eilt der **Strom der Spannung um 90° vor**. Intuition: Der Kondensator muss zuerst geladen werden (Strom fliesst), bevor eine Spannung aufgebaut ist.
+
+phi = −90° (Spannung nacheilend gegenüber Strom)
+
+Merkhilfe: *ICE* (im ICE-Modell: bei C eilt I vor E)
+
+:::schematic
+/abbildungen/kondensator/kondensator_wechselstrom_zeiger.svg
 :::
 
-Der Strom eilt der Spannung um 90° voraus. Der Kondensator lädt sich auf, bevor die Spannung ihr Maximum erreicht.
+Das Zeigerdiagramm und die vollständige Behandlung im Wechselstromkreis folgen in → [[RC-Reihenschaltung]] und [[Wechselstromleistung]].
 
-Das ist wichtig bei Leistungsberechnungen: Ein reiner Kondensator verbraucht keine Wirkleistung. Energie wird nur zwischengespeichert.
+## Frequenzabhängigkeit
 
-## Beispiel
-
-100 nF Kondensator bei verschiedenen Frequenzen:
-
-| Frequenz | X_C |
-|---|---|
-| 100 Hz | 15 920 Ω |
-| 1 kHz | 1 592 Ω |
-| 10 kHz | 159 Ω |
-| 100 kHz | 15.9 Ω |
-| 1 MHz | 1.6 Ω |
-
-## Komplexe Impedanz
-
-Für Phasenberechnungen und RLC-Analyse wird der Kondensator als komplexe Impedanz geschrieben:
+:::plot
+var: f
+range: 100, 100000
+xscale: log
+colors: #0284c7
+xlabel: Frequenz (Hz)
+ylabel: X_C (Ohm)
+X_C (C=100nF):  1 / (2 * pi * f * 100e-9)
+:::
 
 :::monospace
-ω   = 2 * π * f
-Z_C = 1 / (j * ω * C) = -j / (ω * C)
+Beispiel: C = 100 nF
+bei f = 100 Hz:   X_C = 1 / (2*pi*100*100e-9) = 15.9 kOhm
+bei f = 1 kHz:    X_C = 1.59 kOhm
+bei f = 10 kHz:   X_C = 159 Ohm
+bei f = 100 kHz:  X_C = 15.9 Ohm
 :::
-Der negative imaginäre Anteil entspricht der 90°-Phasenverschiebung (Strom eilt vor). In Simulationen und Filterberechnungen wird ausschliesslich diese Schreibweise verwendet.
+
+## Praktische Bedeutung
+
+| Anwendung | Erklärung |
+|---|---|
+| Koppelkondensator | Sperrt Gleichspannungsoffset, lässt Wechselsignal durch |
+| Bypass-Kondensator | X_C niedrig bei HF → Versorgungsstörungen kurzschliessen |
+| RC-Tiefpass | X_C sinkt mit f → hohe Frequenzen "kurz geschlossen" |
+| Netzteilfilter | Glättungskondensator sperrt Gleichspannung, leitet Brummspannung zu GND |
+
+:::tip
+Der **Bypass-Kondensator** (auch: Entkopplungskondensator) direkt am VCC-Pin von ICs ist eine der wichtigsten Massnahmen in der Digitalelektronik. Er hält die Versorgungsspannung stabil, indem er hochfrequente Lastspitzen lokal liefert — ohne weite Leitungswege zum Netzteil.
+:::

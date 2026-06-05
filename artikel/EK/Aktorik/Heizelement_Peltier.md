@@ -61,7 +61,7 @@ Durch Umpolung wechseln Kalt- und Warmseite. Damit ist ein einziges Element zum 
 Q_K = alpha * T_K * I - 0.5 * I^2 * R_TEC - K * delta_T
 :::
 
-:::monospace
+:::formel
 Q_K     = Kühlleistung [W]
 alpha   = Seebeck-Koeffizient [V/K]
 T_K     = Temperatur Kaltseite [K]

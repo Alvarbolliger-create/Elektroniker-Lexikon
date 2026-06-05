@@ -35,7 +35,7 @@ Der Kondensator am Ausgang glättet die Spannung.
 
 ## Tastverhältnis
 
-:::monospace
+:::formel
 U_aus = U_ein * D       # D = Tastverhältnis (0 bis 1); gilt im Idealfall
 D = t_on / T            # Einschaltzeit durch Periodendauer
 :::
@@ -45,7 +45,7 @@ Die Regelschleife stellt D so ein, dass U_aus konstant bleibt, auch wenn U_ein o
 
 Verluste entstehen durch Schaltverluste im MOSFET, Flussspannung der Diode und Wicklungswiderstand der Spule. Trotzdem deutlich besser als lineare Regler.
 
-:::monospace
+:::formel
 eta = U_aus * I_aus / (U_ein * I_ein)   # typisch 85 bis 97 %
 :::
 ## Bauteilauswahl

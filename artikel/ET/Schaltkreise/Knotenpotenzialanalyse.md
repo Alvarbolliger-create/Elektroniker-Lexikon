@@ -1,87 +1,118 @@
 ---
 title: Knotenpotenzialanalyse
 kategorie: ET
-tags: [knotenpotenzial, knotenspannungsverfahren, netzwerkanalyse, kirchhoff, leitwert, KCL, SPICE, MNA, supernode, maschenstromverfahren]
-symbol: U_n
-einheit: V
+tags: [knotenpotenzial, netzwerkanalyse, gleichungssystem, knotenregel, leitwert]
+groessen: V|Knotenpotenzial|V; I|Strom|A; R|Widerstand|Ohm
+_status: OK
 ---
-
-Die Knotenpotenzialanalyse ist eine systematische Methode zur Berechnung komplexer Netzwerke mit vielen Quellen und Widerständen. Sie liefert alle Knotenspannungen durch Lösen eines Gleichungssystems.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
 - [[Kirchhoffsche Gesetze]]
 - [[Strom, Spannung, Widerstand]]
-- [[Reihenschaltung]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Wheatstone-Brücke]]
-- [[Stern-Dreieck-Transformation]]
+- [[Superposition (Mehrere Quellen)]]
+- [[Erzeuger-Ersatzschaltung (Thévenin)]]
 :::
 :::
 
 ---
 
+Wenn eine Schaltung mehrere Knoten hat die sich nicht schrittweise vereinfachen lassen, hilft die Knotenpotenzialanalyse: Statt Ströme sucht man die Spannungen (Potenziale) an den Knoten. Aus den Potenzialen folgen alle Ströme direkt mit I = U / R.
+
+## Wann ist die Methode sinnvoll?
+
+Bei gemischten Schaltungen die sich **nicht** in einfache Reihen- und Parallelgruppen zerlegen lassen — zum Beispiel Leiternetzwerke oder Brückenschaltungen. Statt viele Maschen mit KVL aufzuschreiben, braucht man nur **eine KCL-Gleichung pro unbekanntem Knoten**.
+
 ## Grundidee
 
-Anstatt Maschengleichungen zu schreiben (Maschenstromverfahren), werden Knotengleichungen aufgestellt. An jedem Knoten gilt: Summe aller zufliessenden Ströme = 0 (Kirchhoff 1. Gesetz).
+Jedem Knoten wird ein Potenzial V zugewiesen. Der Strom durch einen Widerstand zwischen zwei Knoten folgt aus dem Potenzialunterschied:
 
-Alle Ströme werden durch Leitwerte (G = 1/R) und Knotenspannungen ausgedrückt.
-
-## Vorgehen Schritt für Schritt
-
-**1. Bezugsknoten (Masse) festlegen**: Einen Knoten als Referenz wählen (Potential = 0 V). Meist der Knoten mit den meisten Verbindungen oder GND.
-
-**2. Unbekannte Knotenspannungen benennen**: Alle anderen Knoten erhalten Variablen U1, U2, U3, ...
-
-**3. KCL an jedem Knoten**: Summe aller Ströme = 0. Strom von Knoten 1 zu Knoten 2 ist (U1 - U2) × G12.
-
-**4. Gleichungssystem lösen**: N-1 Gleichungen für N-1 unbekannte Knotenspannungen (der Bezugsknoten braucht keine Gleichung).
-
-## Beispiel: Drei Knoten, zwei Quellen
-
-Netzwerk: Knoten 1 (U1), Knoten 2 (U2), Bezugsknoten (0 V).
-- Spannungsquelle U_Q1 von Bezug zu Knoten 1 → U1 = U_Q1 (bekannt)
-- Widerstand R12 zwischen Knoten 1 und 2
-- Widerstand R2 von Knoten 2 zu Bezug
-- Stromquelle I_Q von Bezug zu Knoten 2
-
-KCL an Knoten 2:
 :::formel
-(U1 - U2) × G12 + I_Q - U2 × G2 = 0
-U2 × (G12 + G2) = U1 × G12 + I_Q
-U2 = (U1 × G12 + I_Q) / (G12 + G2)
+I = (V_von - V_nach) / R    # positiv wenn Strom von V_von nach V_nach fliesst
 :::
-## Matrix-Form (für grössere Netze)
 
-Bei n unbekannten Knoten entsteht ein n×n-Gleichungssystem in Matrix-Form:
+Die Knotenregel (KCL) sagt: Die Summe aller **abfliessenden** Ströme an einem Knoten ist null.
+
+## Vorgehen
+
+1. **Referenzknoten wählen** — meist GND (Minuspol der Quelle) → V_GND = 0 V
+2. **Bekannte Potenziale eintragen** — Pluspol einer Spannungsquelle = U_q
+3. **Unbekannte Knoten benennen** — alle anderen Knoten: V_A, V_B ...
+4. **KCL aufstellen** — an jedem unbekannten Knoten alle abfliessenden Ströme als (V_von − V_nach) / R addieren und gleich null setzen
+5. **Gleichungssystem lösen** — eine Gleichung pro unbekanntem Knoten
+
+## Beispiel: ein unbekannter Knoten
+
+Schaltung: U_q = 12 V. R1 = 200 Ω von Plus nach Knoten A. R2 = 300 Ω von A nach GND. R3 = 600 Ω von A nach GND.
+
+Bekannte Potenziale: V_+ = 12 V, V_GND = 0 V. Unbekannt: V_A.
+
+KCL an Knoten A — alle drei Ströme fliessen von A weg:
+
+:::formel
+(V_A - 12) / 200 + V_A / 300 + V_A / 600 = 0
+:::
+
+Mit 600 (kleinstes gemeinsames Vielfaches) multiplizieren:
 
 :::monospace
-[G] × [U] = [I]
+3*(V_A - 12) + 2*V_A + V_A = 0
+3*V_A - 36 + 3*V_A = 0
+6*V_A = 36
+V_A = 6 V
 :::
-- [G]: Leitwertmatrix (Diagonalelemente: Summe aller Leitwerte am Knoten; Off-Diagonal: negativer Leitwert zwischen den Knoten)
-- [U]: Vektor der unbekannten Knotenspannungen
-- [I]: Vektor der eingespeisten Ströme (von Quellen)
 
-Lösung durch Gauss-Elimination oder Cramersche Regel.
+Aus V_A alle Ströme berechnen:
 
-## Umgang mit Spannungsquellen
+:::monospace
+I_R1 = (12 - 6) / 200 = 30 mA  (fliesst von Plus nach A)
+I_R2 =       6 / 300  = 20 mA
+I_R3 =       6 / 600  = 10 mA
+Probe: I_R2 + I_R3 = 30 mA = I_R1 ✓
+:::
 
-**Spannungsquelle zwischen Knoten und Bezug**: Knotenspannung direkt bekannt, Knoten aus den Unbekannten streichen.
+## Beispiel: zwei unbekannte Knoten
 
-**Spannungsquelle zwischen zwei unbekannten Knoten**: Supernode-Methode. Die beiden Knoten werden als ein Superknoten behandelt, die KCL wird um ihn herum aufgestellt.
+Schaltung: U_q = 12 V, alle Widerstände 100 Ω. R1 von Plus nach Knoten A, R2 von A nach GND, R3 von A nach Knoten B, R4 von B nach GND.
 
-## Vergleich: Knotenpotenzial vs. Maschenstrom
+Unbekannte: V_A und V_B.
 
-| Methode | Gleichungen | Gut für |
-|---|---|---|
-| Knotenpotenzial | N-1 (N = Knoten) | Netze mit vielen Parallelzweigen, Stromquellen |
-| Maschenstrom | M (M = unabhängige Maschen) | Netze mit vielen Reihenzweigen, Spannungsquellen |
+KCL an Knoten A:
 
-Beide liefern dasselbe Ergebnis. Die Wahl hängt davon ab, welches System weniger Gleichungen ergibt.
+:::formel
+(V_A - 12) / 100 + V_A / 100 + (V_A - V_B) / 100 = 0
+:::
+
+KCL an Knoten B:
+
+:::formel
+(V_B - V_A) / 100 + V_B / 100 = 0
+:::
+
+Gleichungen vereinfachen (beide ×100):
+
+:::monospace
+Gleichung A:  (V_A - 12) + V_A + (V_A - V_B) = 0  →  3*V_A - V_B = 12
+Gleichung B:  (V_B - V_A) + V_B = 0               →  2*V_B = V_A
+
+Einsetzen (V_A = 2*V_B in Gleichung A):
+3*(2*V_B) - V_B = 12  →  5*V_B = 12  →  V_B = 2.4 V
+V_A = 2 * 2.4 = 4.8 V
+
+Ströme:
+I_R1 = (12 - 4.8) / 100  = 72 mA
+I_R2 =        4.8 / 100  = 48 mA
+I_R3 = (4.8 - 2.4) / 100 = 24 mA
+I_R4 =        2.4 / 100  = 24 mA
+
+Probe Knoten A: 72 = 48 + 24 ✓
+Probe Knoten B: 24 = 24     ✓
+:::
 
 :::tip
-Für computergestützte Schaltungssimulation (SPICE) wird intern die Knotenpotenzialanalyse (Modified Nodal Analysis, MNA) verwendet. Das ist der Grund, warum SPICE mit beliebig grossen Netzen umgehen kann.
+Das CAS löst das Gleichungssystem automatisch mit `solve()`. Die eigentliche Arbeit ist das korrekte Aufstellen der KCL-Gleichungen — eine Gleichung pro unbekanntem Knoten.
 :::

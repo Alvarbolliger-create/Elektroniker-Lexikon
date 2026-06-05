@@ -1,65 +1,81 @@
 ---
 title: Transformator Typen
 kategorie: ET
-tags: [transformator, ringkern, EI-kern, spartransformator, HF-transformator, netztransformator, ferrit, balun, galvanische trennung, variac, übertrager, strommesswandler]
-symbol: —
-einheit: —
+tags: [transformator, typen, netztransformator, trenntransformator, spar, ringkern, schaltnetzteil, messwandler]
+_status: PORT  # ET_alt/Transformator/Transformator_Typen.md
 ---
-
-Transformatoren gibt es in vielen Bauformen für verschiedene Frequenzen, Leistungen und Anwendungen. Die Kernform bestimmt die Eigenschaften.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
 - [[Transformator Aufbau]]
-- [[Übersetzungsverhältnis]]
-:::
-:::vbox
-**Verwandte Artikel**
-- [[Wirkungsgrad & Verluste]]
-- [[Buck (Step-down)]]
-:::
-:::vbox
-**Führt weiter zu**
-- [[Schaltnetzteile]]
-- [[EMV-Grundlagen]]
 :::
 :::
 
 ---
 
-## EI-Kern (Netztransformatoren)
+Transformatoren gibt es in vielen Ausführungen — jede für bestimmte Anwendungen optimiert. Die wichtigsten Typen für das EFZ sind Netz-, Trenn-, Spar- und Messwandler.
 
-Gestapelte Bleche in E- und I-Form. Der klassische 50-Hz-Netztransformator. Günstig, robust, bewährt.
+:::schematic
+/abbildungen/transformator/transformator_typen_uebersicht.svg
+:::
 
-Nachteil: Schwer, gross, brummt bei Sättigung. Streufeld relativ hoch.
+## Netztransformator
 
-## Ringkern
+Wandelt die Netzspannung (230 V / 400 V, 50 Hz) in die benötigte Betriebsspannung um. Standardbauweise mit Trafoblech-Kern (E/I oder M-Kern). Wirkungsgrad 95–99 %.
 
-Toroidaler Kern aus gewickeltem Band. Geringes Streufeld (gut für Audiogeräte). Hoher Wirkungsgrad. Teurer als EI, schwieriger zu wickeln.
+**Typische Anwendungen:** Netzteile, Klingeltrafo (230 V → 8–12 V), Schweisstrafo.
 
-Im Audiobereich bevorzugt wegen niedrigem 50-Hz-Brummen in der Nähe von empfindlichen Schaltungen.
+:::schematic
+/abbildungen/transformator/netztransformator_kern.svg
+:::
 
-## Spartransformator
+## Trenntransformator
 
-Primär- und Sekundärwicklung sind elektrisch verbunden (nicht galvanisch getrennt). Günstiger bei kleinen Übersetzungsverhältnissen.
+Übersetzungsverhältnis 1:1 — keine Spannungsänderung, aber galvanische Trennung zwischen Primär- und Sekundärseite. Erhöhte Sicherheit, da kein Direktkontakt mit dem Netz möglich ist.
 
-Ein Variac ist ein regelbarer Spartransformator. Kein Schutz gegen Körperschluss: der Ausgang steht nicht galvanisch getrennt.
+**Anwendungen:** Medizinische Geräte, Werkstatt-Schutztrafo, Prüfstände, EMV-Isolation.
 
-## HF-Transformatoren (Schaltnetzteile)
+:::schematic
+/abbildungen/transformator/trenntransformator_schaltplan.svg
+:::
 
-Ferrit- oder Eisenpulverkerne für Frequenzen von kHz bis MHz. Viel kleiner als 50-Hz-Transformatoren bei gleicher Leistung. Das ist der Grund warum Schaltnetzteile kompakt sind.
+:::tip
+Im Betrieb an einem Trenntransformator ist Berühren eines Leiters weniger gefährlich — der Körper bildet keinen Stromkreis zur Erde, weil die Sekundärseite nicht geerdet ist. Trotzdem gilt: Beide Leiter gleichzeitig anfassen → Stromschlag!
+:::
 
-Kernmaterialien: Ferrit (MnZn für <1 MHz, NiZn für >1 MHz), Pulverkerne (Eisenpulver, MPP, Kool Mu) für glatte Drosselkennlinien.
+## Spartransformator (Autotransformator)
 
-## Übertrager
+Primär- und Sekundärwicklung sind nicht getrennt, sondern teilen sich eine gemeinsame Wicklung. Nur der "Differenzstrom" (zwischen Übersetzungsverhältnis und 1:1) fliesst durch den nichtteilbaren Wicklungsabschnitt.
 
-Sehr breitbandige Transformatoren für Audio oder HF. Kein DC-Anteil. Für Impedanzanpassung und Signalkopplung.
+**Vorteil:** Kleiner, leichter, günstiger als Trenntransformator bei ähnlicher Leistung.
 
-Baluns (Balanced/Unbalanced) sind Übertrager zwischen symmetrischen und unsymmetrischen Leitungen. In der Antennentechnik und bei RS485/Ethernet.
+**Nachteil:** Keine galvanische Trennung — bei Kurzschluss der Primärwicklung erscheint die volle Netzspannung auf der Sekundärseite.
 
-## Strommesswandler
+**Anwendungen:** Stelltransformator (regelbar), Spannungsanpassung, Motoranlasser.
 
-Toroidkern mit einer Primärwindung (der zu messende Leiter) und vielen Sekundärwindungen. Misst den Strom über die transformierte Spannung. Galvanisch getrennt.
+:::schematic
+/abbildungen/transformator/spartransformator_schaltplan.svg
+:::
 
-Prinzip der Strommesszange.
+## Messwandler
+
+**Stromwandler (CT):** Übersetzt grosse Ströme (kA) auf messbare Werte (5 A oder 1 A). Der Primär-"Leiter" ist oft der zu messende Hauptleiter selbst (eine Windung). Sekundärseite darf **nie offen** sein — ohne Last entstehen gefährlich hohe Spannungen.
+
+**Spannungswandler (VT):** Übersetzt hohe Spannungen (kV) auf sichere Messpegel (100 V). Ermöglicht Messung von Mittel- und Hochspannungsnetzen mit normalen Messgeräten.
+
+:::warning
+Stromwandler niemals mit offenem Sekundärkreis betreiben! Die gesamte Magnetisierungsenergie wird dann in eine hohe Impulsspannung umgesetzt — Lebensgefahr und Zerstörung des Wandlers.
+:::
+
+## Ringkerntransformator
+
+Wicklungen auf einem ringförmigen Kern. Sehr kleiner Streufluss, hervorragende EMV-Eigenschaften, leiser Betrieb (kein Brummen). Teurer in der Herstellung, aber besonders für Audio- und Messgeräte beliebt.
+
+## Hochfrequenztransformator (Schaltnetzteil)
+
+In Schaltnetzteilen wird der Netzstrom zunächst gleichgerichtet, dann mit typisch 50–500 kHz geschaltet. Bei diesen hohen Frequenzen kann ein sehr kleiner Ferritkern dieselbe Leistung übertragen wie ein grosser Eisenkern bei 50 Hz.
+
+**Vorteil:** Sehr kompakt und leicht (Smartphone-Ladegerät statt grossem Trafo).
+
+**Nachteil:** Komplexere Schaltung, potenzielle EMV-Probleme durch die schnellen Schaltvorgänge.

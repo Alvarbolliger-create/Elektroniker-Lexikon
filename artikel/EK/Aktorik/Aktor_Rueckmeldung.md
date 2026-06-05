@@ -57,7 +57,7 @@ Ein [[Schrittmotor]] ohne Encoder ist open loop: Er bewegt sich um die befohlene
 
 ## Regelschleife
 
-:::monospace
+:::formel
 Soll-Position
     ↓
   [Vergleich] ← Ist-Position (Encoder)
@@ -81,7 +81,7 @@ Typische Abtastraten: 10 ms für Positionsregelung, 1 ms für Drehzahlregelung, 
 
 **Absolut-Encoder** kodiert jede Position als eindeutigen Binärwert (z.B. Gray-Code). Nach Stromausfall ist die Position sofort bekannt, kein Homing nötig.
 
-:::monospace
+:::formel
 Inkremental: A-Kanal, B-Kanal (Richtungserkennung), Z-Kanal (Nullimpuls)
 Absolut:     SSI, BiSS, EnDat oder parallele Binärausgabe
 :::

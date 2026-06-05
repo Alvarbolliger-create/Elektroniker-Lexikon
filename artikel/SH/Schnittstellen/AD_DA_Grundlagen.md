@@ -41,7 +41,7 @@ Zu langsame Abtastung erzeugt Aliasing: das Signal erscheint mit falscher Freque
 
 Die Auflösung in Bit bestimmt wie fein das Signal quantisiert wird:
 
-:::monospace
+:::formel
 Anzahl Stufen = 2^n     # n = Anzahl Bits
 :::
 8-Bit: 256 Stufen. 12-Bit: 4096 Stufen. 16-Bit: 65536 Stufen.
@@ -52,15 +52,15 @@ Der Quantisierungsfehler beträgt maximal ±0.5 LSB (Least Significant Bit).
 
 Der ADC misst relativ zur Referenzspannung. Die Spannung pro Bit (1 LSB) berechnet sich:
 
-:::monospace
+:::formel
 U_LSB = U_ref / 2^n     # 1 LSB Schrittweite
 :::
 **Beispiel 1**: 12-Bit-ADC, 3.3 V Referenz:
-:::monospace
+:::formel
 U_LSB = 3.3 V / 4096 = 0.81 mV
 :::
 **Beispiel 2**: 10-Bit-ADC, 5 V Referenz:
-:::monospace
+:::formel
 U_LSB = 5 V / 1024 ≈ 4.9 mV ≈ 5 mV pro Schritt
 :::
 Dieses Rechenbeispiel kommt häufig in Prüfungen vor: Ein 10-Bit-ADC mit 5 V Referenz hat einen LSB-Schritt von knapp 5 mV.

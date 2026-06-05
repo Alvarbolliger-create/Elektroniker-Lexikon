@@ -1,64 +1,85 @@
 ---
 title: LC-Filter
 kategorie: ET
-tags: [filter, lc, tiefpass, hochpass, resonanz, güte, bandpass, bandsperre, HF, schaltnetzteil, EMV]
-symbol: —
-einheit: —
+tags: [lc-filter, tiefpass, hochpass, bandpass, saugkreis, sperrkreis, filterordnung]
+groessen: f_r|Resonanzfrequenz|Hz; L|Induktivität|H; C|Kapazität|F; omega_0|Resonanzkreisfrequenz|rad/s
+_status: PORT  # ET_alt/Wechselstrom/LC_Filter.md
 ---
-
-LC-Filter verwenden Spule und Kondensator ohne ohmschen Verlust. Sie erreichen steilere Flanken als RC-Filter und werden für HF-Anwendungen und Schaltnetzteile eingesetzt.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Impedanz]]
-- [[Resonanz]]
-- [[RC-Filter]]
-:::
-:::vbox
-**Verwandte Artikel**
-- [[RLC-Schaltungen]]
-- [[Resonanz]]
+- [[Resonanz & Schwingkreise]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[Aktive Filter]]
 - [[Quarz-Oszillator]]
 :::
 :::
 
 ---
 
-## Prinzip
+LC-Filter nutzen den Resonanzeffekt von Spule und Kondensator, um bestimmte Frequenzen durchzulassen oder zu sperren. Sie erreichen steilere Filterkurven als einfache RC-Filter und finden Anwendung in HF-Technik, Netzfiltern und Audioverstärkern.
 
-Ein idealer LC-Filter hat keine Verluste. In der Praxis begrenzt der Wicklungswiderstand der Spule (DCR) die erreichbare Güte.
+## Tiefpass (L + C)
 
-Die Grenzfrequenz ergibt sich aus der Resonanzbedingung X_L = X_C:
+Ein Tiefpass lässt tiefe Frequenzen durch und sperrt hohe. Die einfachste LC-Tiefpassstruktur: L in Reihe, C parallel zur Last.
+
+Bei tiefen Frequenzen: X_L klein → Signaldurchgang; X_C gross → kein Kurzschluss.
+Bei hohen Frequenzen: X_L gross → Signal wird geblockt; X_C klein → Kurzschluss zur Masse.
+
+**Grenzfrequenz** (Resonanzfrequenz des LC-Glieds):
 
 :::formel
-f_g = 1 / (2 * pi * sqrt(L * C))
+f_r = 1 / (2 * pi * sqrt(L * C))
 :::
-Unterhalb f_g: Spule niederohmig, Kondensator hochohmig → Durchlass.
-Oberhalb f_g: Spule hochohmig, Kondensator niederohmig → Sperr.
 
-## Vergleich RC vs. LC
+Oberhalb f_r fällt die Ausgangsspannung mit −40 dB/Dekade (2. Ordnung) — steiler als RC (−20 dB/Dekade).
 
-| Eigenschaft | RC-Filter | LC-Filter |
+## Hochpass (C + L)
+
+Spiegelbildlich: C in Reihe, L parallel zur Last. Tiefe Frequenzen werden geblockt, hohe passieren.
+
+Gleiche Resonanzfrequenzformel. Unterhalb f_r: −40 dB/Dekade.
+
+## Bandpassfilter
+
+Kombination: Serienresonanzkreis (LC-Reihe) als Bandpass, oder Parallelresonanzkreis als Bandsperre.
+
+**Serienresonanzkreis als Bandpass**: Bei f = f_r ist Z minimal → maximaler Strom zur Last.
+
+**Parallelresonanzkreis als Sperrkreis (Saugkreis)**: Bei f = f_r ist Z maximal → minimaler Strom zur Last. Dieser "Saugkreis" wird in Netzfiltern verwendet, um Oberschwingungen (z. B. 150 Hz, 250 Hz) zu unterdrücken.
+
+## Frequenzgang
+
+Die Amplitude im Verhältnis zur Eingangsfrequenz (normiert auf die Resonanzfrequenz f_r = 1):
+
+:::plot
+var: x
+range: 0.1, 10
+xscale: log
+colors: #0284c7, #16a34a, #9333ea
+xlabel: Frequenz (normiert, f_r = 1)
+ylabel: Amplitude (normiert)
+LC-TP (Q=0.7, Butterworth):  1 / sqrt((1 - x^2)^2 + (x/0.7)^2)
+LC-TP (Q=2, Resonanzüberhöhung): 1 / sqrt((1 - x^2)^2 + (x/2)^2)
+RC-TP 1. Ordnung (Vergleich): 1 / sqrt(1 + x^2)
+:::
+
+Unterhalb f_r: alle Filter auf voller Amplitude. Ab f_r fällt LC mit −40 dB/Dekade (2. Ordnung), RC nur mit −20 dB/Dekade. Bei Q > 0.707 entsteht eine Resonanzüberhöhung direkt bei f_r.
+
+## Filterordnung
+
+Jedes LC-Glied erhöht die Filterordnung um 2 (weil L und C zusammen wirken):
+
+| Ordnung | Flankensteilheit | Bauteile |
 |---|---|---|
-| Flankensteilheit | −20 dB/Dekade (1. Ord.) | −40 dB/Dekade (2. Ord.) |
-| Verluste | R immer vorhanden | Verlustarm möglich |
-| Resonanz | keine | ja (Überschwingen möglich) |
-| Frequenzbereich | DC bis HF | HF bevorzugt |
-| Kosten | günstig | teurer (Spule) |
+| 1. Ordnung | −20 dB/Dekade | 1× R oder L oder C |
+| 2. Ordnung | −40 dB/Dekade | 1× L + 1× C |
+| 4. Ordnung | −80 dB/Dekade | 2× L + 2× C |
 
-## Anwendungen
-
-**Schaltnetzteil-Ausgangsfilter:** L und C glätten die PWM-Ausgangsspannung. Die Grenzfrequenz liegt deutlich unter der Schaltfrequenz.
-
-**HF-Filter:** In Empfängern und Sendern zur Selektion von Frequenzbändern.
-
-**EMV-Filter:** Netzfilter kombinieren Common Mode Choke (L) mit Y-Kondensatoren (C) zur Gleichtaktunterdrückung. Siehe [[EMV-Grundlagen]].
+**Anwendungsbeispiel**: Netzfilter in Schaltnetzteilen verwenden LC-Filter hoher Ordnung, um die hochfrequenten Schaltstörungen vom Netz fernzuhalten (EMV-Norm).
 
 :::tip
-LC-Filter 2. Ordnung können bei schlechter Dämpfung (hohe Güte) überschwingen. Für unkritische Anwendungen genügt ein RC-Filter. LC lohnt sich, wenn niedrige Verluste oder steile Flanken gefordert sind.
+LC-Filter werden gegenüber RC-Filtern bevorzugt, wenn kein Leistungsverlust toleriert wird — eine Induktivität erzeugt im Idealfall keine Wärmeverluste (nur Blindwiderstand). In der Praxis hat L aber immer einen Wicklungswiderstand, der kleine Verluste verursacht.
 :::

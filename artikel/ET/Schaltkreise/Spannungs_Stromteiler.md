@@ -1,76 +1,96 @@
 ---
 title: Spannungs- & Stromteiler
 kategorie: ET
-tags: [spannungsteiler, stromteiler, widerstand, belasteter spannungsteiler, unbelastet, reihenschaltung, parallelschaltung, pegelwandler]
-symbol: —
-einheit: —
+tags: [spannungsteiler, stromteiler, belastet, unbelastet, pegelanpassung]
+groessen: U|Spannung|V; I|Strom|A; R|Widerstand|Ohm
+_status: PORT  # ET_alt/Schaltkreise/Spannungs_Stromteiler.md
 ---
-
-Zwei grundlegende Schaltungen: Der Spannungsteiler gibt eine Teilspannung aus. Der Stromteiler verteilt einen Strom auf zwei Zweige.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Kirchhoffsche Gesetze]]
-:::
-:::vbox
-**Verwandte Artikel**
 - [[Reihenschaltung]]
 - [[Parallelschaltung]]
 :::
 :::vbox
+**Verwandte Artikel**
+- [[Erzeuger-Ersatzschaltung (Thévenin)]]
+:::
+:::vbox
 **Führt weiter zu**
-- [[Wheatstone-Brücke]]
+- [[Leistungsanpassung]]
+- [[Brückenschaltung (Wheatstone)]]
 :::
 :::
 
 ---
 
-## Spannungsteiler
+Spannungs- und Stromteiler sind die einfachsten Schaltungen zur Signalanpassung. Sie stecken in fast jedem Gerät — als Pegel-Anpassung, Referenzspannung oder Sensorauswertung.
 
-R1 und R2 in Reihe an U_ein. Am Verbindungspunkt liegt U_aus.
+## Unbelasteter Spannungsteiler
+
+:::schematic
+/schaltplaene/schaltkreise/spannungsteiler.svg
+:::
+
+Zwei Widerstände R1 und R2 in Reihe teilen die Eingangsspannung U_e im Verhältnis ihrer Widerstandswerte. Der Ausgang U_a wird zwischen R2 und GND abgegriffen.
 
 :::formel
-U_aus = U_ein * R2 / (R1 + R2)
+U_a = U_e * R2 / (R1 + R2)
 :::
-Die Spannung teilt sich proportional zu den Widerständen auf. Ein Potentiometer ist ein einstellbarer Spannungsteiler.
 
-**Typische Anwendungen:** Pegelanpassung, Sensor-Vorspannung, Referenzspannung für ADC-Eingänge.
+"Unbelastet" bedeutet: kein Strom fliesst aus dem Ausgang heraus — der Abnehmer hat unendlich hohen Eingangswiderstand.
 
-### Belasteter Teiler
+:::monospace
+Beispiel: U_e = 10 V, R1 = 30 kOhm, R2 = 10 kOhm
+U_a = 10 * 10 / (30 + 10) = 2.5 V
+:::
 
-Sobald eine Last R_L parallel zu R2 liegt, sinkt U_aus. Die Parallelschaltung aus R2 und R_L ersetzt R2 in der Formel:
+## Belasteter Spannungsteiler
+
+Wird ein Lastwiderstand R_L an den Ausgang angeschlossen, liegt er **parallel** zu R2. Der effektive Widerstand R2 || R_L ist kleiner als R2 — die Ausgangsspannung sinkt.
 
 :::formel
-U_aus = U_ein * (R2 || R_L) / (R1 + (R2 || R_L))
-R2 || R_L = (R2 * R_L) / (R2 + R_L)
+U_a = U_e * (R2 * R_L / (R2 + R_L)) / (R1 + R2 * R_L / (R2 + R_L))
 :::
-Faustregel: Der Teiler-Ruhestrom sollte mindestens zehnmal grösser sein als der Laststrom.
 
-| R1 | R2 | U_aus bei 12 V |
-|---|---|---|
-| 1.4 kΩ | 1 kΩ | 5.0 V |
-| 14 kΩ | 10 kΩ | 5.0 V |
+**Faustregel**: Damit der Belastungseffekt klein bleibt, sollte R_L mindestens **10× grösser** sein als R2. In der Praxis werden Spannungsteiler deshalb so dimensioniert, dass der Ruhestrom durch R1/R2 deutlich grösser ist als der Laststrom.
 
-Beide Teiler geben dieselbe Spannung, aber der erste zieht zehnmal mehr Ruhestrom und ist damit unempfindlicher gegenüber einer Last.
+:::monospace
+Belastungseffekt: R1 = 30 kOhm, R2 = 10 kOhm, R_L = 10 kOhm
+R2 || R_L = 5 kOhm
+U_a = 10 * 5 / (30 + 5) = 1.43 V  (statt 2.5 V)
+:::
 
----
+:::warning
+Operationsverstärker, Mikrocontroller-Eingänge und andere hochohmige Abnehmer belasten den Teiler kaum. Niederohmige Lasten (Relais, direkte Verdrahtung) können die Ausgangsspannung stark verfälschen.
+:::
 
 ## Stromteiler
 
-R1 und R2 parallel an einer Stromquelle I_ges. Der Strom verteilt sich umgekehrt proportional zu den Widerständen.
+:::schematic
+/schaltplaene/schaltkreise/stromteiler.svg
+:::
+
+Beim Stromteiler liegen R1 und R2 **parallel** an einer gemeinsamen Spannung U. Der Gesamtstrom I_ges teilt sich im umgekehrten Verhältnis der Widerstände auf.
 
 :::formel
-I_1 = I_ges * R2 / (R1 + R2)
-I_2 = I_ges * R1 / (R1 + R2)
+I1 = I_ges * R2 / (R1 + R2)
 :::
-**Typische Anwendungen:** Strommessung mit Shunt-Widerstand, Parallelschalten von Bauteilen.
 
-### Beispiel
+:::formel
+I2 = I_ges * R1 / (R1 + R2)
+:::
 
-100 mA, R1 = 100 Ω, R2 = 300 Ω:
+Merkhilfe: Der Strom im Zweig R1 bestimmt sich mit R2 im Zähler — weil R2 den anderen Pfad beschreibt. Der kleinere Widerstand zieht den grösseren Strom.
 
-| Grösse | Berechnung | Ergebnis |
-|---|---|---|
-| I_1 | 100 mA × 300 / (100 + 300) | 75 mA |
-| I_2 | 100 mA × 100 / (100 + 300) | 25 mA |
+:::monospace
+Beispiel: I_ges = 100 mA, R1 = 100 Ohm, R2 = 400 Ohm
+I1 = 100 * 400 / (100 + 400) = 80 mA  (kleinerer R, grösserer I)
+I2 = 100 * 100 / (100 + 400) = 20 mA
+Probe: 80 + 20 = 100 mA ✓
+:::
+
+:::tip
+Stromteiler werden z. B. zur Messbereichserweiterung von Amperemetern verwendet: Ein kleiner Shunt-Widerstand parallel zum Messwerk leitet den Hauptstrom um — das Messwerk misst nur noch einen definierten Bruchteil.
+:::

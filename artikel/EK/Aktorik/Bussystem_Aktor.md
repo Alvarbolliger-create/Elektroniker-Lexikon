@@ -30,7 +30,7 @@ Ein Bussystem-Aktor empfängt Steuerbefehle über ein Netzwerk (z.B. KNX, CAN, M
 
 In einfachen Schaltungen verbindet eine Steuerleitung direkt Steuerung und Aktor (Punkt-zu-Punkt). Bei vielen Aktoren wächst das Kabelnetz schnell auf ein unhandliches Mass. Ein Bussystem löst das: Alle Teilnehmer hängen an einer gemeinsamen Leitung und kommunizieren über Adressen.
 
-:::monospace
+:::formel
 Bus-Leitung
   ├── Sensor 1   (Adresse 0x01)
   ├── Sensor 2   (Adresse 0x02)
@@ -74,7 +74,7 @@ Inbetriebnahme über ETS-Software (Engineering Tool Software). Physikalische Adr
 
 Modbus ist ein einfaches Master-Slave-Protokoll. Der Master sendet Befehle, Aktoren (Slaves) führen sie aus und antworten. Modbus RTU läuft über RS485 (bis 1,2 km, bis 32 Teilnehmer ohne Repeater), Modbus TCP über Ethernet.
 
-:::monospace
+:::formel
 Befehl: Write Single Coil
 Adresse: 0x0010  → Aktor-Register "Ausgang 1"
 Wert:    0xFF00  → EIN

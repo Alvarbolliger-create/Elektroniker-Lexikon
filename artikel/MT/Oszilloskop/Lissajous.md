@@ -45,7 +45,7 @@ Die entstehende Figur ist eine Ellipse. Aus der Ellipse kann der Phasenwinkel φ
 2. Schnittpunkt der Ellipse mit der Y-Achse ablesen: Wert A
 3. Maximale Y-Auslenkung ablesen: Wert B
 
-:::monospace
+:::formel
 sin(φ) = A / B    →    φ = arcsin(A / B)
 :::
 **Sonderfälle**:

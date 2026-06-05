@@ -28,7 +28,7 @@ PWM (Pulsweitenmodulation) ist die häufigste Methode um analoge Grössen mit di
 
 Ein digitaler Ausgang schaltet periodisch zwischen HIGH und LOW. Das Verhältnis der HIGH-Zeit zur Gesamtperiode ist das Tastverhältnis (Duty Cycle):
 
-:::monospace
+:::formel
 D = t_ein / T     # 0 bis 1 (oder 0 bis 100 %)
 :::
 Nach einem Tiefpass ergibt sich am Ausgang eine Gleichspannung proportional zum Duty Cycle.

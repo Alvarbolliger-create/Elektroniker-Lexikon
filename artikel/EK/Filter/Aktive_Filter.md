@@ -53,7 +53,7 @@ Mehrere Filterstufen 2. Ordnung in Reihe schalten. 4. Ordnung = zwei Stufen = 80
 
 ## Grenzfrequenz einstellen
 
-:::monospace
+:::formel
 f_g = 1 / (2 * pi * R * C)     # für Sallen-Key mit R1=R2=R und C1=C2=C
 :::
 ## OPV-Bandbreite als Grenze
@@ -62,7 +62,7 @@ Ein realer OPV hat ein Gain-Bandwidth-Product (GBW). Je höher die gewünschte V
 
 Typische OPVs (LM358, TL071) verstärken nur bis ca. **1–10 MHz** korrekt. Darüber sinkt die Verstärkung und die Phase dreht — der Filter verhält sich nicht mehr wie berechnet.
 
-:::monospace
+:::formel
 f_max ≈ GBW / V_u     # nutzbare obere Frequenz; GBW aus Datenblatt
 :::
 Für Filterfrequenzen über 1 MHz: schnelle OPVs (z.B. OPA657, LM7171) oder andere Schaltungstopologien verwenden.

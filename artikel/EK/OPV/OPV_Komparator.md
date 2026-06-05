@@ -8,7 +8,7 @@ einheit: —
 
 Ein Komparator vergleicht zwei Spannungen und gibt digital aus welche grösser ist. Der Ausgang ist immer in einem von zwei Zuständen: HIGH oder LOW.
 
-:::monospace
+:::formel
 U_a = U_a_max   für U_1 > U_2
 U_a = U_a_min   für U_1 < U_2
 :::

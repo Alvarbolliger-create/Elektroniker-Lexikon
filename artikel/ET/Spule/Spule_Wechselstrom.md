@@ -1,79 +1,87 @@
 ---
 title: Spule im Wechselstrom
 kategorie: ET
-tags: [spule, wechselstrom, impedanz, induktiver widerstand, phasenverschiebung, reaktanz, X_L, frequenzabhängigkeit, blindwiderstand]
-symbol: X_L
-einheit: Ω
+tags: [spule, wechselstrom, induktiver widerstand, phasenverschiebung, x_l, blindwiderstand, hochpass]
+groessen: X_L|induktive Reaktanz|Ohm; f|Frequenz|Hz; L|Induktivität|H; omega|Kreisfrequenz|rad/s; phi|Phasenwinkel|°
+_status: PORT  # ET_alt/Spule/Spule_Wechselstrom.md
 ---
-
-Im Wechselstromkreis wirkt eine Spule wie ein frequenzabhängiger Widerstand. Je höher die Frequenz, desto höher der Widerstand.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Selbstinduktion]]
-- [[Sinuswellen]]
+- [[Selbstinduktion & Induzierte Spannung]]
+- [[Sinuswellen & Effektivwert]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Impedanz]]
 - [[Kondensator im Wechselstrom]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[RLC-Schaltungen]]
-- [[Transformator]]
+- [[RL-Reihenschaltung]]
+- [[RL-Parallelschaltung]]
 :::
 :::
 
 ---
 
-## Induktiver Widerstand
+Beim Wechselstrom widersteht die Spule dem Stromfluss mit einem frequenzabhängigen Blindwiderstand. Tiefe Frequenzen lässt sie durch — hohe blockiert sie. Das ist genau umgekehrt wie beim Kondensator.
 
-:::monospace
-X_L = 2 * pi * f * L     # gilt für reine Sinusspannung
+## Induktiver Blindwiderstand X_L
+
+Die Spule erzeugt eine Gegenspannung proportional zur Stromänderungsgeschwindigkeit. Je schneller der Strom wechselt (hohe Frequenz) und je grösser L, desto stärker die Gegenwirkung:
+
+:::formel
+X_L = omega * L
 :::
-| Grösse | Symbol | Einheit |
-|---|---|---|
-| Induktiver Widerstand | X_L | Ω |
-| Frequenz | f | Hz |
-| Induktivität | L | H |
 
-Bei 0 Hz (Gleichstrom) ist X_L null: die Spule ist ein normaler Widerstand. Bei hohen Frequenzen steigt X_L stark an.
+:::formel
+X_L = 2 * pi * f * L
+:::
+
+**Einheit:** Ohm (Ω) — frequenzabhängig, steigt linear mit f.
+
+| Frequenz | Verhalten X_L | Spule |
+|---|---|---|
+| f = 0 (Gleichstrom) | X_L = 0 | Reiner Draht |
+| f steigt | X_L steigt | Wird "sperriger" |
+| f → ∞ | X_L → ∞ | Offener Schalter für HF |
 
 ## Phasenverschiebung
 
-:::plot
-var: t
-range: 0, 12.56
-xlabel: Zeit
-ylabel: Amplitude
-Spannung U: sin(t)
-Strom I (−90°): sin(t - 1.5708)
+Bei einer idealen Spule eilt die **Spannung dem Strom um 90° vor**. Die Spule bremst Stromänderungen — der Strom hinkt hinterher.
+
+phi = +90° (Spannung voreilend gegenüber Strom)
+
+Merkhilfe: *ELI* (im ELI-Modell: bei L eilt E vor I)
+
+## Frequenzabhängigkeit
+
+:::monospace
+Beispiel: L = 10 mH
+bei f = 100 Hz:   X_L = 2*pi*100*0.01 = 6.3 Ohm
+bei f = 1 kHz:    X_L = 62.8 Ohm
+bei f = 10 kHz:   X_L = 628 Ohm
+bei f = 100 kHz:  X_L = 6.28 kOhm
 :::
-
-Der Strom eilt der Spannung um 90° nach. Die Spannung erreicht ihr Maximum bevor der Strom nachgezogen hat.
-
-Wie beim Kondensator gilt: Eine reine Spule (ohne ohmschen Widerstand) verbraucht keine Wirkleistung.
-
-## Beispiel
-
-1 mH Spule bei verschiedenen Frequenzen:
-
-| Frequenz | X_L |
-|---|---|
-| 100 Hz | 0.63 Ω |
-| 1 kHz | 6.3 Ω |
-| 10 kHz | 63 Ω |
-| 100 kHz | 628 Ω |
-| 1 MHz | 6 280 Ω |
 
 ## Komplexe Impedanz
 
-Für Phasenberechnungen und RLC-Analyse wird die Spule als komplexe Impedanz geschrieben:
+In der komplexen Darstellung (→ [[Impedanz]]):
 
-:::monospace
-ω   = 2 * π * f
-Z_L = j * ω * L
+Z_L = j · omega · L
+
+Das j zeigt: 90° Phasenvoreilung der Spannung. Der Betrag |Z_L| = X_L = omega · L.
+
+## Praktische Bedeutung
+
+| Anwendung | Erklärung |
+|---|---|
+| Drosselspule | Sperrt HF-Störungen, lässt Gleichstrom durch |
+| Tiefpassfilter (Induktiv) | X_L steigt mit f → HF wird blockiert |
+| Transformator-Kern | Induktivität konzentriert Energie im Kern |
+| Ferritkern auf Kabel | Sperrt hochfrequente Störströme (EMV) |
+
+:::warning
+Beim Abschalten einer Spule entsteht eine Induktionsspannung (Gegenspannung), die sehr hoch sein kann. Diese gefährdet angeschlossene Halbleiter. Immer [[Spule (Übersicht)|Freilaufdiode]] vorsehen!
 :::
-Der positive imaginäre Anteil entspricht der 90°-Phasenverschiebung (Strom eilt nach). Zusammen mit dem Kondensator `Z_C = 1 / (j * ω * C)` lassen sich RLC-Schaltungen vollständig im Komplexen berechnen.

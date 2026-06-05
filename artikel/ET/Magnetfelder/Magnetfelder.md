@@ -1,12 +1,10 @@
 ---
 title: Magnetfelder
 kategorie: ET
-tags: [magnetfeld, feldlinien, rechte-hand-regel, elektromagnet, induktion, fluss]
-symbol: B
-einheit: T
+tags: [magnetfeld, feldlinien, rechte-hand-regel, durchflutung, feldstärke, flussdichte, fluss, permeabilität]
+groessen: H|Feldstärke|A/m; B|Flussdichte|T; Phi|Fluss|Wb; Theta|Durchflutung|A; mu_r|relative Permeabilität|—; mu_0|Feldkonstante|H/m
+_status: PORT  # ET_alt/Magnetfelder/Magnetfelder.md
 ---
-
-Jeder stromdurchflossene Leiter erzeugt ein Magnetfeld um sich herum. Das ist die Grundlage von Spulen, Transformatoren und Elektromotoren.
 
 :::hbox
 :::vbox
@@ -17,84 +15,95 @@ Jeder stromdurchflossene Leiter erzeugt ein Magnetfeld um sich herum. Das ist di
 **Verwandte Artikel**
 - [[Elektromagnet]]
 - [[Lorentzkraft]]
-- [[Sättigung und Hysterese]]
+- [[Magnetisierungskurve & Hysterese]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[Transformator]]
 - [[Spule (Übersicht)]]
+- [[Transformator Aufbau]]
+- [[Magnetischer Widerstand (Reluktanz)]]
 :::
 :::
 
 ---
 
-## Feldlinien
+Magnetfelder entstehen um jeden stromdurchflossenen Leiter und um Permanentmagnete. Sie sind die Grundlage für Transformatoren, Motoren, Relais und die Selbstinduktion der Spule.
 
-Das Magnetfeld wird durch Feldlinien dargestellt. Sie verlaufen in Kreisen um den Leiter herum. Wo die Linien dichter sind, ist das Feld stärker.
+## Feldlinien & Rechte-Hand-Regel
 
-Die Richtung der Feldlinien hängt von der Stromrichtung ab.
+Magnetische Feldlinien verlaufen in geschlossenen Schleifen — sie haben keinen Anfang und kein Ende. Die Richtung gibt an, von welchem Pol die Feldlinien "heraustreten" (Nord) und wo sie "eintreten" (Süd).
 
-## Rechte-Hand-Regel (Korkenzieherregel)
+**Rechte-Hand-Regel** für einen geraden Leiter: Daumen in Stromrichtung, die gekrümmten Finger zeigen die Richtung des Magnetfeldes (Kreise um den Leiter).
 
-Zeigt der Daumen der rechten Hand in die technische Stromrichtung, zeigen die gekrümmten Finger die Richtung des Magnetfelds.
+**Rechte-Hand-Regel** für eine Spule: Finger in Wicklungsrichtung des Stroms, Daumen zeigt auf den Nordpol.
 
-Bei einer Spule: Finger zeigen in die Stromrichtung der Windungen, Daumen zeigt zum Nordpol.
+## Magnetische Durchflutung
 
-In Schnittzeichnungen wird die Stromrichtung im Leiterquerschnitt so dargestellt:
+Die Durchflutung Theta (auch: "magnetomotorische Kraft") gibt an, wie viel "Antrieb" für das Magnetfeld vorhanden ist. Bei einer Spule multipliziert sich der Strom mit der Windungszahl:
 
-| Symbol | Bedeutung |
-|---|---|
-| ⊗ (Kreuz) | Strom fliesst weg vom Betrachter (Pfeilende) |
-| ⊙ (Punkt) | Strom fliesst zum Betrachter hin (Pfeilspitze) |
+:::formel
+Theta = N * I    # Durchflutung in Ampere (A)
+:::
 
 ## Magnetische Feldstärke H
 
-Die magnetische Feldstärke H beschreibt die Erregung unabhängig vom Material (Einheit: A/m).
-
-**Gerader Leiter** (im Abstand r):
-:::formel
-H = I / (2 * π * r)
-:::
-**Zylinderspule** (N Windungen, Länge l):
-:::monospace
-H = I * N / l
-Θ = I * N              # Magnetische Durchflutung in A
-H = Θ / l
-:::
-**Ringspule (Toroid)** (mittlere Feldlinienlänge l_m):
-:::formel
-H = I * N / l_m
-:::
-## Magnetische Grössen
-
-:::monospace
-Φ = B * A              # Magnetischer Fluss
-B = µ * H              # Flussdichte aus Feldstärke und Permeabilität
-µ = µr * µ0            # Permeabilität des Materials (µ0 = 4π × 10⁻⁷ H/m)
-:::
-| Grösse | Symbol | Einheit | Bedeutung |
-|---|---|---|---|
-| Magnetischer Fluss | Φ | Wb (Weber) | Gesamtfluss durch eine Fläche |
-| Magnetische Flussdichte | B | T (Tesla) | Fluss pro Flächeneinheit |
-| Magnetische Feldstärke | H | A/m | Erregung unabhängig vom Material |
-| Permeabilität | µ | H/m | Wie gut ein Material das Feld leitet |
-
-Die Permeabilität beschreibt, wie gut ein Material das Magnetfeld leitet. Eisen hat eine viel höhere Permeabilität als Luft — deshalb konzentrieren Eisenkerne das Feld in Transformatoren und Spulen. Wird der Kern gesättigt, bricht µ ein. Mehr dazu unter [[Sättigung und Hysterese]].
-
-## Faradaysches Induktionsgesetz
-
-Eine Änderung des magnetischen Flusses induziert eine Spannung. Das ist die Grundlage jeder Spule, jedes Transformators und jedes Generators:
+Die Feldstärke H beschreibt, wie stark das Feld im Material ist — unabhängig vom Material selbst. Bei einer langen Spule (Toroid, Solenoid) gilt:
 
 :::formel
-U_ind = -N * dΦ/dt
+H = N * I / l    # l = Länge des magnetischen Pfades (m)
 :::
-Das Minuszeichen steht für die Lenz'sche Regel: Die induzierte Spannung wirkt der Flussänderung entgegen. Bei N Windungen addiert sich der Beitrag jeder Windung.
 
-## Typische Flussdichten
+**Einheit:** A/m (Ampere pro Meter).
 
-| Quelle | Flussdichte |
+## Magnetische Flussdichte B
+
+Die Flussdichte B (auch: "magnetische Induktion") beschreibt das Feld im Material — sie hängt von H und vom Werkstoff ab:
+
+:::formel
+B = mu_0 * mu_r * H    # B in Tesla (T)
+:::
+
+| Grösse | Wert |
 |---|---|
-| Erdmagnetfeld | ca. 50 µT |
-| Kühlschrankmagnet | ca. 5 mT |
-| Transformatorkern | 1 bis 1.5 T |
-| MRT (Kernspin) | 1.5 bis 7 T |
+| Vakuum-Permeabilität mu_0 | 4π · 10⁻⁷ H/m ≈ 1,257 · 10⁻⁶ H/m |
+| Luft, mu_r | ≈ 1 |
+| Weicheisen, mu_r | 1 000 – 10 000 |
+| Ferrit (Mn-Zn), mu_r | 1 000 – 15 000 |
+
+Ein hoher mu_r-Wert bedeutet: Das Material "leitet" das Magnetfeld viel besser als Luft — deshalb werden Transformatoren und Motoren mit Eisenkern gebaut.
+
+## Magnetischer Fluss
+
+Der magnetische Fluss Phi beschreibt die Gesamtmenge an Feldlinien durch eine Fläche A:
+
+:::formel
+Phi = B * A    # Phi in Weber (Wb = V·s), A senkrecht zum Feld
+:::
+
+**Einheit:** Weber (Wb). 1 Wb = 1 V·s.
+
+Der Zusammenhang mit der Selbstinduktion: Ändert sich Phi, wird in der Spule eine Spannung induziert → [[Selbstinduktion & Induzierte Spannung]].
+
+## Zusammenhängende Berechnung
+
+Alle Grössen sind verkettet: Strom und Wicklung bestimmen Θ, daraus folgt H, daraus B, daraus Φ. Die Reihenfolge ist immer gleich.
+
+:::formel
+Θ = N * I          # Schritt 1: Durchflutung
+H = Θ / l          # Schritt 2: Feldstärke
+B = mu_0 * mu_r * H    # Schritt 3: Flussdichte
+Phi = B * A        # Schritt 4: Fluss
+:::
+
+:::monospace
+Beispiel: N = 100, I = 2 A, l = 0.2 m, mu_r = 1000, A = 200 mm²
+
+Θ   = 100 · 2             = 200 A
+H   = 200 / 0.2           = 1000 A/m
+B   = 1.257e-6 · 1000 · 1000 = 1.26 T
+Φ   = 1.26 · 200e-6       = 252 µWb
+:::
+
+:::tip
+Die Analogie zum elektrischen Stromkreis hilft beim Verständnis: H ↔ E-Feld, B ↔ Stromdichte, Phi ↔ Strom, Theta ↔ Spannung, magnetischer Widerstand ↔ ohmscher Widerstand → [[Magnetischer Widerstand]].
+:::

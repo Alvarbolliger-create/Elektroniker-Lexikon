@@ -53,7 +53,7 @@ Ein einfaches taktgesteuertes Flipflop ist **pegelgesteuert**: es übernimmt D s
 
 Lösung: **Master-Slave-D-Flipflop**:
 
-:::monospace
+:::formel
 D → [Master-Latch (CLK=1)] → [Slave-Latch (CLK=0, invertierter Takt)] → Q
 :::
 - **Master** ist offen (übernimmt D) wenn CLK = 1

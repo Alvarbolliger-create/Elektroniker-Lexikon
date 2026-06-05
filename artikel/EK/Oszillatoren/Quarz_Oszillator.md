@@ -36,19 +36,22 @@ Dadurch hat der Quarz eine mechanische Resonanzfrequenz, die elektrisch anregbar
 
 ## Elektrisches Ersatzschaltbild
 
-Der Quarz verhält sich elektrisch wie ein schmaler Serienschwingkreis parallel zu einer Kapazität C₀:
+Der Quarz verhält sich elektrisch wie ein schmaler Serienschwingkreis parallel zu einer Kapazität C0:
 
 :::schematic
-/Diagramm/quarz_oszillator_0.svg
+/abbildungen/ek/oszillatoren/quarz_ersatzschaltbild.svg
 :::
-- **Ls**: Effektive Masse (grosse Induktivität, mehrere mH)
-- **Cs**: Mechanische Federsteifigkeit (sehr kleine Kapazität, fF-Bereich)
-- **Rs**: Verluste (meist 5–100 Ω)
-- **C₀**: Elektrische Kapazität des Gehäuses (pF-Bereich)
+
+| Bauteil | Bedeutung | Typischer Wert |
+|---|---|---|
+| Ls | Effektive Masse (Induktivität) | einige mH |
+| Cs | Mechanische Federsteifigkeit | fF-Bereich |
+| Rs | Verluste im Kristall | 5–100 Ohm |
+| C0 | Gehäusekapazität (elektrisch) | pF-Bereich |
 
 **Zwei Resonanzfrequenzen**:
-- **Serienresonanz** (f_s): Ls und Cs in Resonanz, niedrige Impedanz
-- **Parallelresonanz** (f_p): Mit C₀, etwas höher als f_s
+- **Serienresonanz** (f_s): Ls und Cs in Resonanz — niedrige Impedanz
+- **Parallelresonanz** (f_p): Ls-Cs-Zweig mit C0 — etwas höher als f_s, hohe Impedanz
 
 ---
 
@@ -57,7 +60,7 @@ Der Quarz verhält sich elektrisch wie ein schmaler Serienschwingkreis parallel 
 Quarz typisch in Pierce-Konfiguration (häufig in Mikrocontrollern):
 
 :::schematic
-/Diagramm/quarz_oszillator_1.svg
+/abbildungen/ek/oszillatoren/quarz_pierce_schaltung.svg
 :::
 Der Quarz wird im Bereich zwischen Serien- und Parallelresonanz betrieben (kapazitiv), wo die Phase stimmt für Schwingbedingung.
 
@@ -80,7 +83,7 @@ Der Quarz wird im Bereich zwischen Serien- und Parallelresonanz betrieben (kapaz
 
 Die Resonanzfrequenz des Quarzes hängt von der externen Lastkapazität C_L ab. Im Datenblatt steht die nominale Lastkapazität (typisch 8–20 pF). Mit dieser muss der Quarz betrieben werden:
 
-:::monospace
+:::formel
 C_L = (C1 × C2) / (C1 + C2) + C_stray    # Lastkapazität bestimmt f₀
 :::
 Falsche Lastkapazität → Frequenzabweichung.

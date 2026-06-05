@@ -56,7 +56,7 @@ S1 und S4 sind High-Side-Schalter (zwischen VCC und Motor), S2 und S3 Low-Side-S
 U_eff = U_VCC * D
 :::
 
-:::monospace
+:::formel
 D     = Duty Cycle  0 ... 1
 n     ≈ U_eff       (Drehzahl proportional)
 :::
@@ -89,7 +89,7 @@ Bei N-Kanal-MOSFETs ist die Body-Diode oft ausreichend, wenn sie schnell genug i
 
 Zwischen Ausschalten eines High-Side-FETs und Einschalten des Low-Side-FETs eine Pause einfügen (typisch 100 ns bis 5 µs). Viele Gate-Treiber-ICs erzeugen die Totzeit automatisch.
 
-:::monospace
+:::formel
 S1 (High): ___/‾‾‾‾‾\___________
                     ← Totzeit →
 S2 (Low):  ___________/‾‾‾‾‾\___

@@ -1,63 +1,64 @@
 ---
 title: Induktivität & Einheiten
 kategorie: ET
-tags: [induktivität, henry, spule, einheit, permeabilität, windungszahl, induktionsgesetz, sättigung, µH, mH]
-symbol: L
-einheit: H
+tags: [induktivität, henry, windungszahl, spulenkonstante, al-wert, berechnung]
+groessen: L|Induktivität|H; N|Windungszahl|—; A_L|Spulenkonstante|H; mu_r|relative Permeabilität|—; l|Kernlänge|m; A|Kernfläche|m²
+_status: PORT  # ET_alt/Spule/Induktivitaet_Einheiten.md
 ---
-
-Die Induktivität beschreibt, wie stark eine Spule dem Stromfluss widersteht, wenn er sich ändert. Grössere Induktivität bedeutet stärkere Reaktion auf Stromänderungen.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Magnetfelder]]
-:::
-:::vbox
-**Verwandte Artikel**
 - [[Spule (Übersicht)]]
-:::
-:::vbox
-**Führt weiter zu**
-- [[Selbstinduktion]]
-- [[Sättigung und Hysterese]]
 :::
 :::
 
 ---
 
-Die Einheit ist Henry (H). Ein Henry ist gross. In der Praxis sind mH und µH häufiger.
+Die Induktivität ist das Mass für die Fähigkeit einer Spule, magnetische Energie zu speichern. Grosse Induktivität bedeutet: viel Energie bei kleiner Stromänderung.
 
-:::monospace
-U_L = L * (dI / dt)     # Grundformel der Induktivität
-E = 0.5 * L * I^2       # Gespeicherte Energie
-:::
-| Grösse | Symbol | Einheit |
-|---|---|---|
-| Induktivität | L | H |
-| Spannung | U_L | V |
-| Stromänderung | dI/dt | A/s |
-| Energie | E | J |
+## Einheit Henry (H)
 
-## Typische Werte
+Das Henry (H) ist die SI-Einheit der Induktivität. 1 H = 1 Vs/A — eine Induktivität von 1 H erzeugt bei einer Stromänderung von 1 A/s eine Gegenspannung von 1 V.
 
-| Anwendung | Induktivität |
-|---|---|
-| Schaltnetzteil (Buck) | 10 µH bis 100 µH |
-| EMV-Drossel | 1 mH bis 100 mH |
-| Netztransformator | einige H |
-| Luftspule, wenige Windungen | einige nH |
+| Vorsilbe | Symbol | Wert | Typische Bauteile |
+|---|---|---|---|
+| Millihenry | mH | 10⁻³ H | Drosseln, NF-Übertrager |
+| Mikrohenry | µH | 10⁻⁶ H | HF-Drosseln, SMD-Spulen |
+| Nanohenry | nH | 10⁻⁹ H | Leitungsinduktivität, Chip-Induktor |
 
-## Abhängigkeit vom Aufbau
+## Berechnung (Solenoid/Ringkern)
+
+Für eine zylindrische Spule (Solenoid) mit Länge l, Querschnitt A, Windungszahl N und Kernmaterial mu_r:
 
 :::formel
-L = µ * N^2 * A / l
+L = mu_0 * mu_r * N^2 * A / l
 :::
-| Grösse | Symbol | Einheit | Bedeutung |
-|---|---|---|---|
-| Permeabilität | µ | H/m | µ = µᵣ × µ₀, Materialeigenschaft des Kerns |
-| Windungszahl | N | — | quadratischer Einfluss auf L |
-| Kernquerschnitt | A | m² | grösserer Kern → mehr L |
-| magn. Weglänge | l | m | längerer Pfad → weniger L |
 
-Doppelt so viele Windungen ergeben viermal mehr Induktivität. Wird der Kern magnetisch gesättigt, bricht L schlagartig ein — mehr dazu unter [[Sättigung und Hysterese]].
+Die Induktivität wächst:
+- Quadratisch mit der Windungszahl N
+- Linear mit mu_r (Kernmaterial entscheidend)
+- Linear mit der Kernfläche A
+- Umgekehrt mit der Kernlänge l
+
+## AL-Wert (Spulenkonstante)
+
+Hersteller von Kernmaterialien geben den **AL-Wert** (Spulenkonstante) an. Er beschreibt, wie viel Induktivität pro Windung² der Kern liefert:
+
+:::formel
+L = A_L * N^2    # L in Henry, wenn A_L in H angegeben
+:::
+
+Der AL-Wert wird oft in nH/N² oder µH/N² angegeben.
+
+:::monospace
+Beispiel: Ferritkern AL = 250 nH, N = 20 Windungen
+L = 250e-9 * 20^2 = 250e-9 * 400 = 100 µH
+
+Benötigte Windungszahl für L = 470 µH:
+N = sqrt(L / AL) = sqrt(470e-6 / 250e-9) = sqrt(1880) = 43 Windungen
+:::
+
+:::tip
+Der AL-Wert ist eine praktische Grösse für die Spulenentwicklung: Kern wählen (nach AL-Wert aus Datenblatt), Windungszahl berechnen, wickeln. Keine komplizierte Geometrieberechnung nötig.
+:::

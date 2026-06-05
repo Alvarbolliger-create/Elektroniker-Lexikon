@@ -89,23 +89,24 @@ Z := phasor(10, 45)     ▶  10·e^(jπ/4)
 
 | Name | Bedeutung | Wert |
 |---|---|---|
-| `c` | Lichtgeschwindigkeit | 299 792 458 m/s |
-| `g_n` | Erdbeschleunigung | 9.80665 m/s² |
-| `hP` | Planck-Konstante | 6.626 × 10⁻³⁴ J·s |
-| `hbar` | Reduzierte Planck-Konstante | 1.055 × 10⁻³⁴ J·s |
-| `kB` | Boltzmann-Konstante | 1.381 × 10⁻²³ J/K |
-| `NA` | Avogadro-Konstante | 6.022 × 10²³ /mol |
-| `qe` | Elementarladung | 1.602 × 10⁻¹⁹ C |
-| `eps0` | Elektrische Feldkonstante ε₀ | 8.854 × 10⁻¹² F/m |
-| `mu0` | Magnetische Feldkonstante μ₀ | 1.257 × 10⁻⁶ N/A² |
-| `Rgas` | Universelle Gaskonstante | 8.314 J/(mol·K) |
-| `sigmaSB` | Stefan-Boltzmann-Konstante | 5.670 × 10⁻⁸ W/(m²·K⁴) |
-| `me` | Elektronenmasse | 9.109 × 10⁻³¹ kg |
-| `mp` | Protonenmasse | 1.673 × 10⁻²⁷ kg |
+| `_c` | Lichtgeschwindigkeit | 299 792 458 m/s |
+| `_G` | Gravitationskonstante | 6.674 × 10⁻¹¹ m³/(kg·s²) |
+| `_g_n` | Erdbeschleunigung | 9.80665 m/s² |
+| `_hP` | Planck-Konstante | 6.626 × 10⁻³⁴ J·s |
+| `_hbar` | Reduzierte Planck-Konstante | 1.055 × 10⁻³⁴ J·s |
+| `_kB` | Boltzmann-Konstante | 1.381 × 10⁻²³ J/K |
+| `_NA` | Avogadro-Konstante | 6.022 × 10²³ /mol |
+| `_qe` | Elementarladung | 1.602 × 10⁻¹⁹ C |
+| `_eps0` | Elektrische Feldkonstante ε₀ | 8.854 × 10⁻¹² F/m |
+| `_mu0` | Magnetische Feldkonstante μ₀ | 1.257 × 10⁻⁶ N/A² |
+| `_Rgas` | Universelle Gaskonstante | 8.314 J/(mol·K) |
+| `_sigmaSB` | Stefan-Boltzmann-Konstante | 5.670 × 10⁻⁸ W/(m²·K⁴) |
+| `_me` | Elektronenmasse | 9.109 × 10⁻³¹ kg |
+| `_mp` | Protonenmasse | 1.673 × 10⁻²⁷ kg |
 
 ```
-E := hP * 600E-9_m * c     # Photonenenergie bei λ = 600 nm
-aprox(E)                    ▶  3.31 × 10⁻¹⁹ J
+E := _hP * 600E-9_m * _c     # Photonenenergie bei λ = 600 nm
+aprox(E)                      ▶  3.31 × 10⁻¹⁹ J
 ```
 
 ## Sonstige Helfer

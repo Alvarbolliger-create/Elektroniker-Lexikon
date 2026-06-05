@@ -1,0 +1,14 @@
+display_name: Wechselstrom
+# Pädagogische Reihenfolge (order-Felder in Artikel-Frontmatter):
+#   order: 10  Sinuswellen
+#   order: 20  Zeigerdiagramm
+#   order: 30  Impedanz
+#   order: 40  RC-Reihenschaltung
+#   order: 50  RL-Reihenschaltung
+#   order: 60  RC-Parallelschaltung
+#   order: 70  RL-Parallelschaltung
+#   order: 80  Wechselstromleistung
+#   order: 90  Blindleistungskompensation
+#   order: 100 Resonanz
+#   order: 110 LC-Filter
+#   order: 120 Quarz-Oszillator

@@ -35,7 +35,7 @@ Piezoelektrische Materialien (typisch PZT — Bleizirkonat-Titanat) verändern i
 delta_L = d_33 * U
 :::
 
-:::monospace
+:::formel
 delta_L = Längenänderung [m]
 d_33    = Piezokoeffizient [m/V]  (typisch 100–600 pm/V)
 U       = Spannung [V]

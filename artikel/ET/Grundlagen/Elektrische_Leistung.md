@@ -1,11 +1,10 @@
 ---
 title: Elektrische Leistung
 kategorie: ET
-tags: [leistung, watt, energie, wirkungsgrad, ohmsches gesetz, verlustleistung, joule, P gleich U mal I]
-groessen: P|Leistung|W; U|Spannung|V; I|Strom|A; R|Widerstand|Ω
+tags: [leistung, watt, wirkungsgrad, verlustleistung, joule, wärme]
+groessen: P|Leistung|W; U|Spannung|V; I|Strom|A; R|Widerstand|Ohm; eta|Wirkungsgrad|—
+_status: PORT  # ET_alt/Grundlagen/Elektrische_Leistung.md
 ---
-
-Elektrische Leistung beschreibt, wie viel Energie pro Zeiteinheit umgesetzt wird. Einheit ist Watt (W).
 
 :::hbox
 :::vbox
@@ -14,59 +13,78 @@ Elektrische Leistung beschreibt, wie viel Energie pro Zeiteinheit umgesetzt wird
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Wirkleistung]]
-- [[Scheinleistung]]
+- [[Wechselstromleistung]]
+- [[Leiterwiderstand]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[Leitungsauslegung]]
-- [[Wirkungsgrad & Verluste]]
+- [[Elektrische Arbeit & Tarif]]
 :::
 :::
 
 ---
 
-## Grundformeln
+Elektrische Leistung beschreibt, wie schnell eine Schaltung Energie umsetzt. Sie ist die Grundlage für jede Dimensionierung — ob Leitungsquerschnitt, Kühlkörper oder Sicherung.
+
+## Grundformel
+
+Die allgemeine Leistungsformel gilt immer — für Gleich- und Wechselstrom (bei Wechselstrom mit Wirkleistungskorrektur, → [[Wechselstromleistung]]).
 
 :::formel
-P = U * I           # Leistung aus Spannung und Strom
-P = U^2 / R         # Leistung aus Spannung und Widerstand
-P = I^2 * R         # Leistung aus Strom und Widerstand
+P = U * I    # Leistung P (W) = Spannung (V) mal Strom (A)
 :::
-Alle drei Formen folgen aus dem Ohmschen Gesetz (U = R·I). Je nach bekannten Grössen wählt man die passende Form.
 
-## Energie
+**Einheit:** Watt (W). 1 W = 1 V · 1 A.
 
-Leistung über Zeit ergibt die verbrauchte Energie:
+## Leistung mit nur einer bekannten Grösse
+
+Oft kennt man nur U und R oder nur I und R. Durch Einsetzen des ohmschen Gesetzes erhält man zwei weitere nützliche Formen:
+
+::: hbox
+:::formel
+P = U^2 / R    # wenn U und R bekannt
+:::
 
 :::formel
-W = P * t           # Energie in Joule (J)
+P = I^2 * R    # wenn I und R bekannt
+:::
 :::
 
-## Wärmeleistung an Widerständen
-
-Jeder Widerstand setzt Leistung in Wärme um. Das ist bei Vorwiderständen, Shunts und Leitungen wichtig:
-
-:::formel
-P_R = I^2 * R       # Verlustleistung am Widerstand
+:::tip
+P = I² · R ist die wichtigste Form für Verlustleistungen in Leitungen und Widerständen — der Strom geht quadratisch ein. Doppelter Strom → viermal die Verluste.
 :::
-Die Bauteilbelastbarkeit (Nennleistung) darf nicht überschritten werden. Im Zweifel Derating beachten bei erhöhter Umgebungstemperatur reduziert sich die zulässige Leistung.
 
 ## Wirkungsgrad
 
+Jeder reale Wandler (Netzteil, Motor, Trafo) hat Verluste. Der Wirkungsgrad eta gibt an, welcher Anteil der zugeführten Leistung nutzbar abgegeben wird.
+
 :::formel
-η = P_ab / P_zu     # Wirkungsgrad (dimensionslos, 0 bis 1)
-η = P_ab / P_zu * 100  # in Prozent
-P_verlust = P_zu - P_ab
+eta = P_ab / P_zu
 :::
-Kein reales System ist verlustfrei. Transformatoren erreichen η ≈ 0.95–0.99, Schaltnetzteile η ≈ 0.85–0.95.
 
-## Beispiele
+| eta | Bedeutung | Beispiel |
+|---|---|---|
+| 1,0 (100 %) | Verlustfrei (ideal) | Nur in Theorie |
+| 0,95 (95 %) | Sehr gut | Modernes Schaltnetzteil |
+| 0,85 (85 %) | Gut | Trafo unter Last |
+| kleiner 0,5 (50%) | Schlecht | Glühlampe (90 % Wärme) |
 
-| Verbraucher | Typische Leistung |
-|---|---|
-| LED | 0.1–10 W |
-| Mikrocontroller | 10–500 mW |
-| PC-Netzteil | 300–1000 W |
-| Elektromotor (klein) | 100 W bis mehrere kW |
-| Haushaltsbackofen | 2–3 kW |
+Die Verlustleistung ergibt sich aus:
+
+:::formel
+P_v = P_zu - P_ab    # Verluste als Differenz
+:::
+
+:::monospace
+Beispiel: Netzteil P_zu = 100 W, P_ab = 85 W
+eta = 85 / 100 = 0.85 (85 %)
+P_v = 100 - 85 = 15 W (als Wärme abzuführen)
+:::
+
+## Wärmeleistung (Joule'sche Erwärmung)
+
+Fliesst Strom durch einen Widerstand, wird elektrische Energie in Wärme umgewandelt. Diese **Verlustleistung** erwärmt Leiter, Widerstände und Halbleiter. Thermische Dimensionierung ist bei höheren Strömen immer zu prüfen.
+
+:::warning
+Widerstandsbauteile und Leitungen dürfen ihre maximale Verlustleistung nicht dauerhaft überschreiten. Typische Folge: Alterung, Brand. Leitungsquerschnitt und Bauteilbelastbarkeit stets aus Datenblatt oder Norm (z. B. NIN in der Schweiz) entnehmen.
+:::

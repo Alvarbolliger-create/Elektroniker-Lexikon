@@ -35,7 +35,7 @@ import json
 import math
 import os
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, TypeAlias
 from urllib.parse import quote, unquote
@@ -46,6 +46,7 @@ from PySide6.QtSvg import QSvgRenderer
 from PySide6.QtSvgWidgets import QSvgWidget
 from PySide6.QtWidgets import (
     QApplication,
+    QButtonGroup,
     QDialog,
     QFrame,
     QGridLayout,
@@ -55,6 +56,7 @@ from PySide6.QtWidgets import (
     QLineEdit,
     QListWidget,
     QPushButton,
+    QRadioButton,
     QScrollArea,
     QSizePolicy,
     QSpinBox,
@@ -85,6 +87,9 @@ TAG_COLORS: list[tuple[str, str]] = [
 _RASTER_SUFFIXES: frozenset[str] = frozenset({
     ".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp",
 })
+
+# Minimale Sidebar-Breite beim Ziehen (px).
+_SIDEBAR_MIN_WIDTH: int = 140
 
 
 # ── Artikel-Block-Typen ───────────────────────────────────────────────────────
@@ -176,11 +181,16 @@ class PlotBlock:
         :::plot
         var: t
         range: 0, 5
+        colors: orange, #16a34a
         Laden:    1 - exp(-t)
         Entladen: exp(-t)
         xlabel: Zeit (τ)
         ylabel: U / U₀
         :::
+
+    ``colors`` ist optional — kommagetrennte Liste von CSS-Farbnamen oder
+    Hex-Werten (#rrggbb), eine Farbe pro Kurve in Reihenfolge.
+    Nicht angegebene Kurven erhalten die Standard-Palette.
     """
 
     var: str
@@ -188,6 +198,9 @@ class PlotBlock:
     curves: list[dict]          # [{"label": str, "expr": str}, ...]
     xlabel: str = ""
     ylabel: str = ""
+    colors: list[str] = field(default_factory=list)
+    xscale: str = "linear"      # "linear" | "log"
+    yscale: str = "linear"      # "linear" | "log"
 
 
 @dataclass
@@ -319,6 +332,9 @@ def load_all_articles(
     if not folder.exists():
         return articles
     for path in sorted(folder.rglob("*.md")):
+        # Archiv-Ordner (z.B. ET_alt) nicht indexieren — Titel-Konflikte vermeiden.
+        if any(part.endswith("_alt") for part in path.parts):
+            continue
         header = _read_frontmatter_header(path)
         meta, _ = parse_frontmatter(header)
         default_cat = _subfolder_category(path, folder)
@@ -332,6 +348,39 @@ def load_all_articles(
             "datei": path,
         }
     return articles
+
+
+def _load_folder_config(folder_path: Path) -> dict[str, Any]:
+    """Liest _config.yml eines Ordners (display_name, folders-Reihenfolge).
+
+    Unterstuetztes Format::
+
+        display_name: Anzeigename
+        folders:
+          - Unterordner1
+          - Unterordner2
+    """
+    config_file = folder_path / "_config.yml"
+    if not config_file.exists():
+        return {}
+    result: dict[str, Any] = {}
+    current_list_key: str | None = None
+    for line in config_file.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        if stripped.startswith("- ") and current_list_key:
+            result.setdefault(current_list_key, []).append(stripped[2:].strip())
+        elif ":" in stripped:
+            key, _, val = stripped.partition(":")
+            key = key.strip()
+            val = val.strip()
+            if val:
+                result[key] = val
+                current_list_key = None
+            else:
+                current_list_key = key
+    return result
 
 
 def parse_frontmatter(content: str) -> tuple[dict[str, str], str]:
@@ -542,7 +591,20 @@ def format_inline(text: str) -> str:
     """Ersetzt die Markdown-Inline-Marker ``**fett**`` und ``\\`code\\```.
 
     Reine Textformatierung ohne Block-Verarbeitung.
+    HTML-Sonderzeichen (<, >, &) in Textanteilen werden maskiert;
+    bereits eingefuegte HTML-Tags (z. B. aus Wiki-Link-Aufloesung)
+    bleiben unveraendert.
     """
+    # Textanteile zwischen bestehenden HTML-Tags maskieren (gerade Indizes).
+    parts = re.split(r"(<[^>]+>)", text)
+    for idx in range(0, len(parts), 2):
+        parts[idx] = (
+            parts[idx]
+            .replace("&", "&amp;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;")
+        )
+    text = "".join(parts)
     text = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", text)
     text = re.sub(
         r"`(.+?)`",
@@ -654,6 +716,7 @@ def _parse_plot_body(body_lines: list[str]) -> PlotBlock:
 
         var: t
         range: 0, 5
+        colors: orange, #16a34a
         Laden:    1 - exp(-t)
         Entladen: exp(-t)
         xlabel: Zeit (τ)
@@ -664,6 +727,9 @@ def _parse_plot_body(body_lines: list[str]) -> PlotBlock:
     curves: list[dict] = []
     xlabel = ""
     ylabel = ""
+    colors: list[str] = []
+    xscale = "linear"
+    yscale = "linear"
 
     for line in body_lines:
         line = line.strip()
@@ -687,12 +753,19 @@ def _parse_plot_body(body_lines: list[str]) -> PlotBlock:
             xlabel = val
         elif key_lower == "ylabel":
             ylabel = val
+        elif key_lower == "colors":
+            colors = [c.strip() for c in val.split(",")]
+        elif key_lower == "xscale":
+            xscale = val.lower()
+        elif key_lower == "yscale":
+            yscale = val.lower()
         else:
             expr = val.replace("^", "**")
             curves.append({"label": key, "expr": expr})
 
     return PlotBlock(var=var, x_range=x_range, curves=curves,
-                     xlabel=xlabel, ylabel=ylabel)
+                     xlabel=xlabel, ylabel=ylabel, colors=colors,
+                     xscale=xscale, yscale=yscale)
 
 
 def _parse_pinout_body(args: str, body_lines: list[str]) -> PinoutBlock:
@@ -783,8 +856,9 @@ def _parse_truth_body(args: str, body_lines: list[str]) -> TruthTableBlock:
 
 # ── Stil-Voreinstellungen ────────────────────────────────────────────────────
 STYLE_DEFAULTS: dict = {
-    "font_size": 15,
-    "preset":    "Kraftpapier",
+    "font_size":         15,
+    "preset":            "Kraftpapier",
+    "sort_pedagogical":  False,
 }
 
 # Alte Preset-Namen aus gespeicherten Zuständen auf neue Theme-Namen abbilden.
@@ -870,6 +944,8 @@ class LexiconViewModel:
         self.current_title: str | None = None
         self.recent_articles: list[str] = []
         self.style_settings: dict = dict(STYLE_DEFAULTS)
+        self.last_open_article: str | None = None
+        self.expanded_folders: list[str] = []
         self._load_state()
 
     def filtered_articles(self, query: str) -> dict[str, dict[str, Any]]:
@@ -954,6 +1030,10 @@ class LexiconViewModel:
             recents = data.get("recent", [])
             self.recent_articles = [r for r in recents if r in self.all_articles][:5]
             self.style_settings.update(data.get("style", {}))
+            last = data.get("last_open")
+            if last and last in self.all_articles:
+                self.last_open_article = last
+            self.expanded_folders = data.get("expanded_folders", [])
         except Exception:
             pass
 
@@ -961,7 +1041,12 @@ class LexiconViewModel:
         try:
             self._state_path().write_text(
                 json.dumps(
-                    {"recent": self.recent_articles, "style": self.style_settings},
+                    {
+                        "recent": self.recent_articles,
+                        "style": self.style_settings,
+                        "last_open": self.current_title,
+                        "expanded_folders": self.expanded_folders,
+                    },
                     ensure_ascii=False,
                 ),
                 encoding="utf-8",
@@ -1371,9 +1456,15 @@ class WaveformWidget(QWidget):
 class PlotWidget(QWidget):
     """Zeichnet einen mathematischen Funktionsgraphen mit Achsen und Legende."""
 
+    # Standard-Kurvenfarben (keine reservierten Spannungs-/Stromfarben).
+    # Explizit via colors: im :::plot-Block:
+    #   Spannung → #0284c7 (blau)   Strom → #dc2626 (rot)
     _COLORS = [
-        QColor("#0284c7"), QColor("#dc2626"), QColor("#16a34a"),
-        QColor("#d97706"), QColor("#7c3aed"),
+        QColor("#16a34a"),  # 1. grün
+        QColor("#d97706"),  # 2. orange
+        QColor("#7c3aed"),  # 3. violett
+        QColor("#db2777"),  # 4. pink
+        QColor("#ca8a04"),  # 5. gelb
     ]
     _BG        = QColor("#ffffff")
     _GRID      = QColor("#e2e8f0")
@@ -1394,15 +1485,32 @@ class PlotWidget(QWidget):
         self.setFixedHeight(240)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
 
+    def _curve_color(self, ci: int) -> QColor:
+        """Gibt die Farbe fuer Kurve ci zurueck.
+
+        Nutzt ``block.colors[ci]`` wenn angegeben und gueltig,
+        sonst die Standard-Palette ``_COLORS``.
+        """
+        specified = self._block.colors
+        if ci < len(specified) and specified[ci]:
+            c = QColor(specified[ci])
+            if c.isValid():
+                return c
+        return self._COLORS[ci % len(self._COLORS)]
+
     def _sample(self) -> None:
         b = self._block
         x0, x1 = b.x_range
         span = (x1 - x0) or 1.0
+        log_x = b.xscale == "log" and x0 > 0 and x1 > 0
         ns = {**_PLOT_NS, "__builtins__": {}}
         for curve in b.curves:
             pts: list[tuple[float, float]] = []
             for i in range(self._N):
-                xv = x0 + (i / (self._N - 1)) * span
+                if log_x:
+                    xv = x0 * (x1 / x0) ** (i / (self._N - 1))
+                else:
+                    xv = x0 + (i / (self._N - 1)) * span
                 try:
                     ns[b.var] = xv
                     yv = float(eval(curve["expr"], ns))  # noqa: S307
@@ -1437,19 +1545,44 @@ class PlotWidget(QWidget):
 
         x0, x1 = self._block.x_range
         x_span = (x1 - x0) or 1.0
+        log_x = self._block.xscale == "log" and x0 > 0 and x1 > 0
+
+        def _x_to_px(xv: float) -> int:
+            if log_x:
+                return x0_px + int(math.log10(xv / x0) / math.log10(x1 / x0) * plot_w)
+            return x0_px + int((xv - x0) / x_span * plot_w)
 
         def to_px(xv: float, yv: float) -> tuple[int, int]:
-            px = x0_px + int((xv - x0) / x_span * plot_w)
-            py = y0_px + int((1.0 - (yv - y_min) / y_span) * plot_h)
-            return px, py
+            return _x_to_px(xv), y0_px + int((1.0 - (yv - y_min) / y_span) * plot_h)
+
+        def _fmt_tick(v: float) -> str:
+            if abs(v) >= 1_000_000:
+                return f"{v / 1_000_000:.3g}M"
+            if abs(v) >= 1_000:
+                return f"{v / 1_000:.3g}k"
+            return f"{v:.3g}"
+
+        # X-Tick-Positionen berechnen
+        if log_x:
+            x_ticks: list[float] = []
+            exp_lo = int(math.floor(math.log10(x0)))
+            exp_hi = int(math.ceil(math.log10(x1)))
+            for exp in range(exp_lo, exp_hi + 1):
+                for m in (1, 2, 5):
+                    tv = m * 10 ** exp
+                    if x0 <= tv <= x1:
+                        x_ticks.append(tv)
+        else:
+            x_ticks = [x0 + i / 5 * x_span for i in range(6)]
 
         # Grid
         grid_pen = QPen(self._GRID)
         grid_pen.setWidth(1)
         p.setPen(grid_pen)
-        for i in range(6):
-            gx = x0_px + int(i / 5 * plot_w)
+        for tv in x_ticks:
+            gx = _x_to_px(tv)
             p.drawLine(gx, y0_px, gx, y0_px + plot_h)
+        for i in range(6):
             gy = y0_px + int(i / 5 * plot_h)
             p.drawLine(x0_px, gy, x0_px + plot_w, gy)
 
@@ -1466,17 +1599,17 @@ class PlotWidget(QWidget):
         p.setFont(f)
         p.setPen(QPen(self._LABEL_CLR))
 
-        for i in range(6):
-            xv = x0 + i / 5 * x_span
-            gx = x0_px + int(i / 5 * plot_w)
+        for tv in x_ticks:
+            gx = _x_to_px(tv)
             p.drawText(gx - 20, y0_px + plot_h + 4, 40, 16,
                        Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop,
-                       f"{xv:.2g}")
+                       _fmt_tick(tv))
+        for i in range(6):
             yv = y_min + (1 - i / 5) * y_span
             gy = y0_px + int(i / 5 * plot_h)
             p.drawText(0, gy - 8, self._PAD_L - 6, 16,
                        Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignRight,
-                       f"{yv:.2g}")
+                       _fmt_tick(yv))
 
         if self._block.xlabel:
             fb = p.font()
@@ -1501,7 +1634,7 @@ class PlotWidget(QWidget):
         for ci, pts in enumerate(self._curves_pts):
             if len(pts) < 2:
                 continue
-            color = self._COLORS[ci % len(self._COLORS)]
+            color = self._curve_color(ci)
             pen = QPen(color)
             pen.setWidth(2)
             p.setPen(pen)
@@ -1516,7 +1649,7 @@ class PlotWidget(QWidget):
             lx = x0_px + plot_w - 10
             ly = y0_px + 8
             for ci, curve in enumerate(self._block.curves):
-                color = self._COLORS[ci % len(self._COLORS)]
+                color = self._curve_color(ci)
                 pen = QPen(color)
                 pen.setWidth(2)
                 p.setPen(pen)
@@ -2198,6 +2331,20 @@ class LexiconStyleDialog(QDialog):
         fs_row.addWidget(self._font_spin)
         root.addLayout(fs_row)
 
+        # ── Sortierung ────────────────────────────────────────────
+        heading("SORTIERUNG")
+        self._sort_group = QButtonGroup(self)
+        self._radio_alpha = QRadioButton("Alphabetisch")
+        self._radio_peda  = QRadioButton("Pädagogisch")
+        self._sort_group.addButton(self._radio_alpha, 0)
+        self._sort_group.addButton(self._radio_peda,  1)
+        if s.get("sort_pedagogical", STYLE_DEFAULTS["sort_pedagogical"]):
+            self._radio_peda.setChecked(True)
+        else:
+            self._radio_alpha.setChecked(True)
+        root.addWidget(self._radio_alpha)
+        root.addWidget(self._radio_peda)
+
         # ── Buttons ───────────────────────────────────────────────
         sep = QFrame()
         sep.setFrameShape(QFrame.Shape.HLine)
@@ -2220,8 +2367,9 @@ class LexiconStyleDialog(QDialog):
     def _accept(self) -> None:
         item = self._preset_list.currentItem()
         self._result = {
-            "font_size": self._font_spin.value(),
-            "preset":    item.text() if item else STYLE_DEFAULTS["preset"],
+            "font_size":        self._font_spin.value(),
+            "preset":           item.text() if item else STYLE_DEFAULTS["preset"],
+            "sort_pedagogical": self._radio_peda.isChecked(),
         }
         self.accept()
 
@@ -2230,6 +2378,43 @@ class LexiconStyleDialog(QDialog):
 
 
 # ── Lexikon-Tool-Widget ───────────────────────────────────────────────────────
+class _SidebarResizeHandle(QWidget):
+    """Dünner, ziehbarer Trennstreifen zum Anpassen der Sidebar-Breite."""
+
+    def __init__(
+        self,
+        sidebar: QWidget,
+        side: str,
+        on_resize: Callable[[int], None],
+        parent: QWidget | None = None,
+    ) -> None:
+        super().__init__(parent)
+        self._sidebar = sidebar
+        self._side = side  # "left" oder "right"
+        self._on_resize = on_resize
+        self._drag_x: int | None = None
+        self._drag_start_w: int = 0
+        self.setFixedWidth(5)
+        self.setCursor(Qt.CursorShape.SizeHorCursor)
+        self.setObjectName("sidebarHandle")
+
+    def mousePressEvent(self, event) -> None:  # type: ignore[override]
+        if event.button() == Qt.MouseButton.LeftButton:
+            self._drag_x = event.globalPosition().toPoint().x()
+            self._drag_start_w = self._sidebar.width()
+
+    def mouseMoveEvent(self, event) -> None:  # type: ignore[override]
+        if self._drag_x is None:
+            return
+        dx = event.globalPosition().toPoint().x() - self._drag_x
+        new_w = self._drag_start_w + dx if self._side == "left" else self._drag_start_w - dx
+        new_w = max(_SIDEBAR_MIN_WIDTH, min(1000, new_w))
+        self._on_resize(new_w)
+
+    def mouseReleaseEvent(self, event) -> None:  # type: ignore[override]
+        self._drag_x = None
+
+
 class LexiconWidget(QWidget):
     """Komplettes Lexikon-Tool als einzelnes QWidget.
 
@@ -2262,7 +2447,11 @@ class LexiconWidget(QWidget):
             on_style_changed(self.view_model.style_settings["preset"])
         self._build_ui()
         self._refresh_list()
-        self._show_home()
+        last = self.view_model.last_open_article
+        if last:
+            self._show_article(last, push_history=False)
+        else:
+            self._show_home()
 
     def reload(self) -> None:
         """Laedt Artikel neu und zeigt die Startseite an.
@@ -2335,6 +2524,7 @@ class LexiconWidget(QWidget):
 
         # Linke Seitenleiste mit Suchfeld und Artikelliste.
         self._left_open = True
+        self._left_target_width: int = 220
         self.left_sidebar = QWidget()
         self.left_sidebar.setObjectName("leftSidebar")
         self.left_sidebar.setMinimumWidth(0)
@@ -2347,11 +2537,21 @@ class LexiconWidget(QWidget):
         left_content_layout = QVBoxLayout(self.left_content)
         left_content_layout.setContentsMargins(0, 0, 0, 0)
         left_content_layout.setSpacing(8)
+        search_row = QHBoxLayout()
+        search_row.setContentsMargins(0, 0, 0, 0)
+        search_row.setSpacing(4)
         self.search = QLineEdit()
         self.search.setObjectName("searchField")
         self.search.setPlaceholderText("Begriff suchen...")
         self.search.textChanged.connect(self._refresh_list)
-        left_content_layout.addWidget(self.search)
+        search_row.addWidget(self.search)
+        self.collapse_all_btn = QPushButton("⊟")
+        self.collapse_all_btn.setObjectName("collapseAllBtn")
+        self.collapse_all_btn.setToolTip("Alle Ordner einklappen")
+        self.collapse_all_btn.setFixedSize(26, 26)
+        self.collapse_all_btn.clicked.connect(self._collapse_all_folders)
+        search_row.addWidget(self.collapse_all_btn)
+        left_content_layout.addLayout(search_row)
         self.article_tree = QTreeWidget()
         self.article_tree.setObjectName("articleTree")
         self.article_tree.setHeaderHidden(True)
@@ -2393,10 +2593,12 @@ class LexiconWidget(QWidget):
             on_link_clicked=self._on_link_clicked,
             on_send_formula=self._send_formula_to_calculator,
         )
+        self.display.setMinimumWidth(0)
         body_layout.addWidget(self.display, stretch=1)
 
         # Rechte Seitenleiste: Tags, Verlinkungen, Formeln.
         self._right_open = True
+        self._right_target_width: int = 175
         self.right_sidebar = QWidget()
         self.right_sidebar.setObjectName("rightSidebar")
         self.right_sidebar.setMinimumWidth(0)
@@ -2482,6 +2684,16 @@ class LexiconWidget(QWidget):
         self.right_anim.setEasingCurve(QEasingCurve.Type.OutCubic)
         self.right_anim.finished.connect(self._on_right_anim_done)
 
+        # Ziehbare Trennstreifen zwischen Sidebars und Inhalt.
+        self._left_handle = _SidebarResizeHandle(
+            self.left_sidebar, "left", self._on_left_sidebar_resize
+        )
+        self._right_handle = _SidebarResizeHandle(
+            self.right_sidebar, "right", self._on_right_sidebar_resize
+        )
+        body_layout.insertWidget(1, self._left_handle)
+        body_layout.insertWidget(3, self._right_handle)
+
         root.addWidget(body, stretch=1)
 
         # Floating-Toggle-Buttons: sichtbar wenn Sidebar geschlossen ist.
@@ -2509,8 +2721,21 @@ class LexiconWidget(QWidget):
         )
 
     # ── Sidebar-Toggle ────────────────────────────────────────────────────────
+    def _on_left_sidebar_resize(self, width: int) -> None:
+        self.left_anim.stop()
+        self._left_target_width = width
+        self.left_sidebar.setMinimumWidth(width)
+        self.left_sidebar.setMaximumWidth(width)
+
+    def _on_right_sidebar_resize(self, width: int) -> None:
+        self.right_anim.stop()
+        self._right_target_width = width
+        self.right_sidebar.setMinimumWidth(width)
+        self.right_sidebar.setMaximumWidth(width)
+
     def _toggle_left(self) -> None:
         self.left_anim.stop()
+        self.left_sidebar.setMinimumWidth(0)
         start = self.left_sidebar.width()
         if self._left_open:
             self._left_open = False
@@ -2524,12 +2749,14 @@ class LexiconWidget(QWidget):
             self.left_float_btn.hide()
             self.left_content.show()
             self.hamburger_left_inner.show()
+            self._left_handle.show()
             self.left_anim.setStartValue(start)
-            self.left_anim.setEndValue(220)
+            self.left_anim.setEndValue(self._left_target_width)
         self.left_anim.start()
 
     def _toggle_right(self) -> None:
         self.right_anim.stop()
+        self.right_sidebar.setMinimumWidth(0)
         start = self.right_sidebar.width()
         if self._right_open:
             self._right_open = False
@@ -2543,19 +2770,22 @@ class LexiconWidget(QWidget):
             self.right_float_btn.hide()
             self.right_content.show()
             self.hamburger_right_inner.show()
+            self._right_handle.show()
             self.right_anim.setStartValue(start)
-            self.right_anim.setEndValue(175)
+            self.right_anim.setEndValue(self._right_target_width)
         self.right_anim.start()
 
     def _on_left_anim_done(self) -> None:
         if not self._left_open:
             self.left_content.hide()
             self.hamburger_left_inner.hide()
+            self._left_handle.hide()
 
     def _on_right_anim_done(self) -> None:
         if not self._right_open:
             self.right_content.hide()
             self.hamburger_right_inner.hide()
+            self._right_handle.hide()
 
     def _reposition_float_buttons(self) -> None:
         h = self.height()
@@ -2583,14 +2813,27 @@ class LexiconWidget(QWidget):
         articles = self.view_model.filtered_articles(query)
         tree = self._build_folder_tree(articles)
 
+        # Aktuellen Zustand sichern bevor der Baum geleert wird.
+        if not query:
+            saved = self._collect_expanded_folders()
+            if saved:
+                self.view_model.expanded_folders = saved
+
         self.article_tree.clear()
         expand_all = bool(query)
-        self._populate_tree(None, tree, expand_all=expand_all)
+        self._populate_tree(
+            None, tree, expand_all=expand_all,
+            current_path=self.view_model.folder,
+        )
         if not expand_all:
-            for i in range(self.article_tree.topLevelItemCount()):
-                top = self.article_tree.topLevelItem(i)
-                if top is not None and top.childCount() > 0:
-                    top.setExpanded(True)
+            restored = self.view_model.expanded_folders
+            if restored:
+                self._restore_expanded_folders(restored)
+            else:
+                for i in range(self.article_tree.topLevelItemCount()):
+                    top = self.article_tree.topLevelItem(i)
+                    if top is not None and top.childCount() > 0:
+                        top.setExpanded(True)
 
         self.count_label.setText(f"{len(articles)} Begriffe")
 
@@ -2623,12 +2866,34 @@ class LexiconWidget(QWidget):
         parent: QTreeWidgetItem | None,
         node: dict[str, Any],
         expand_all: bool,
+        current_path: Path | None = None,
     ) -> None:
         """Haengt Ordner- und Artikel-Knoten rekursiv in den Baum ein."""
-        for dirname in sorted(node["dirs"]):
-            folder_display = dirname.replace("_", " ").title()
+        pedagogical = self.view_model.style_settings.get("sort_pedagogical", False)
+        config = _load_folder_config(current_path) if current_path else {}
+        folder_order: list[str] = config.get("folders", [])
+
+        if pedagogical and folder_order:
+            known = [d for d in folder_order if d in node["dirs"]]
+            unknown = sorted(d for d in node["dirs"] if d not in folder_order)
+            dir_sequence = known + unknown
+        else:
+            dir_sequence = sorted(node["dirs"])
+
+        for dirname in dir_sequence:
+            sub_path = (current_path / dirname) if current_path else None
+            sub_config = _load_folder_config(sub_path) if sub_path else {}
+            folder_display = sub_config.get(
+                "display_name", dirname.replace("_", " ").title()
+            )
             folder_item = QTreeWidgetItem([folder_display])
             folder_item.setToolTip(0, dirname)
+            if sub_path:
+                try:
+                    rel_key = str(sub_path.relative_to(self.view_model.folder))
+                    folder_item.setData(0, Qt.ItemDataRole.UserRole + 1, rel_key)
+                except ValueError:
+                    pass
             subnode = node["dirs"][dirname]
             matching = next(
                 (t for t, _ in subnode["files"]
@@ -2641,10 +2906,23 @@ class LexiconWidget(QWidget):
                 self.article_tree.addTopLevelItem(folder_item)
             else:
                 parent.addChild(folder_item)
-            self._populate_tree(folder_item, subnode, expand_all)
+            self._populate_tree(folder_item, subnode, expand_all, current_path=sub_path)
             if expand_all:
                 folder_item.setExpanded(True)
-        for title, _article in sorted(node["files"]):
+
+        if pedagogical:
+            def _peda_key(ta: tuple) -> tuple:
+                title, article = ta
+                try:
+                    order = int(article["meta"].get("order", 9999))
+                except (ValueError, TypeError):
+                    order = 9999
+                return (order, title.lower())
+            files = sorted(node["files"], key=_peda_key)
+        else:
+            files = sorted(node["files"])
+
+        for title, _article in files:
             leaf = QTreeWidgetItem([title])
             leaf.setData(0, Qt.ItemDataRole.UserRole, title)
             if parent is None:
@@ -2775,11 +3053,39 @@ class LexiconWidget(QWidget):
             iterator += 1
 
     def save_state(self) -> None:
+        expanded = self._collect_expanded_folders()
+        if expanded:
+            self.view_model.expanded_folders = expanded
         self.view_model.save_state()
 
     def _send_formula_to_calculator(self, formula: str) -> None:
         if self._on_send_formula_external is not None:
             self._on_send_formula_external(formula)
+
+    def _collapse_all_folders(self) -> None:
+        self.article_tree.collapseAll()
+        self.view_model.expanded_folders = []
+
+    def _collect_expanded_folders(self) -> list[str]:
+        result = []
+        it = QTreeWidgetItemIterator(self.article_tree)
+        while it.value():
+            item = it.value()
+            key = item.data(0, Qt.ItemDataRole.UserRole + 1)
+            if key and item.isExpanded():
+                result.append(key)
+            it += 1
+        return result
+
+    def _restore_expanded_folders(self, expanded: list[str]) -> None:
+        expanded_set = set(expanded)
+        it = QTreeWidgetItemIterator(self.article_tree)
+        while it.value():
+            item = it.value()
+            key = item.data(0, Qt.ItemDataRole.UserRole + 1)
+            if key and key in expanded_set:
+                item.setExpanded(True)
+            it += 1
 
     def _clear_layout(self, layout: QLayout) -> None:
         """Entfernt alle Widgets eines Layouts und plant sie zum Loeschen ein."""
@@ -2856,9 +3162,11 @@ class LexiconWidget(QWidget):
             return
         self.view_model.style_settings["font_size"] = new_settings["font_size"]
         self.view_model.style_settings["preset"] = new_settings["preset"]
+        self.view_model.style_settings["sort_pedagogical"] = new_settings["sort_pedagogical"]
         self.view_model.save_state()
         self.display.set_font_size(new_settings["font_size"])
         if self._on_style_changed:
             self._on_style_changed(new_settings["preset"])
+        self._refresh_list()
         if self.view_model.current_title is None:
             self._show_home()

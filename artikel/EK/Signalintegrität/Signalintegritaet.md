@@ -45,7 +45,7 @@ Der charakteristische Wellenwiderstand (Z0) hängt von Geometrie und Material ab
 
 Wenn eine Signalwelle auf einen Impedanzsprung trifft (falsch abgeschlossene Leitung, Steckverbinder, Querschnittsänderung), wird ein Teil des Signals reflektiert. Der Reflexionskoeffizient Γ bestimmt wie viel:
 
-:::monospace
+:::formel
 Γ = (Z_L - Z0) / (Z_L + Z0)    # Z_L = Lastimpedanz, Z0 = Leitungswellenwiderstand
 :::
 | Abschluss | Z_L | Γ | Wirkung |

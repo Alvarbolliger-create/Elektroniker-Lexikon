@@ -71,7 +71,7 @@ Die Regelstrecke beschreibt das dynamische Verhalten des zu regelnden Systems. D
 
 **PT1-Strecke** (häufigste in der Praxis):
 
-:::monospace
+:::formel
 Sprungantwort: y(t) = K × (1 - e^(-t/T))
 
 K = Streckenverstärkung    # Endwert / Eingangssprung

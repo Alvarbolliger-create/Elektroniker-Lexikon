@@ -1,0 +1,10 @@
+display_name: Schaltkreise
+# Pädagogische Reihenfolge (order-Felder in Artikel-Frontmatter):
+#   order: 10  Reihenschaltung
+#   order: 20  Parallelschaltung
+#   order: 30  Spannungs- und Stromteiler
+#   order: 40  Kirchhoffsche Gesetze
+#   order: 50  Knotenpotenzialanalyse
+#   order: 60  Wheatstone-Brücke
+#   order: 70  Stern-Dreieck-Transformation
+#   order: 80  Leistungsanpassung

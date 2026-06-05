@@ -1,0 +1,11 @@
+display_name: Kondensator
+# Pädagogische Reihenfolge (order-Felder in Artikel-Frontmatter):
+#   order: 10  Kondensator Übersicht
+#   order: 20  Plattenkondensator
+#   order: 30  Kapazität / Einheiten
+#   order: 40  Kondensator Typen
+#   order: 50  Energie im Kondensator
+#   order: 60  Auf- und Entladung
+#   order: 70  Konstantstrom-Laden
+#   order: 80  Kondensator im Wechselstrom
+#   order: 90  Kondensator Verluste

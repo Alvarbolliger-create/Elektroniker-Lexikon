@@ -1,12 +1,10 @@
 ---
 title: Reihenschaltung
 kategorie: ET
-tags: [reihenschaltung, widerstand, spannung, strom, spannungsteiler, kirchhoff, R_ges, serienschaltung]
-symbol: R_ges
-einheit: Ω
+tags: [reihenschaltung, serie, gesamtwiderstand, teilspannung, spannungsteiler]
+groessen: R|Widerstand|Ohm; U|Spannung|V; I|Strom|A
+_status: PORT  # ET_alt/Schaltkreise/Reihenschaltung.md
 ---
-
-Bauteile hintereinander in einem einzigen Strompfad. Der gleiche Strom fliesst durch alle. Die Spannung verteilt sich proportional auf die Widerstände.
 
 :::hbox
 :::vbox
@@ -26,33 +24,59 @@ Bauteile hintereinander in einem einzigen Strompfad. Der gleiche Strom fliesst d
 
 ---
 
-:::info
-Strom überall gleich. Spannungen addieren sich. R_ges = R1 + R2 + R3
-:::
-
-## Schaltung
-
-:::schematic Reihenschaltung
-/schaltplaene/reihenschaltung.svg
-:::
-
-Quelle (+) → R1 → R2 → R3 → Quelle (−). Es gibt nur diesen einen Pfad. Fällt ein Bauteil aus, fliesst kein Strom mehr.
-
-## Formeln
+Bei der Reihenschaltung sind alle Widerstände hintereinander geschaltet — durch alle fliesst derselbe Strom. Die Gesamtspannung verteilt sich auf die einzelnen Teilspannungen.
 
 :::schematic
-/Diagramm/reihenschaltung_0.svg
+/schaltplaene/schaltkreise/reihenschaltung.svg
 :::
-`U_n` ist die Spannung an einem einzelnen Widerstand (Spannungsteilerformel). `P_ges` ist die Summe der Verlustleistungen aller Bauteile.
 
-## Beispiel
+## Gesamtwiderstand
 
-12 V, R1 = 100 Ω, R2 = 200 Ω:
+Die Gesamtwiderstände addieren sich direkt. Je mehr Widerstände in Reihe, desto grösser der Gesamtwiderstand.
 
-| Grösse | Berechnung | Ergebnis |
-|---|---|---|
-| R_ges | 100 + 200 | 300 Ω |
-| I | 12 V / 300 Ω | 40 mA |
-| U an R1 | 40 mA × 100 Ω | 4 V |
-| U an R2 | 40 mA × 200 Ω | 8 V |
-| P_ges | 12 V × 40 mA | 480 mW |
+:::formel
+R_ges = R1 + R2 + R3    # beliebig viele Glieder addierbar
+:::
+
+**Merkmal**: R_ges ist immer grösser als der grösste Einzelwiderstand.
+
+## Strom
+
+Der gleiche Strom fliesst durch alle Glieder — die Reihe ist ein einziger Strompfad.
+
+:::formel
+I = U_ges / R_ges
+:::
+
+## Teilspannungen
+
+Die Spannung an jedem Widerstand ist proportional zu seinem Widerstandswert. Das folgt direkt aus dem ohmschen Gesetz (U_k = I · R_k) und der Maschenregel.
+
+:::formel
+U_k = U_ges * R_k / R_ges    # Spannungsteilerregel
+:::
+
+Die Summe aller Teilspannungen ergibt die Gesamtspannung (Maschenregel):
+
+:::formel
+U_ges = U1 + U2 + U3
+:::
+
+:::monospace
+Beispiel: U_ges = 12 V, R1 = 100 Ohm, R2 = 200 Ohm
+R_ges = 300 Ohm
+I = 12 / 300 = 40 mA
+U1 = 12 * 100 / 300 = 4 V
+U2 = 12 * 200 / 300 = 8 V
+Probe: 4 + 8 = 12 V ✓
+:::
+
+## Besonderheiten
+
+**Unterbrechung**: Wird ein Glied unterbrochen (unendlicher Widerstand), ist der Gesamtstrom null — alle anderen Widerstände tragen keine Spannung mehr.
+
+**Kurzschluss**: Wird ein Glied kurzgeschlossen (R = 0), entfällt seine Teilspannung. Der Strom steigt, da R_ges kleiner wird.
+
+:::tip
+Der [[Spannungs- & Stromteiler|Spannungsteiler]] ist eine direkte Anwendung der Reihenschaltung: zwei Widerstände teilen eine Spannung im Verhältnis R1 : R2. Weit verbreitet zur Pegelanpassung und in Sensorbeschaltungen.
+:::

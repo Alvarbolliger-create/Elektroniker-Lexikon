@@ -1,12 +1,10 @@
 ---
 title: Spule (Übersicht)
 kategorie: ET
-tags: [spule, induktivität, bauteil, passiv, magnetfeld, gegeninduktivität, henry, freilaufdiode, selbstinduktion, wechselstrom, kopplungsfaktor]
-symbol: L
-einheit: H
+tags: [spule, induktivität, bauteil, serie, parallel, energie, freilaufdiode, gegeninduktivität]
+groessen: L|Induktivität|H; U|Spannung|V; I|Strom|A; E|Energie|J
+_status: PORT  # ET_alt/Spule/Spule_Uebersicht.md
 ---
-
-Eine Spule speichert Energie im Magnetfeld. Sie widersetzt sich Änderungen des Stroms. Je schneller sich der Strom ändert, desto stärker ihre Reaktion.
 
 :::hbox
 :::vbox
@@ -16,89 +14,81 @@ Eine Spule speichert Energie im Magnetfeld. Sie widersetzt sich Änderungen des 
 :::vbox
 **Verwandte Artikel**
 - [[Kondensator (Übersicht)]]
-- [[Transformator]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[Induktivität & Einheiten]]
-- [[Selbstinduktion]]
 - [[Spule Typen]]
+- [[Induktivität & Einheiten]]
+- [[Selbstinduktion & Induzierte Spannung]]
 :::
 :::
 
 ---
 
-## Schaltsymbol
+Eine Spule speichert Energie im magnetischen Feld. Sie ist nach dem Kondensator das zweite wichtige reaktive Bauteil — und in ihrem Verhalten das genaue Gegenstück: Die Spule lässt Gleichstrom durch und sperrt hohe Frequenzen.
 
-Eine Reihe von Bögen oder Spiralen.
+## Was ist eine Spule?
 
-:::schematic Spule (IEC)
-/schaltplaene/symbole/L.svg
-:::
+Ein Draht, der zu einer Wicklung aufgerollt ist. Das Magnetfeld jeder Windung addiert sich — je mehr Windungen und je grösser der Kern, desto stärker das Feld und desto grösser die Induktivität. Der Kern (Luft, Ferrit, Eisen) beeinflusst die Induktivität stark.
 
-Bei Spulen mit Kern ist eine gerade Linie parallel gezeichnet. Bei Eisenkern sind es zwei parallele Linien.
-
-## Aufbau
-
-Leiterdraht zu einer Spirale gewickelt. Das erzeugt beim Stromfluss ein Magnetfeld im Innern. Dieses Feld speichert die Energie.
-
-Mit Kern aus Ferrit oder Eisen wird das Feld konzentriert und die Induktivität steigt.
+Die entscheidende Eigenschaft: Die Spule **widersteht Stromänderungen**. Sie kann den Strom nicht sprunghaft ändern.
 
 ## Grundgrössen
 
-:::monospace
-U = L * dI/dt          # Spannung proportional zur Stromänderungsrate
-E = 0.5 * L * I^2     # gespeicherte Energie
-:::
-| Grösse | Symbol | Einheit |
-|---|---|---|
-| Induktivität | L | H (Henry) |
-| Spannung | U | V |
-| Strom | I | A |
-| Energie | E | J |
+**Spannung beim Stromfluss:**
 
-## Bauformen
-
-**Luftspule**: Ohne Kern. Stabil, kein Sättigungseffekt. Für hohe Frequenzen.
-
-**Ferritkern**: Kompakt, hohe Induktivität. Typisch in Schaltnetzteilen und Filtern.
-
-**Drosselspule**: Grosse Induktivität für Gleichstromfilterung (Netzdrossel).
-
-**Transformator**: Zwei oder mehr Spulen auf demselben Kern. Überträgt Energie magnetisch.
-
-## Reihen- und Parallelschaltung
-
-### Ohne Kopplung (getrennte Kerne)
-
-:::schematic Spulen in Reihe
-/schaltplaene/spule_reihe.svg
+:::formel
+u_L = L * di / dt    # induzierte Gegenspannung (Lenzsche Regel)
 :::
 
-:::monospace
-L_ges = L1 + L2 + ... + Ln         # Reihenschaltung
-1/L_ges = 1/L1 + 1/L2 + ... + 1/Ln # Parallelschaltung
-:::
-### Mit Kopplung (gemeinsamer Kern)
+**Gespeicherte Energie:**
 
-:::schematic Spulen mit Kopplung
-/schaltplaene/spule_kopplung.svg
+:::formel
+E = L * I^2 / 2    # magnetische Energie, steigt quadratisch mit I
 :::
 
-Teilen sich zwei Spulen denselben Kern, beeinflusst das Magnetfeld der einen die andere. Diese Gegeninduktivität M verändert die Gesamtinduktivität:
+Diese Energie muss beim Abschalten irgendwo hin — daher die gefährlichen Abschaltspannungen (→ [[Selbstinduktion & Induzierte Spannung]]).
 
-:::monospace
-M = k * sqrt(L1 * L2)              # Gegeninduktivität (k = Kopplungsfaktor, 0 bis 1)
+## Reihenschaltung
 
-L_ges = L1 + L2 + 2 * M           # gleichsinnig gewickelt (Felder addieren sich)
-L_ges = L1 + L2 - 2 * M           # gegensinnig gewickelt (Felder schwächen sich)
+Induktivitäten addieren sich in Reihe direkt — wie ohmsche Widerstände:
+
+:::formel
+L_ges = L1 + L2 + L3
 :::
-Ein Kopplungsfaktor k = 1 bedeutet ideale Kopplung (Transformator). k = 0 bedeutet keine Kopplung.
 
-## Verhalten
+(Gilt nur ohne magnetische Kopplung zwischen den Spulen.)
 
-Bei Gleichstrom ist die Spule ein normaler Widerstand. Beim Einschalten widersetzt sie sich dem Stromaufbau. Beim Ausschalten versucht sie den Strom aufrechtzuerhalten und kann dabei hohe Spannungen erzeugen.
+## Parallelschaltung
+
+Bei Parallelschaltung addieren sich die Kehrwerte:
+
+:::formel
+1 / L_ges = 1 / L1 + 1 / L2
+:::
+
+**Sonderfall zwei gleiche Spulen:** L_ges = L/2.
+
+## Kopplung & Gegeninduktivität
+
+Wenn zwei Spulen nahe beieinanderliegen, beeinflusst das Magnetfeld der einen auch die andere. Diese **Gegeninduktivität M** ist die Grundlage für Transformatoren.
+
+:::formel
+u_2 = M * di_1 / dt    # in Spule 2 induzierte Spannung durch Strom in Spule 1
+:::
+
+Der **Kopplungsfaktor k** gibt an, wie gut die Kopplung ist:
+
+:::formel
+k = M / sqrt(L1 * L2)    # 0 = keine Kopplung, 1 = perfekte Kopplung
+:::
+
+k = 1 ist nur im idealen Transformator erreichbar (alle Feldlinien koppeln). In der Praxis: Übertrager k ≈ 0,95–0,99; lose gekoppelte Spulen k < 0,1.
+
+## Freilaufdiode
+
+Beim Abschalten einer induktiven Last (Relais, Motor) erzeugt die Spule eine hohe Spannungsspitze (Abschaltspannung), die Halbleiter sofort zerstören kann. Eine **Freilaufdiode** parallel zur Spule (in Sperrrichtung zur Versorgung) leitet diesen Strom um und begrenzt die Spannung auf eine Diodenflussspannung.
 
 :::warning
-Beim Unterbrechen des Stroms durch eine Spule entsteht eine Spannungsspitze. Diese kann Transistoren und andere Bauteile zerstören. Immer eine Freilaufdiode parallel zur Spule schalten.
+Jede Schaltung, die induktive Lasten (Relais, Motoren, Solenoide) mit Transistoren oder MOSFETs schaltet, **muss** eine Freilaufdiode oder andere Schutzschaltung haben. Ohne Schutz: Sofortausfall des Schaltelements.
 :::

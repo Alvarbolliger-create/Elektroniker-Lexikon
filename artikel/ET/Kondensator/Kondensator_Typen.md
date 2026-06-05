@@ -1,101 +1,90 @@
 ---
 title: Kondensator Typen
 kategorie: ET
-tags: [kondensator, elko, keramik, folie, typen, bauformen, ESR, ESL, tantalkondensator, MKP, NP0, X5R, Y5V]
-symbol: C
-einheit: F
+tags: [kondensator, elektrolyt, keramik, folie, tantalum, bauform, anwendung, auswahl, elko, mlcc]
+_status: PORT  # ET_alt/Kondensator/Kondensator_Typen.md
 ---
-
-Kondensatoren gibt es in vielen Ausführungen. Jeder Typ hat andere Stärken. Die Wahl des falschen Typs kann eine Schaltung zum Problem machen.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Kapazität & Einheiten]]
-:::
-:::vbox
-**Verwandte Artikel**
-- [[Auf- und Entladung]]
-:::
-:::vbox
-**Führt weiter zu**
-- [[Bauteilauswahl]]
+- [[Kondensator (Übersicht)]]
 :::
 :::
 
 ---
 
-## ESR — Equivalent Series Resistance
+Die Wahl des richtigen Kondensatortyps ist entscheidend — Kapazität allein genügt nicht. Je nach Anwendung zählen Spannungsfestigkeit, Polung, Frequenzverhalten, Grösse und Kosten.
 
-Jeder reale Kondensator hat einen parasitären Serienwiderstand (ESR). Bei hohen Wechselströmen erzeugt er Wärme und begrenzt die Effizienz. In Schaltnetzteilen beeinflusst der ESR direkt die Restwelligkeit der Ausgangsspannung:
-
-:::formel
-U_ripple = I_ripple * ESR
+:::schematic
+/abbildungen/kondensator/kondensator_typen_uebersicht.svg
 :::
-Niedrig-ESR-Kondensatoren sind in Netzteilen und DC/DC-Wandlern Pflicht. Im Datenblatt unter "ESR" oder "Impedanz bei 100 kHz" zu finden.
-
----
 
 ## Elektrolytkondensator (Elko)
 
-Dünnes Aluminiumoxid als Dielektrikum, als Folie aufgewickelt. Grosse Kapazität auf kleinem Raum.
+Sehr grosse Kapazitäten (1 µF – 100 mF) bei moderaten Spannungen (6,3 V – 500 V). Das Dielektrikum ist eine dünne Oxidschicht auf Aluminium- oder Tantalfolie — erzeugt durch elektrolytisches Verfahren.
 
-Polarisiert: muss mit der richtigen Polung eingebaut werden. Falsche Polung zerstört ihn, manchmal explosionsartig.
+**Eigenschaften:**
+- Gepolt (+ und − müssen eingehalten werden)
+- Grosse Kapazität bei kleinem Volumen
+- Schlechtes Hochfrequenzverhalten (parasitäre Induktivität und Widerstand)
+- Alterung und begrenzte Lebensdauer (Elektrolyt trocknet aus)
 
-**Polungsmarkierungen THT:** Minus-Pol am Gehäuse markiert (Balken, Pfeil oder Ring). Das Minus-Pin ist kürzer.
-
-**Polungsmarkierungen SMD (Al-Elko):** Plus-Markierung links auf der Oberseite.
-
-**Achtung Tantal SMD:** Plus-Markierung ist ebenfalls links — aber die Markierungsrichtung kann je nach Hersteller variieren. Datenblatt prüfen.
-
-:::warning
-Falsch gepolte Elkos und Tantalkondensatoren können explodieren oder sich entzünden. Polarität immer vor dem Einbau prüfen.
-:::
-
-Typisch für Siebung in Netzteilen und grosse Pufferkondensatoren.
+**Anwendung:** Netzteilpuffer, Ladungsreservoirs, Koppelkondensatoren bei tiefen Frequenzen.
 
 :::warning
-Elkos altern. Nach 10 bis 20 Jahren sinkt die Kapazität und der ESR steigt. In alten Geräten oft die Ursache für Probleme.
+Falsche Polung eines Elkos → Überdruck → Bersten. Elkos immer auf Polung prüfen. Bei Reparatur: Neue Elkos mit gleicher oder höherer Spannungsfestigkeit einbauen.
 :::
 
 ## Keramikkondensator (MLCC)
 
-Kleine kompakte Bauform, unpolarisiert, sehr schnell. Typisch als 100 nF Bypass direkt am IC.
+Mehrschicht-Keramik-Kondensatoren (Multilayer Ceramic Capacitor). Heute der meistverwendete Kondensatortyp in der Elektronik.
 
-Achtung: C0G/NP0 ist stabil über Temperatur und Spannung. X7R und Y5V haben starke Kapazitätsänderungen bei Gleichspannung. Ein X7R mit 10 µF kann bei 5 V Vorspannung nur noch 5 µF haben.
+**Eigenschaften:**
+- Unpolarisiert
+- Hervorragendes Hochfrequenzverhalten (niedrige Parasitär-Induktivität)
+- Kompakt (SMD-Bauweise von 0402 bis 2220)
+- Kapazitätswert hängt von Spannung und Temperatur ab (X5R, X7R, C0G — je stabiler, desto kleiner die Kapazität)
+
+| Dielektrikum | Kapazitätsbereich | Stabilität | Anwendung |
+|---|---|---|---|
+| C0G (NP0) | pF – einige nF | Sehr stabil, ±30 ppm/K | Präzisionsfilter, Schwingkreise |
+| X7R | nF – µF | Gut, ±15 % | Bypass, Filter |
+| X5R/Y5V | µF – 100 µF | Schlecht (spannungsabhängig) | Entkopplung |
+
+**Anwendung:** Bypass/Entkopplung, HF-Filter, Zeitglieder.
 
 ## Folienkondensator
 
-Kunststofffolie als Dielektrikum. Stabil, langlebig, kein Kapazitätsverlust durch Spannung. Typisch für Audio, Filter und Präzisionsanwendungen.
+Dielektrikum aus Kunststofffolie (PET, PP, Polyester). Robuств, unpolarisiert, geringe Selbstinduktivität.
 
-**Selbstheilung**: Bei einem lokalen Spannungsdurchschlag verdampft die metallisierte Schicht an der Fehlstelle und isoliert sie. Der Kondensator überlebt den Durchschlag und bleibt funktionsfähig — im Gegensatz zu Keramik- oder Elektrolytkondensatoren.
+**Eigenschaften:**
+- Unpolarisiert
+- Stabil und langlebig (kein Elektrolyt, kein Austrocknen)
+- Gutes Temperaturverhalten
+- Grösser als Elkos bei gleicher Kapazität
 
-Grösser als Keramik, kleinere Kapazitäten als Elko.
+**Anwendung:** Audio (klangkritische Koppelkondensatoren), Snubber-Netzwerke, Motoranlauf, Kompensation.
 
 ## Tantalkondensator
 
-Kompakt wie Elko, stabiler, aber teurer und empfindlicher gegen Verpolung und Überspannung. Explodiert bei Überlastung. In der Industrie häufig, in Hobbyprojekten selten.
+Ähnlich wie Elko, aber mit Tantal als Anodenmaterial. Kleiner und stabiler als Aluminium-Elkos.
 
-## Superkondensator (Goldcap)
+**Eigenschaften:**
+- Gepolt (Polung noch wichtiger als beim Aluminiumelko)
+- Geringe Leckströme
+- Stabil gegen Temperatur und Alterung
 
-Sehr grosse Kapazität (Farad-Bereich) bei tiefer Spannung (2 bis 3 V). Für kurze Pufferung bei Stromausfall oder als Energiespeicher in kleinen Geräten.
+:::warning
+Tantalkondensatoren können bei Überpolung oder Überspannung in **Flammen aufgehen** — im wörtlichen Sinne. In kritischen Anwendungen immer mit 50 % Reserve auf die Nennspannung auslegen.
+:::
 
-## Glimmerkondensator
+## Auswahltabelle
 
-Glimmer (Mica) als Dielektrikum. Sehr stabil, präzise, hochfrequenztauglich. Teuer und nur in kleinen Kapazitäten (pF-Bereich). Für HF-Filter und Präzisionsoszillatoren.
-
-## Variable Kondensatoren
-
-**Drehkondensator:** Kapazität durch mechanisches Verdrehen einstellbar. Klassisch in Radioempfängern zur Senderabstimmung.
-
-**Trimmkondensator:** Kleiner einstellbarer Kondensator, einmalig justiert (mit Schraubenzieher). Für Frequenzabgleich in HF-Schaltungen.
-
-## Vergleich
-
-| Typ | Kapazität | Polarisiert | Spannung | ESR | Stärke |
+| Typ | Kapazität | Gepolt | HF | Grösse | Anwendung |
 |---|---|---|---|---|---|
-| Elko | 1 µF bis 100 mF | ja | bis 450 V | mittel–hoch | Grosse Kapazität |
-| Keramik | 1 pF bis 100 µF | nein | bis 50 V | sehr niedrig | Klein, schnell |
-| Folie | 1 nF bis 100 µF | nein | bis 600 V | niedrig | Stabil, selbstheilend |
-| Tantal | 0.1 µF bis 1 mF | ja | bis 35 V | niedrig | Kompakt |
-| Supercap | 0.1 F bis 100 F | ja | bis 5 V | mittel | Energie puffern |
+| Elko (Al) | 1 µF – 100 mF | Ja | Schlecht | Gross | Netzteilpuffer |
+| MLCC | 1 pF – 100 µF | Nein | Sehr gut | Klein | Bypass, Filter, HF |
+| Folie | 1 nF – 100 µF | Nein | Gut | Mittel | Audio, Motor, Snubber |
+| Tantal | 0,1 – 1000 µF | Ja | Gut | Mittel | SMD-Puffer, stabile Last |
+| Supercap | 0,1 – 3000 F | Nein | Schlecht | Sehr gross | Kurzzeitspeicher |

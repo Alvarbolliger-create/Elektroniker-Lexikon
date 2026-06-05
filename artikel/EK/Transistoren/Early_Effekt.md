@@ -39,7 +39,7 @@ Im idealen Modell: Waagrechte Linien im Ausgangskennlinienfeld (IC konstant bei 
 
 In der Realität: Die Linien steigen leicht an. Verlängert man sie nach links (negativer UCE-Bereich), schneiden sie alle (näherungsweise) in einem Punkt auf der negativen UCE-Achse.
 
-:::monospace
+:::formel
 Dieser Schnittpunkt ist die Early-Spannung VA
 VA liegt typisch bei -50 V bis -200 V
 :::
@@ -47,7 +47,7 @@ VA liegt typisch bei -50 V bis -200 V
 
 Die Early-Spannung VA ist ein Kennwert des Transistors. Je grösser |VA|, desto schwächer der Early-Effekt, desto besser der Transistor als Stromquelle.
 
-:::monospace
+:::formel
 IC(UCE) = IC0 × (1 + UCE / VA)    # vereinfachtes Early-Modell
 :::
 Typische Werte: Kleine Signaltransistoren 50–150 V; Hochspannungstransistoren höher.
@@ -56,7 +56,7 @@ Typische Werte: Kleine Signaltransistoren 50–150 V; Hochspannungstransistoren 
 
 **Stromquellen**: Ein Transistor als Stromquelle liefert keinen perfekt konstanten Strom. Der Ausgangswiderstand ist endlich:
 
-:::monospace
+:::formel
 r_out = VA / IC    # Early-Widerstand (Kleinsignalmodell)
 :::
 Bei IC = 1 mA und VA = 100 V: r_out = 100 kΩ. Das ist viel, aber nicht unendlich.

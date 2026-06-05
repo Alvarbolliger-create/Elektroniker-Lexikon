@@ -33,7 +33,7 @@ Die Eingangseite (LED) und Ausgangseite (Transistor) sind galvanisch getrennt. T
 
 Der CTR gibt das Verhältnis von Kollektorstrom zu LED-Strom an:
 
-:::monospace
+:::formel
 CTR = I_C / I_LED × 100 %
 :::
 Typischer CTR: 50-300 %. Hoher CTR: Ausgangs-Transistor kann viel Strom liefern. CTR sinkt mit Alter und Temperatur.

@@ -42,7 +42,7 @@ Kritischer Punkt: Frequenz bei der der Amplitudengang 0 dB (Verstärkung = 1) kr
 
 Die Phasenreserve ist der Abstand zwischen dem tatsächlichen Phasengang bei 0-dB-Durchgang und -180°.
 
-:::monospace
+:::formel
 Phasenreserve = Phasengang bei 0 dB + 180°
 :::
 - Phasenreserve > 45°: stabil, leicht überschwingend

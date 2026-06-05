@@ -1,0 +1,6 @@
+display_name: Drehstrom
+# Pädagogische Reihenfolge (order-Felder in Artikel-Frontmatter):
+#   order: 10  Drehstrom Grundlagen
+#   order: 20  Sternschaltung
+#   order: 30  Dreieckschaltung
+#   order: 40  Verkettete Spannung

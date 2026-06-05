@@ -32,7 +32,7 @@ Ein Transistor im linearen Betrieb regelt den Spannungsabfall zwischen Ein- und 
 
 Die Verlustleistung fällt am Transistor ab:
 
-:::monospace
+:::formel
 P_verlust = (U_ein - U_aus) * I_last     # gesamte Verlustleistung als Wärme
 :::
 ## Typen
@@ -43,7 +43,7 @@ P_verlust = (U_ein - U_aus) * I_last     # gesamte Verlustleistung als Wärme
 
 ## Wirkungsgrad
 
-:::monospace
+:::formel
 eta = U_aus / U_ein     # Wirkungsgrad; stark lastabhängig
 :::
 Beispiel: 12 V Eingang, 5 V Ausgang, 1 A Last. P_verlust = 7 W. Wirkungsgrad = 42 %. Der Regler braucht einen Kühlkörper.
@@ -81,7 +81,7 @@ Statt eines fertigen IC lässt sich ein Linearregler auch diskret aufbauen. Der 
 
 **LM317 als einstellbarer Regler**:
 
-:::monospace
+:::formel
 U_aus = 1.25 V × (1 + R2/R1)    # Formel für LM317
 :::
 R1 = 240 Ω (typisch), R2 einstellbar. Wenn R2 = 2.16 kΩ → U_aus = 12.5 V.

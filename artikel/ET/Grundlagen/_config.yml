@@ -1,0 +1,13 @@
+display_name: Grundlagen
+# Pädagogische Reihenfolge: Artikel erhalten order: 10, 20, 30 … im Frontmatter
+# Vorschlag:
+#   order: 10  Strom, Spannung, Widerstand
+#   order: 20  Elektrische Ladung
+#   order: 30  Elektrisches Feld
+#   order: 40  Elektrische Leistung
+#   order: 50  Elektrische Arbeit / Tarif
+#   order: 60  Leiterwiderstand
+#   order: 70  Erzeuger-Ersatzschaltung
+#   order: 80  Superposition
+#   order: 90  Skineffekt
+#   order: 100 Wellenlänge

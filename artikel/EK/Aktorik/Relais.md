@@ -57,7 +57,7 @@ Die Freilaufdiode wird parallel zur Spule in Sperrrichtung zur Versorgung eingeb
 
 Direkt an einem Mikrocontrollerpin (max. 20–40 mA) ist ein Relais meist nicht betreibbar. Ein NPN-Transistor dient als Verstärker:
 
-:::monospace
+:::formel
 µC-Pin → R_B (1–10 kΩ) → Basis NPN
 Kollektor NPN → Relais-Spule → VCC
 Freilaufdiode parallel zur Spule (Kathode zu VCC)

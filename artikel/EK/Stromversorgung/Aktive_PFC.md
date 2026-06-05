@@ -53,7 +53,7 @@ Die einfachste und häufigste aktive PFC-Schaltung ist ein Boost-Converter vor d
 
 Das Ergebnis: Der Eingangsstrom ist nahezu sinusförmig, phasengleich mit der Netzspannung, THD < 5 %.
 
-:::monospace
+:::formel
 Leistungsfaktor cos φ ≈ 0.99    # mit aktiver PFC
 THD < 5 %                       # statt 80-100 % ohne PFC
 :::
@@ -76,7 +76,7 @@ THD < 5 %                       # statt 80-100 % ohne PFC
 
 ## Aufbau Zwei-Stufen-Netzteil
 
-:::monospace
+:::formel
 AC-Netz → Gleichrichter → Boost-PFC (400 V DC) → LLC-Resonanzwandler → UOUT
 :::
 Diese Struktur findet man in PC-Netzteilen, Ladeinfrastruktur und Industrienetzteilen über 150 W.

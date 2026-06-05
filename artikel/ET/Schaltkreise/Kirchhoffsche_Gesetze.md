@@ -1,84 +1,84 @@
 ---
 title: Kirchhoffsche Gesetze
 kategorie: ET
-tags: [kirchhoff, knotenregel, maschenregel, netzwerk, knotenspannungsanalyse, maschenstromanalyse, superposition, schaltungsanalyse, netzwerkanalyse]
-symbol: —
-einheit: —
+tags: [kirchhoff, knotenregel, maschenregel, KCL, KVL, netzwerkanalyse]
+groessen: I|Strom|A; U|Spannung|V
+_status: PORT  # ET_alt/Schaltkreise/Kirchhoffsche_Gesetze.md
 ---
-
-Zwei Regeln für die Analyse von Schaltungen. Eine gilt an Knoten, die andere in geschlossenen Maschen.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
+- [[Strom, Spannung, Widerstand]]
+:::
+:::vbox
+**Verwandte Artikel**
 - [[Reihenschaltung]]
 - [[Parallelschaltung]]
 :::
 :::vbox
-**Verwandte Artikel**
-- [[Spannungs- & Stromteiler]]
-:::
-:::vbox
 **Führt weiter zu**
-- [[Spannungs- & Stromteiler]]
-- [[Wheatstone-Brücke]]
+- [[Knotenpotenzialanalyse]]
+- [[Superposition (Mehrere Quellen)]]
 :::
 :::
 
 ---
 
-:::schematic Knotenregel und Maschenregel
-/schaltplaene/kirchhoff.svg
+Die Kirchhoffschen Gesetze sind die Grundlage jeder Schaltungsanalyse. Sie folgen direkt aus der Ladungserhaltung und der Energieerhaltung — und gelten für jede elektrische Schaltung.
+
+:::schematic
+/schaltplaene/schaltkreise/kirchhoff_gesetze.svg
 :::
 
-## 1. Gesetz: Knotenregel
+## Knotenregel (KCL — Kirchhoff's Current Law)
 
-An jedem Verzweigungspunkt ist die Summe der zufliessenden Ströme gleich der Summe der abfliessenden. Elektronen können sich nicht ansammeln.
+An jedem Knoten (Verbindungspunkt) einer Schaltung ist die Summe aller zuflies­senden Ströme gleich der Summe aller abfliessenden Ströme. Ladung kann sich nicht ansammeln.
 
 :::formel
-I_zu1 + I_zu2 = I_ab1 + I_ab2
+sum(I_k, k, 1, n) = 0    # Summe aller Ströme am Knoten = 0
 :::
-Allgemeine Schreibweise:
+
+**Vorzeichenregel:** Zuflies­sende Ströme positiv, abfliessende negativ (oder umgekehrt — Hauptsache konsequent).
 
 :::monospace
-ΣI = 0     # Summe aller Ströme am Knoten (Vorzeichen beachten)
+Beispiel Knoten A:
+I1 = 3 A zufliessend
+I2 = 1 A abfliessend
+I3 = ?
+KCL: I1 - I2 - I3 = 0  →  I3 = 2 A
 :::
-## 2. Gesetz: Maschenregel
 
-Die Summe aller Spannungen in einer geschlossenen Masche ist null. Was die Quelle liefert, fällt über den Widerständen ab.
+## Maschenregel (KVL — Kirchhoff's Voltage Law)
+
+Die Summe aller Spannungen entlang einer geschlossenen Masche ist null. Was "hinaufgeht", muss auch wieder "herunterkommen" — Energieerhaltung.
 
 :::formel
-U_quelle - U_R1 - U_R2 = 0
+sum(U_k, k, 1, n) = 0    # Summe aller Spannungen in der Masche = 0
 :::
-Allgemeine Schreibweise:
+
+**Vorzeichenregel:** Man legt eine Umlaufrichtung fest. Fällt die Spannung in Umlaufrichtung ab (Verbraucher), ist sie positiv. Steigt sie (Quelle), ist sie negativ — oder umgekehrt, solange es konsequent durchgehalten wird.
 
 :::monospace
-ΣU = 0     # Summe aller Spannungen in der Masche (Umlaufrichtung einhalten)
+Beispiel Masche:
+U_Q = 12 V (Quelle)
+U_R1 = 4 V, U_R2 = 8 V (Verbraucher)
+KVL: -12 + 4 + 8 = 0  ✓
 :::
-:::warning
-Konsequente Vorzeichen sind entscheidend. Eine Umlaufrichtung wählen und durchhalten, z.B. immer im Uhrzeigersinn. Ein Vorzeichenfehler führt zu einem falschen Ergebnis ohne Hinweis.
-:::
-
-## Beispiel
-
-Schaltung: 12 V Quelle, R1 = 100 Ω in Reihe, danach Parallelzweig R2 = 200 Ω und R3 = 300 Ω.
-
-| Grösse | Berechnung | Ergebnis |
-|---|---|---|
-| R2 \|\| R3 | (200 × 300) / (200 + 300) | 120 Ω |
-| R_ges | 100 + 120 | 220 Ω |
-| I_ges | 12 V / 220 Ω | 54.5 mA |
-| U an R1 | 54.5 mA × 100 Ω | 5.45 V |
-| U an R2/R3 | 12 V − 5.45 V | 6.55 V |
-| I durch R2 | 6.55 V / 200 Ω | 32.7 mA |
-| I durch R3 | 6.55 V / 300 Ω | 21.8 mA |
-| Probe Knotenregel | 32.7 + 21.8 ≈ 54.5 mA | ✓ |
-| Probe Maschenregel | 5.45 + 6.55 = 12 V | ✓ |
 
 ## Anwendung
 
-Für komplexe Netzwerke stellt man ein Gleichungssystem auf. Knotenregel an jedem Knoten, Maschenregel in jeder Masche. Das System lösen liefert alle Ströme und Spannungen.
+Die Kirchhoffschen Gesetze bilden zusammen mit dem ohmschen Gesetz ein Gleichungssystem, das jede Schaltung lösbar macht:
+
+1. **Ströme benennen**: An jedem Zweig einen Pfeil mit Namen festlegen (Richtung frei wählbar, falsches Vorzeichen im Ergebnis korrigiert sich selbst).
+2. **KCL an n − 1 Knoten** anwenden (der letzte Knoten ist abhängig).
+3. **KVL in unabhängigen Maschen** anwenden.
+4. Gleichungssystem lösen.
 
 :::tip
-Superposition: Mehrere Quellen einzeln berechnen, alle anderen kurzschliessen, Ergebnisse addieren.
+Bei grösseren Netzwerken (mehr als 3 Maschen) ist die [[Knotenpotenzialanalyse]] systematischer — sie braucht weniger Gleichungen.
 :::
+
+**Gedächtnishilfe:**
+- **KCL (Knoten)**: Strom — fliess rein, fliess raus, alles muss aufgehen.
+- **KVL (Masche)**: Spannung — was raufgeht, muss wieder runter.

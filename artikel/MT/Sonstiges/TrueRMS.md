@@ -27,7 +27,7 @@ Ein True-RMS-Messgerät misst den echten Effektivwert auch bei verzerrten Signal
 
 Der Effektivwert (RMS = Root Mean Square) ist der Gleichspannungswert, der dieselbe Heizleistung erzeugen würde.
 
-:::monospace
+:::formel
 U_RMS = sqrt(1/T * integral(u(t)^2 dt))
 :::
 Bei einem reinen Sinus: U_RMS = U_peak / sqrt(2) = U_peak × 0.707.

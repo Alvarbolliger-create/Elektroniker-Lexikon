@@ -1,62 +1,63 @@
 ---
 title: Elektromagnet
 kategorie: ET
-tags: [elektromagnet, spule, magnetfeld, kern, remanenz, amperewindungen, durchflutungsgesetz, luftspalt, relais, freilaufdiode, magnetventil]
-symbol: —
-einheit: —
+tags: [elektromagnet, relais, solenoid, anzugskraft, magnetischer kreis, kern, luftspalt]
+groessen: F|Anzugskraft|N; B|Flussdichte|T; A|Kernfläche|m²; mu_0|Feldkonstante|H/m; I|Strom|A; N|Windungszahl|—
+_status: PORT  # ET_alt/Magnetfelder/Elektromagnet.md
 ---
-
-Ein Elektromagnet erzeugt ein Magnetfeld durch Strom. Er lässt sich ein- und ausschalten. Die Stärke ist über den Strom einstellbar.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Lorentzkraft]]
-- [[Selbstinduktion]]
-:::
-:::vbox
-**Verwandte Artikel**
-- [[Transformator: Aufbau & Funktionsprinzip]]
+- [[Magnetfelder]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[Relais & Schütze]]
+- [[Magnetischer Widerstand (Reluktanz)]]
 :::
 :::
 
 ---
 
+Ein Elektromagnet erzeugt ein steuerbares Magnetfeld durch elektrischen Strom. Er ist die Grundlage für Relais, Schütze, Solenoide, Lautsprecher und Elektromotoren.
+
 ## Aufbau
 
-Eine Spule auf einem Eisenkern. Der Kern verstärkt das Feld um ein Vielfaches (Permeabilitätszahl µ_r von Eisen: 1000 bis 100000).
+Ein Elektromagnet besteht aus einer Spule, die auf einem Eisenkern gewickelt ist. Der Eisenkern verstärkt das Magnetfeld um das mu_r-fache gegenüber Luft (typisch 1000× bis 10 000×). Meist ist ein Luftspalt vorhanden, damit ein beweglicher Anker angezogen werden kann.
 
-Mehr Windungen, mehr Strom, besserer Kern: stärkeres Feld.
+| Komponente | Funktion |
+|---|---|
+| Spule (N Windungen, Strom I) | Erzeugt die Durchflutung Theta = N·I |
+| Eisenkern | Konzentriert und leitet das Magnetfeld |
+| Luftspalt | Ermöglicht mechanische Bewegung des Ankers |
+| Anker | Bewegliches Eisenstück, wird angezogen |
 
-## Magnetomotorische Kraft
+## Anzugskraft
 
-:::monospace
-H * l = N * I       # Durchflutungsgesetz; N = Windungszahl, I = Strom, l = Feldlinienlänge
+Die Kraft, mit der der Anker angezogen wird, hängt von der Flussdichte B im Luftspalt und der Querschnittsfläche A ab. Die Formel gilt für einen einzelnen Luftspalt:
+
+:::formel
+F = B^2 * A / (2 * mu_0)    # Anzugskraft in Newton
 :::
-N × I heisst auch Amperewindungen. Je mehr Amperewindungen, desto stärker das Feld.
 
-## Remanenz
+Die Kraft steigt quadratisch mit B — und B steigt mit dem Strom. Doppelter Strom → vierfache Kraft (vereinfacht, ohne Sättigung).
 
-Eisen bleibt nach Abschalten schwach magnetisch. Das nennt sich Remanenz. Bei Relais kann das dazu führen, dass der Anker nicht loslässt. Spezielle Materialien oder Luftspalte reduzieren die Remanenz. Das vollständige Verhalten — inklusive Hysteresekurve und Koerzitivfeldstärke — ist unter [[Sättigung und Hysterese]] beschrieben.
+## Relais und Schütz
 
-## Luftspalt
+Das Relais ist die wichtigste Anwendung des Elektromagnets in der Elektrotechnik:
 
-Ein Luftspalt im Kern erfüllt zwei Funktionen: Er reduziert die Remanenz und linearisiert die B-H-Kurve. Das bedeutet, die Induktivität bleibt über einen grösseren Strombereich konstant und der Kern sättigt später. Der Luftspalt erhöht zwar den magnetischen Widerstand (und senkt damit L), macht das Bauteil aber robuster gegenüber hohen Gleichströmen. Deshalb haben Schaltnetzteildrosseln meist einen Luftspalt.
-
-## Anwendungen
-
-**Relais**: Elektromagnet zieht Schaltkontakte an. Kleines Steuersignal schaltet grossen Laststrom.
-
-**Magnetventil**: Steuert Flüssigkeits- oder Gasfluss.
-
-**Schütz**: Industrierelais für grosse Ströme.
-
-**Haltemaggnet**: Türen, Sicherheitsverriegelungen.
+- Kleiner Steuerstrom in der Spule (mA) schaltet einen grossen Laststrom (A bis kA)
+- Galvanische Trennung zwischen Steuerkreis und Lastkreis
+- Schütz: Ein Relais für grosse Ströme (Motorschutz, Hauptschalter)
 
 :::warning
-Beim Abschalten entsteht eine Spannungsspitze durch Selbstinduktion. Freilaufdiode parallel zur Spule einbauen, sonst werden Steuertransistoren oder Mikrocontroller-Ausgänge zerstört.
+Beim Abschalten der Relaisspule entsteht eine hohe Induktionsspannung (→ [[Selbstinduktion & Induzierte Spannung]]). Immer **Freilaufdiode** parallel zur Spule einbauen, wenn Transistoren oder ICs die Spule schalten.
+:::
+
+## Solenoid
+
+Ein Solenoid ist ein Elektromagnet mit axial beweglichem Tauchkern (Eisenstab). Er wird in Ventilen (Hydraulik, Pneumatik), Türöffnern und Schlössern eingesetzt. Beim Einschalten zieht der Kern in die Spule — beim Ausschalten bringt eine Feder ihn zurück.
+
+:::tip
+Die Anzugskraft eines Elektromagnets ist deutlich grösser als die Haltekraft (wegen des grösseren Luftspalts beim Anziehen). Relais haben deshalb eine Anzugsspannung (höher) und eine Abfallspannung (tiefer) — der Bereich dazwischen ist der Hysteresbereich.
 :::

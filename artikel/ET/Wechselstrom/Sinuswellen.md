@@ -1,12 +1,10 @@
 ---
-title: Sinuswellen
+title: Sinuswellen & Effektivwert
 kategorie: ET
-tags: [sinuswelle, wechselstrom, amplitude, frequenz, phase, effektivwert, scheitelwert, RMS, scheitelfaktor, 50Hz, periode]
-symbol: u(t)
-einheit: V, Hz
+tags: [sinuswelle, effektivwert, scheitelwert, frequenz, periode, kreisfrequenz, PWM, dreieck, rechteck, RMS, bogenmass]
+groessen: u(t)|Momentanspannung|V; U_peak|Scheitelwert|V; U_eff|Effektivwert|V; f|Frequenz|Hz; T|Periodendauer|s; omega|Kreisfrequenz|rad/s; phi|Phasenwinkel|°
+_status: PORT+ERWEITERN  # ET_alt/Wechselstrom/Sinuswellen.md — Dreieck/Rechteck/PWM + Grad/Bogenmass ergänzt
 ---
-
-Wechselspannung im Stromnetz und in vielen Signalen hat die Form einer Sinuswelle. Sie ist die reinste Form einer periodischen Schwingung.
 
 :::hbox
 :::vbox
@@ -20,11 +18,14 @@ Wechselspannung im Stromnetz und in vielen Signalen hat die Form einer Sinuswell
 :::vbox
 **Führt weiter zu**
 - [[Impedanz]]
-- [[RLC-Schaltungen]]
+- [[Wellenlänge]]
+- [[Wechselstromleistung]]
 :::
 :::
 
 ---
+
+Wechselspannung im Stromnetz und in den meisten Signalen hat die Form einer Sinuswelle. Sie ist die einzige periodische Kurvenform, die bei Durchgang durch lineare Bauteile (R, L, C) ihre Form behält — nur Amplitude und Phase ändern sich.
 
 :::plot
 var: t
@@ -37,54 +38,93 @@ Effektivwert: 0.707
 
 ## Allgemeine Gleichung
 
-:::monospace
-u(t) = U_peak * sin(2 * π * f * t + φ)
-u(t) = U_peak * sin(ω * t + φ)       # kompakte Schreibweise mit Kreisfrequenz
-ω    = 2 * π * f                      # Kreisfrequenz in rad/s
+:::formel
+u(t) = U_peak * sin(omega * t + phi)
+omega = 2 * pi * f
+T = 1 / f
 :::
-| Grösse | Symbol | Einheit |
-|---|---|---|
-| Scheitelwert | U_peak | V |
-| Kreisfrequenz | ω | rad/s |
-| Frequenz | f | Hz |
-| Phasenwinkel | φ | rad oder ° |
 
-Die Kreisfrequenz ω ist die gebräuchliche Schreibweise in Impedanzformeln (Z_C = 1/(j·ω·C), Z_L = j·ω·L) und vereinfacht die Notation erheblich.
+| Grösse | Symbol | Einheit | Bedeutung |
+|---|---|---|---|
+| Scheitelwert | U_peak | V | Maximaler Ausschlag |
+| Kreisfrequenz | omega | rad/s | Winkelgeschwindigkeit der Zeigerdrehung |
+| Frequenz | f | Hz | Schwingungen pro Sekunde |
+| Periodendauer | T | s | Dauer einer vollständigen Schwingung |
+| Phasenwinkel | phi | ° oder rad | Zeitlicher Versatz gegenüber dem Nullpunkt |
 
-## Die drei Kennwerte
+Die **Kreisfrequenz omega** taucht in allen Impedanzformeln auf (Z_C = 1/(omega·C), Z_L = omega·L) und ist deshalb die gebräuchlichere Grösse in der Wechselstromrechnung.
 
-**Amplitude (Scheitelwert)** ist der maximale Ausschlag. Das Stromnetz hat 325 V Scheitelwert, nicht 230 V.
+## Grad und Bogenmass
 
-**Frequenz f** in Hertz ist die Anzahl Schwingungen pro Sekunde. Netzfrequenz in der Schweiz: 50 Hz.
+Der Phasenwinkel phi kann in Grad (°) oder Radiant (rad) angegeben werden. In Formeln wird Radiant erwartet.
 
-**Phase φ** beschreibt den zeitlichen Versatz zwischen zwei Signalen. Gleiche Frequenz, aber verschoben.
-
-## Scheitelwert und Effektivwert
-
-Der Effektivwert gibt die Gleichspannung an, die dieselbe Heizwirkung hätte.
-
-:::monospace
-U_eff = U_peak / sqrt(2)    # gilt nur für reine Sinuswelle
-f = 1 / T                   # Frequenz aus Periodendauer
+:::formel
+phi_rad = phi_deg * pi / 180
 :::
-| Grösse | Symbol | Einheit |
+
+| Grad | Radiant | Position auf der Sinuswelle |
 |---|---|---|
-| Effektivwert | U_eff | V |
-| Scheitelwert | U_peak | V |
-| Frequenz | f | Hz |
-| Periodendauer | T | s |
+| 0° | 0 | Nulldurchgang (aufsteigend) |
+| 90° | pi/2 | Scheitel (Maximum) |
+| 180° | pi | Nulldurchgang (absteigend) |
+| 270° | 3*pi/2 | Negativer Scheitel |
+| 360° | 2*pi | Ende einer Periode |
 
-## Netzspannung als Beispiel
+:::tip
+Taschenrechner immer auf **RAD-Modus** stellen, wenn mit omega·t gerechnet wird. Im DEG-Modus liefert sin(omega·t) falsche Ergebnisse.
+:::
 
-Das Schweizer Netz liefert 230 V Effektivwert bei 50 Hz.
+## Effektivwert – Grundprinzip
+
+Der Effektivwert (RMS, Root Mean Square) ist der Gleichspannungswert, der an einem Widerstand **dieselbe Heizleistung** erzeugt wie das Wechselsignal. Das ist der Wert, den Multimeter anzeigen.
+
+Das Grundprinzip: Signal **quadrieren** (macht alle Werte positiv), über die Zeit **mitteln**, **Wurzel** ziehen — daher Root Mean Square.
+
+:::formel
+U_eff = sqrt((1/T) * int(u(t)^2, t, 0, T))
+:::
+
+Für ein **stückweise konstantes Signal** — ein Signal, das bestimmte Spannungswerte für Anteile D1, D2, ... der Periode hält — vereinfacht sich das zu:
+
+:::formel
+U_eff = sqrt(U1^2 * D1 + U2^2 * D2)
+:::
+
+D1 und D2 sind die Zeitanteile (0 bis 1), also das Tastverhältnis jedes Pegels.
+
+**Beispiel**: Ein Signal liegt 80 % der Zeit bei +15 V und 20 % der Zeit bei −5 V:
+
+U_eff = sqrt(15² · 0.8 + (−5)² · 0.2) = sqrt(180 + 5) = sqrt(185) ≈ 13.6 V
+
+Das **Vorzeichen** der Spannung spielt keine Rolle — durch das Quadrieren wird −5 V zu denselben 25 V² wie +5 V. Eine negative Spannung heizt genauso wie eine positive.
+
+## Effektivwert – Kurvenformen
+
+| Kurvenform | Herleitung | Formel |
+|---|---|---|
+| Rechteck (±U_peak, je 50 %) | sqrt(U_peak² · 0.5 + U_peak² · 0.5) | U_eff = U_peak |
+| PWM (U_peak für D, 0 für 1−D) | sqrt(U_peak² · D + 0² · (1−D)) | U_eff = U_peak · sqrt(D) |
+| Dreieck (kontinuierlich, 0 bis U_peak) | Integration nötig | U_eff = U_peak / sqrt(3) |
+| Sinus | Integration nötig | U_eff = U_peak / sqrt(2) |
+
+Rechteck und PWM lassen sich direkt aus der stückweise-Formel ableiten. Dreieck und Sinus verlaufen kontinuierlich — hier muss das Integral gebildet werden, das Ergebnis ist jeweils eine bekannte Formel.
+
+:::warning
+Einfache Multimeter (ohne True-RMS) messen den Gleichrichtwert und rechnen intern auf Sinus-Effektivwert um. Bei Dreieck-, Rechteck- oder PWM-Signalen liefern sie **falsche Werte**. Für nichtsinusförmige Signale immer ein True-RMS-Gerät verwenden.
+:::
+
+## Netzspannung Schweiz
+
+Das Schweizer Netz liefert 230 V Effektivwert bei 50 Hz — dieser Wert steht auch auf Geräten.
 
 | Grösse | Wert |
 |---|---|
-| Effektivwert | 230 V |
-| Scheitelwert | 325 V |
-| Periodendauer | 20 ms |
-| Frequenz | 50 Hz |
+| Effektivwert U_eff | 230 V |
+| Scheitelwert U_peak | 325 V |
+| Periodendauer T | 20 ms |
+| Frequenz f | 50 Hz |
+| Kreisfrequenz omega | 314 rad/s |
 
 :::tip
-Multimeter zeigen immer den Effektivwert. Ein Oszilloskop zeigt den echten Verlauf. Wer den Scheitelwert messen will, braucht ein Oszilloskop oder rechnet mit sqrt(2) × U_eff.
+Das Netz hat **325 V Scheitelwert**, nicht 230 V. Kondensatoren in Netzteilen müssen mindestens 400 V aushalten — 325 V Scheitel plus Reserve für Spannungsschwankungen und Transienten.
 :::

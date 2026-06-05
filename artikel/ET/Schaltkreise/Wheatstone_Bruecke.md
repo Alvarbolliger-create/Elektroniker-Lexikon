@@ -1,82 +1,76 @@
 ---
-title: Wheatstone-Brücke
+title: Brückenschaltung (Wheatstone)
 kategorie: ET
-tags: [wheatstone, messbrücke, widerstand, abgleich, sensor, dms, instrumentationsverstärker, brückenspannung, viertelbrücke, halbbrücke, vollbrücke]
-symbol: —
-einheit: —
+tags: [brückenschaltung, wheatstone, abgleich, brückenspannung, messtechnik, dehnmessstreifen, NTC]
+groessen: U_br|Brückenspannung|V; U_e|Speisespannung|V; R1|Widerstand 1|Ohm; R2|Widerstand 2|Ohm; R3|Widerstand 3|Ohm; R4|Widerstand 4|Ohm
+_status: PORT  # ET_alt/Schaltkreise/Wheatstone_Bruecke.md
 ---
-
-Die Wheatstone-Brücke misst unbekannte Widerstände sehr genau. Sie ist die Grundlage vieler Sensorsignalauswertungen, zum Beispiel bei Dehnungsmessstreifen.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Spannungs- & Stromteiler]]
+- [[Reihenschaltung]]
+- [[Parallelschaltung]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Druck & Kraft (DMS)]]
-- [[Temperatursensoren]]
-:::
-:::vbox
-**Führt weiter zu**
-- [[Sensorik]]
-- [[Vierleitermessung]]
+- [[Spannungs- & Stromteiler]]
 :::
 :::
 
 ---
 
+Die Wheatstone-Brücke ist eine Schaltung aus vier Widerständen, mit der sehr kleine Widerstandsänderungen präzise gemessen werden können. Sie ist die Grundlage für Dehnmessstreifen, Temperatursensoren und Drucksensoren.
+
 ## Aufbau
 
-Vier Widerstände in einer Raute. Eine Diagonale liegt an der Versorgungsspannung, an der anderen wird die Brückenspannung gemessen.
-
-:::schematic Wheatstone-Brücke Grundschaltung
-/schaltplaene/wheatstone.svg
+:::schematic
+/schaltplaene/schaltkreise/wheatstone_bruecke.svg
 :::
 
-R1 und R2 bilden den einen Spannungsteiler, R3 und R4 den anderen. Die Ausgangsspannung ist die Differenz der beiden Mittelpunktspannungen.
+Vier Widerstände in einem Viereck (Raute). Die Speisespannung U_e liegt zwischen dem oberen und unteren Knoten. Das Messinstrument (Spannungsmesser) liegt quer zwischen den zwei Seitenknoten — U_br ist die Diagonalspannung.
 
-## Abgeglichene Brücke
-
-Wenn R1/R2 = R3/R4 ist die Brücke abgeglichen: U_aus = 0 V.
-
-:::monospace
-R_x = R3 * R2 / R1      # unbekannter Widerstand aus drei bekannten
-:::
-In der Praxis wird R3 so lange eingestellt bis U_aus = 0. Dann gilt die Formel exakt.
-
-## Verstimmte Brücke (Sensor)
-
-Ein Widerstand im Netz ändert sich, zum Beispiel ein NTC-Temperatursensor oder ein Dehnungsmessstreifen. Die Brücke ist nicht mehr abgeglichen. Für kleine Änderungen ΔR bei gleich grossen Grundwiderständen R gilt:
+## Brückenspannung
 
 :::formel
-U_aus ≈ U_vers * (ΔR / (4 * R))
-:::
-Das Ausgangssignal ist sehr klein (mV-Bereich). Es braucht einen Verstärker, meistens einen Instrumentationsverstärker.
-
-## Brückenkonfigurationen
-
-Je nachdem wie viele Widerstände aktive Sensorelemente sind, unterscheidet man drei Konfigurationen:
-
-| Konfiguration | Aktive Elemente | Signalgrösse | Typischer Einsatz |
-|---|---|---|---|
-| Viertelbrücke | 1 | 1× | Einzelner NTC, einfache Dehnungsmessung |
-| Halbbrücke | 2 | 2× | Biegebalken mit Zug- und Druckseite |
-| Vollbrücke | 4 | 4× | DMS-Wägezellen, höchste Empfindlichkeit |
-
-:::schematic Viertelbrücke
-/schaltplaene/wheatstone_viertel.svg
+U_br = U_e * (R1 / (R1 + R2) - R3 / (R3 + R4))
 :::
 
-:::schematic Halbbrücke
-/schaltplaene/wheatstone_halb.svg
+Bei Abgleich (U_br = 0) gilt die Abgleichbedingung.
+
+## Abgleichbedingung
+
+Die Brücke ist abgeglichen (U_br = 0), wenn beide Spannungsteilerhälften dasselbe Verhältnis haben:
+
+:::formel
+R1 / R2 = R3 / R4    # Abgleichbedingung: beide Hälften gleiches Verhältnis
 :::
 
-:::schematic Vollbrücke
-/schaltplaene/wheatstone_voll.svg
+Anschaulich: Links teilt R1/R2, rechts teilt R3/R4. Wenn beide Teiler gleich sind, liegen Ua und Ub auf demselben Potenzial → U_br = 0.
+
+## Anwendung: Widerstandsmessung
+
+**Abgleichverfahren**: R1, R2, R3 bekannt und fest; R4 ist der unbekannte Messwiderstand. Durch Abgleich (z. B. Verändern von R2 oder R3) auf U_br = 0 lässt sich R4 aus der Abgleichbedingung berechnen. Sehr genaue Methode, da bei U_br = 0 kein Strom durch den Messweg fliesst.
+
+## Anwendung: Sensoren
+
+In der Praxis wird eine Brücke aus drei festen Widerständen und einem Sensor aufgebaut:
+
+| Sensor | Messgrösse | Funktionsprinzip |
+|---|---|---|
+| Dehnmessstreifen (DMS) | Dehnung, Kraft, Druck | Widerstand ändert sich mit Dehnung |
+| NTC/PTC | Temperatur | Widerstand ändert sich mit Temperatur |
+| Fotowiderstand (LDR) | Licht | Widerstand ändert sich mit Helligkeit |
+
+**Vorteil gegenüber einfachem Spannungsteiler**: Kleine Widerstandsänderungen (z. B. 0,1 %) erzeugen eine messbare Brückenspannung, weil die Referenzseite exakt kompensiert. Der Offset (Grundspannung) wird herausgekürzt.
+
+:::monospace
+Beispiel: U_e = 5 V, R1 = R2 = R3 = 1 kOhm, R4 = 1 kOhm + 10 Ohm (0,1 % Änderung)
+Ua = 5 * 1/(1+1) = 2.500 V (feste Seite)
+Ub = 5 * 1/(1+1.01) = 2.488 V (Sensorseite)
+U_br = 2.500 - 2.488 = 12.5 mV
 :::
 
 :::tip
-Bei der Vollbrücke heben sich Temperatureinflüsse weitgehend auf, weil alle vier Elemente gleich driften. Das macht sie auch bei schwankender Umgebungstemperatur stabil.
+Für noch höhere Empfindlichkeit werden alle vier Brückenwiderstände als Sensoren ausgeführt (Vollbrücke). Zwei gegenüberliegende Widerstände erhöhen ihren Wert, zwei andere erniedrigen ihn — die Ausgangsspannung verdoppelt sich und Temperatureinflüsse auf alle vier Elemente kompensieren sich gegenseitig.
 :::

@@ -1,72 +1,115 @@
 ---
-title: Transformator: Aufbau & Funktionsprinzip
+title: Transformator Aufbau
 kategorie: ET
-tags: [transformator, spule, magnetfeld, wechselstrom, übersetzung, galvanische trennung, primär, sekundär, streufluss, kupferverluste, eisenverluste]
-symbol: TR
-einheit: —
+tags: [transformator, aufbau, kern, wicklung, primär, sekundär, streufluss, leerlauf, kurzschluss]
+groessen: U1|Primärspannung|V; U2|Sekundärspannung|V; I1|Primärstrom|A; I2|Sekundärstrom|A; N1|Primärwindungen|—; N2|Sekundärwindungen|—
+_status: PORT  # ET_alt/Transformator/Transformator_Aufbau.md
 ---
-
-Ein Transformator überträgt Wechselenergie magnetisch von einer Spule zur anderen, ohne galvanische Verbindung. Er kann Spannungen hoch- oder heruntersetzen.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
 - [[Spule (Übersicht)]]
 - [[Magnetfelder]]
+- [[Magnetisierungskurve & Hysterese]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Übersetzungsverhältnis]]
-- [[Wirkungsgrad & Verluste]]
+- [[Transformator Typen]]
 :::
 :::vbox
 **Führt weiter zu**
 - [[Übersetzungsverhältnis]]
-- [[Netzteile]]
 :::
 :::
 
 ---
 
-## Aufbau
-
-Zwei Wicklungen (Primär und Sekundär) auf einem gemeinsamen Eisenkern. Der Kern konzentriert das Magnetfeld und verbindet die Wicklungen magnetisch.
-
-Primärwicklung: liegt an der Eingangsspannung. Sekundärwicklung: liefert die Ausgangsspannung.
+Der Transformator überträgt Wechselenergie zwischen zwei galvanisch getrennten Stromkreisen über ein gemeinsames Magnetfeld. Er ist das wichtigste Bauteil der Energieübertragung — er macht die Hochspannungsübertragung im Netz erst möglich.
 
 ## Funktionsprinzip
 
-Wechselstrom in der Primärwicklung erzeugt ein wechselndes Magnetfeld im Kern. Dieses Feld induziert in der Sekundärwicklung eine Spannung. Mit Gleichstrom funktioniert das nicht.
+Zwei Spulen (Primär- und Sekundärwicklung) auf demselben Eisenkern. Der Wechselstrom der Primärseite erzeugt einen wechselnden magnetischen Fluss im Kern, der in der Sekundärwicklung eine Spannung induziert.
 
-## Schaltsymbol
+Voraussetzung: **Wechselstrom** — bei Gleichstrom ist der Fluss konstant, keine Induktion auf der Sekundärseite.
 
-Zwei Spulensymbole nebeneinander, verbunden durch zwei vertikale Linien (Eisenkern). Bei Trenntransformator ohne Kern-Linien oder mit gestrichelter Linie.
+## Kernformen
 
-## Übersetzung
+| Kernform | Eigenschaften | Anwendung |
+|---|---|---|
+| M-Kern (Mittelschenkelkern) | Kompakt, gut zugänglich | Netz-Trafos, kleine Netzteile |
+| E/I-Kern | Einfach wickelbar | Trafos, Speicherdrosseln |
+| Ringkern (Toroid) | Kleiner Streufluss, wenig EMV | Audio, HF, Netzteile |
+| Schalenkern | Gut geschlossen, mechanisch stabil | SMD, HF-Übertrager |
 
-Das Spannungsverhältnis entspricht dem Windungszahlverhältnis.
+## Streufluss
+
+Im idealen Transformator ist der gesamte Fluss mit beiden Wicklungen verkoppelt. In der Realität "streut" ein Teil des Flusses durch die Luft — dieser **Streufluss** koppelt nicht in die Sekundärwicklung und erscheint als **Streuinduktivität**.
+
+Hohe Streuinduktivität → schlechtere Spannungsregulation, mehr Verluste bei Laststössen.
+
+## Leerlauf (I2 = 0)
+
+Im Leerlauf fliesst ein kleiner Magnetisierungsstrom I_0 auf der Primärseite, um den Kern zu magnetisieren. Die Sekundärspannung entspricht der transformierten Leerlaufspannung (Übersetzungsverhältnis).
+
+## Kurzschluss
+
+Bei Kurzschluss auf der Sekundärseite sind nur noch die Wicklungswiderstände und die Streuinduktivitäten strombegrenzend. Der **Kurzschlussstrom** kann ein Vielfaches des Nennstroms betragen — Trafos müssen für definierte Zeit kurzschlussfest sein.
+
+:::warning
+Transformatoren dürfen nicht dauerhaft kurzgeschlossen betrieben werden — die Wicklungen überhitzen durch den hohen Kurzschlussstrom. Sicherungen auf der Sekundärseite sind zwingend.
+:::
+
+## Transformatorhauptgleichung
+
+Die induzierte Spannung einer Wicklung hängt von Windungszahl, Frequenz, Kernquerschnitt und maximaler Flussdichte ab. Diese Formel gilt für Sinusspannung und den verlustfreien Transformator:
+
+:::formel
+U = 4.44 * N * f * A * B_max    # Transformatorhauptgleichung
+:::
+
+| Grösse | Einheit | Bedeutung |
+|---|---|---|
+| U | V | Effektivspannung der Wicklung |
+| N | — | Windungszahl |
+| f | Hz | Netzfrequenz (50 Hz) |
+| A | m² | Effektiver Kernquerschnitt |
+| B_max | T | Maximale Flussdichte (muss unter B_sat bleiben) |
+
+Der Faktor 4.44 = 2π/√2 kommt aus dem Formfaktor der Sinuswelle.
+
+**Windungszahl berechnen** — wie viele Windungen braucht eine Wicklung?
+
+:::formel
+N = U / (4.44 * f * A * B_max)
+:::
+
+**Windungsspannung** — Spannung pro Windung, gilt für alle Wicklungen desselben Kerns:
+
+:::formel
+U_W = U / N
+:::
 
 :::monospace
-U1 / U2 = N1 / N2       # Spannungsübersetzung
-I1 / I2 = N2 / N1       # Stromübersetzung (umgekehrt)
-:::
-Mehr Windungen sekundär: Spannung steigt, Strom sinkt. Weniger Windungen: Spannung sinkt, Strom steigt.
+Beispiel: 230 V, 50 Hz, Kern A = 25 cm² = 25e-4 m², B_max = 1.2 T
+N1 = 230 / (4.44 * 50 * 25e-4 * 1.2) = 230 / 0.666 = 345 Windungen
+U_W = 230 / 345 = 0.667 V/Windung
 
-## Galvanische Trennung
-
-Primär- und Sekundärkreis sind elektrisch nicht verbunden. Das ermöglicht sichere Isolierung zwischen Netz und Verbraucher und ist Grundlage vieler Sicherheitskonzepte.
-
-:::info
-Ein Transformator funktioniert nur mit Wechselstrom. Mit Gleichstrom baut sich kein wechselndes Feld auf. Die Primärwicklung würde im Dauerbetrieb überhitzen.
+Sekundärwicklung für 12 V:
+N2 = 12 / 0.667 = 18 Windungen  (oder: N2 = N1 * U2/U1 = 345 * 12/230 = 18)
 :::
 
-## Realer Transformator
+:::tip
+Die Windungsspannung U_W ist für alle Wicklungen auf demselben Kern gleich. Damit lassen sich alle Sekundärspannungen direkt durch Multiplikation mit N2 bestimmen — ohne die Hauptgleichung für jede Wicklung neu zu lösen.
+:::
 
-Ideale Transformatoren gibt es nicht. In der Praxis entstehen zwei Verlustarten:
+## Kernmaterialien
 
-- **Kupferverluste**: Ohmsche Verluste in den Wicklungen (I² × R). Steigen quadratisch mit dem Strom.
-- **Eisenverluste**: Ummagnetisierungs- und Wirbelstromverluste im Kern. Steigen mit der Frequenz.
+| Material | Frequenzbereich | Eigenschaft |
+|---|---|---|
+| Trafoblech (Si-Stahl) | 50 Hz (Netz) | Niedrige Hystereseverluste |
+| Ferrit (Mn-Zn) | 1 kHz – 1 MHz | Geringe Wirbelstromverluste |
+| Ferrit (Ni-Zn) | 1 MHz – 100 MHz | HF-Anwendungen |
+| Nanocrystalline | 50 Hz – 100 kHz | Sehr niedrige Verluste |
 
-Ausserdem gibt es **Streufluss**: Ein Teil des Magnetflusses schliesst sich nicht über den Kern, sondern durch die Luft. Das reduziert die Kopplung zwischen Primär- und Sekundärwicklung.
-
-Detaillierte Verlustrechnung und Wirkungsgradberechnung unter [[Wirkungsgrad & Verluste]].
+Der Kernquerschnitt und das Material bestimmen, wie viel magnetische Energie ohne Sättigung gespeichert werden kann — die Kernauslegung ist zentrales Designelement.

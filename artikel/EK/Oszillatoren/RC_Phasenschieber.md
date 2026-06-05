@@ -35,7 +35,7 @@ Das Rückkopplungsnetzwerk dämpft das Signal stark. Der Verstärker braucht dah
 
 ## Formeln
 
-:::monospace
+:::formel
 f_0 = 1 / (2π × R × C × √6)    # Resonanzfrequenz bei identischen R und C
 A_min = 29                       # Mindestverstärkung für stabile Schwingung
 :::

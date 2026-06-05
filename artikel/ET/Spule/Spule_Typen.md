@@ -1,70 +1,69 @@
 ---
 title: Spule Typen
 kategorie: ET
-tags: [spule, drossel, ferrit, luftspule, ringkern, bauform, toroid, DCR, EMV, sättigungsstrom, stromkompensationsdrossel, eisenpulver]
-symbol: L
-einheit: H
+tags: [spule, luftspule, ferritkern, ringkern, drossel, bauform, anwendung, emv, netzdrossel]
+_status: PORT  # ET_alt/Spule/Spule_Typen.md
 ---
-
-Spulen gibt es in vielen Ausführungen. Material und Aufbau des Kerns bestimmen Induktivität, Verluste, Sättigungsgrenze und Frequenzbereich.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Induktivität & Einheiten]]
-:::
-:::vbox
-**Verwandte Artikel**
-- [[Kondensator Typen]]
-:::
-:::vbox
-**Führt weiter zu**
-- [[Bauteilauswahl]]
+- [[Spule (Übersicht)]]
 :::
 :::
 
 ---
 
+Die Wahl der richtigen Spule hängt von Induktivität, Strom, Frequenz und Einsatzgebiet ab. Kernmaterial und Bauform bestimmen massgeblich die Eigenschaften.
+
+:::schematic
+/abbildungen/spule/spule_typen_uebersicht.svg
+:::
+
 ## Luftspule
 
-Kein Kern. Stabile Induktivität, kein Sättigungseffekt, keine Kernverluste. Nachteil: Sehr gross für hohe Induktivitäten.
+Keine Sättigungsgrenze, kein Kernmaterial. Induktivität bleibt bis zu sehr hohen Frequenzen konstant. Aber: Für hohe Induktivitäten viele Windungen nötig → gross und teuer.
 
-Typisch für HF-Anwendungen, Filter bei hohen Frequenzen und Präzisionsanwendungen.
+**Anwendung:** HF- und UHF-Schwingkreise, Antennen, Messspulen. In der Leistungselektronik selten wegen der grossen Abmessungen.
 
-## Ferritkern
+## Ferritkernspule
 
-Ferritmaterial (Eisenoxid-Keramik) konzentriert das Feld. Hohe Induktivität auf kleinem Raum. Verluste steigen bei hohen Frequenzen.
+Ferritkern aus gesintertem Metalloxid (mu_r typisch 20 – 15 000). Erhöht die Induktivität drastisch bei kleinen Abmessungen.
 
-Ferrit sättigt bei relativ kleinen Strömen. Für Schaltnetzteile nur bis zum Sättigungsstrom belastbar.
+| Ferritmaterial | Frequenzbereich | mu_r |
+|---|---|---|
+| Mn-Zn Ferrit | 1 kHz – 1 MHz | 1000–15 000 |
+| Ni-Zn Ferrit | 100 kHz – 100 MHz | 10–2000 |
 
-## Eisenpulverkern
+**Sättigungsgefahr**: Wird der Ferritkern zu stark magnetisiert, sättigt er — die Induktivität bricht ein. Drosseln im Schaltnetzteil müssen deshalb auf den maximalen Strom ausgelegt sein.
 
-Körner aus Eisenpulver in einem Bindemittel. Höhere Sättigungsgrenze als Ferrit. Gut für DC-Überlagerte Induktivitäten (Buck/Boost-Wandler).
+**Anwendung:** Schaltnetzteildrosseln, HF-Übertrager, EMV-Ferriten.
 
-## Ringkern (Toroid)
+## Ringkerndrossel
 
-Das Feld bleibt grösstenteils im Kern. Wenig Streufeld, EMV-freundlich. Aufwendiger zu wickeln, aber magnetisch ideal.
+Wicklung auf einem Ringkern (Toroid). Sehr kleiner Streufluss — das Magnetfeld bleibt weitgehend im Kern eingeschlossen.
 
-Typisch für Netzfilter, Transformatoren und Stromkompensationsdrosseln.
+**Vorteile:** Geringe EMV-Abstrahlung, hohe Induktivität pro Windung, kein äusseres Magnetfeld.
 
-## Stromkompensationsdrossel
+**Nachteile:** Schwieriger zu wickeln, Kernquerschnitt und Länge schwer zugänglich.
 
-Zwei gegensinnige Wicklungen auf demselben Kern. Der Nutzsignal-Strom (Gegentakt) fliesst in entgegengesetzten Richtungen — die Magnetfelder heben sich auf, die Spule wirkt transparent. Gleichtakt-Störströme dagegen fliessen in dieselbe Richtung und werden durch die volle Induktivität gebremst.
+**Anwendung:** Netzfilter, Audio-Verstärker, Gegentakt-Drossel in Schaltnetzteilen, EMV-Filternetzwerke.
 
-Eingesetzt in Netzfiltern am Eingang von Schaltnetzteilen um leitungsgebundene Störungen zu dämpfen. Mehr dazu unter [[EMV-Grundlagen]].
+## Netzdrossel (Common-Mode Drossel)
 
-## SMD-Spulen
+Spezielle Spule für EMV-Unterdrückung: Zwei Wicklungen auf demselben Kern, gegensinnig gewickelt. Gegentaktstrom (Nutzsignal) hebt sich auf — der Kern sättigt nicht. Gleichtaktstrom (EMV-Störung) wird durch die Induktivität gebremst.
 
-Aufgedruckte oder gewickelte Spulen auf einem Keramikträger. Kompakt, für Reflow-Bestückung. Typisch in Schaltnetzteilen auf Leiterplatten.
+**Anwendung:** Eingangsfilter von Schaltnetzteilen, Frequenzumrichtern. Jedes europäische Netzteil mit CE-Zeichen enthält eine Gleichtaktdrossel.
 
-## Vergleich
+## Auswahltabelle
 
-| Typ | Kernmaterial | Induktivitätsbereich | Max. Frequenz | Sättigung | DCR |
-|---|---|---|---|---|---|
-| Luftspule | — | nH bis µH | GHz | keine | sehr niedrig |
-| Ferritkern | Ferrit | µH bis H | MHz | niedrig | niedrig |
-| Eisenpulver | Fe-Pulver | µH bis mH | kHz bis MHz | mittel | niedrig |
-| Ringkern | Ferrit/Fe | µH bis H | kHz bis MHz | mittel | niedrig |
-| SMD-Induktivität | Ferrit | 1 nH bis 100 µH | MHz | niedrig bis mittel | mittel bis hoch |
+| Typ | Induktivitätsbereich | Strom | Frequenz | Anwendung |
+|---|---|---|---|---|
+| Luftspule | nH – einige µH | Beliebig | bis GHz | HF, Schwingkreis |
+| Ferritkernspule | µH – mH | klein–mittel | kHz–MHz | Schaltwandler, Filter |
+| Ringkerndrossel | µH – H | klein–gross | 50 Hz – MHz | EMV, Audio, Netzfilter |
+| Netzdrossel (CM) | mH – H | gross | 50 Hz – kHz | EMV-Filter, Netzgeräte |
 
-DCR (DC-Widerstand) ist der ohmsche Widerstand der Wicklung. Er verursacht Verluste und einen Spannungsabfall bei Gleichstrom. Im Datenblatt unter "DCR" oder "R_DC" angegeben.
+:::tip
+Für die Leistungselektronik (Schaltwandler, Induktionsherd, Frequenzumrichter) ist Ferrit die erste Wahl. Für Netzfilter und Trafos bei 50 Hz wird weiterhin Trafoblech (laminiertes Siliziumstahl) verwendet — Ferrit sättigt bei 50-Hz-Flussdichten zu früh.
+:::

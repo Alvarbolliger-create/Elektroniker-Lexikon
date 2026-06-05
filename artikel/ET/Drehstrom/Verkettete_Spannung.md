@@ -1,54 +1,63 @@
 ---
 title: Verkettete Spannung
 kategorie: ET
-tags: [verkettete spannung, drehstrom, 400V, wurzel 3, strangspannung, leistungsformel, schweizer netz, 230V]
-symbol: U_v
-einheit: V
+tags: [verkettete spannung, leiterspannung, strangspannung, sqrt3, drehstrom, zeiger]
+groessen: U_str|Strangspannung|V; U_L|Leiterspannung|V; phi|Phasenwinkel|°
+_status: PORT  # ET_alt/Drehstrom/Verkettete_Spannung.md
 ---
-
-Die verkettete Spannung ist die Spannung zwischen zwei Aussenleitern im Drehstromnetz. Sie ist um den Faktor √3 grösser als die Strangspannung.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Sternschaltung]]
-- [[Dreieckschaltung]]
+- [[Drehstrom Grundlagen]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Wirkleistung]]
-:::
-:::vbox
-**Führt weiter zu**
-- [[Frequenzumrichter]]
+- [[Sternschaltung]]
+- [[Dreieckschaltung]]
 :::
 :::
 
 ---
 
-## Herkunft des Faktors √3
+Die verkettete Spannung (Leiterspannung) ist die Spannung zwischen zwei Phasen — also "von Phase zu Phase". Sie ist sqrt(3) mal grösser als die Strangspannung (Phase gegen Neutral). Dieser Faktor sqrt(3) ≈ 1,732 taucht in allen Drehstromformeln auf.
 
-Die drei Phasenspannungen sind um 120° versetzt. Die Differenz zwischen zwei Phasenvektoren ergibt geometrisch den Faktor √3 = 1.732.
+## Herleitung
 
-:::monospace
-U_verkettet = sqrt(3) * U_strang    # 400 V = sqrt(3) * 230 V
+Die drei Phasenspannungen sind um 120° verschoben. Die Spannung zwischen L1 und L2 ist die **Differenz** der beiden Zeiger u1 und u2. Da beide dieselbe Amplitude und 120° Winkelabstand haben, ergibt die geometrische Differenz:
+
+:::formel
+U_L = U_str * sqrt(3)
 :::
-## Im Schweizer Netz
 
-| Spannung | Wert | Zwischen |
-|---|---|---|
-| Strangspannung | 230 V | Aussenleiter und Neutralleiter |
-| Verkettete Spannung | 400 V | Aussenleiter und Aussenleiter |
+**Geometrische Begründung:** Im Zeigerdiagramm bilden die drei gleich langen, um 120° versetzten Zeiger ein gleichseitiges Dreieck. Die Verbindung zweier Zeigerspitzen (Differenz = Leiterspannung) ist um sqrt(3) länger als die Zeigeramplitude.
 
-230 V für Steckdosen und Leuchten. 400 V für Motoren, Herde und Industrieanlagen.
+## Schweizer Netz (TN-S)
 
-## Leistung im Drehstromnetz
+| Grösse | Wert |
+|---|---|
+| Strangspannung U_str (L–N) | 230 V |
+| Leiterspannung U_L (L–L) | 400 V |
+| Verhältnis | sqrt(3) = 1,732 |
+| Frequenz f | 50 Hz |
 
-:::monospace
-P = sqrt(3) * U_verkettet * I * cos_phi    # Wirkleistung symmetrische Last
-:::
-Der Faktor √3 erscheint auch in der Leistungsformel, weil drei Phasen je einen Beitrag leisten.
+Probe: 230 V · 1,732 = 398 V ≈ 400 V ✓
+
+## Phasenwinkel
+
+Die Leiterspannung eilt der niedrigeren Strangspannung um 30° vor (ergibt sich aus der Zeigergeometrie). Dieser Phasenunterschied ist wichtig bei Transformatoren und für die Beurteilung von Schaltgruppen.
 
 :::tip
-Schnelle Abschätzung: 1 kW bei 400 V und cos φ = 1 entspricht etwa 1.44 A pro Aussenleiter. Bei cos φ = 0.8 sind es 1.8 A. Das hilft bei der Leitungsauslegung.
+Im Alltag: **230 V** = Steckdose (Phase–Neutral, Einphasenstrom). **400 V** = Kraftsteckdose, Herd, Waschmaschine (Phase–Phase, Drehstrom). Beide sind dasselbe Netz — nur an unterschiedlichen Leitern abgegriffen.
+:::
+
+## Messung
+
+Ein Voltmeter zeigt:
+- Zwischen L und N: Strangspannung ≈ 230 V
+- Zwischen L1 und L2 (oder L2–L3 oder L3–L1): Leiterspannung ≈ 400 V
+- Zwischen N und PE: Idealerweise 0 V (PE und N sind an der Einspeisung verbunden)
+
+:::warning
+**Sicherheit:** 400 V zwischen zwei Phasen sind gefährlicher als 230 V Phase–Neutral — die Leiterspannung ist sqrt(3)-mal grösser. Beim Arbeiten an Drehstromanlagen müssen alle drei Phasen abgeschaltet und gesichert sein.
 :::

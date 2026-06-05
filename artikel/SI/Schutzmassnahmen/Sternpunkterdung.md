@@ -51,7 +51,7 @@ Kleinste Potenzialunterschiede zwischen den Erdungspunkten (einige Millivolt bis
 
 Bei HF-Signalen (> 1 MHz) verhält sich eine Leiterbahn nicht mehr wie ein idealer Leiter. Sie hat eine Eigenimpedanz:
 
-:::monospace
+:::formel
 Z_Leitung = R + jωL    # bei HF dominiert ωL (Induktivität)
 :::
 Eine lange Masseleitung zum Sternpunkt hat bei HF eine hohe Impedanz. Das Ergebnis:

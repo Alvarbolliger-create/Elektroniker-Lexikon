@@ -1,90 +1,80 @@
 ---
 title: Leistungsanpassung
 kategorie: ET
-tags: [leistungsanpassung, innenwiderstand, lastwiderstand, maximale leistung, anpassung, wirkungsgrad, impedanzanpassung, 50-ohm]
-symbol: P_max
-einheit: W
+tags: [leistungsanpassung, innenwiderstand, lastwiderstand, maximale leistung, impedanzanpassung, wirkungsgrad]
+groessen: P|Leistung|W; Ri|Innenwiderstand|Ohm; Ra|Lastwiderstand|Ohm; U0|Leerlaufspannung|V; eta|Wirkungsgrad|—
+_status: PORT  # ET_alt/Schaltkreise/Leistungsanpassung.md
 ---
-
-Eine Quelle gibt dann maximale Leistung an einen Verbraucher ab, wenn der Lastwiderstand gleich dem Innenwiderstand der Quelle ist.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Strom, Spannung, Widerstand]]
+- [[Erzeuger-Ersatzschaltung (Thévenin)]]
 - [[Spannungs- & Stromteiler]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Wirkleistung]]
-- [[Reihenschaltung]]
-:::
-:::vbox
-**Führt weiter zu**
-- [[Impedanz]]
-- [[Wellenwiderstand]]
+- [[Elektrische Leistung]]
 :::
 :::
 
 ---
 
-## Grundmodell: Quelle mit Innenwiderstand
+An welchen Lastwiderstand gibt eine reale Quelle die grösste Leistung ab? Die Antwort — Ra = Ri — ist intuitiv überraschend, aber mathematisch eindeutig. Dieses Prinzip heisst Leistungsanpassung.
 
-Jede reale Quelle hat einen Innenwiderstand Ri. Die Leerlaufspannung U0 teilt sich zwischen Ri und dem Lastwiderstand Ra auf.
-
-:::monospace
-I = U0 / (Ri + Ra)
-P_a = I² × Ra = (U0 / (Ri + Ra))² × Ra
-:::
 ## Bedingung für maximale Leistung
 
-Die Ableitung von P_a nach Ra und Gleichsetzen mit null ergibt:
+Die maximale Leistung an der Last wird erreicht, wenn der Lastwiderstand Ra gleich dem Innenwiderstand Ri der Quelle ist:
 
-:::info
-Maximale Leistungsübertragung tritt auf wenn Ra = Ri. Das ist die Leistungsanpassungsbedingung.
+:::formel
+Ra = Ri    # Anpassungsbedingung
 :::
+
+Bei dieser Bedingung gilt für die maximale Leistung:
+
+:::formel
+P_max = U0^2 / (4 * Ri)    # Leistung bei Ra = Ri
+:::
+
+**Herleitung (Prinzip):** Die Lastleistung P = I² · Ra mit I = U0/(Ri + Ra). Ableitung nach Ra und gleich null setzen ergibt Ra = Ri.
 
 :::monospace
-Ra = Ri    # Leistungsanpassung: maximale Leistungsübertragung
+Beispiel: U0 = 12 V, Ri = 50 Ohm
+P_max = 12^2 / (4 * 50) = 144 / 200 = 0.72 W
+bei Ra = 50 Ohm, I = 12 / (50+50) = 120 mA
 :::
-Im Anpassungsfall gilt:
-:::monospace
-P_max = U0² / (4 × Ri)    # maximale abgebbare Leistung
+
+## Wirkungsgrad bei Anpassung
+
+Bei Ra = Ri teilen sich Ri und Ra die Spannung genau hälftig. Das bedeutet: Im Innenwiderstand fällt genauso viel Verlustleistung an wie in der Last — der Wirkungsgrad beträgt nur 50 %.
+
+:::formel
+eta = Ra / (Ri + Ra)    # Wirkungsgrad allgemein
 :::
-Die Spannung an der Last beträgt dann genau die Hälfte der Leerlaufspannung:
-:::monospace
-U_a = U0 / 2    # bei Ra = Ri
-:::
-## Wirkungsgrad bei Leistungsanpassung
 
-Bei Ra = Ri fällt die gleiche Leistung im Innenwiderstand ab wie an der Last. Der Wirkungsgrad beträgt nur 50 %.
+Bei Ra = Ri: eta = 0,5 (50 %). Für hohe Effizienz muss Ra ≫ Ri sein — dann gehen aber auch Strom und Leistung zurück.
 
-:::monospace
-η = P_a / P_gesamt = 50 %    # nur bei Leistungsanpassung
-:::
-Das ist kein Problem für Signalübertragung (Antenne, Audio), aber inakzeptabel für Energieübertragung (Stromversorgung).
+## Strom- / Spannungs- / Leistungsanpassung
 
-## Wann wird Leistungsanpassung angestrebt?
+Es gibt drei unterschiedliche Optimierungsziele:
 
-**Ja, bei Signalübertragung**:
-- Antennentechnik: 50-Ω-Anpassung für maximale Leistungsübertragung
-- Audioschaltungen: Impedanzanpassung zwischen Endstufe und Lautsprecher
-- HF-Messtechnik: 50-Ω-Kabel, Messgeräte, Antennen
-
-**Nein, bei Energieversorgung**:
-- Netzteil → Last: möglichst kleiner Innenwiderstand, Ra >> Ri
-- Wirkungsgrad muss hoch sein, 50 % Verlust ist nicht akzeptabel
-- Spannungsregler haben bewusst einen kleinen Ausgangswiderstand
-
-## Grafische Darstellung
-
-Die Leistung P_a als Funktion von Ra hat ein Maximum bei Ra = Ri. Links davon (Ra < Ri) steigt die Leistung mit Ra. Rechts davon (Ra > Ri) sinkt sie wieder.
-
-| Ra / Ri | P_a / P_max | Wirkungsgrad |
+| Ziel | Bedingung | Typische Anwendung |
 |---|---|---|
-| 0.25 | 64 % | 20 % |
-| 0.5 | 89 % | 33 % |
-| 1 (Anpassung) | 100 % | 50 % |
-| 2 | 89 % | 67 % |
-| 4 | 64 % | 80 % |
-| 10 | 33 % | 91 % |
+| Maximaler Strom | Ra = 0 Ω (Kurzschluss) | Kurzschlussprüfung, Messung Ri |
+| Maximale Spannung | Ra → ∞ (Leerlauf) | Spannungsquellen-Buffering |
+| Maximale Leistung | Ra = Ri | HF-Technik, Audioübertrager |
+
+## Wann sinnvoll, wann nicht?
+
+**Sinnvoll** bei der Leistungsanpassung:
+- HF-Übertragung (Antennen, Koaxialkabel: 50 Ω oder 75 Ω)
+- Audioverstärker und Lautsprecher (Impedanzanpassung über Übertrager)
+- Sensorauswertung mit maximaler Empfindlichkeit
+
+**Nicht sinnvoll** in der Energietechnik:
+- Energieversorgung (50 % Verlust im Innenwiderstand wäre inakzeptabel)
+- Netzteile, Batterien, Spannungsregler → Ra ≫ Ri anstreben (eta nahe 100 %)
+
+:::tip
+In der HF-Technik werden alle Leitungen und Abschlüsse auf 50 Ω normiert — deshalb haben Koaxialkabel, Messgeräte, Antennenanschlüsse alle 50 Ω Impedanz. Nicht wegen maximaler Leistung allein, sondern um Reflexionen auf der Leitung zu vermeiden.
+:::

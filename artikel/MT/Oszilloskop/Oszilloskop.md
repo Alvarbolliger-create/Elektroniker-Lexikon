@@ -68,7 +68,7 @@ Mit AC-Kopplung kann man den Trigger auf 0 V setzen und das Signal stabil darste
 
 Die Bandbreite des Oszilloskops (z.B. 100 MHz) gibt an, bis zu welcher Signalfrequenz die Amplitude noch auf 70.7 % (−3 dB) des Wahrwerts angezeigt wird.
 
-:::monospace
+:::formel
 Faustregel: Bandbreite ≥ 5× Signalfrequenz    # für genaue Signalform
 :::
 Ein 100-MHz-Oszilloskop für ein 20-MHz-Signal ist gut. Für ein 80-MHz-Signal wird die Amplitude bereits leicht verfälscht dargestellt.

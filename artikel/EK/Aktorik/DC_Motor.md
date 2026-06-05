@@ -46,7 +46,7 @@ U_eff = U_VCC * D
 n ≈ U_eff * k
 :::
 
-:::monospace
+:::formel
 D    = Duty Cycle  0 ... 1
 k    = Motorkonstante [U/min per V]  (aus Datenblatt)
 :::
@@ -64,7 +64,7 @@ M = k_t * I
 I_anlauf = U / R_A
 :::
 
-:::monospace
+:::formel
 k_t   = Drehmomentkonstante [Nm/A]
 R_A   = Ankerwiderstand [Ω]
 :::

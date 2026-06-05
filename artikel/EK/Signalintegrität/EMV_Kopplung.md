@@ -57,7 +57,7 @@ U_Stoerung = I_A × Z_gemeinsam
 
 **Ursache**: Das elektrische Feld zwischen zwei Leitungen koppelt Spannungsänderungen. Die Kopplungskapazität hängt vom Abstand, der Parallelläuflänge und der Dielektrizität ab.
 
-:::monospace
+:::formel
 I_koppel = C_koppel × dU/dt    # Störstrom proportional zu Spannungsänderung
 :::
 **Typisch**: Schnelle Spannungsänderungen (PWM-Taktleitungen, Schalttransistoren) koppeln auf benachbarte Signalleitungen.
@@ -74,7 +74,7 @@ I_koppel = C_koppel × dU/dt    # Störstrom proportional zu Spannungsänderung
 
 **Ursache**: Ein sich ändernder Strom erzeugt ein magnetisches Wechselfeld, das in eine benachbarte Schleife eine Spannung induziert. Die Gegenseitigkeitsinduktivität M bestimmt die Kopplung.
 
-:::monospace
+:::formel
 U_koppel = M × dI/dt    # Störspannung proportional zu Stromänderung
 :::
 **Typisch**: Hohe dI/dt bei Schalttransistoren, Motoren, Relais. Koppelt auf Messleitungen, Signalkabel.

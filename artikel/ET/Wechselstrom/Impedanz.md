@@ -1,16 +1,15 @@
 ---
 title: Impedanz
 kategorie: ET
-tags: [impedanz, wechselstrom, widerstand, reaktanz, phasenwinkel, admittanz, scheinwiderstand, komplexe zahl, j-operator, blindwiderstand, wirkleitwert, blindleitwert]
-symbol: Z
-einheit: Ω
+tags: [impedanz, scheinwiderstand, reaktanz, blindwiderstand, wirkwiderstand, komplex, phasenwinkel]
+groessen: Z|Impedanz|Ohm; R|Wirkwiderstand|Ohm; X|Reaktanz|Ohm; phi|Phasenwinkel|°; omega|Kreisfrequenz|rad/s
+_status: PORT  # ET_alt/Wechselstrom/Impedanz.md
 ---
-
-Impedanz ist der Gesamtwiderstand im Wechselstromkreis. Sie fasst den ohmschen Widerstand und die frequenzabhängigen Anteile von Kondensator und Spule zusammen.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
+- [[Sinuswellen & Effektivwert]]
 - [[Kondensator im Wechselstrom]]
 - [[Spule im Wechselstrom]]
 :::
@@ -20,88 +19,81 @@ Impedanz ist der Gesamtwiderstand im Wechselstromkreis. Sie fasst den ohmschen W
 :::
 :::vbox
 **Führt weiter zu**
-- [[RLC-Schaltungen]]
-- [[Filter Grundlagen]]
+- [[RL-Reihenschaltung]]
+- [[RC-Reihenschaltung]]
 :::
 :::
 
 ---
 
-## Zusammensetzung
+Impedanz ist der Wechselstromwiderstand — er vereint den ohmschen Wirkwiderstand R und die frequenzabhängige Reaktanz X in einer einzigen Grösse. Im Gegensatz zu R hängt die Impedanz von der Frequenz ab und bewirkt eine Phasenverschiebung zwischen Strom und Spannung.
 
-Impedanz besteht aus zwei Teilen: dem Wirkwiderstand R (ohmsch, frequenzunabhängig) und der Reaktanz X (frequenzabhängig).
+## Komponenten der Impedanz
 
-:::monospace
-Z = sqrt(R^2 + X^2)     # Betrag der Impedanz; X = X_L - X_C
-X_L = 2 * pi * f * L    # Induktiver Anteil
-X_C = 1 / (2 * pi * f * C)  # Kapazitiver Anteil
-:::
-| Grösse | Symbol | Einheit |
-|---|---|---|
-| Impedanz | Z | Ω |
-| Wirkwiderstand | R | Ω |
-| Reaktanz | X | Ω |
-| Phasenwinkel | phi | ° |
+| Grösse | Symbol | Einheit | Bedeutung |
+|---|---|---|---|
+| Wirkwiderstand | R | Ω | Ohmscher Anteil, wandelt Energie in Wärme um |
+| Reaktanz (Blindwiderstand) | X | Ω | Frequenzabhängiger Anteil, speichert und gibt Energie zurück |
+| Impedanz (Scheinwiderstand) | Z | Ω | Kombination aus R und X |
 
-## Phasenwinkel
+**Reaktanz der Bauteile:**
 
 :::formel
-phi = arctan(X / R)
+X_C = 1 / (omega * C)    # kapazitive Reaktanz, sinkt mit Frequenz
 :::
-phi gibt an, wie stark Strom und Spannung zeitlich versetzt sind. Bei phi = 0° ist die Last rein ohmsch. Bei phi = 90° rein reaktiv.
-
-## Ohmsches Gesetz für Wechselstrom
 
 :::formel
-U = Z * I
+X_L = omega * L    # induktive Reaktanz, steigt mit Frequenz
 :::
-Dieselbe Form wie beim Ohmschen Gesetz, aber Z ist komplex und frequenzabhängig.
 
-:::tip
-Bei niedrigen Frequenzen dominiert der kapazitive Anteil (X_C gross). Bei hohen Frequenzen dominiert der induktive Anteil (X_L gross). Dazwischen liegt die Resonanzfrequenz wo X_L = X_C.
+## Betrag und Phase
+
+Die Impedanz lässt sich als rechtwinkliges Dreieck darstellen: R horizontal, X vertikal, Z als Hypotenuse (→ [[Zeigerdiagramm]]).
+
+:::formel
+Z = sqrt(R^2 + X^2)    # Betrag der Impedanz
 :::
+
+:::formel
+phi = arctan(X / R)    # Phasenwinkel zwischen U und I
+:::
+
+| phi | Bedeutung |
+|---|---|
+| phi = 0° | Rein ohmsch — Strom und Spannung in Phase |
+| phi > 0° (induktiv) | Spannung eilt Strom vor (L dominiert) |
+| phi < 0° (kapazitiv) | Strom eilt Spannung vor (C dominiert) |
+
+**Merkregel:** *ELI the ICE man* — bei induktivem Verhalten (L) eilt die Spannung (E) dem Strom (I) vor; bei kapazitivem Verhalten (C) eilt der Strom (I) der Spannung (E) vor.
 
 ## Komplexe Darstellung
 
-Der Betrag allein reicht für Phasenberechnungen nicht aus. Die vollständige komplexe Schreibweise:
+Für Schaltungsanalyse wird die Impedanz als komplexe Zahl geschrieben: Realteil R, Imaginärteil X. Die komplexe Schreibweise erlaubt, Reihen- und Parallelschaltungen mit normaler Algebra zu berechnen.
 
-:::monospace
-Z   = R + j*X              # komplexe Impedanz (R = Realteil, X = Imaginärteil)
-|Z| = sqrt(R^2 + X^2)      # Betrag (wie oben)
-φ   = arctan(X / R)        # Phasenwinkel
+| Bauteil | Impedanz (komplex) |
+|---|---|
+| Widerstand R | Z = R |
+| Kondensator C | Z = -j / (omega * C) |
+| Spule L | Z = j * omega * L |
 
-Z_R = R                    # ohmscher Widerstand (rein reell)
-Z_L = j * ω * L            # Spule (rein imaginär, positiv)
-Z_C = 1 / (j * ω * C)      # Kondensator (rein imaginär, negativ)
+Das j (imaginäre Einheit) codiert die Phasenverschiebung: j·X bedeutet 90° Voreilung, −j·X bedeutet 90° Nacheilung gegenüber R.
+
+## Reihen- und Parallelschaltung
+
+Reihenschaltung: Impedanzen addieren sich (wie Widerstände).
+
+:::formel
+Z_ges = Z1 + Z2
 :::
-In Reihenschaltung addieren sich Impedanzen direkt: `Z_ges = Z1 + Z2 + Z3`
 
-In Parallelschaltung gilt: `1/Z_ges = 1/Z1 + 1/Z2` — oder einfacher über die Admittanz Y = 1/Z, die sich wie Leitwerte addieren lässt.
+Parallelschaltung: Kehrwerte addieren sich (wie Leitwerte).
 
-## Parallelschaltung: Admittanz
-
-Für Parallelschaltungen ist der Leitwertansatz einfacher. Statt Impedanzen zu kombinieren, addiert man Leitwerte direkt:
-
-:::monospace
-Y   = 1 / Z              # Admittanz (Scheinleitwert) in S (Siemens)
-G   = 1 / R              # Wirkleitwert
-B_L = 1 / X_L            # Induktiver Blindleitwert
-B_C = 1 / X_C            # Kapazitiver Blindleitwert
-
-Y = sqrt(G^2 + B^2)      # Betrag der Admittanz
-I = U * Y                # Ohmsches Gesetz mit Admittanz
+:::formel
+Z_ges = Z1 * Z2 / (Z1 + Z2)    # für zwei Glieder
 :::
-Die Ströme im Parallelkreis:
-:::monospace
-I_R = U / R              # Strom durch Widerstand
-I_L = U / X_L            # Strom durch Spule
-I_C = U / X_C            # Strom durch Kondensator
-I   = sqrt(I_R^2 + I_L^2)   # RL-Parallel
-I   = sqrt(I_R^2 + I_C^2)   # RC-Parallel
+
+Bei komplexen Zahlen in der Parallelschaltung sind Real- und Imaginärteil getrennt zu behandeln — das CAS übernimmt diese Rechnung.
+
+:::tip
+Für EFZ-Prüfungen: Den **Betrag Z** mit Pythagoras berechnen, den **Phasenwinkel phi** mit arctan(X/R). Komplexe Algebra ist nützlich, aber nicht immer nötig.
 :::
-| Grösse | Symbol | Einheit | Bedeutung |
-|---|---|---|---|
-| Admittanz | Y | S | Kehrwert der Impedanz |
-| Wirkleitwert | G | S | G = 1/R |
-| Induktiver Blindleitwert | B_L | S | B_L = 1/X_L |
-| Kapazitiver Blindleitwert | B_C | S | B_C = 1/X_C |

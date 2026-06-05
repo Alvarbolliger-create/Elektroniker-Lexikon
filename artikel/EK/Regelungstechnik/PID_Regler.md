@@ -35,7 +35,7 @@ Der PID-Regler kombiniert drei Anteile: P reagiert auf die aktuelle Abweichung, 
 
 ## Formel
 
-:::monospace
+:::formel
 u(t) = Kp * e + Ki * integral(e) + Kd * de/dt      # Stellgrösse aus P, I, D Anteil
 :::
 Kp, Ki, Kd sind die einstellbaren Verstärkungen.
@@ -62,7 +62,7 @@ Der D-Anteil verstärkt Rauschen. Bei verrauschten Messsignalen (Sensorrauschen)
 
 Im Mikrocontroller wird der PID diskret (in Zeitschritten Δt) berechnet:
 
-:::monospace
+:::formel
 e[k]       = Soll - Ist                    # Regelabweichung
 P_anteil   = Kp × e[k]
 I_anteil  += Ki × e[k] × Δt               # aufsummiert
@@ -98,7 +98,7 @@ Der Zweipunktregler ist kein PID-Regler. Er wird hier als Kontrastbeispiel gezei
 
 Der einfachste Regler: Die Stellgrösse kennt nur zwei Zustände — EIN oder AUS.
 
-:::monospace
+:::formel
 e > 0:  Stellgrösse = MAX  (z.B. Heizung EIN)
 e < 0:  Stellgrösse = 0    (z.B. Heizung AUS)
 :::

@@ -27,11 +27,11 @@ Der Frequenzgang beschreibt wie ein Verstärker oder Filter auf Signale verschie
 
 Der Verstärkungsfaktor A ist das Verhältnis von Ausgangs- zu Eingangssignal:
 
-:::monospace
+:::formel
 A = U_aus / U_ein     # Spannungsverstärkung, dimensionslos
 :::
 In Dezibel:
-:::monospace
+:::formel
 A_dB = 20 × log10(U_aus / U_ein)    # Spannungsverstärkung
 P_dB = 10 × log10(P_aus / P_ein)    # Leistungsverstärkung
 :::

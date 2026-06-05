@@ -41,7 +41,7 @@ Filter lassen bestimmte Frequenzen durch und dämpfen andere. Sie sind in fast j
 
 Die -3 dB Frequenz (Grenzfrequenz f_g) ist die Frequenz bei der die Ausgangsamplitude auf 70.7 % des Eingangs gesunken ist.
 
-:::monospace
+:::formel
 f_g = 1 / (2 * pi * R * C)     # RC-Tiefpass und Hochpass
 :::
 ## Filterordnung

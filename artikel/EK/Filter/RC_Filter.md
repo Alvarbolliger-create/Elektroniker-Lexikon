@@ -42,7 +42,7 @@ R in Reihe, C nach Masse. Ausgang über C abgegriffen.
 Tiefe Frequenzen: C hat hohe Impedanz, Spannungsabfall fast nur über C. Signal kommt durch.
 Hohe Frequenzen: C hat tiefe Impedanz, Spannungsabfall fast nur über R. Signal gedämpft.
 
-:::monospace
+:::formel
 f_g     = 1 / (2 * pi * R * C)             # −3 dB Grenzfrequenz
 H(s)    = 1 / (1 + s * R * C)              # Übertragungsfunktion
 |H(jω)| = 1 / sqrt(1 + (ω * R * C)^2)     # Amplitudengang
@@ -60,7 +60,7 @@ C in Reihe, R nach Masse. Ausgang über R abgegriffen. Tiefpass umgedreht.
 
 Tiefe Frequenzen gedämpft. Hohe Frequenzen durchgelassen.
 
-:::monospace
+:::formel
 f_g     = 1 / (2 * pi * R * C)
 |H(jω)| = (ω * R * C) / sqrt(1 + (ω * R * C)^2)
 φ(ω)    = +arctan(1 / (ω * R * C))

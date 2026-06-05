@@ -256,6 +256,22 @@ QLineEdit#searchField {
 QLineEdit#searchField:focus {
     border-color: @brand@;
 }
+QPushButton#collapseAllBtn {
+    background: transparent;
+    color: @text_muted@;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 0px;
+}
+QPushButton#collapseAllBtn:hover {
+    background: @brand_pale@;
+    border-color: @border_soft@;
+    color: @brand_deep@;
+}
+QPushButton#collapseAllBtn:pressed {
+    background: @brand_hover_bg@;
+}
 QTreeWidget#articleTree {
     border: none;
     background: transparent;
@@ -287,6 +303,14 @@ QTreeWidget#articleTree::branch:open:has-children:has-siblings {
 QLabel#countLabel {
     color: @text_faint@;
     font-size: 11px;
+}
+
+/* ── Sidebar Resize-Handle ───────────────────────────────────── */
+QWidget#sidebarHandle {
+    background: transparent;
+}
+QWidget#sidebarHandle:hover {
+    background: @border_soft@;
 }
 
 /* ── Rechte Seitenleiste ─────────────────────────────────────── */

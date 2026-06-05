@@ -1,63 +1,77 @@
 ---
 title: Übersetzungsverhältnis
 kategorie: ET
-tags: [transformator, übersetzung, windungszahl, spannung, strom, impedanzanpassung, galvanische trennung, abwärtstransformator, aufwärtstransformator]
-symbol: ü
-einheit: —
+tags: [übersetzungsverhältnis, transformator, windungszahl, spannungsübersetzung, stromübersetzung, impedanzübersetzung]
+groessen: u|Übersetzungsverhältnis|—; N1|Windungszahl primär|—; N2|Windungszahl sekundär|—; U1|Primärspannung|V; U2|Sekundärspannung|V; I1|Primärstrom|A; I2|Sekundärstrom|A; Z1|Impedanz primär|Ohm; Z2|Impedanz sekundär|Ohm
+_status: PORT  # ET_alt/Transformator/Uebersetzungsverhaeltnis.md
 ---
-
-Das Übersetzungsverhältnis beschreibt wie ein Transformator Spannung und Strom umwandelt. Was er an Spannung gewinnt, verliert er an Strom.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Transformator: Aufbau & Funktionsprinzip]]
-:::
-:::vbox
-**Verwandte Artikel**
-- [[Wirkungsgrad & Verluste]]
+- [[Transformator Aufbau]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[Netzteile]]
-- [[Leitungsauslegung]]
+- [[Wirkungsgrad & Verluste (Transformator)]]
 :::
 :::
 
 ---
 
-## Formel
+Das Übersetzungsverhältnis beschreibt, wie Spannung, Strom und Impedanz zwischen Primär- und Sekundärseite eines Transformators umgesetzt werden. Es ist das zentrale Designparameter bei jeder Trafodimensionierung.
 
-:::monospace
-ue = N1 / N2        # Übersetzungsverhältnis aus Windungszahlen
-U1 / U2 = N1 / N2  # Spannungsübersetzung
-I1 / I2 = N2 / N1  # Stromübersetzung (umgekehrt zur Spannung)
+## Spannungsübersetzung
+
+Im idealen Transformator ist das Spannungsverhältnis gleich dem Windungszahlverhältnis. Mehr Windungen auf der Sekundärseite → höhere Spannung (Aufwärtstransformator).
+
+:::formel
+U2 / U1 = N2 / N1
 :::
-| Grösse | Symbol | Einheit |
+
+Das Übersetzungsverhältnis u = N1/N2 (primär/sekundär ist Konvention, manchmal auch umgekehrt definiert):
+
+:::formel
+u = N1 / N2
+:::
+
+| u | Typ | Wirkung |
 |---|---|---|
-| Übersetzungsverhältnis | ü | — |
-| Primärwindungen | N1 | — |
-| Sekundärwindungen | N2 | — |
+| u > 1 | Abwärtstransformator | U2 < U1 (N2 < N1) |
+| u = 1 | Trenntransformator | U2 = U1 |
+| u < 1 | Aufwärtstransformator | U2 > U1 (N2 > N1) |
 
-## Heruntersetzen und Hochsetzen
+## Stromübersetzung
 
-ü > 1: Spannung sinkt, Strom steigt (Abwärtstransformator). Typisch für Netzteile.
+Die Leistung bleibt beim idealen Trafo erhalten (P1 = P2). Da P = U · I, folgt: Was bei der Spannung "gewonnen" wird, geht beim Strom "verloren".
 
-ü < 1: Spannung steigt, Strom sinkt (Aufwärtstransformator). Typisch für Hochspannungsanwendungen.
+:::formel
+I1 / I2 = N2 / N1    # Strom umgekehrt proportional zur Windungszahl
+:::
 
-## Leistung bleibt (fast) gleich
+Hohe Spannung → kleiner Strom (Hochspannungsübertragung: kleine Verluste). Niedrige Spannung → grosser Strom (Sekundärseite bei Schweisstransformator: hunderte Ampere).
 
 :::monospace
-P1 = P2     # idealer Transformator; gilt annähernd bei gutem Wirkungsgrad
-U1 * I1 = U2 * I2
+Beispiel Netztrafo: N1 = 2000, N2 = 100, U1 = 230 V
+U2 = 230 * 100 / 2000 = 11.5 V
+Bei I2 = 2 A: I1 = 2 * 100 / 2000 = 0.1 A
+P = 11.5 * 2 = 23 W = 230 * 0.1 (Probe) ✓
 :::
-In der Praxis entstehen Verluste durch Kupferwiderstand der Wicklungen und Ummagnetisierungsverluste im Kern.
 
-## Impedanztransformation
+## Impedanzübersetzung
 
-Ein Transformator transformiert auch Impedanzen. Das wird genutzt um Quellen und Lasten anzupassen.
+Impedanzen werden quadratisch übersetzt. Das ist entscheidend für die [[Leistungsanpassung]]: Ein niederohmiger Lautsprecher (4 Ω) kann über einen Übertrager an einen hochohmigen Verstärkerausgang angepasst werden.
+
+:::formel
+Z1 / Z2 = (N1 / N2)^2
+:::
 
 :::monospace
-Z1 = ue^2 * Z2      # Impedanz von Sekundär auf Primär umgerechnet
+Beispiel Übertrager: Verstärker Z1 = 1 kOhm, Lautsprecher Z2 = 4 Ohm
+Benötigtes Windungszahlverhältnis:
+N1/N2 = sqrt(Z1/Z2) = sqrt(1000/4) = sqrt(250) = 15.8
 :::
-Das ist wichtig in der Audiotechnik und bei HF-Anpassnetzwerken.
+
+:::tip
+Die Impedanzübersetzung erklärt, warum Trafos in der Audiotechnik und in HF-Schaltungen eingesetzt werden: Sie ermöglichen optimale Leistungsübertragung zwischen Schaltungsstufen mit sehr unterschiedlichen Impedanzen.
+:::

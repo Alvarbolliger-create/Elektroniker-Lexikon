@@ -37,7 +37,7 @@ R = (U_V - U_F) / I_LED
 P_R = (U_V - U_F) * I_LED
 :::
 
-:::monospace
+:::formel
 U_V   = Versorgungsspannung [V]
 U_F   = Vorwärtsspannung LED [V]   (1,8–2,2 V rot/gelb, 2,8–3,5 V blau/weiss)
 I_LED = gewünschter Strom [A]      (typisch 5–20 mA für Standard-LEDs)
@@ -45,7 +45,7 @@ I_LED = gewünschter Strom [A]      (typisch 5–20 mA für Standard-LEDs)
 
 **Rechenbeispiel: Rote LED an 12 V**
 
-:::monospace
+:::formel
 U_V  = 12 V
 U_F  = 2 V
 I    = 20 mA
@@ -64,7 +64,7 @@ Bei hohen Versorgungsspannungen (12 V, 24 V) fällt fast die gesamte Verlustleis
 
 Pulsweitenmodulation (PWM) stellt die Helligkeit ein, ohne den Spitzenstrom zu ändern. Das menschliche Auge integriert Frequenzen oberhalb von ca. 100 Hz als konstante Helligkeit.
 
-:::monospace
+:::formel
 Helligkeit [%] = Duty Cycle [%]
 :::
 
@@ -97,7 +97,7 @@ WS2812B und SK6812 sind RGB-LEDs mit integriertem Treiber-IC. Über ein einziges
 
 Signalprotokoll: 800 kHz Bitstream, 24 Bit pro LED (8 Bit je Farbe). LEDs werden in Reihe geschaltet, jede gibt das Signal weiter.
 
-:::monospace
+:::formel
 Controller → [LED 1] → [LED 2] → [LED 3] → ...
              R,G,B       R,G,B      R,G,B
 :::
@@ -123,7 +123,7 @@ Der thermische Widerstand bestimmt die Betriebstemperatur des Chips:
 T_J = T_ambient + P * R_theta_JA
 :::
 
-:::monospace
+:::formel
 T_J         = Chip-Temperatur [°C]
 T_ambient   = Umgebungstemperatur [°C]
 P           = Verlustleistung [W]

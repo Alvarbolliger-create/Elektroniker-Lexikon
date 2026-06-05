@@ -1,76 +1,114 @@
 ---
 title: Leiterwiderstand
 kategorie: ET
-tags: [leiterwiderstand, spezifischer widerstand, stromdichte, leitfähigkeit, material, temperaturkoeffizient]
-groessen: R|Widerstand|Ω; ρ|spez. Widerstand|Ω*mm2/m; l|Leiterlänge|m; A|Querschnitt|mm2; J|Stromdichte|A/mm2; σ|elektr. Leitfähigkeit|S/m; α|Temperaturkoeffizient|1/K
+tags: [leiterwiderstand, spezifischer widerstand, stromdichte, leitfähigkeit, temperaturkoeffizient, alpha]
+groessen: R|Widerstand|Ohm; rho|spez. Widerstand|Ohm·mm²/m; l|Leiterlänge|m; A|Querschnitt|mm²; J|Stromdichte|A/mm²; alpha|Temperaturkoeffizient|1/K
+_status: PORT  # ET_alt/Grundlagen/Leiterwiderstand.md
 ---
- 
-Jeder elektrische Leiter setzt dem Stromfluss einen gewissen Widerstand entgegen. Dieser hängt von der Geometrie des Leiters und den spezifischen Materialeigenschaften ab.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
 - [[Strom, Spannung, Widerstand]]
-:::
-:::vbox
-**Verwandte Artikel**
 - [[Elektrische Leistung]]
 :::
 :::vbox
+**Verwandte Artikel**
+- [[NTC & PTC]]
+:::
+:::vbox
 **Führt weiter zu**
-- [[Temperaturabhängigkeit]]
-- [[Leitungsschutz]]
+- [[Skin-Effekt]]
 :::
 :::
 
 ---
 
+Jeder reale Leiter hat einen Widerstand — er hängt vom Material, der Länge, dem Querschnitt und der Temperatur ab. In der Praxis dimensioniert man Leitungsquerschnitte so, dass der Spannungsfall und die Verlustleistung im zulässigen Bereich bleiben.
+
 ## Geometrischer Widerstand
 
-Der Widerstand eines Leiters wird durch seine Länge und seine Querschnittsfläche bestimmt. Ein langer, dünner Draht hat einen höheren Widerstand als ein kurzer, dicker Draht.
+Der Widerstand eines Leiters steigt mit der Länge und sinkt mit dem Querschnitt. Das Material bestimmt den **spezifischen Widerstand** rho.
 
 :::formel
-R = ρ * l / A
+R = rho * l / A
 :::
 
-Verdoppelt man die Länge eines Leiters, verdoppelt sich der Widerstand. Verdoppelt man hingegen den Querschnitt, halbiert sich der Widerstand.
+| Grösse | Symbol | Einheit | Bedeutung |
+|---|---|---|---|
+| Widerstand | R | Ω | Gesuchte Grösse |
+| Spez. Widerstand | rho | Ω·mm²/m | Materialkonstante |
+| Länge | l | m | Leiterlänge (Hin- und Rückleiter!) |
+| Querschnitt | A | mm² | Leiterquerschnitt |
 
-## Leitfähigkeit und Material
+**Typische Werte für rho (bei 20 °C):**
 
-Das Material bestimmt, wie leicht sich Elektronen durch das Gitter bewegen können. Der spezifische Widerstand (ρ) ist eine Materialkonstante. Die elektrische Leitfähigkeit (σ) ist der Kehrwert davon.
+| Material | rho (Ω·mm²/m) | Anwendung |
+|---|---|---|
+| Kupfer (Cu) | 0,0172 | Leitungen, Wicklungen |
+| Aluminium (Al) | 0,028 | Freileitungen, grosse Querschnitte |
+| Eisen (Fe) | 0,1 | Konstruktionsteile |
+| Konstantan | 0,49 | Präzisionswiderstände |
+| Nichrom | 1,1 | Heizwiderstände |
 
-:::formel
-σ = 1 / ρ
+:::tip
+Bei Leitungsberechnungen ist die **Gesamtlänge** = Hinleiter + Rückleiter. Für eine 50 m lange Verbindung gilt l = 100 m.
 :::
 
-Silber und Kupfer haben die höchste Leitfähigkeit. Aluminium wird oft für Freileitungen verwendet, da es zwar schlechter leitet als Kupfer, aber wesentlich leichter und günstiger ist.
+:::monospace
+Beispiel: Kupferleitung, l = 100 m (50 m hin, 50 m zurück), A = 1,5 mm²
+R = 0.0172 * 100 / 1.5 = 1.15 Ohm
+:::
 
 ## Stromdichte
 
-Die Stromdichte J gibt an, wie viel Strom durch eine bestimmte Querschnittsfläche fließt. Sie ist entscheidend für die Erwärmung eines Leiters.
+Die Stromdichte J gibt an, wie viel Strom pro mm² Querschnitt fliesst. Sie entscheidet über die thermische Belastung des Leiters.
 
 :::formel
-J = I / A
+J = I / A    # Stromdichte J (A/mm²)
 :::
 
-In der Praxis darf eine maximale Stromdichte nicht überschritten werden, damit die Isolierung der Leitung nicht durch zu hohe Temperaturen schmilzt.
+**Richtwerte für Kupferleiter:**
+
+| Anwendung | J_max (A/mm²) |
+|---|---|
+| Dauerbetrieb (isolierte Leitung) | 2–4 A/mm² |
+| Kurzzeitbetrieb | bis 10 A/mm² |
+| Wicklungen (Trafo, Motor) | 2–5 A/mm² |
+
+:::warning
+Überschreitet die Stromdichte den zulässigen Wert, erwärmt sich die Leitung übermässig. In der Schweiz legt die **NIN (Niederspannungs-Installations-Norm)** die maximalen Ströme pro Querschnitt verbindlich fest.
+:::
 
 ## Temperaturabhängigkeit
 
-Bei Metallen steigt der Widerstand mit der Temperatur, da die Gitteratome stärker schwingen und den Stromfluss behindern. Man nennt sie Kaltleiter (PTC).
+Der Widerstand von Metallen steigt mit der Temperatur. Der **Temperaturkoeffizient alpha** gibt die relative Widerstandsänderung pro Kelvin an (bezogen auf 20 °C als Referenz).
 
 :::formel
-R_warm = R_20 * (1 + α * Δ_T)
+R_T = R_20 * (1 + alpha * (T - 20))    # T in °C, R_20 = Widerstand bei 20 °C
 :::
 
-Der Temperaturkoeffizient alpha gibt die relative Widerstandsänderung pro Kelvin an. Für Kupfer beträgt dieser Wert etwa 0,0039 1/K.
+| Material | alpha (1/K) |
+|---|---|
+| Kupfer | +0,00393 |
+| Aluminium | +0,0039 |
+| Konstantan | ±0,00001 (fast temperaturunabhängig) |
+| Platin (Pt100) | +0,00385 (Messwiderstand) |
 
-## Elektrische Leistung am Widerstand
+Ein positiver alpha-Wert bedeutet: Widerstand steigt mit der Temperatur (PTC-Verhalten). Bei [[NTC & PTC]] ist das Material dagegen so gewählt, dass der Widerstand gezielt sinkt oder stark ansteigt.
 
-Wenn Strom durch einen Widerstand fließt, wird elektrische Energie in Wärme umgewandelt. Dies führt zu Verlusten in Leitungen, wird aber in Heizelementen bewusst genutzt.
+:::monospace
+Beispiel: Kupferwicklung, R_20 = 2.5 Ohm, T = 80 °C
+R_80 = 2.5 * (1 + 0.00393 * (80 - 20))
+R_80 = 2.5 * 1.236 = 3.09 Ohm  (+24 %)
+:::
+
+## Verlustleistung am Leiter
+
+Jeder Leitungswiderstand erzeugt Verlustleistung, die als Wärme abgegeben wird. Bei grossen Strömen ist dieser Verlust nicht vernachlässigbar.
 
 :::formel
-P = I^2 * R
+P_v = I^2 * R    # Verlust steigt quadratisch mit dem Strom
 :::
 
-Da der Strom im Quadrat in die Formel eingeht, steigen die Verluste bei einer Verdopplung der Stromstärke auf das Vierfache an. Deshalb wird Strom über weite Strecken mit Hochspannung übertragen, um die Stromstärke gering zu halten.
+Der quadratische Zusammenhang erklärt, warum Energieübertragung mit **hoher Spannung und kleinem Strom** effizienter ist — halbierter Strom bedeutet vierfach kleinere Leitungsverluste. Genau dafür wird der [[Transformator Aufbau|Transformator]] eingesetzt.

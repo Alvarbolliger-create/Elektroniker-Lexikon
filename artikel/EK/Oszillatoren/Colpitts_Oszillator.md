@@ -47,7 +47,7 @@ Das Verhältnis C1/C2 bestimmt den Rückkopplungsfaktor β.
 
 ## Formeln
 
-:::monospace
+:::formel
 C_ser = C1 × C2 / (C1 + C2)         # Serienkapazität (wirksam für f₀)
 f_0   = 1 / (2π × √(L × C_ser))     # Resonanzfrequenz
 β     = C1 / C2                       # Rückkopplungsfaktor (Spannungsteiler)

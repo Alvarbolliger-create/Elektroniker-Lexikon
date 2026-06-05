@@ -1,95 +1,88 @@
 ---
 title: Stern-Dreieck-Transformation
 kategorie: ET
-tags: [Stern-Dreieck, Y-Delta, Transformation, Widerstandsnetzwerk, Brückenschaltung]
-symbol: —
-einheit: Ω
+tags: [stern, dreieck, transformation, netzwerkvereinfachung, Y, delta]
+groessen: R_Y|Sternwiderstand|Ohm; R_D|Dreieckwiderstand|Ohm
+_status: PORT  # ET_alt/Schaltkreise/Stern_Dreieck_Transformation.md
 ---
-
-Die Stern-Dreieck-Transformation ersetzt ein Dreieck-Netzwerk durch ein äquivalentes Stern-Netzwerk (oder umgekehrt). Damit lassen sich Brückenschaltungen in einfache Reihen- und Parallelschaltungen auflösen.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
 - [[Reihenschaltung]]
 - [[Parallelschaltung]]
-- [[Kirchhoffsche Gesetze]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Wheatstone-Brücke]]
-- [[Leistungsanpassung]]
-:::
-:::vbox
-**Führt weiter zu**
 - [[Drehstrom Grundlagen]]
-- [[Knotenpotenzialanalyse]]
 :::
 :::
 
 ---
 
-## Wann wird die Transformation gebraucht?
+Die Stern-Dreieck-Transformation erlaubt es, eine Dreieckschaltung aus drei Widerständen durch eine äquivalente Sternschaltung zu ersetzen — und umgekehrt. Damit lassen sich Netzwerke vereinfachen, die weder reine Reihen- noch Parallelschaltungen sind.
 
-In manchen Netzwerken sind Widerstände so verschalten, dass sie weder in Reihe noch parallel liegen — z.B. in einer Wheatstone-Brücke oder komplexen Maschennetzen. Die Stern-Dreieck-Transformation macht diese Schaltungen berechenbar.
+:::schematic
+/schaltplaene/schaltkreise/stern_dreieck_transformation.svg
+:::
 
-## Das Dreieck (Δ): Drei Knoten, drei Widerstände aussen
+## Dreieck → Stern
+
+Ein Dreieck mit den Widerständen R12, R23, R31 (zwischen den Knoten 1-2, 2-3, 3-1) wird durch einen Stern mit R1, R2, R3 (von Knoten 1, 2, 3 zum Sternpunkt) ersetzt:
+
+:::hbox
+:::formel
+R1 = R12 * R31 / (R12 + R23 + R31)
+:::
+:::formel
+R2 = R12 * R23 / (R12 + R23 + R31)
+:::
+:::formel
+R3 = R23 * R31 / (R12 + R23 + R31)
+:::
+:::
+
+**Merkregel**: Der Sternwiderstand am Knoten n ist das Produkt der beiden angrenzenden Dreieckwiderstände geteilt durch die Summe aller drei.
+
+## Stern → Dreieck
+
+Ein Stern mit R1, R2, R3 wird in einen Dreieck mit R12, R23, R31 umgewandelt:
+
+:::hbox
+:::formel
+R12 = R1 + R2 + R1 * R2 / R3
+:::
+:::formel
+R23 = R2 + R3 + R2 * R3 / R1
+:::
+:::formel
+R31 = R3 + R1 + R3 * R1 / R2
+:::
+:::
+
+**Merkregel**: Dreieckwiderstand = Summe der beiden Sternwiderstände + ihr Produkt geteilt durch den dritten.
+
+**Sonderfall: Symmetrisches Netz** (R1 = R2 = R3 = R_Y):
+
+:::formel
+R_D = 3 * R_Y    # Dreieck ist immer dreimal grösser als Stern
+:::
+
+## Wann anwenden?
+
+Die Transformation wird angewendet, wenn ein Netzwerk weder als Reihe noch als Parallelschaltung vereinfacht werden kann:
+
+| Situation | Vorgehen |
+|---|---|
+| Brückennetzwerke (z. B. Wheatstone nicht abgeglichen) | Dreieck → Stern, dann Reihe/Parallel |
+| Motor-Anlaufschaltung | Stern (Anlauf) → Dreieck (Nennbetrieb) → [[Drehstrom Grundlagen]] |
+| Allgemeines Dreinetz | Transformation auf Sternform, dann Analyse |
 
 :::monospace
-    A
-   / \
- R12  R13
- /     \
-B--R23--C
+Beispiel Symmetrie: R_Y = 30 Ohm (Stern)
+R_D = 3 * 30 = 90 Ohm (äquivalenter Dreieck)
 :::
-Drei Widerstände R12, R23, R13 verbinden die drei Knoten A, B, C im Dreieck.
 
-## Der Stern (Y): Drei Knoten, ein Mittelpunkt
-
-:::formel
-    A
-    |
-   Ra
-    |
-B--Rb--M--Rc--C
-:::
-Drei Widerstände Ra, Rb, Rc verbinden jeden der drei Knoten A, B, C mit einem Mittelpunkt M.
-
-## Dreieck → Stern (Δ → Y)
-
-:::formel
-Ra = (R12 * R13) / (R12 + R23 + R13)
-Rb = (R12 * R23) / (R12 + R23 + R13)
-Rc = (R13 * R23) / (R12 + R23 + R13)
-:::
-**Merkhilfe**: Ra hängt an Knoten A. Im Zähler stehen die beiden Dreieckswiderstände, die an A angeschlossen sind (R12 und R13). Im Nenner stehen alle drei.
-
-## Stern → Dreieck (Y → Δ)
-
-:::formel
-R12 = (Ra*Rb + Rb*Rc + Ra*Rc) / Rc
-R23 = (Ra*Rb + Rb*Rc + Ra*Rc) / Ra
-R13 = (Ra*Rb + Rb*Rc + Ra*Rc) / Rb
-:::
-**Merkhilfe**: Im Zähler steht immer die Summe aller Stern-Produkte. Im Nenner steht der Stern-Widerstand am gegenüberliegenden Knoten.
-
-## Sonderfall: Alle Widerstände gleich
-
-Wenn alle Dreieckswiderstände gleich sind (R12 = R23 = R13 = R_Δ):
-
-:::monospace
-R_Y = R_Δ / 3    # Sternwiderstand = Dreieckswiderstand / 3
-:::
-Und umgekehrt:
-:::formel
-R_Δ = 3 × R_Y
-:::
-Das gilt auch für die Drehstrom-Stern/Dreieck-Schaltung bei Motoren.
-
-## Anwendungsbeispiel: Unabgeglichene Wheatstone-Brücke
-
-Eine Wheatstone-Brücke mit R1, R2, R3, R4 und Brückenwiderstand R5 lässt sich nicht direkt vereinfachen. Mit der Stern-Dreieck-Transformation wird z.B. das obere Dreieck (R1, R2, R5) in einen Stern umgewandelt. Danach liegen alle Widerstände in einfachen Reihen-/Parallelkombinationen.
-
-:::info
-Die Transformation gilt für Gleichstrom und Wechselstrom (dann mit komplexen Impedanzen Z statt Widerständen R). Die Formeln sind identisch.
+:::tip
+In der Drehstromtechnik nutzt die Stern-Dreieck-Anlaufschaltung genau dieses Prinzip: Motor startet in Stern (30/sqrt(3) = niedrigere Spannung pro Wicklung → kleinerer Anlaufstrom), schaltet dann auf Dreieck (volle Leiterspannung pro Wicklung → Nennmoment).
 :::

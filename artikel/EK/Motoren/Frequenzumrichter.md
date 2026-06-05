@@ -39,7 +39,7 @@ Ein Frequenzumrichter (FU) stellt Frequenz und Spannung einer Drehstromversorgun
 
 Spannung und Frequenz werden proportional geändert. Bei halber Frequenz auch halbe Spannung. So bleibt das Motordrehmoment konstant.
 
-:::monospace
+:::formel
 U / f = const.      # U/f-Verhältnis konstant halten für konstantes Drehmoment
 :::
 ## Vorteile

@@ -27,17 +27,17 @@ Die Gleichtaktunterdrückung (CMRR) beschreibt die Fähigkeit eines Verstärkers
 
 **Single-Ended**: Ein Signal, gemessen gegen GND. Einfach, aber Störungen auf der GND-Leitung verfälschen das Ergebnis.
 
-:::monospace
+:::formel
 U_meas = U_signal (plus alle Störungen auf GND)
 :::
 **Differentiell**: Zwei Signale, die Differenz wird gemessen. Störungen die auf beide Leitungen gleich einwirken (Gleichtakt) werden unterdrückt.
 
-:::monospace
+:::formel
 U_meas = U+ - U-    # Störungen die auf U+ und U- gleich wirken, heben sich auf
 :::
 ## Gleichtaktspannung (Common Mode Voltage)
 
-:::monospace
+:::formel
 U_CM = (U+ + U-) / 2    # Mittelwert beider Eingänge
 U_diff = U+ - U-         # Nutzsignal
 :::
@@ -45,7 +45,7 @@ Der Verstärker soll U_diff verstärken und U_CM ignorieren.
 
 ## CMRR (Common Mode Rejection Ratio)
 
-:::monospace
+:::formel
 CMRR = 20 × log10(A_diff / A_CM)    # in dB
 :::
 - A_diff = Differenzverstärkung (gewollt)
@@ -64,11 +64,11 @@ Ein Shunt im High-Side-Zweig (zwischen Plus-Pol der Versorgung und Last) hat typ
 
 Ein Verstärker mit schlechtem CMRR "sieht" die 24 V Gleichtakt und gibt eine Fehlspannung am Ausgang. Bei CMRR = 60 dB und 24 V Gleichtakt:
 
-:::monospace
+:::formel
 U_Fehler = U_CM / CMRR = 24 V / 1000 = 24 mV    # Fehler gleich gross wie Nutzsignal!
 :::
 Ein Instrumentenverstärker mit CMRR = 100 dB löst das:
-:::monospace
+:::formel
 U_Fehler = 24 V / 100'000 = 0.24 mV    # vertretbar
 :::
 ## Differentielle Oszilloskop-Messung

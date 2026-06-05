@@ -28,7 +28,7 @@ Ein Snubber ist ein Schutzschaltung (meist RC-Glied) parallel zu einem Schalttra
 
 Beim Ausschalten eines Transistors wird der Strom unterbrochen. Parasitäre Induktivitäten in Leiterbahnen und Bauelementen erzeugen dann eine Spannungsspitze:
 
-:::monospace
+:::formel
 U_spike = L_parasit × dI/dt    # kann Vielfaches der Betriebsspannung erreichen
 :::
 Beim Flyback-Converter kommt zusätzlich die Streuinduktivität des Übertragers hinzu — diese erzeugt eine hohe Spannungsspitze auf dem primärseitigen Transistor beim Ausschalten.
@@ -49,17 +49,17 @@ C_s in Reihe mit R_s, parallel zu D/S
 
 Faustregel für den Kondensator:
 
-:::monospace
+:::formel
 C_s ≈ I_off² × L_streu / U_spike²    # I_off = Strom beim Ausschalten
 :::
 Für den Widerstand:
 
-:::monospace
+:::formel
 R_s = 1 / (2π × f_osc × C_s)    # f_osc = Schwingfrequenz der Spitze
 :::
 Die Verlustleistung im Snubber:
 
-:::monospace
+:::formel
 P_snubber = 0.5 × C_s × U_peak² × f    # proportional zur Schaltfrequenz
 :::
 ## RCD-Snubber für Flyback
@@ -72,7 +72,7 @@ Beim Flyback wird oft ein RCD-Snubber eingesetzt (Diode, Kondensator, Widerstand
 
 Die Klemmspannung:
 
-:::monospace
+:::formel
 U_clamp ≈ U_IN × n + U_spike    # n = Windungsverhältnis
 :::
 ## Verluste vs. Schutz

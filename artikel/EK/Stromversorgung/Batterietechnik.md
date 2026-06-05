@@ -28,7 +28,7 @@ Batterien speichern elektrische Energie chemisch. Jede Technologie hat andere Sp
 
 ## Kapazität und Energie
 
-:::monospace
+:::formel
 E = U * Q       # Energie in Wh; U = Nennspannung, Q = Kapazität in Ah
 :::
 Eine 3.7 V Zelle mit 2000 mAh speichert 7.4 Wh.
