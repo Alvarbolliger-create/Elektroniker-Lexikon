@@ -1,72 +1,141 @@
----
+﻿---
 title: Aktive Filter
 kategorie: EK
-tags: [aktive filter, OPV, sallen-key, butterworth, chebyshev, bessel, verstärkung, filterordnung, ripple, gruppenlaufzeit]
-symbol: —
-einheit: —
+kapitel: Filter
+tags: [aktive filter, OPV, sallen-key, tiefpass, hochpass, bandpass, bandsperre, impedanz, blindwiderstand, 40dB, butterworth, 2. ordnung, invertierend, frequenzabhängig]
+groessen: f_g|Grenzfrequenz|Hz; v_u|Spannungsverstärkung|—; Z|Impedanz|Ω; X_C|kapazitiver Blindwiderstand|Ω; x_p|kapazitiver Blindwiderstand (parallel)|Ω
+_status: FERTIG
 ---
-
-Aktive Filter verwenden OPVs zusammen mit R und C. Sie können verstärken, haben niedrigen Ausgangswiderstand und brauchen keine Spulen.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
+- [[OPV Grundlagen]]
+- [[OPV Invertierend]]
 - [[Filter Grundlagen]]
-- [[OPV Nichtinvertierend]]
+- [[Tiefpass]]
+- [[Hochpass]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Tiefpass (TP)]]
-- [[Hochpass (HP)]]
-- [[Bandpass (BP)]]
-- [[Bandsperre (BS)]]
+- [[Filtercharakteristik]]
+- [[Bandpass]]
+- [[Bandsperre]]
 :::
 :::vbox
 **Führt weiter zu**
 - [[Filtercharakteristik]]
+- [[Oszillatoren Grundlagen]]
 :::
 :::
 
 ---
 
-## Warum aktive Filter?
+Aktive Filter kombinieren OPV mit passiven RC-Elementen. Der OPV-Ausgang ist **sehr niederohmig** und darf deshalb als "mit Masse verbunden" betrachtet werden — die Lastimpedanz beeinflusst den Frequenzgang nicht.
 
-Passive RC-Filter dämpfen das Signal immer. Passive LC-Filter brauchen Spulen, die gross, teuer und schwer ideal sind. Aktive Filter mit OPV und RC-Bauteilen sind kompakter, günstiger und oft genauer.
+## Vorteil gegenüber passiven Filtern
 
-## Sallen-Key Topologie
+| Eigenschaft | Passiv (RC) | Aktiv (RC + OPV) |
+|---|---|---|
+| Verstärkung | ≤ 1 (dämpft immer) | > 1 möglich |
+| Lasteinfluss | vorhanden | vernachlässigbar |
+| Kaskadierbarkeit | schwierig (Impedanzanpassung nötig) | einfach |
+| Steilheit 2. Ord. | 40 dB/Dek mit 2 RC-Stufen | 40 dB/Dek (Sallen-Key) |
+| Versorgung | keine | nötig |
 
-Die häufigste Grundschaltung für aktive Tiefpässe und Hochpässe 2. Ordnung. Zwei R, zwei C, ein OPV in Spannungsfolger-Schaltung.
+## Aktiver Tiefpass (invertierend)
 
-40 dB/Dekade Dämpfung, glatte Flanke, einfach zu berechnen.
+:::schematic Aktiver Tiefpass (invertierend): OPV-Dreieck. Eingang U_e → R_e → invertierender Eingang (−). Nichtinvertierender Eingang (+) auf GND. Rückkopplung: R_p parallel zu C_p von Ausgang auf (−). Bei tiefen Frequenzen: X_Cp gross → Z_Rückkopplung ≈ R_p → Verstärkung −R_p/R_e. Bei hohen Frequenzen: X_Cp klein → Z → 0 → Ausgang 0 (Tiefpass)
+/Diagramm/aktiv_tiefpass_inv.svg
+:::
 
-## Filtercharakteristiken
+Rückkopplungszweig: R_p parallel zu C_p. Eingangswiderstand: R_e.
 
-**Butterworth**: Maximale Flachheit im Durchlassband. Kein Ripple. Sanfte Flanke. Standard für die meisten Anwendungen.
-
-**Chebyshev**: Steilere Flanke als Butterworth, aber mit Ripple im Durchlassband. Wenn die Flanke wichtiger ist als Gleichmässigkeit.
-
-**Bessel**: Lineare Phase, konstantste Gruppenlaufzeit. Wichtig wenn die Signalform erhalten bleiben muss (Rechtecke, Pulse).
-
-## Höhere Ordnungen
-
-Mehrere Filterstufen 2. Ordnung in Reihe schalten. 4. Ordnung = zwei Stufen = 80 dB/Dekade. Jede Stufe hat andere Q-Werte, zusammen ergibt sich der gewünschte Gesamtfrequenzgang.
-
-## Grenzfrequenz einstellen
+Die Impedanz des Rückkopplungszweigs ist frequenzabhängig — bei tiefen Frequenzen dominiert R_p, bei hohen C_p.
 
 :::formel
-f_g = 1 / (2 * pi * R * C)     # für Sallen-Key mit R1=R2=R und C1=C2=C
+x_p = 1 / (2 * pi * f * C)                      # kapazitiver Blindwiderstand C_p
+Z   = (R_p * x_p) / sqrt(R_p^2 + x_p^2)         # Parallelimpedanz R_p || C_p
+v_u = -Z / R_e                                   # Spannungsverstärkung (invertierend)
 :::
-## OPV-Bandbreite als Grenze
 
-Ein realer OPV hat ein Gain-Bandwidth-Product (GBW). Je höher die gewünschte Verstärkung, desto tiefer liegt die obere nutzbare Frequenz.
+**Frequenzgang:**
+- Tiefe f: x_p gross → Z ≈ R_p → v_u = −R_p/R_e (konstante Verstärkung)
+- Hohe f: x_p klein → Z → 0 → v_u → 0 (Dämpfung, Tiefpassverhalten)
 
-Typische OPVs (LM358, TL071) verstärken nur bis ca. **1–10 MHz** korrekt. Darüber sinkt die Verstärkung und die Phase dreht — der Filter verhält sich nicht mehr wie berechnet.
+## Aktiver Hochpass (invertierend)
+
+:::schematic Aktiver Hochpass (invertierend): OPV-Dreieck. Eingang U_e → C → R_C (Serienimpedanz) → invertierender Eingang (−). Nichtinvertierender Eingang (+) auf GND. Rückkopplung: R_k von Ausgang auf (−). Bei tiefen Frequenzen: X_C gross → Z gross → Verstärkung ≈ 0. Bei hohen Frequenzen: X_C klein → Z ≈ R_C → Verstärkung −R_k/R_C (Hochpass)
+/Diagramm/aktiv_hochpass_inv.svg
+:::
+
+Eingangszweig: R_C in Reihe mit C (Impedanz Z). Rückkopplungswiderstand: R_k.
 
 :::formel
-f_max ≈ GBW / V_u     # nutzbare obere Frequenz; GBW aus Datenblatt
+X_C = 1 / (2 * pi * f * C)     # kapazitiver Blindwiderstand C
+Z   = sqrt(R_C^2 + X_C^2)      # Serienimpedanz R_C + C
+v_u = -R_k / Z                  # Spannungsverstärkung (invertierend)
 :::
-Für Filterfrequenzen über 1 MHz: schnelle OPVs (z.B. OPA657, LM7171) oder andere Schaltungstopologien verwenden.
+
+**Frequenzgang:**
+- Tiefe f: X_C gross → Z gross → v_u ≈ 0 (Dämpfung)
+- Hohe f: X_C klein → Z ≈ R_C → v_u = −R_k/R_C (konstante Verstärkung, Hochpassverhalten)
+
+:::info
+Der aktive Hochpass ist zugleich ein Bandpass: Bei sehr hohen Frequenzen begrenzt das GBW des OPV die Verstärkung. Die obere Grenzfrequenz wird durch f_t des OPV bestimmt (→ [[OPV Grundlagen]]).
+:::
+
+## Sallen-Key Filter (2. Ordnung, 40 dB/Dek)
+
+:::hbox
+:::vbox
+**Sallen-Key Tiefpass**
+:::schematic Sallen-Key Tiefpass 2. Ordnung: Eingang U_e → R1 → Knoten A → R2 → (+) des OPV. C1 von Knoten A nach Ausgang (Rückkopplungskondensator). C2 von (+) nach GND. OPV als Spannungsfolger (Ausgang → −). Ausgang U_aus. Butterworth: R1 = R2 = R, C1 = 2C, C2 = C/2 → Q = 0.707
+/Diagramm/sallen_key_tp.svg
+:::
+:::
+:::vbox
+**Sallen-Key Hochpass**
+:::schematic Sallen-Key Hochpass 2. Ordnung: Eingang U_e → C1 → Knoten A → C2 → (+) des OPV. R1 von Knoten A nach Ausgang. R2 von (+) nach GND. OPV als Spannungsfolger (Ausgang → −). Ausgang U_aus. Dual zum Tiefpass: Widerstände und Kondensatoren vertauscht
+/Diagramm/sallen_key_hp.svg
+:::
+:::
+
+Die Sallen-Key-Topologie realisiert aktive Filter 2. Ordnung mit einem OPV als Spannungsfolger (v_u = 1). Zwei R und zwei C um den OPV. Für gleiche Bauteile (R1 = R2 = R, C1 = C2 = C):
+
+:::formel
+f_g = 1 / (2 * pi * R * C)    # Grenzfrequenz Sallen-Key (TP und HP)
+:::
+
+Durch Wahl der Bauteilwertverhältnisse wird die **Filtercharakteristik** (Butterworth, Chebyshev, Bessel) bestimmt. Butterworth: Q = 1/√2 ≈ 0.707 (maximale Flachheit, kein Überschwingen).
+
+## Aktiver Bandpass und Bandsperre (2. Ordnung)
+
+| Typ | Ordnung | Steilheit |
+|---|---|---|
+| Aktiver TP (Sallen-Key) | 2 | 40 dB/Dek |
+| Aktiver HP (Sallen-Key) | 2 | 40 dB/Dek |
+| Aktiver BP | 2 | 20/20 dB/Dek |
+| Aktive BS (Notch) | 2 | 20/20 dB/Dek |
+
+Aktive BP und BS 2. Ordnung werden mit mehreren OPVs und RC-Netzwerken realisiert (z.B. State-Variable-Filter für gleichzeitigen TP/HP/BP-Ausgang).
 
 :::tip
-Online-Filter-Design-Tools (z.B. Texas Instruments Filter Design Tool) berechnen alle Bauteilwerte für den gewünschten Typ, die Ordnung und die Grenzfrequenz. Manuell ist fehleranfällig.
+Für Butterworth-Charakteristik Sallen-Key TP 2. Ordnung: C1 = C2 = C, dann R1 = √2/(2π·f_g·C) und R2 = 1/(√2·2π·f_g·C). Das ergibt Q = 0.707 — maximale Flachheit ohne Welligkeit.
+:::
+
+## SC-Filter (Switched-Capacitor)
+
+Ein OPV-Filter höherer Ordnung (z. B. 8. Ordnung = 160 dB/Dek) erfordert viele Stufen und ist aufwändig. Als Alternative existieren integrierte **SC-Filter (Switched-Capacitor-Filter)**: Sie emulieren analoge RC-Widerstände durch einen getakteten Kondensator (CLK-Signal), der mit einer Frequenz f_CLK hin und her geschaltet wird.
+
+- **Vorteil**: Hohe Ordnungen auf einem Chip, f_g programmierbar über CLK-Frequenz
+- **Nachteil**: Der Taktvorgang erzeugt Störfrequenzen (Spiegelfrequenzen) im Ausgang
+
+Deshalb wird dem SC-Filter typisch ein **aktiver Tiefpass nachgeschaltet**, der diese Takt-Störanteile herausfiltert.
+
+:::monospace
+Beispiel: MAX293 (8. Ordnung SC-Tiefpass)
+  Steilheit = 8 × 20 dB/Dek = 160 dB/Dek
+  f_g = f_CLK / 100 (einstellbar)
+  Nachgeschalteter TP: eliminiert Störungen durch die CLK-Taktung
 :::

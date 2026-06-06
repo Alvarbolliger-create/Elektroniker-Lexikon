@@ -1,65 +1,97 @@
----
+﻿---
 title: RC-Phasenschieber-Oszillator
 kategorie: EK
-tags: [rc-phasenschieber, oszillator, OPV, transistor, phasendrehung, 180-grad, mindest-verstärkung, abgleich, klirrfaktor]
-symbol: f_0
-einheit: Hz
+kapitel: Oszillatoren
+tags: [RC-phasenschieber, phasenschieber, RC-oszillator, 180-grad, invertierend, resonanzfrequenz, rückkopplungsfaktor, sinusgenerator, 60-grad, v_u=29, k=1/29]
+groessen: f_0|Resonanzfrequenz|Hz; k|Rückkopplungsfaktor|—; v_u|Spannungsverstärkung|—; R|Widerstand|Ω; C|Kapazität|F
+_status: FERTIG
 ---
-
-Der RC-Phasenschieber-Oszillator nutzt drei RC-Glieder, die zusammen 180° Phasendrehung liefern. Mit einem invertierenden Verstärker (weitere 180°) ergibt das 360° — die Bedingung für Schwingung.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
 - [[Oszillatoren Grundlagen]]
-- [[RC-Filter]]
+- [[Filter Grundlagen]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Wien-Brücken-Oszillator]]
+- [[Wien-Robinson-Oszillator]]
+:::
+:::vbox
+**Führt weiter zu**
+- [[Wien-Robinson-Oszillator]]
 :::
 :::
 
 ---
 
-## Schaltungsprinzip
+Der RC-Phasenschieber-Oszillator verwendet drei RC-Glieder, die zusammen **180° Phasendrehung** erzeugen. Ein invertierender Verstärker dreht nochmals 180° → Summe = 360° (Schwingungsbedingung erfüllt).
 
-Drei identische RC-Hochpassglieder in Reihe, jedes dreht die Phase um ca. 60°. Zusammen: 180° Phasendrehung.
+## Funktionsprinzip
 
-:::schematic
-/Diagramm/rc_phasenschieber_0.svg
+:::schematic RC-Phasenschieber-Oszillator (Hochpass-Variante): Invertierender OPV-Verstärker rechts (Eingang an −, R_E und R_R). Drei RC-Hochpassglieder links: je C in Reihe, R nach GND — hintereinander. Ausgang OPV → erstes RC-Glied → zweites → drittes → zurück an den (−)-Eingang des OPV. Jedes RC-Glied dreht 60° bei f_0. Drei × 60° + 180° (OPV invertierend) = 360° ✓
+/Diagramm/rc_phasenschieber_osz.svg
 :::
-Das Rückkopplungsnetzwerk dämpft das Signal stark. Der Verstärker braucht daher eine Verstärkung von mindestens **29**, um die Dämpfung zu kompensieren.
 
----
+Jedes RC-Glied dreht die Phase um bis zu 90°. Genau bei der Resonanzfrequenz f_0 dreht jedes Glied **60°** — drei Glieder zusammen ergeben 180°. Der invertierende Verstärker (OPV oder BJT Emitterschaltung) liefert die restlichen 180°.
 
-## Formeln
+## Vektordiagramm eines RC-Gliedes
+
+Bei f_0 dreht jedes RC-Glied genau 60°. Das Vektordiagramm zeigt: U_gesamt setzt sich aus U_R (phasengleich mit Strom) und U_C (90° nacheilend) zusammen.
 
 :::formel
-f_0 = 1 / (2π × R × C × √6)    # Resonanzfrequenz bei identischen R und C
-A_min = 29                       # Mindestverstärkung für stabile Schwingung
-:::
-| Grösse | Symbol | Einheit | Beschreibung |
-|---|---|---|---|
-| Resonanzfrequenz | f₀ | Hz | Schwingfrequenz |
-| RC-Glieder | R, C | Ω, F | Alle drei identisch |
-| Mindestverstärkung | A_min | — | 29 bei drei gleichen RC-Stufen |
-
----
-
-## Vertiefung
-
-**Nachteil**: Die benötigte Verstärkung von 29 macht den Abgleich schwierig. Kleine Toleranzen in R und C verschieben die Frequenz und die Phasenbedingung gleichzeitig.
-
-**Vorteil**: Sehr einfache Schaltung, kein Induktor nötig, kann auch mit einem einzigen Transistor (NPN) realisiert werden.
-
-:::warning
-Mit einem Transistor statt OPV: Der Transistor invertiert selbst um 180°. Die drei RC-Glieder müssen dann als Tiefpass-Kette geschaltet werden (statt Hochpass), damit sie die restlichen 180° liefern.
+tan(60°) = U_R / U_C = R / X_C      # 60°-Bedingung pro Stufe
+R = X_C * sqrt(3)                    # Widerstandsbedingung bei 60°
+X_C = 1 / (2 * pi * f * C)          # kapazitiver Blindwiderstand
 :::
 
-| Vergleich | Wien-Brücke | RC-Phasenschieber |
+Drei Stufen à 60° liefern 180° Gesamtphasendrehung. Der invertierende Verstärker addiert weitere 180° → Schwingungsbedingung erfüllt.
+
+Es gibt zwei Varianten je nach Anordnung von R und C:
+
+## Variante 1 — Hochpass-RC-Kette (C in Reihe, R nach Masse)
+
+:::formel
+f_0 = 1 / (sqrt(6) * 2 * pi * R * C)    # Resonanzfrequenz
+k   = 1 / 29                              # Rückkopplungsfaktor
+v_u = 29                                  # benötigte Spannungsverstärkung
+:::
+
+## Variante 2 — Tiefpass-RC-Kette (R in Reihe, C nach Masse)
+
+:::formel
+f_0 = sqrt(6) / (2 * pi * R * C)         # Resonanzfrequenz
+k   = 1 / 29                              # Rückkopplungsfaktor (gleich wie Variante 1)
+v_u = 29                                  # benötigte Spannungsverstärkung (gleich)
+:::
+
+:::info
+In beiden Varianten sind k und v_u identisch — nur f_0 unterscheidet sich. Variante 2 (TP) schwingt um den **Faktor 6** höher als Variante 1 (HP): f_TP = sqrt(6)/(2π×R×C) = 6 × f_HP. Umbau TP→HP: Frequenz sinkt auf 1/6.
+:::
+
+## Verstärkerdimensionierung (OPV invertierend)
+
+:::formel
+v_u = R_R / R_E = 29    → R_R = 29 * R_E
+:::
+
+Für sicheres Anlaufen R_R leicht grösser wählen (z.B. R_R = 33 × R_E). Die Amplitudenbegrenzung (antiparallele Dioden im Gegenkopplungszweig) reduziert v_u auf 29 im Gleichgewicht.
+
+:::monospace
+Beispiel Variante 1: f_0 = 1 kHz, C = 10 nF
+R = 1 / (√6 × 2π × 1000 × 10e-9) = 6.5 kΩ → 6.8 kΩ (E12)
+Probe: f_0 = 1 / (√6 × 2π × 6800 × 10e-9) = 955 Hz ✓
+
+Verstärker: R_E = 10 kΩ, R_R = 33 × 10 kΩ = 330 kΩ (E12)
+→ v_u = 33, Anlaufverstärkung OK (> 29)
+:::
+
+## Vergleich mit Wien-Robinson
+
+| Eigenschaft | RC-Phasenschieber | Wien-Robinson |
 |---|---|---|
-| Mindest-Verstärkung | 3 | 29 |
-| Abgleich | Einfach | Aufwändig |
-| Klirrfaktor | Gering | Mittel |
-| Implementierung | OPV typisch | OPV oder Transistor |
+| Benötigte v_u | 29 | 3 |
+| Frequenzabstimmung | schwierig (3 Elemente gleichzeitig) | einfach (Tandempoti) |
+| Kurvenqualität (THD) | schlechter | besser |
+| Schaltungsaufwand | gering | mittel |
+| Typischer Einsatz | einfacher Sinusgenerator | Audiogenerator |

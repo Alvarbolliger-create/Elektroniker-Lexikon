@@ -1,71 +1,134 @@
----
+﻿---
 title: BLDC-Motor
 kategorie: EK
-tags: [BLDC, brushless, EC-Motor, hallsensor, FOC, kommutierung, sensorlos, innenläufer, aussenläufer, ESC, sinus-kommutierung]
-symbol: M
-einheit: —
+kapitel: Motoren
+tags: [bldc, bürstenlos, brushless, hallsensor, sechs-schritt, foc, field-oriented-control, sensorlos, bemf, innenläufer, aussenläufer, esc, gate-treiber, kommutierung]
+groessen: n|Drehzahl|U/min; f_el|elektrische Frequenz|Hz; p|Polpaarzahl|—; eta|Wirkungsgrad|%
+_status: FERTIG
 ---
-
-BLDC (Brushless DC) ist ein permanent erregter Synchronmotor mit elektronischer Kommutierung. Kein Verschleiss durch Bürsten, hoher Wirkungsgrad, hohe Leistungsdichte.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
 - [[DC Motor]]
-- [[MOSFET]]
-- [[PWM]]
+- [[H-Brücke]]
+- [[Hall-Sensor]]
 :::
 :::vbox
 **Verwandte Artikel**
 - [[Schrittmotor]]
+- [[Servomotor]]
 - [[Frequenzumrichter]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[FOC]]
 - [[Servomotor]]
+- [[Frequenzumrichter]]
 :::
 :::
 
 ---
 
+BLDC (Brushless DC) ist ein permanent erregter Synchronmotor mit **elektronischer Kommutierung**. Kein Verschleiss durch Bürsten, hoher Wirkungsgrad, hohe Leistungsdichte — dafür komplexere Ansteuerung als der klassische DC-Motor.
+
 ## Aufbau
 
-Der Rotor trägt Permanentmagnete. Der Stator hat Wicklungen in drei Phasen. Es gibt keine Bürsten und keinen Kommutator. Die Bestromung der Phasen übernimmt die Elektronik.
+Der **Rotor** trägt Permanentmagnete. Der **Stator** hat Wicklungen in drei Phasen (U, V, W). Es gibt keinen Kommutator und keine Bürsten — die Bestromungsreihenfolge übernimmt die Elektronik.
 
-**Innenläufer**: Magnete innen, Stator aussen. Standard für hohe Drehzahlen (Lüfter, Festplatten).  
-**Aussenläufer**: Magnete aussen, Stator innen. Hohes Drehmoment bei niedrigen Drehzahlen (Drohnen, Ventilatoren).
+**Innenläufer**: Magnete innen (Rotor), Stator aussen. Kompakt, hohe Drehzahlen. Einsatz: Lüfter, Festplatten, Servomotoren.
 
-## Kommutierung
+**Aussenläufer**: Magnete aussen (Glockenläufer), Stator innen. Hohes Drehmoment bei niedrigen Drehzahlen, flache Bauform. Einsatz: Drohnen, Ventilatoren, Direktantriebe.
 
-Um den Rotor anzutreiben, muss die Bestromung der Statorphasen mit der Rotorposition synchronisiert werden.
+## Drehzahl-Polpaar-Beziehung
 
-**Hallsensoren**: Drei Magnetsensoren im Stator erkennen die Rotorposition. Einfach, robust, weit verbreitet.
+:::formel
+n = f_el * 60 / p      # mechanische Drehzahl [U/min]
+f_el = n * p / 60      # elektrische Frequenz [Hz]
+:::
 
-**Sensorlos**: Position wird aus der Gegen-EMK der nicht bestromten Phase berechnet. Kein Sensor nötig, aber schwieriger zu starten.
+## KV-Zahl
 
-## Sechs-Schritt-Kommutierung
+Die KV-Zahl gibt an, wie viele Umdrehungen pro Minute der Motor im Leerlauf pro Volt erzeugt:
 
-Die einfachste Methode: immer zwei von drei Phasen bestromt, sechs Zustände pro Umdrehung. Einfach zu implementieren, aber ruckartig.
+:::formel
+KV  = n_leerlauf / U    # Motorkonstante [U/min/V]
+n   = KV * U            # Leerlaufdrehzahl bei Spannung U
+:::
 
-## FOC (Field Oriented Control)
+:::monospace
+Beispiel: Motor KV=1000, U=12V → n = 12'000 U/min
+          Motor KV=400,  U=24V → n =  9'600 U/min
+:::
 
-Sinusförmige Bestromung aller drei Phasen. Deutlich ruhigerer Lauf, bessere Ausnutzung des Drehmoments, geringere Verluste. Benötigt mehr Rechenleistung.
+:::info
+Hoher KV-Wert = schnell, wenig Drehmoment (kleine Drohnen, Flugzeuge).
+Niedriger KV-Wert = langsam, viel Drehmoment (grosse Propeller, Direktantriebe).
+Die KV-Zahl gilt nur für den Leerlauf — unter Last sinkt die Drehzahl wegen des Innenwiderstands.
+:::
 
-## Vergleich DC-Motor
+| Grösse | Bedeutung |
+|---|---|
+| p | Polpaarzahl (Anzahl Magnetpolpaare am Rotor) |
+| f_el | Frequenz der elektrischen Kommutierung |
+| n | Mechanische Drehzahl [U/min] |
 
-| Eigenschaft | Bürstenmotor | BLDC |
+## Kommutierung: Sechs-Schritt (Trapez)
+
+Die einfachste Methode: immer **zwei von drei Phasen** bestromt, dritte Phase offen. Pro elektrischer Umdrehung: 6 Zustände (Schritte).
+
+Rotorposition wird mit **drei Hall-Sensoren** (je 120° versetzt) erkannt → 3 Bit = 6 eindeutige Zustände.
+
+| Hall-Zustand (H1/H2/H3) | Aktive Phasen |
+|---|---|
+| 001 | U+ / V− |
+| 011 | W+ / V− |
+| 010 | W+ / U− |
+| 110 | V+ / U− |
+| 100 | V+ / W− |
+| 101 | U+ / W− |
+
+Einfach zu implementieren, aber ruckartig (Drehmomentwelligkeit ~30 %).
+
+## Sensorlose Kommutierung (BEMF)
+
+Ohne Hall-Sensoren: Die nicht bestromte Phase erzeugt eine Gegen-EMK (BEMF), die den Nulldurchgang der Rotorposition anzeigt. Kommutierung erfolgt 30° nach dem Nulldurchgang.
+
+**Vorteil**: Kein Sensor → weniger Leitungen, billiger, robuster.  
+**Nachteil**: Kein Anlaufmoment bei Stillstand (BEMF = 0) → Anlaufsequenz nötig (offene Schlaufe bis genug BEMF).
+
+## FOC — Field Oriented Control (Sinus-Kommutierung)
+
+Statt Trapezkurve werden alle drei Phasen **sinusförmig** bestromt, phasenrichtig zum Rotorwinkel. Ergebnis: gleichmässiges, welligkeitsarmes Drehmoment.
+
+FOC benötigt:
+- Hochauflösenden Encoder oder Hall-Sensor (+ Interpolation)
+- Park-Transformation und inverse Park-Transformation (Koordinatentransformation Rotor ↔ Stator)
+- Schnellen Mikrocontroller oder dedizierter DSP
+
+**Vorteile FOC gegenüber 6-Schritt**:
+- Wirkungsgrad um 5–15 % besser
+- Drehmomentwelligkeit < 1 % vs. ~30 %
+- Besseres Anlaufmoment
+- Geringere Motorerwärmung
+
+## Vergleich DC-Motor / BLDC
+
+| Eigenschaft | DC-Motor (Bürsten) | BLDC |
 |---|---|---|
-| Verschleiss | Bürsten, Komm. | keiner |
-| Wirkungsgrad | 75-80 % | 85-95 % |
-| Ansteuerung | einfach | komplex |
-| Wartung | nötig | wartungsfrei |
-| Kosten | günstig | höher |
+| Kommutierung | Mechanisch (Bürsten) | Elektronisch |
+| Verschleiss | Bürsten, Kommutator | Kein |
+| Wirkungsgrad | 60–80 % | 85–95 % |
+| Ansteuerung | Einfach (H-Brücke) | Komplex (3-Phasen-Treiber) |
+| Kosten Motor | Günstig | Höher |
+| Leistungsdichte | Mittel | Hoch |
+| Wartung | Bürsten tauschen | Wartungsfrei |
 
-## Treiber-ICs
+## Treiber-ICs und ESC
 
-Fertige Gate-Treiber wie DRV8305, L6234 oder MCU-integrierte Motorcontroller (z.B. STM32 mit Timer-Komplementärausgängen) vereinfachen die Ansteuerung.
+**Gate-Treiber-ICs** (für diskrete MOSFET-H-Brücken): DRV8305, L6234, IR2110  
+**Integrierte Motor-Controller**: DRV8302, MC33035  
+**ESC (Electronic Speed Controller)**: Fertige Regler für Drohnen (BLHeli, KISS) — direkt an µC anschliessbar, PWM-Eingang oder DSHOT-Protokoll.
 
 :::tip
-Für Einsteiger: viele Hobby-BLDC-Regler (ESC) für Drohnen basieren auf dem BLHeli- oder KISS-Protokoll und können direkt an Mikrocontroller angeschlossen werden.
+Für erste BLDC-Projekte: fertigen ESC nehmen und mit PWM ansteuern. Eigene FOC-Implementierung erst wenn Wirkungsgrad oder Geräusch kritisch sind — dann MCPWM-fähigen Mikrocontroller (STM32, ESP32) und SimpleFOC-Library verwenden.
 :::

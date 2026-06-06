@@ -1,104 +1,104 @@
----
+﻿---
 title: TVS-Diode & Varistor
 kategorie: EK
-tags: [TVS, Varistor, ESD-Schutz, Transient, Surge, Klemmdiode, MOV]
-symbol: —
-einheit: V, J
+kapitel: Halbleiter
+tags: [tvs, transient voltage suppressor, varistor, mov, überspannungsschutz, transient, esd, surge, klemmspannung, bidirektional, schutzbauelement]
+groessen: U_Z|Klemmspannung|V; P_pk|Spitzenleistung|W; C|Kapazität|pF; V_clamp|Klemmspannung|V
+_status: FERTIG
 ---
-
-TVS-Dioden und Varistoren klemmen Überspannungen und schützen Schaltkreise vor Transienten durch ESD, Blitz oder induktive Schaltvorgänge. Sie unterscheiden sich in Aufbau, Präzision und Energieaufnahme.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Diode]]
 - [[Zener-Diode]]
-- [[pn-Übergang]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[ESD-Schutzmassnahmen]]
-- [[Snubber-Netzwerk]]
-- [[Thyristor]]
+- [[Zener-Diode]]
+:::
+:::vbox
+**Führt weiter zu**
+- [[EMV Grundlagen]]
 :::
 :::
 
 ---
+
+TVS-Diode und Varistor schützen Schaltungen vor Spannungsspitzen (Transienten) — Blitzeinschläge, Schaltüberspannungen, ESD. Sie reagieren in Nanosekunden und begrenzen die Spannung auf einen sicheren Wert.
 
 ## TVS-Diode (Transient Voltage Suppressor)
 
-### Aufbau und Funktion
+Eine TVS-Diode ist eine auf hohe Impulsleistung optimierte Zener-Diode. Sie arbeitet im Lawinendurchbruch und kann Stromspitzen von vielen Ampere für kurze Zeit (< 1 ms) verkraften — ohne sich zu zerstören.
 
-Eine TVS-Diode arbeitet wie eine Z-Diode, ist aber für hohe Impulsströme optimiert. In Sperrrichtung leitet sie bei Überschreitung der Durchbruchspannung (Clamping Voltage) und klemmt die Spannung.
+### Unidirektional vs. Bidirektional
 
-Im Normalbetrieb: sperrt.  
-Bei Transient: leitet, klemmt Spannung auf V_clamp, absorbiert Energie.
-
-### Typen
-
-**Unidirektional**: Schützt nur gegen eine Polarität. Geeignet für DC-Signale.
-
-**Bidirektional (±)**: Schützt gegen beide Polaritäten. Für AC-Signale oder wenn die Polarität wechseln kann.
-
-### Wichtige Kennwerte
-
-| Kenngrösse | Bedeutung |
-|---|---|
-| V_WM (Working Peak Reverse Voltage) | Maximale Betriebsspannung im Normalbetrieb |
-| V_BR (Breakdown Voltage) | Spannung beim Leitungsbeginn (bei 1 mA) |
-| V_C (Clamping Voltage) | Spannung bei Nennimpulsstrom I_PP |
-| I_PP (Peak Pulse Current) | Maximaler Impulsstrom (8/20 µs Puls) |
-| P_PPM (Peak Pulse Power) | Maximale Impulsleistung |
-
-### Reaktionszeit
-
-TVS-Dioden reagieren in < 1 ps (praktisch sofort). Keine Trägheit durch Kapazitätsprobleme wie bei Varistoren.
-
-### Kapazität
-
-TVS-Dioden haben eine Kapazität (typisch 5–1000 pF). Für Hochgeschwindigkeitssignale (USB 3.0, Ethernet, HDMI) müssen Low-Capacitance TVS verwendet werden (< 1 pF).
-
----
-
-## Varistor (MOV – Metal Oxide Varistor)
-
-### Aufbau und Funktion
-
-Ein Varistor besteht aus Zinkoxidkörnern in einer Keramikmatrix. Der Widerstand ist stark spannungsabhängig — bei normaler Spannung ist der Varistor hochohmig, bei Überspannung wird er niederohmig und leitet.
-
-Der Varistor hat kein scharfes Klemmniveau — er hat eine graduelle Kennlinie.
-
-### Vorteile Varistor
-
-- Hohe Energieaufnahme (Joule-Bereich) — viel mehr als TVS
-- Günstig
-- Bidirektional von Natur aus
-- Gut für Netzspannungsschutz (230 V, Blitz-Schutz)
-
-### Nachteile Varistor
-
-- Langsamere Reaktion als TVS (ca. 25 ns)
-- Altert bei wiederholten Transienten (Clamping-Spannung sinkt, Leckstrom steigt)
-- Ungenauere Klemm-Spannung
-- Hohe Kapazität (1–10 nF) — ungeeignet für HF-Signale
-
----
-
-## Vergleich
-
-| Merkmal | TVS-Diode | Varistor |
+| Typ | Schutzrichtung | Anwendung |
 |---|---|---|
-| Reaktionszeit | < 1 ps | ≈ 25 ns |
-| Energieaufnahme | Gering (µJ–mJ) | Hoch (J) |
-| Klemmgenauigkeit | Sehr gut | Mittel |
-| Kapazität | Klein – mittel | Gross |
-| Alterung | Kaum | Ja |
-| Typische Anwendung | IC-Schutz, ESD, Datenleitungen | Netzspannungsschutz, Surge |
+| Unidirektional | Eine Richtung (wie Zener) | Gleichspannungskreise |
+| Bidirektional | Beide Richtungen | Wechselspannung, Datenleitungen |
 
-## Kombinierter Schutz
+### Kennwerte
 
-In der Praxis werden beide kombiniert:
-1. Varistor am Netzeingang: Grobe Energie (Blitz, Surge) absorbieren
-2. TVS-Diode auf Signalebene: Feine, schnelle Transienten klemmen
+:::formel
+U_Z = U_clamp - U_F    # Ungefähre Zenerspannung; U_F ≈ 0.7 V
+I_PP = P_pk / U_clamp  # Spitzenstrom bei Klemmspannung
+:::
 
-IEC 61000-4-2 (ESD) und IEC 61000-4-5 (Surge) definieren Testpulse und Schutzanforderungen.
+| Kenngrösse | Bedeutung | Typisch |
+|---|---|---|
+| U_WM | Max. Arbeitsspannung (Standby) | 5–400 V |
+| U_clamp | Klemmspannung bei I_PP | 1.1–2× U_WM |
+| P_pk | Spitzenleistung (1 ms Impuls) | 400 W – 30 kW |
+| C | Kapazität | 0.5 – 1000 pF |
+
+:::warning
+Die Kapazität einer TVS-Diode begrenzt die Bandbreite. Auf Hochfrequenz-Datenleitungen (USB3, Ethernet) müssen Niedrigkapazitäts-TVS (< 1 pF) verwendet werden — sonst wird das Signal verzerrt.
+:::
+
+### Typische Bauteile
+
+| Typ | U_WM | P_pk | C | Einsatz |
+|---|---|---|---|---|
+| P6KE6.8A | 5.8 V | 600 W | 2 pF | Gleichspannung |
+| SMBJ5.0A | 5.0 V | 600 W | 800 pF | Gleichspannung |
+| ESD5Z5.0T | 5.0 V | 200 W | 0.5 pF | USB, Daten |
+| SA15A | 15 V | 500 W | 800 pF | 12 V System |
+
+## Varistor (VDR / MOV)
+
+Ein Varistor (MOV = Metal Oxide Varistor, VDR = Voltage-Dependent Resistor) ist ein Widerstand, der bei höherer Spannung stark niederohmig wird. Er besteht aus Zinkoxid-Körnern in einer Keramikmatrix — jede Korngrenze verhält sich wie eine kleine Zener-Diode.
+
+### Unterschied TVS vs. Varistor
+
+| Eigenschaft | TVS-Diode | Varistor |
+|---|---|---|
+| Reaktionszeit | < 1 ns | 1–25 ns |
+| Energie | gering (J) | hoch (J bis kJ) |
+| Spannung | präzise (±5 %) | grob (±20 %) |
+| Kapazität | 0.5–1000 pF | 100–10'000 pF |
+| Anwendung | Elektronik, ESD | Netzanschluss, Blitzschutz |
+| Bidirektional | Ja (bidirekt. Typ) | Immer bidirektional |
+
+### Anwendung Varistor
+
+Varistoren schützen Netzgeräte vor Blitz- und Schaltüberspannungen. Typisch: ein MOV parallel zum Netzeingang (nach der Sicherung) begrenzt Spitzen auf < 1.5 × U_Netz.
+
+:::formel
+U_varistor > U_netz * √2 * 1.2    # Varistor-Nennspannung muss DC-Spitze + Reserve übersteigen
+:::
+
+:::info
+Varistoren "altern": Jede Überspannung verringert die Klemmspannung und erhöht die Verlustleistung. Nach vielen Transienten kann ein Varistor im Kurzschluss enden — deshalb immer mit Sicherung oder Thermosicherung absichern.
+:::
+
+## Schutzkonzept zusammengefasst
+
+:::schematic Zweistufiger Überspannungsschutz: Netzeingang → MOV (grobe Transienten) → Sicherung/Ferrit → TVS (feine Transienten/ESD) → IC
+/Diagramm/tvs_schutzkonzept.svg
+:::
+
+Typisch werden beide Bauelemente kombiniert:
+1. **MOV** direkt am Netzeingang — begrenzt grobe Überspannungen (kV, kA)
+2. **TVS** auf der Platine — schützt einzelne ICs vor restlichen Transienten und ESD
+
+Dazwischen liegt eine Impedanz (Sicherung, Ferrit, Widerstand) die verhindert, dass der MOV den IC-Strom direkt kurzschliesst.

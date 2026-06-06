@@ -1,61 +1,124 @@
----
+﻿---
 title: Schrittmotor
 kategorie: EK
-tags: [schrittmotor, stepper, schritt, mikroschrittbetrieb, positionierung, A4988, DRV8825, TMC, halbschritt, vollschritt, schrittverlust, resonanz]
-symbol: M
-einheit: °/Schritt
+kapitel: Motoren
+tags: [schrittmotor, stepper, schrittwinkel, vollschritt, halbschritt, mikroschritt, unipolar, bipolar, schrittverlust, resonanz, rampe, a4988, drv8825, tmc]
+groessen: alpha|Schrittwinkel|°; N|Schritte pro Umdrehung|—; f_schritt|Schrittfrequenz|Hz; n|Drehzahl|U/min
+_status: FERTIG
 ---
-
-Der Schrittmotor dreht sich in definierten Schritten. Jeder Impuls dreht ihn um einen festen Winkel. Keine Rückmeldung nötig für einfache Positionierungsaufgaben.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[DC-Motor]]
+- [[DC Motor]]
+- [[H-Brücke]]
+- [[Aktorik Grundlagen]]
 :::
 :::vbox
 **Verwandte Artikel**
 - [[Servomotor]]
+- [[BLDC]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[CNC]]
-- [[Positionierung]]
+- [[Servomotor]]
+- [[Regelkreis Grundlagen]]
 :::
 :::
 
 ---
 
+Der Schrittmotor dreht sich in definierten Schritten. Jeder Impuls dreht ihn um einen festen Winkel. Er wird **ohne Encoder** für einfache Positionieraufgaben eingesetzt — die Position wird durch Zählen der Schritte verfolgt.
+
 ## Funktionsprinzip
 
-Mehrere Statorwicklungen werden der Reihe nach bestromt. Das Magnetfeld dreht sich. Der Rotor (Permanentmagnet oder gezahntes Eisen) folgt dem Feld in Schritten.
+Mehrere Statorwicklungen werden der Reihe nach bestromt. Das rotierende Magnetfeld zieht den Rotor (Permanentmagnet oder gezahntes Eisen) in Schritten mit. Typischer Schrittwinkel: **1.8° pro Schritt = 200 Schritte pro Umdrehung**.
 
-Typischer Schrittwinkel: 1.8° pro Schritt = 200 Schritte pro Umdrehung.
+:::formel
+alpha = 360° / N          # Schrittwinkel
+N = 360° / alpha          # Schritte pro Umdrehung
+n = f_schritt / N * 60    # Drehzahl [U/min] bei Schrittfrequenz f [Hz]
+:::
 
-## Vollschritt vs. Halbschritt vs. Mikroschritt
+## Betriebsarten
 
-**Vollschritt**: Immer eine oder zwei Phasen aktiv. 200 Schritte/Umdr. Weniger fein.
+| Modus | Schritte/Umdr. | Merkmal |
+|---|---|---|
+| Vollschritt | 200 | 1 oder 2 Phasen aktiv, maximales Drehmoment |
+| Halbschritt | 400 | Abwechselnd 1 und 2 Phasen aktiv, sanfterer Lauf |
+| Mikroschritt ÷4 | 800 | Ströme teilweise moduliert |
+| Mikroschritt ÷16 | 3200 | Sehr ruhiger Lauf, hohe Auflösung |
+| Mikroschritt ÷256 | 51200 | Maximale Feinheit (TMC-Treiber) |
 
-**Halbschritt**: Abwechselnd eine und zwei Phasen. 400 Schritte/Umdr. Sanfterer Lauf.
+### Bestromungssequenz (bipolarer Motor)
 
-**Mikroschritt**: Ströme sinusförmig moduliert. 1600, 3200, 6400 Schritte/Umdr. oder mehr. Sehr ruhiger Lauf, höhere Auflösung.
+**Vollschritt — 2 Phasen aktiv** (maximales Drehmoment):
 
-## Typen
+| Schritt | Phase A | Phase B |
+|---|---|---|
+| 1 | + | + |
+| 2 | − | + |
+| 3 | − | − |
+| 4 | + | − |
 
-**Unipolarer Schrittmotor**: Sechs oder acht Leitungen. Einfachere Ansteuerung, weniger Drehmoment.
+**Halbschritt — abwechselnd 1 und 2 Phasen** (doppelte Auflösung, sanfterer Lauf):
 
-**Bipolarer Schrittmotor**: Vier Leitungen. Mehr Drehmoment, braucht H-Brücke pro Phase.
+| Schritt | Phase A | Phase B |
+|---|---|---|
+| 1 | + | 0 |
+| 2 | + | + |
+| 3 | 0 | + |
+| 4 | − | + |
+| 5 | − | 0 |
+| 6 | − | − |
+| 7 | 0 | − |
+| 8 | + | − |
 
-## Drehmoment
+Jede Wicklung wird von einer H-Brücke angesteuert: + = Vorwärts, − = Rückwärts, 0 = stromlos.
 
-Schrittmotoren verlieren Drehmoment bei hohen Drehzahlen. Zu schnelle Schrittfolge: der Motor springt aus dem Schritt und verliert die Position (Schrittverlust).
+:::info
+Mikroschritt erhöht die Auflösung und reduziert Resonanzen, aber nicht das Haltemoment — das sinkt bei hohem Mikroschrittteiler. Die mechanische Genauigkeit wird durch Getriebespiel und Elastizität begrenzt, nicht durch den Mikroschrittteiler.
+:::
 
-Resonanzfrequenzen beachten: Bei bestimmten Drehzahlen vibriert der Motor stark. Durch Beschleunigungs-Rampen umgehen.
+## Motortypen
 
-## Treiberchips
+**Bipolarer Schrittmotor (4 Leitungen)**: Zwei Wicklungen, pro Phase eine H-Brücke nötig. Höheres Drehmoment. Standard in 3D-Druckern und CNC-Maschinen.
 
-A4988, DRV8825, TMC2208 (leise), TMC2209 (mit Diagnosefunktion). Alle integrieren H-Brücken und Mikroschrittteilung.
+**Unipolarer Schrittmotor (5/6/8 Leitungen)**: Mittelabgriffe an Wicklungen, einfachere Ansteuerung (Transistoren statt H-Brücke), aber weniger Drehmoment (halbe Wicklung aktiv).
+
+## Drehzahl-Drehmoment-Verlauf
+
+Das Drehmoment sinkt mit steigender Drehzahl. Zu hohe Schrittfrequenz → **Schrittverlust**: Der Motor springt aus dem Schritt und verliert die Position — ohne Rückmeldung unbemerkt.
+
+**Schrittverlust vermeiden durch:**
+- Beschleunigungs- und Bremsrampen (nicht sofort auf volle Frequenz schalten)
+- Schrittfrequenz unterhalb der Pull-Out-Frequenz halten
+- Ausreichenden Sicherheitsabstand zum Nennmoment
+
+**Resonanzfrequenzen**: Bei bestimmten Drehzahlen (typisch 50–150 U/min) vibriert der Motor stark → durch Rampen schnell durchfahren oder Mikroschrittbetrieb nutzen.
+
+## Ansteuerung und Treiberchips
+
+Jede Phase des bipolaren Motors braucht eine H-Brücke. Treiberchips integrieren H-Brücken, Strombegrenzung und Mikroschrittlogik:
+
+| IC | Strom | Mikroschritt | Besonderheit |
+|---|---|---|---|
+| A4988 | 2 A | bis ÷16 | Günstig, weit verbreitet |
+| DRV8825 | 2.5 A | bis ÷32 | Etwas weniger Rauschen als A4988 |
+| TMC2208 | 1.4 A RMS | bis ÷256 | StealthChop — sehr leiser Betrieb |
+| TMC2209 | 2 A RMS | bis ÷256 | StealthChop + Stallguard (Schrittverlust erkennen) |
 
 :::tip
-TMC-Treiber verwenden wenn leiser Betrieb wichtig ist. Sie modulieren den Strom so, dass kaum hörbare Frequenzen entstehen (StealthChop). Standard in modernen 3D-Druckern.
+TMC-Treiber verwenden wenn leiser Betrieb wichtig ist (3D-Drucker, Büroumgebung). StealthChop moduliert den Strom so, dass keine hörbaren Frequenzen entstehen. TMC2209 erkennt zusätzlich Schrittverlust über den Motorstrom — ersetzt für viele Anwendungen den Endschalter.
 :::
+
+## Vergleich Schrittmotor / Servo
+
+| Eigenschaft | Schrittmotor | Servo |
+|---|---|---|
+| Positionsrückmeldung | Keine (Open-Loop) | Encoder (Closed-Loop) |
+| Schrittverlust | Möglich und unbemerkt | Erkannt und korrigiert |
+| Haltemoment | Hoch (bestromt) | Abhängig von Motor |
+| Kosten | Günstig | Höher |
+| Einsatz | Einfache Positionierung | Hochgenaue Anwendungen |
+| Ansteuerungsaufwand | Mittel | Hoch (Regler nötig) |

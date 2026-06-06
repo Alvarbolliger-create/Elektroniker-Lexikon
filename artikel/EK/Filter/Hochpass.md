@@ -1,82 +1,99 @@
----
-title: Hochpass (HP)
+﻿---
+title: Hochpass
 kategorie: EK
-tags: [hochpass, HP, grenzfrequenz, dämpfung, RC, sallen-key, aktiv, passiv, wechselstromkopplung, gleichanteil, filterordnung, 20dB]
-symbol: —
-einheit: —
+kapitel: Filter
+tags: [hochpass, HP, grenzfrequenz, RC, RL, T-HP, pi-HP, wechselstromkopplung, DC-sperre, brumm, einschwingvorgang, 20dB, 40dB, 60dB]
+groessen: f_g|Grenzfrequenz|Hz; R|Widerstand|Ω; C|Kapazität|F; L|Induktivität|H
+_status: FERTIG
 ---
-
-Ein Hochpass (HP) lässt hohe Frequenzen ungehindert durch und dämpft tiefe Frequenzen. Gleichspannung (0 Hz) wird vollständig gesperrt.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
 - [[Filter Grundlagen]]
-- [[RC-Filter]]
+- [[Transit & Grenzfrequenz]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Tiefpass (TP)]]
-- [[Bandpass (BP)]]
+- [[Tiefpass]]
+- [[Bandpass]]
 - [[Aktive Filter]]
 :::
 :::vbox
 **Führt weiter zu**
 - [[Filtercharakteristik]]
+- [[Aktive Filter]]
 :::
 :::
 
 ---
 
-## Anwendungen
+Ein Hochpass (HP) lässt hohe Frequenzen durch und dämpft tiefe. Gleichspannung (0 Hz) wird vollständig gesperrt — der Hochpass ist die DC-Sperre.
 
-- Wechselstromkopplung: Gleichanteil aus einem Signal entfernen (z.B. DC-Offset eines Sensors)
-- Rundsteuerempfänger: 50-Hz-Netzfrequenz durchlassen, tiefe Störungen sperren
-- Audioanwendungen: Tieffrequentes Brummen unterdrücken
-- Hochpassfilter nach dem Mikrofon: Windgeräusche (unter 100 Hz) dämpfen
+## Passiver RC-Hochpass (1. Ordnung)
 
-## Frequenzgang
+:::schematic RC-Hochpass 1. Ordnung: Eingang U_e links. C in Reihe (horizontal). Mittenknoten → R nach GND. Ausgang U_aus rechts vom Mittenknoten (über R gemessen). Bei tiefen Frequenzen: X_C gross → Spannung fällt an C → Ausgang ≈ 0. Bei hohen Frequenzen: X_C klein → Ausgang ≈ Eingang. Vergleich: Tiefpass mit vertauschten Bauteilen
+/Diagramm/rc_hochpass.svg
+:::
+
+C in Reihe, R nach Masse. Ausgang über R abgegriffen — Tiefpass mit vertauschten Bauteilen.
+
+- **Tiefe f:** X_C gross → fast keine Spannung an R → Signal gesperrt
+- **Hohe f:** X_C klein → Spannung fällt hauptsächlich an R ab → Signal kommt durch
+
+:::formel
+f_g = 1 / (2 * pi * R * C)    # Grenzfrequenz (identisch zum Tiefpass)
+R   = 1 / (2 * pi * f_g * C)
+C   = 1 / (2 * pi * f_g * R)
+:::
+
+| Frequenz | Amplitude | Phase |
+|---|---|---|
+| f ≪ f_g | → 0 (−20 dB/Dek) | → +90° |
+| f = f_g | 0.707 (−3 dB) | +45° |
+| f ≫ f_g | ≈ 1 (0 dB) | ≈ 0° |
+
+## Passiver RL-Hochpass (1. Ordnung)
+
+R in Reihe, L nach Masse. Ausgangsspannung an L abgegriffen.
+
+:::formel
+f_g = R / (2 * pi * L)
+:::
+
+## T-Hochpass und π-Hochpass (höhere Ordnung)
+
+Mehrere Glieder kaskadiert erhöhen die Steilheit:
+
+| Typ | Steilheit | Schaltungsaufwand |
+|---|---|---|
+| RC-HP 1. Ordnung | 20 dB/Dek | 1 C + 1 R |
+| T-HP / π-HP (RC) | 40 dB/Dek | mehrere C + R parallel |
+| T-HP / π-HP (LC) | 60 dB/Dek | C + L-Glieder |
 
 :::plot
 var: f
 range: 0.01, 100
-xlabel: Frequenz (normiert)
+xlabel: f / f_g (normiert)
 ylabel: Amplitude (normiert)
-Hochpass 1. Ordnung: f / sqrt(1 + f*f)
-Hochpass 2. Ordnung: f*f / sqrt(1 + f^4)
+HP 1. Ordnung: f / sqrt(1 + f*f)
+HP 2. Ordnung: f*f / sqrt(1 + f^4)
 :::
-
-Unterhalb der Grenzfrequenz f_g: Dämpfung mit 20 dB/Dekade pro Ordnung. Oberhalb: volle Amplitude.
-
-## Grenzfrequenz
-
-Die **Grenzfrequenz f_g** ist die Frequenz, bei der die Ausgangsamplitude auf **70.7 %** des Eingangs abgefallen ist (= −3 dB):
-
-:::formel
-f_g = 1 / (2 · π · R · C)     # Passiver RC-Hochpass 1. Ordnung
-:::
-## Passiver RC-Hochpass (1. Ordnung)
-
-C in Reihe, R parallel zur Last. Tiefe Frequenzen: C hat hohen Widerstand → fast keine Spannung an R. Hohe Frequenzen: C hat niedrigen Widerstand → Spannung fällt hauptsächlich an R ab.
-
-- Steilheit: **20 dB/Dekade**
-- Sperrt Gleichspannung vollständig
-
-## Aktiver Hochpass — Sallen-Key (2. Ordnung)
-
-Gleiche Topologie wie beim aktiven Tiefpass, aber R und C vertauscht. Steilheit: **40 dB/Dekade**.
-
-:::formel
-f_g = 1 / (2 · π · R · C)     # für R1 = R2 = R und C1 = C2 = C
-:::
-## Steilheit und Ordnung
-
-| Ordnung | Steilheit |
-|---|---|
-| 1 | 20 dB/Dek |
-| 2 | 40 dB/Dek |
-| 4 | 80 dB/Dek |
 
 :::warning
-Ein Hochpass sperrt zwar den Gleichanteil, erzeugt aber beim Einschalten einen Einschwingvorgang. Das Ausgangssignal springt kurz auf und klingt dann ab. Bei Audioverstärkern kann das zu einem unerwünschten Knackgeräusch führen.
+Beim Einschalten erzeugt der Hochpass einen **Einschwingvorgang**: Der Ausgang springt kurz auf und klingt dann ab. Bei Audioverstärkern kann das zu einem Knackgeräusch führen. Abhilfe: Soft-Start-Schaltung oder den Koppelkondensator nach dem Verstärker anordnen.
+:::
+
+## Anwendungen
+
+- **Wechselstromkopplung:** DC-Offset aus Sensorsignal entfernen (z.B. vor BJT-Verstärker)
+- **Brummunterdrückung:** Audio — tieffrequentes Netzbrummen (50/100 Hz) dämpfen
+- **Windgeräuschfilter:** Mikrofon — Windgeräusche unter 100 Hz entfernen
+- **Koppelkondensator:** Gleichspannungsanteil zwischen Verstärkerstufen blockieren
+
+:::monospace
+Designbeispiel: DC-Sperre für Audio, f_g = 20 Hz, C = 10 µF
+R = 1 / (2π × 20 × 10e-6) = 796 Ω → 820 Ω (E12)
+Probe: f_g = 1 / (2π × 820 × 10e-6) = 19.4 Hz ✓
+Bei 20 Hz: −3 dB — darunter wird Signal gedämpft
 :::

@@ -1,93 +1,99 @@
----
-title: Piezoelektrischer Aktor
+﻿---
+title: Piezo-Aktor
 kategorie: EK
-tags: [piezo, piezoelektrisch, piezoaktor, mikropositionierung, pzt, hysterese, hochspannung, kondensator]
-symbol: —
-einheit: m
+kapitel: Aktorik
+tags: [piezo, piezoelektrisch, piezoaktor, pzt, stack-aktor, bimorph, hochspannung, hysterese, kriechen, kapazitiv, transimpedanz, treiber]
+groessen: delta_L|Längenänderung|m; d_33|Piezokoeffizient|m/V; U|Steuerspannung|V; C_piezo|Kapazität|F; I|Ladestrom|A
+_status: FERTIG
 ---
-
-Ein piezoelektrischer Aktor verformt sich bei angelegter Spannung minimal, aber exakt und schnell. Er wird in Feinmechanik, Mikropositionierung und Mikro-Ventilen eingesetzt, wo normale Motoren zu grob oder zu langsam sind.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Kondensator]]
-- [[Elektrische Grundgrössen]]
+- [[Aktorik Grundlagen]]
+- [[Kondensator (Übersicht)]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Linearmotor]]
-- [[Aktorik]]
+- [[H-Brücke]]
+- [[Heizelement & Peltier]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[Aktor mit Rückmeldung]]
+- [[Regelkreis Grundlagen]]
 :::
 :::
 
 ---
+
+Ein piezoelektrischer Aktor verformt sich bei angelegter Spannung minimal, aber **exakt und schnell**. Er wird in Feinmechanik, Mikropositionierung und Mikroventilen eingesetzt, wo normale Motoren zu grob oder zu langsam sind.
 
 ## Piezoelektrischer Effekt
 
-Piezoelektrische Materialien (typisch PZT — Bleizirkonat-Titanat) verändern ihre Abmessungen bei angelegter Spannung. Der Effekt ist umkehrbar: Mechanischer Druck erzeugt eine Spannung (Sensor-Modus).
+Piezoelektrische Materialien (typisch PZT — Bleizirkonat-Titanat, Pb[Zr,Ti]O₃) ändern ihre Abmessungen bei angelegter Spannung. Der Effekt ist **umkehrbar**: Mechanischer Druck erzeugt eine Spannung (Sensor-Modus = Piezomikrofon, Gasfeuerzünder).
+
+**Aktor-Modus (inverser Piezoeffekt):**
 
 :::formel
-delta_L = d_33 * U
+delta_L = d_33 * U    # Längenänderung durch Spannung
 :::
 
-:::formel
-delta_L = Längenänderung [m]
-d_33    = Piezokoeffizient [m/V]  (typisch 100–600 pm/V)
-U       = Spannung [V]
+| Grösse | Einheit | Typischer Wert |
+|---|---|---|
+| delta_L | m | nm–µm (je nach Aufbau) |
+| d_33 | m/V | 100–600 pm/V (= 0.1–0.6 nm/V) |
+| U | V | 10–1000 V (je nach Typ) |
+
+:::info
+Bei einem einzelnen PZT-Element mit d_33 = 300 pm/V und U = 100 V ergibt sich delta_L = 30 nm — das ist kleiner als eine Lichtwellenlänge.
 :::
 
-Bei einem einfachen Element: wenige Nanometer Ausdehnung. Stack-Aktoren (viele Schichten übereinander) addieren die Einzelhübe.
+## Aufbautypen
 
----
+| Typ | Hub | Kraft | Spannung | Merkmal |
+|---|---|---|---|---|
+| Einzelelement | < 1 µm | Sehr hoch | 500–1000 V | Kleinstste Ausdehnung |
+| Stack-Aktor | bis 200 µm | 100 N – 10 kN | 100–200 V | Viele Schichten übereinander |
+| Bimorph (Biegeaktor) | bis 1 mm | Gering | 10–100 V | Zwei Schichten, biegen sich |
 
-## Aufbau
-
-| Typ | Hub | Kraft | Spannung |
-|---|---|---|---|
-| Einfaches Element | < 1 µm | Sehr hoch | bis 1000 V |
-| Stack-Aktor | bis 200 µm | 100 N – 10 kN | 100–200 V |
-| Bimorph (Biegeaktor) | bis 1 mm | Gering | 10–100 V |
-
-Stack-Aktoren schichten viele dünne Keramikscheiben übereinander. Bei 100 Schichten à 10 µm ergibt sich 1 mm Hub.
-
----
+**Stack-Aktor**: Viele dünne Keramikscheiben übereinander gestapelt — die Hübe addieren sich. Bei 100 Schichten à 10 nm/V und 150 V ergibt sich: 100 × 150 × 10 nm = 150 µm.
 
 ## Elektrische Eigenschaften
 
-Ein Piezoaktor verhält sich elektrisch wie ein Kondensator. Im Gleichgewicht fliesst kein Strom. Zum Verfahren muss die Kapazität geladen werden:
+Ein Piezoaktor verhält sich elektrisch wie ein **Kondensator** — im Gleichgewicht fliesst kein Strom. Zum Verfahren muss die Kapazität umgeladen werden:
 
 :::formel
-Q = C * U
-I = C * dU/dt
+Q = C_piezo * U          # Ladung
+I = C_piezo * dU/dt      # Ladestrom (für schnelle Bewegung = hoher Strom)
 :::
 
-Hohe Beschleunigungen erfordern hohen Ladestrom. Spezielle Hochvolt-Treiber-ICs (z.B. Texas Instruments OPA454, Piezo-Controller) liefern schnelle Spannungsänderungen mit ausreichend Strom.
+Typische Kapazitäten: 100 nF–100 µF. Hohe Beschleunigungen erfordern hohen Ladestrom → spezielle Hochvolt-Treiber-ICs.
 
 :::warning
-Stack-Aktoren brauchen Hochspannung (100–1000 V). Nur zugelassene Hochvolt-Treiber verwenden. Standardlogik und Low-Voltage-ICs sind nicht geeignet.
+Stack-Aktoren benötigen Hochspannung (100–1000 V). Nur zugelassene Hochvolt-Treiber verwenden (z.B. Texas Instruments OPA454, MDT piezo controller). Standardlogik und 5-V-ICs sind nicht geeignet.
 :::
-
----
 
 ## Hysterese und Kriechen
 
-Piezoaktoren zeigen:
-- **Hysterese**: Die Position hängt von der Bewegungsgeschichte ab (typisch 10–15 % des Hubs)
-- **Kriechen**: Nach einer Spannungsänderung verformt sich das Material noch Sekunden bis Minuten weiter
+Piezoaktoren sind für zwei Nichtidealitäten bekannt:
 
-Für hochgenaue Positionierung ist ein Sensor zur Rückkopplung (z.B. kapazitiver Abstandssensor) und ein Regler nötig.
+**Hysterese**: Die Position hängt von der Bewegungshistorie ab. Typisch 10–15 % des maximalen Hubs. Bei Positionierung ohne Rückkopplung verursacht dies einen systematischen Fehler.
 
----
+**Kriechen (Creep)**: Nach einer Spannungsänderung verformt sich das Material noch Sekunden bis Minuten weiter (logarithmische Zeitabhängigkeit). Ursache: Domänenwanderung im Kristall.
+
+**Lösung für hohe Genauigkeit**: Rückkopplungsregelung mit Positions-Sensor (kapazitiver Abstandssensor, Dehnmessstreifen an der Keramik) und PID-Regler. Gute Piezostages haben integrierten Sensor und Regler.
 
 ## Anwendungen
 
-- Optik: Piezo-Verschiebetische, Interferometer, Fokussierung
-- Tintenstrahldrucker: Piezo-Druckkopf
-- Ultraschall: Schwinger für Reinigung, Schweissen, Sonar
-- Mikrofluidik: Pumpen und Ventile in der Laborautomation
-- Aktive Schwingungsdämpfung
+| Anwendung | Details |
+|---|---|
+| Optik / Interferometrie | Piezo-Verschiebetische, aktive Spiegelsteuerung, Fokussierung |
+| Tintenstrahldrucker | Piezo-Druckkopf drückt Tinte aus Düse (Epson) |
+| Ultraschall | Schwinger für Reinigung (Ultraschallbad), Schweissen, Sonar |
+| Mikrofluidik | Pumpen und Ventile in Laborautomation |
+| Aktive Schwingungsdämpfung | Gegenschwingung kompensiert Vibration |
+| Autofokus | Kameraobjektive mit piezoelektrischem Antrieb |
+
+:::tip
+Im Vergleich zu elektromagnetischen Aktoren (Motor, Relais) hat der Piezoaktor keinen Verschleiss, kein elektromagnetisches Streufeld, keine Geräusche und eine extrem hohe Bandbreite (kHz–MHz). Nachteil: Sehr kleiner Hub, hohe Spannung, begrenzte Kraft beim Bimorph.
+:::

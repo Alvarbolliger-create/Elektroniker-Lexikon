@@ -1,90 +1,104 @@
----
+﻿---
 title: Relais
 kategorie: EK
-tags: [relais, elektromagnet, schalter, no, nc, freilaufdiode, galvanische-trennung, prellen, schütz]
-symbol: K
-einheit: —
+kapitel: Aktorik
+tags: [relais, elektromagnet, anker, no, nc, com, freilaufdiode, prellen, galvanische trennung, schütz, spulenstrom, transistortreiber]
+groessen: I_S|Spulenstrom|A; U_S|Spulenspannung|V; R_B|Basiswiderstand|Ω; U_CE_sat|Sättigungsspannung|V
+_status: FERTIG
 ---
-
-Ein Relais ist ein elektromagnetisch betriebener Schalter. Ein kleines Steuersignal schaltet einen davon galvanisch getrennten Leistungskreis — oft wird damit eine 3,3-V-Logik mit einem 230-V-Netz verbunden.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Transistor als Schalter]]
-- [[Elektromagnet]]
+- [[Aktorik Grundlagen]]
+- [[BJT Grundlagen]]
+- [[MOSFET Anwendungen]]
 :::
 :::vbox
 **Verwandte Artikel**
 - [[Optokoppler]]
 - [[H-Brücke]]
-- [[Bussystem-Aktor]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[Sicherheitsrelais]]
-- [[Motor-Treiber-IC]]
+- [[DC Motor]]
+- [[Heizelement & Peltier]]
 :::
 :::
 
 ---
 
-## Aufbau
+Ein Relais ist ein **elektromagnetisch betriebener Schalter**. Ein kleines Steuersignal (Logikpegel, wenige mA) schaltet einen galvanisch getrennten Leistungskreis — typisch wird damit eine 3.3-V-Logik mit einem 230-V-Netz verbunden.
 
-Eine bestromte Spule zieht einen Anker an. Der Anker betätigt mechanische Kontakte. Steuerstromkreis (Spule) und Lastkreis (Kontakte) sind galvanisch getrennt.
+## Aufbau und Wirkprinzip
+
+Eine bestromte Spule erzeugt ein Magnetfeld, das einen beweglichen Anker anzieht. Der Anker betätigt mechanische Kontakte. **Steuerstromkreis (Spule) und Lastkreis (Kontakte) sind galvanisch getrennt** — der wichtigste Vorteil gegenüber Halbleiterschaltern.
+
+## Kontakttypen
 
 | Kontaktart | Kürzel | Normalzustand | Bei Erregung |
 |---|---|---|---|
-| Schliesser | NO (normally open) | Offen | Geschlossen |
-| Öffner | NC (normally closed) | Geschlossen | Offen |
+| Schliesser | NO (Normally Open) | Offen | Geschlossen |
+| Öffner | NC (Normally Closed) | Geschlossen | Offen |
 | Wechsler | COM | Verbunden mit NC | Wechselt zu NO |
 
----
+## Freilaufdiode — zwingend erforderlich
 
-## Freilaufdiode
+Die Relais-Spule ist induktiv. Beim Abschalten der Erregung entsteht ein induktiver Spannungsstoss (L·di/dt), der den ansteuernden Transistor oder µC-Pin zerstört.
 
-Die Spule ist induktiv. Beim Abschalten entsteht eine Gegenspannung (induktiver Spannungsstoss), die Transistoren und Mikrocontrollerausgänge zerstört.
-
-:::danger
-Relaisspule nie ohne Freilaufdiode an einem Halbleiterausgang betreiben. Der Spannungsstoss kann mehrere hundert Volt erreichen und den Ausgangs-Pin sofort zerstören.
+:::warning
+Relais-Spule **niemals** ohne Freilaufdiode an einem Halbleiterausgang betreiben. Der Spannungsstoss kann mehrere 100 V erreichen und den Ausgangspin sofort zerstören.
 :::
 
-Die Freilaufdiode wird parallel zur Spule in Sperrrichtung zur Versorgung eingebaut. Beim Abschalten leitet sie und begrenzt die Spitze auf ca. 0,7 V.
+Die Freilaufdiode wird **parallel zur Spule** in Sperrrichtung zur Versorgung eingebaut. Beim Abschalten leitet sie und begrenzt die Spitze auf ca. 0.7 V.
 
----
+:::schematic Relais mit Freilaufdiode: NPN-Transistor (Kollektor oben, Emitter nach GND). Relaisspule von +U_B nach Kollektor. Freilaufdiode parallel zur Spule (Kathode an +U_B, Anode am Kollektor) — in Sperrrichtung zur Versorgung. Beim Abschalten: Induktionsspannung treibt Strom durch Diode, begrenzt Spannungsspitze auf +U_B + 0.7 V. Basis über R_B von µC-Pin gesteuert
+/Diagramm/relais_freilaufdiode.svg
+:::
 
-## Ansteuerung
+## Transistor-Ansteuerung
 
-Direkt an einem Mikrocontrollerpin (max. 20–40 mA) ist ein Relais meist nicht betreibbar. Ein NPN-Transistor dient als Verstärker:
+Ein µC-Pin (typisch 3.3–5 V, max. 20 mA) reicht meist nicht aus, um eine Relais-Spule direkt zu treiben (typisch 50–150 mA). Ein NPN-Transistor übernimmt die Verstärkung:
 
 :::formel
-µC-Pin → R_B (1–10 kΩ) → Basis NPN
-Kollektor NPN → Relais-Spule → VCC
-Freilaufdiode parallel zur Spule (Kathode zu VCC)
+I_S     = U_Spule / R_Spule              # Spulenstrom
+I_B     = I_S / B_min                   # Mindest-Basisstrom (B_min ≈ 10..30 verwenden)
+R_B     = (U_µC - U_BE) / I_B           # Basiswiderstand
 :::
 
-Fertige Relaismodule (z.B. Arduino-kompatibel) integrieren bereits Transistor, Freilaufdiode und Optokoppler für zusätzliche Trennung.
+:::schematic NPN-Transistor als Relais-Treiber: µC-Pin → R_B (Basiswiderstand) → Basis NPN. Kollektor: Relaisspule (Anode) → +U_B (Spulen-Versorgung). Freilaufdiode parallel zur Spule. Emitter direkt nach GND. Relais-Kontakte NO/NC/COM für Lastkreis (galvanisch getrennt). R_B = (U_µC − 0.7) / I_B berechnet
+/Diagramm/relais_transistortreiber.svg
+:::
 
----
+**N-Kanal-MOSFET** (z.B. 2N7000): Einfacher als BJT — kein Basisstrom nötig, Gate direkt über R_G (1–10 kΩ) an µC-Pin.
 
-## Prellzeit
+## Kontaktprellen (Bouncing)
 
-Mechanische Kontakte prellen beim Schalten: In den ersten 5–20 ms öffnen und schliessen sie mehrfach schnell hintereinander. Für digitale Eingänge muss dieses Prellen durch Software (Debouncing) oder Hardware (RC-Glied) unterdrückt werden.
-
----
-
-## Schütz
-
-Ein Schütz ist ein industriell ausgelegtes Relais für grosse Ströme und Dauerbetrieb. Schütze sind für Millionen von Schaltspielen zertifiziert (IEC 60947), haben zusätzliche Hilfskontakte für Meldungen und Verriegelungen und werden typisch in Motorsteuerungen und Drehstromanlagen eingesetzt.
-
----
+Mechanische Kontakte prellen beim Schalten: In den ersten 5–20 ms öffnen und schliessen sie mehrfach schnell. Für digitale Eingaben muss das Prellen durch Software (Entprellzeit ≥ 20 ms) oder Hardware (RC-Glied + Schmitt-Trigger) unterdrückt werden.
 
 ## Auswahlkriterien
 
 | Kriterium | Bedeutung |
 |---|---|
-| Spulenspannung | Meist 5 V, 12 V, 24 V DC oder 230 V AC |
-| Kontaktstrom | Max. Laststrom (Gleichstrom ist kritischer als Wechselstrom) |
+| Spulenspannung | Meist 5 V, 12 V, 24 V DC |
+| Kontaktstrom | Max. Laststrom (DC kritischer als AC wegen Lichtbogen) |
 | Schaltspannung | Max. Spannung am Kontakt |
-| Schaltspiele | Mechanisch und elektrisch unterschiedlich |
-| Schutzklasse | IP-Klasse für Feuchtigkeit und Staub |
+| Schaltspiele | Mechanisch: 10⁷, elektrisch: 10⁵ (Last abhängig) |
+| Schaltzeit | Anzug: 5–15 ms, Abfall: 3–10 ms |
+
+## Vergleich Relais vs. Solid-State-Relay (SSR)
+
+| Eigenschaft | Relais | Solid-State-Relay |
+|---|---|---|
+| Galvanische Trennung | Ja (mechanisch) | Ja (Optokoppler) |
+| Kontaktwiderstand | 0.05–0.1 Ω | 0 (kein Kontakt) |
+| Schaltgeschwindigkeit | 5–15 ms | µs |
+| Schaltspiele | Begrenzt | Unbegrenzt |
+| Prellen | Ja | Nein |
+| AC-Last | Sehr gut | Sehr gut (Nulldurchgang) |
+| DC-Last | Gut | Schwieriger (MOSFET nötig) |
+| Preis | Günstig | Teurer |
+
+## Schütz
+
+Ein **Schütz** ist ein industriell ausgelegtes Relais für grosse Ströme und Dauerbetrieb. Schütze sind für Millionen Schaltspiele zertifiziert (IEC 60947), haben Hilfskontakte für Meldungen/Verriegelungen und werden typisch in Motorsteuerungen und Drehstromanlagen eingesetzt.

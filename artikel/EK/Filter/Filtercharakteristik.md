@@ -1,97 +1,102 @@
----
+﻿---
 title: Filtercharakteristik
 kategorie: EK
-tags: [butterworth, chebyshev, bessel, filtercharakteristik, überschwingen, ripple, steilheit, gruppenlaufzeit, filterordnung, approximation]
-symbol: —
-einheit: —
+kapitel: Filter
+tags: [filtercharakteristik, butterworth, chebyshev, bessel, elliptic, cauer, thompson, phasenlinearität, welligkeit, flankensteilheit, approximation, durchlassband, sperrband]
+groessen: —
+_status: FERTIG
 ---
-
-Filtercharakteristik beschreibt das Verhalten eines Filters im Übergangsbereich. Butterworth, Chebyshev und Bessel sind drei grundlegende Approximationen mit unterschiedlichen Kompromissen.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Tiefpass (TP)]]
-- [[Aktive Filter]]
+- [[Filter Grundlagen]]
+- [[Tiefpass]]
+- [[Hochpass]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Tiefpass (TP)]]
-- [[Hochpass (HP)]]
+- [[Aktive Filter]]
+- [[Bandpass]]
+:::
+:::vbox
+**Führt weiter zu**
+- [[Aktive Filter]]
 :::
 :::
 
 ---
 
-## Butterworth
+Verschiedene mathematische Filterapproximationen bieten unterschiedliche Kompromisse zwischen flacher Durchlasskurve, Flankensteilheit und Phasenlinearität. In der Praxis werden meist Butterworth oder Chebyshev gewählt.
 
-**Maximale Flachheit im Durchlassband.**
+## Überblick
 
-- Kein Ripple (Welligkeit) im Durchlassbereich
-- Keine Dämpfung unterhalb f_g
-- Kein Überschwingen bei f_g
-- Sanfte, monoton abfallende Flanke
-- **Standard für die meisten Anwendungen**
-
-:::plot
-var: f
-range: 0.01, 10
-xlabel: Frequenz (normiert)
-ylabel: Amplitude (normiert)
-Butterworth 2. Ord.: 1 / sqrt(1 + f^4)
+:::schematic Filtercharakteristiken Vergleich (Amplitudengang): Normierter Frequenzgang (f/f_g horizontal, dB vertikal). Butterworth: flach bis f_g, monoton fallend. Chebyshev: Welligkeit (Ripple) im Durchlassband, dann steilerer Abfall. Bessel: sanft abfallend schon vor f_g, dafür linearstes Phasenverhalten. Elliptisch: steilste Flanke, Welligkeit in beiden Bändern. Alle Kurven kreuzen sich bei f_g
+/Diagramm/filtercharakteristik_vergleich.svg
 :::
 
-**Vorteil**: Stabiles, vorhersehbares Verhalten, keine Signalverzerrung im Durchlassband.  
-**Nachteil**: Weniger steile Flanke als Chebyshev gleicher Ordnung.
+| Charakteristik | Durchlassband | Sperrband | Phase | Impulsantwort |
+|---|---|---|---|---|
+| **Butterworth** | maximal flach | monoton fallend | mittel | mittel |
+| **Chebyshev** | Welligkeit | steiler als Butterworth | schlechter | Überschwingen |
+| **Inverse Chebyshev** | flach | Welligkeit (Einbrüche) | besser als Cheby | mittel |
+| **Elliptisch (Cauer)** | Welligkeit | Welligkeit | schlecht | stark überschwingend |
+| **Bessel (Thompson)** | flach (sanft abfallend) | weich | maximal linear | minimal |
 
-## Chebyshev
+## Butterworth — maximal flach
 
-**Maximale Steilheit bei erlaubtem Ripple.**
+Keine Welligkeit im Durchlassband — maximale Flachheit ("maximally flat magnitude"). Amplitude bei f_g: immer genau −3 dB. Steifheit steigt mit der Ordnung n.
 
-- Steile Flanke — benötigt weniger Ordnungen als Butterworth für gleiche Flankensteilheit
-- Ripple (Welligkeit) im Durchlassband — die Amplitude schwankt bis zur Grenzfrequenz
-- Kann bei f_g leicht verstärken (bei hohem Q-Faktor)
+- Beste Wahl für allgemeine Anwendungen
+- Amplitude bei f_g: genau −3 dB
+- Monoton fallend im Sperrbereich — keine Einbrüche
 
-:::plot
-var: f
-range: 0.01, 10
-xlabel: Frequenz (normiert)
-ylabel: Amplitude (normiert)
-Chebyshev (ca.):  1 / sqrt(1 + 0.5 * (2*f^2 - 1)^2)
+**Typischer Einsatz:** Audio, allgemeine Signalaufbereitung, ADC-Eingang.
+
+## Chebyshev — steile Flanke
+
+Steifere Flanke als Butterworth gleicher Ordnung, erkauft durch **Welligkeit (Ripple)** im Durchlassband. Typische Welligkeit: 0.5 dB, 1 dB oder 3 dB wählbar.
+
+- Je grösser die Welligkeit, desto steiler die Flanke
+- Bei hoher Güte Q > 0.707: **Resonanzüberhöhung bei f_g** — die Amplitude steigt kurz über 0 dB bevor sie abfällt. Das ist der typische "Buckel" im Bodediagramm
+- Schlechtere Phaseneigenschaften als Butterworth
+
+**Typischer Einsatz:** Kanaltrennung, wenn Durchlasskurve etwas schwanken darf; wenn eine Verstärkung nahe f_g gewünscht wird.
+
+## Inverse Chebyshev — flacher Durchlass, Sperrband-Welligkeit
+
+Welligkeit liegt im **Sperrband** (nicht im Durchlassband). Durchlassband bleibt flach, Sperrband hat Einbrüche (Nullstellen).
+
+**Typischer Einsatz:** Wenn Durchlasskurve flach sein muss, aber Sperrband-Welligkeit tolerierbar ist.
+
+## Elliptisch (Cauer) — steilste Flanke
+
+Welligkeit sowohl im Durchlass- als auch im Sperrband. Dafür die **steilste Flanke** aller Charakteristiken bei gleicher Ordnung.
+
+- Maximale Effizienz: höchste Steilheit bei gegebener Ordnung
+- Komplexeste Berechnung und Realisierung
+- Stark überschwingende Impulsantwort
+
+**Typischer Einsatz:** Kritische Kanaltrennung, HF-Filter, wenn Bauteilanzahl minimiert werden muss.
+
+## Bessel (Thompson) — lineares Phasenverhalten
+
+Maximale Linearität der **Phasenverschiebung** über der Frequenz — alle Frequenzanteile werden gleich verzögert. Signalform bleibt erhalten (kein Überschwingen).
+
+- Flachste Flanke aller Charakteristiken (dafür linearstes Phasenverhalten)
+- Impulsantwort ohne Überschwingen — ideal für Rechteck- und Impulssignale
+
+**Typischer Einsatz:** Datenübertragung, Impulsmessung, Videofilter, überall wo die Signalform erhalten bleiben muss.
+
+## Entscheidungshilfe
+
+:::tip
+Für die Praxis gilt: **Butterworth zuerst probieren.** Wenn Flankensteilheit nicht reicht → Chebyshev. Wenn Signalform (Impuls, Rechteck) wichtig → Bessel. Elliptisch nur wenn wirklich die steilste mögliche Flanke gebraucht wird und Welligkeit tolerierbar ist.
 :::
 
-**Vorteil**: Steilste Flanke bei gegebener Ordnung.  
-**Nachteil**: Ripple im Durchlassband verzerrt das Signal. Nicht geeignet wenn Signalamplitude präzise sein muss.
-
-## Bessel
-
-**Maximale Linearität der Phase (konstantste Gruppenlaufzeit).**
-
-- Alle Frequenzanteile werden gleich verzögert → **Signalform bleibt erhalten**
-- Flachste Flanke der drei Typen
-- Kein Ripple, kein Überschwingen
-
-**Vorteil**: Rechtecke und Pulse passieren den Filter ohne Verzerrung der Form.  
-**Nachteil**: Flachste Flanke — braucht höhere Ordnung für gleiche Dämpfung.
-
-## Vergleich
-
-| Eigenschaft | Butterworth | Chebyshev | Bessel |
-|---|---|---|---|
-| Flankensteilheit | mittel | hoch | niedrig |
-| Ripple im Durchlassband | keiner | ja | keiner |
-| Überschwingen bei f_g | keiner | möglich | keiner |
-| Phasenlinearität | mittel | schlecht | sehr gut |
-| Typische Anwendung | Allgemein | Steep roll-off | Pulsübertragung |
-
-## Wann welchen wählen?
-
-**Butterworth**: Standardwahl. Signal soll im Durchlassband unverändert bleiben, Flanke ist nicht kritisch.
-
-**Chebyshev**: Die Flanke muss so steil wie möglich sein und ein gewisser Ripple ist akzeptabel. Typisch in HF-Filtern.
-
-**Bessel**: Das Signal enthält Pulse oder Rechtecke, die ihre Form behalten müssen. Typisch in Datenübertragung und Messsystemen.
-
-:::info
-Die Filtercharakteristik wird durch die Q-Faktoren der einzelnen Stufen bestimmt. Ein Butterworth-Filter 4. Ordnung besteht aus zwei Sallen-Key-Stufen mit unterschiedlichen Q-Werten (0.54 und 1.31), die zusammen die maximale Flachheit ergeben.
-:::
+| Priorität | Wahl |
+|---|---|
+| Einfach, allgemein | Butterworth |
+| Steilste Flanke | Elliptisch (Cauer) |
+| Linearstes Phasenverhalten | Bessel |
+| Kompromiss Steilheit/Flachheit | Chebyshev |

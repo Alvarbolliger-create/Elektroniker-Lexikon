@@ -1,12 +1,11 @@
----
+﻿---
 title: TRIAC
 kategorie: EK
-tags: [TRIAC, triode alternating current switch, bidirektional, phasenanschnitt, wechselstromsteuerung, gate, zündwinkel, DIAC, leistungssteuerung, dimmer]
-symbol: —
-einheit: —
+kapitel: Halbleiter
+tags: [triac, bidirektional, phasenanschnitt, dimmer, wechselstromsteuerung, leistungssteuerung, zündquadranten, bt136, bt138, moc3020]
+groessen: U_GT|Gatterspannung|V; I_GT|Gatterstrom|mA; I_T|Nennstrom|A; U_DRM|max. Sperrspannung|V
+_status: FERTIG
 ---
-
-Ein TRIAC (Triode Alternating Current Switch) ist ein bidirektionaler steuerbarer Halbleiter. Er leitet in beide Richtungen und eignet sich zur Leistungssteuerung in Wechselstromkreisen.
 
 :::hbox
 :::vbox
@@ -19,9 +18,15 @@ Ein TRIAC (Triode Alternating Current Switch) ist ein bidirektionaler steuerbare
 - [[DIAC]]
 - [[Thyristor (SCR)]]
 :::
+:::vbox
+**Führt weiter zu**
+- [[Leistungselektronik]]
+:::
 :::
 
 ---
+
+Ein TRIAC ist zwei antiparallel geschaltete Thyristoren in einem Gehäuse. Er leitet in **beiden Richtungen** und lässt sich durch einen Gate-Impuls in beiden Halbwellen zünden. Er ist das Standardbauteil für Wechselstrom-Leistungssteuerung.
 
 ## Schaltsymbol
 
@@ -29,55 +34,71 @@ Ein TRIAC (Triode Alternating Current Switch) ist ein bidirektionaler steuerbare
 /schaltplaene/symbole/TRIAC.svg
 :::
 
-Zwei gegenläufige Thyristoren mit gemeinsamen Gate (G). Anschlüsse: A1, A2, G (Gate).
+Drei Anschlüsse: **A1 (MT1)**, **A2 (MT2)** und **Gate (G)**. Das Symbol zeigt zwei antiparallele Thyristoren.
 
-## Aufbau und Prinzip
-
-Der TRIAC besteht aus **zwei antiparallelen Thyristoren** in einem gemeinsamen Gehäuse. Er leitet:
-- In der **positiven Halbwelle** (A1 positiver als A2)
-- In der **negativen Halbwelle** (A2 positiver als A1)
-
-Ein kurzer Zündimpuls am Gate reicht um den TRIAC in der jeweiligen Halbwelle zu zünden. Er erlischt automatisch beim nächsten Nulldurchgang des Stroms.
-
-## Unterschied Thyristor / TRIAC
-
-| Eigenschaft | Thyristor (SCR) | TRIAC |
-|---|---|---|
-| Leitrichtungen | 1 (unidirektional) | 2 (bidirektional) |
-| Typische Anwendung | DC, Gleichrichter | AC, Dimmer |
-| Abschalten | Nur bei Nulldurchgang | Nur bei Nulldurchgang |
-
-## Phasenanschnittsteuerung
-
-Die häufigste Anwendung: Leistung regeln durch Verzögerung des Zündzeitpunkts.
-
-Der **Zündwinkel α** bestimmt wann in der Halbwelle der TRIAC zündet:
-- α = 0°: TRIAC zündet sofort → volle Leistung
-- α = 90°: TRIAC zündet in der Mitte → halbe Leistung
-- α = 180°: TRIAC zündet nie → keine Leistung
-
-:::plot
-var: t
-range: 0, 12.56
-xlabel: Zeit
-ylabel: Spannung (normiert)
-Netzspannung:       sin(t)
-Phasenanschnitt α=90°: (sin(t) > 0 && t % 6.28 > 1.57) ? sin(t) : (sin(t) < 0 && t % 6.28 > 4.71) ? sin(t) : 0
+:::schematic TRIAC-Schichtenaufbau: fünf Schichten n-p-n-p-n, A1 unten, A2 oben, Gate seitlich an der mittleren n-Schicht. Beide SCR-Hälften teilen die inneren Schichten
+/Diagramm/triac_schichtenaufbau.svg
 :::
 
-## DIAC-TRIAC-Kombination
-
-Typische Standardschaltung für einen Dimmer oder Heizungsregler:
-
-:::schematic
-/Diagramm/triac_0.svg
+:::schematic TRIAC-Ersatzschaltbild: zwei antiparallele Thyristoren (SCR) mit gemeinsam verbundenem Gate G. Linker SCR leitet positive Halbwelle, rechter SCR leitet negative Halbwelle
+/Diagramm/triac_ersatzschaltbild.svg
 :::
-1. R und C bilden ein RC-Glied, das die Phase verschiebt
-2. Wenn U_C die DIAC-Zündspannung (≈30 V) erreicht, zündet der DIAC
-3. DIAC schickt einen Stromimpuls ans TRIAC-Gate
-4. TRIAC zündet und bleibt bis Nulldurchgang leitend
-5. Mit R (Potentiometer) lässt sich α einstellen
+
+## Zündquadranten
+
+Der TRIAC kann in vier Quadranten gezündet werden, abhängig von der Polarität der Hauptspannung (A2-A1) und des Gate-Impulses:
+
+| Quadrant | A2-A1 | Gate | Gate-Empfindlichkeit |
+|---|---|---|---|
+| I+ | positiv | positiv | hoch |
+| I– | positiv | negativ | mittel |
+| III– | negativ | negativ | hoch |
+| III+ | negativ | positiv | gering (vermeiden!) |
+
+**Empfehlung**: Quadrant I+ und III– verwenden (hohe Empfindlichkeit). Gate-Impuls immer mit dem gleichen Vorzeichen wie A2-A1 oder negativ.
+
+## Kennlinie
+
+:::schematic TRIAC-Kennlinie: symmetrische Thyristor-Kennlinie für beide Halbwellen. Im ersten Quadranten (+U, +I) und dritten Quadranten (–U, –I) je ein Vorwärts-Blockierbereich und ein Durchlassbereich. Kippvorgang in beiden Richtungen bei ±U_S durch Gate-Impuls auslösbar
+/Diagramm/triac_kennlinie.svg
+:::
+
+## Ausschalten
+
+Wie beim Thyristor: **kein aktives Ausschalten über Gate**. Der TRIAC löscht beim Nulldurchgang des Stroms. Das macht ihn ideal für 50/60-Hz-Netze.
+
+## Phasenanschnitt-Schaltung mit DIAC
+
+:::schematic TRIAC-Phasenanschnitt-Grundschaltung: Netz → Last → TRIAC (A2–A1). Parallelpfad: Netz → R (Potentiometer) → C → DIAC → Gate des TRIACs. U_C steigt bis U_BO des DIAC, dann Zündimpuls ans Gate
+/Diagramm/triac_phasenanschnitt.svg
+:::
+
+Typische Grundschaltung für Dimmer und Motoranlasser:
+
+1. R (Potentiometer) und C bilden ein RC-Glied, das die Netzspannung verzögert
+2. Wenn U_C die DIAC-Kippspannung erreicht, zündet der DIAC und lädt die Gate-Ladung des TRIACs um
+3. Der TRIAC zündet und verbindet Last mit Netz
+4. Beim nächsten Nulldurchgang löscht der TRIAC — Zyklus beginnt neu
+
+Je grösser R, desto länger dauert das Laden → später Zündzeitpunkt α → weniger Leistung.
 
 :::warning
-Phasenanschnitt erzeugt Oberwellen im Netz und kann bei induktiven Lasten (Motoren, Transformatoren) zu starken Spannungsspitzen führen. Für moderne Schaltnetzteile und dimmbare LEDs oft nicht geeignet — hier besser Nullpunkt-Schaltung (Burst-Firing) verwenden.
+Bei **induktiven Lasten** (Motoren, Transformatoren) ist Phasenanschnitt problematisch: Der Strom-Nulldurchgang kommt nach dem Spannungs-Nulldurchgang. Der TRIAC löscht nicht zuverlässig. Zusätzlich entstehen Spannungsspitzen. → Snubber-Netzwerk (RC ≈ 100 Ω / 10 nF) parallel zum TRIAC einbauen.
 :::
+
+## Optokoppler-Ansteuerung
+
+Für galvanische Trennung (Mikrocontroller → Netz) gibt es **TRIAC-Optokoppler** (z. B. MOC3020, MOC3041):
+- Eingang: LED-Seite (5 V Logik)
+- Ausgang: integrierter DIAC-Trigger zum Gate des Haupt-TRIACs
+
+Der MOC3041 hat zusätzlich eine **Nulldurchgangserkennung** — er zündet nur beim Nulldurchgang (sanfteres Schalten, weniger EMV).
+
+## Typische Bauteile
+
+| Typ | I_T | U_DRM | Besonderheit |
+|---|---|---|---|
+| BT136 | 4 A | 600 V | Kleiner Heizstrahler, Dimmer |
+| BT138 | 12 A | 800 V | Motoranlasser |
+| BTA16 | 16 A | 600 V | Mit Snubber intern |
+| T2550 | 25 A | 800 V | Industrielle Steuerungen |
