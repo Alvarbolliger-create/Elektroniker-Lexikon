@@ -28,6 +28,10 @@ Im Wechselstromkreis unterscheidet man drei Leistungsarten: **Wirkleistung** (wi
 
 ## Leistungsdreieck (S, P, Q)
 
+:::schematic Leistungsdreieck: Rechtwinkliges Dreieck; Horizontale Kathete = P (Wirkleistung, W); Vertikale Kathete = Q (Blindleistung, var; nach oben für induktiv); Hypotenuse = S (Scheinleistung, VA); Winkel phi zwischen S und P eingezeichnet; Beschriftung: P, Q, S, phi, cos phi
+/abbildungen/wechselstrom/leistungsdreieck.svg
+:::
+
 Die drei Leistungsarten bilden ein rechtwinkliges Dreieck, analog zum Impedanzdreieck:
 
 | Grösse | Symbol | Einheit | Bedeutung |

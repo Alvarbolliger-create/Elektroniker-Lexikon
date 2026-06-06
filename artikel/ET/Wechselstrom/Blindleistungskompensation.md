@@ -32,6 +32,10 @@ In der Schweiz verlangen Netzanschlussbedingungen für grössere Anlagen typisch
 
 ## Prinzip der Kompensation
 
+:::schematic Blindleistungskompensation: Netzanschluss links; Motor (induktive Last, dargestellt als RL-Parallelschaltung) in der Mitte; Kompensationskondensator C parallel zum Motor geschaltet; Phasenzeiger rechts: I_Motor (nacheilend, gross), I_C (voreilend), I_Netz (kleinere Summe, näher an U); Beschriftung: U, I_Motor, I_C, I_Netz, phi_alt, phi_neu
+/schaltplaene/wechselstrom/blindleistungskompensation.svg
+:::
+
 Kapazitive Blindleistung (Kondensatoren) ist entgegengesetzt zur induktiven (Motoren). Durch geziehte Parallelschaltung heben sie sich auf:
 
 :::formel

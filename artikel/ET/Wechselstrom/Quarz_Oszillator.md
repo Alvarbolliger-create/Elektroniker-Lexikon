@@ -22,6 +22,10 @@ Ein Quarz-Oszillator nutzt den Piezoeffekt von Quarzkristallen, um eine extrem s
 Quarzkristalle verformen sich, wenn eine Spannung angelegt wird (**inverser Piezoeffekt**). Umgekehrt erzeugen sie eine Spannung bei mechanischer Verformung (**direkter Piezoeffekt**). Bei einer bestimmten Frequenz gerät der Kristall in mechanische Resonanz — und hält diese Resonanz durch sein elektrisches Feld aufrecht.
 
 Das **elektrische Ersatzschaltbild** des Quarzes zeigt zwei Resonanzstellen:
+
+:::schematic Elektrisches Ersatzschaltbild eines Quarzes: Zwei parallele Zweige zwischen den Anschlussklemmen; Zweig 1 (mechanisch): Serienreihung von L_m (Motionalinduktivität), C_m (Motionalkapazität) und R (Verluste); Zweig 2 (elektrisch): C_0 (Elektrodenkapazität); Serienresonanzfrequenz f_s bei minimalem Z im Serienzweig; Parallelresonanzfrequenz f_p etwas höher; Beschriftung: L_m, C_m, R, C_0, f_s, f_p
+/schaltplaene/wechselstrom/quarz_ersatzschaltbild.svg
+:::
 - **Serienresonanzfrequenz f_s**: L_m und C_m in Reihe → minimale Impedanz
 - **Parallelresonanzfrequenz f_p**: Serienresonanz mit zusätzlicher Elektrodenkapazität C_0 in Parallel → maximale Impedanz
 

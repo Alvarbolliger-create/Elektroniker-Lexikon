@@ -23,6 +23,10 @@ LC-Filter nutzen den Resonanzeffekt von Spule und Kondensator, um bestimmte Freq
 
 ## Tiefpass (L + C)
 
+:::schematic LC-Tiefpass und LC-Hochpass: Links oben: Tiefpass — Eingang links, Spule L in Reihe, dann Knoten, Kondensator C nach GND, Ausgang U_a rechts; Links unten: Hochpass — Eingang links, Kondensator C in Reihe, dann Knoten, Spule L nach GND, Ausgang U_a rechts; Beschriftung: U_e, L, C, U_a
+/schaltplaene/wechselstrom/lc_filter_topologien.svg
+:::
+
 Ein Tiefpass lässt tiefe Frequenzen durch und sperrt hohe. Die einfachste LC-Tiefpassstruktur: L in Reihe, C parallel zur Last.
 
 Bei tiefen Frequenzen: X_L klein → Signaldurchgang; X_C gross → kein Kurzschluss.

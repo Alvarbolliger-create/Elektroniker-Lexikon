@@ -28,6 +28,10 @@ Ein Wechselstromleiter erzeugt ein wechselndes Magnetfeld. Dieses induziert nach
 
 Bei Gleichstrom gibt es keinen Skin-Effekt — der Strom verteilt sich gleichmässig über den gesamten Querschnitt.
 
+:::schematic Kreisförmiger Leiterquerschnitt im Vergleich: Links (DC): Strom gleichmässig über die gesamte Kreisfläche verteilt (gleichmässige Schraffur); Rechts (HF-AC): Strom konzentriert sich in einem schmalen Aussenring (dunkle Randzone), Kernbereich stromleer; Eindringtiefe delta als Pfeil von der Oberfläche nach innen eingezeichnet
+/abbildungen/grundlagen/skineffekt_querschnitt.svg
+:::
+
 ## Eindringtiefe
 
 Die Eindringtiefe delta gibt an, bis zu welcher Tiefe unter der Oberfläche der Strom noch merklich fliesst. Unterhalb von delta ist der Strom auf 1/e ≈ 37 % der Oberflächendichte abgefallen.

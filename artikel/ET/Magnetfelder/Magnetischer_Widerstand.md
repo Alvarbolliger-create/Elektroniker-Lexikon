@@ -39,6 +39,10 @@ R_m = l / (mu_0 * mu_r * A)    # Reluktanz in A/Wb (= 1/H)
 
 ## Ohmsches Gesetz des Magnetischen Kreises
 
+:::schematic Magnetischer Kreis mit Analogie: Links: elektrischer Kreis (Spannungsquelle U, Widerstand R, Strom I); Rechts: magnetischer Kreis (Spulenquelle Theta = N*I, Eisenkern R_m_Fe, Luftspalt R_m_Luft, Fluss Phi); Entsprechende Grössen durch Pfeile verbunden; Beschriftung: U↔Theta, I↔Phi, R↔R_m
+/abbildungen/magnetfelder/magnetischer_kreis_analogie.svg
+:::
+
 Analog zu U = R · I gilt:
 
 :::formel

@@ -28,6 +28,10 @@ _status: NEU
 
 Die RL-Reihenschaltung ist der einfachste Wechselstromkreis mit einem reaktiven Bauteil: Widerstand R und Spule L hintereinander. Die Spule erzeugt eine frequenzabhängige Phasenverschiebung — mit steigender Frequenz wird die Schaltung immer "induktiver".
 
+:::schematic RL-Reihenschaltung: Wechselspannungsquelle U_ges links; Widerstand R und Spule L in Reihe; Strom I fliesst durch beide Bauteile; Teilspannungen U_R (an R) und U_L (an L) eingezeichnet; Zeigerdreieck rechts: U_R horizontal, U_L senkrecht nach oben (induktiv), U_ges als Hypotenuse, Winkel phi zwischen U_ges und U_R
+/schaltplaene/wechselstrom/rl_reihe.svg
+:::
+
 ## Induktive Reaktanz
 
 Die Spule hat eine frequenzabhängige Reaktanz, die mit der Frequenz steigt:

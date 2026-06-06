@@ -47,6 +47,10 @@ Die Knotenregel (KCL) sagt: Die Summe aller **abfliessenden** Ströme an einem K
 
 ## Beispiel: ein unbekannter Knoten
 
+:::schematic Schaltung für Knotenpotenzialanalyse mit einem unbekannten Knoten: Spannungsquelle U_q = 12 V links; R1 = 200 Ω von Pluspol (oben) zum Knoten A; R2 = 300 Ω und R3 = 600 Ω parallel von Knoten A nach GND (unten); Minuspol der Quelle an GND; Knoten A beschriftet
+/schaltplaene/schaltkreise/knotenpotenzial_beispiel_1.svg
+:::
+
 Schaltung: U_q = 12 V. R1 = 200 Ω von Plus nach Knoten A. R2 = 300 Ω von A nach GND. R3 = 600 Ω von A nach GND.
 
 Bekannte Potenziale: V_+ = 12 V, V_GND = 0 V. Unbekannt: V_A.

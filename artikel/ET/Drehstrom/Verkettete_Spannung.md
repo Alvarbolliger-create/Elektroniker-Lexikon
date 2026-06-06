@@ -26,6 +26,10 @@ Die verkettete Spannung (Leiterspannung) ist die Spannung zwischen zwei Phasen �
 
 Die drei Phasenspannungen sind um 120° verschoben. Die Spannung zwischen L1 und L2 ist die **Differenz** der beiden Zeiger u1 und u2. Da beide dieselbe Amplitude und 120° Winkelabstand haben, ergibt die geometrische Differenz:
 
+:::schematic Zeigerdiagramm Verkettete Spannung: Drei Strangspannungszeiger U_L1, U_L2, U_L3 gleicher Länge (230 V), je 120° versetzt, Ursprung im Mittelpunkt; Differenzzeiger U_12 (Leiterspannung von Spitze U_L2 zur Spitze U_L1) eingezeichnet, Länge = sqrt(3) × 230 V ≈ 400 V; 30°-Winkel zwischen U_L1 und U_12 eingezeichnet; Beschriftung: U_L1, U_L2, U_L3, U_12, U_str = 230 V, U_L = 400 V
+/abbildungen/drehstrom/verkettete_spannung_zeiger.svg
+:::
+
 :::formel
 U_L = U_str * sqrt(3)
 :::

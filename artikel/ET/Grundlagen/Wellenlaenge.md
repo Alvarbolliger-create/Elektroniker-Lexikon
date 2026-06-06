@@ -19,6 +19,10 @@ Jede periodische Schwingung, die sich im Raum ausbreitet, hat eine Wellenlänge 
 
 ## Formel
 
+:::schematic Sinusförmige Welle; X-Achse: Ort in Metern; Y-Achse: Amplitude; eine vollständige Periode dargestellt; Wellenlänge lambda als horizontaler Doppelpfeil zwischen zwei aufeinanderfolgenden Scheitelpunkten eingezeichnet; Beschriftung: lambda
+/abbildungen/grundlagen/wellenlaenge.svg
+:::
+
 :::formel
 lambda = c / f    # Wellenlänge lambda (m) = Geschwindigkeit c (m/s) / Frequenz f (Hz)
 :::

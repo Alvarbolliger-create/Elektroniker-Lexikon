@@ -31,6 +31,10 @@ Das Henry (H) ist die SI-Einheit der Induktivität. 1 H = 1 Vs/A — eine Indukt
 
 Für eine zylindrische Spule (Solenoid) mit Länge l, Querschnitt A, Windungszahl N und Kernmaterial mu_r:
 
+:::schematic Zylindrische Spule (Solenoid): Zylindrischer Kern (Länge l, Querschnittsfläche A); N Windungen gleichmässig über die Länge gewickelt; Magnetfeld B innerhalb des Kerns als horizontale Feldlinien eingezeichnet; Beschriftung: l (Länge), A (Kernquerschnitt), N (Windungszahl), mu_r (Kernmaterial)
+/abbildungen/spule/solenoid_geometrie.svg
+:::
+
 :::formel
 L = mu_0 * mu_r * N^2 * A / l
 :::

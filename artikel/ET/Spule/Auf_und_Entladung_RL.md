@@ -28,6 +28,10 @@ Beim RL-Kreis ist es der **Strom**, der exponentiell ansteigt und abfällt — d
 
 ## Zeitkonstante tau = L / R
 
+:::schematic RL-Ladeschaltung: Spannungsquelle U_0 in Reihe mit Schalter S, Widerstand R und Spule L; Strom I_L fliesst im Uhrzeigersinn; Spannung U_R am Widerstand und U_L an der Spule eingezeichnet; beim Schliessen von S baut sich der Strom exponentiell auf
+/schaltplaene/spule/rl_ladeschaltung.svg
+:::
+
 :::formel
 tau = L / R
 :::

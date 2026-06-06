@@ -26,6 +26,10 @@ Drehstrom (Dreiphasenwechselstrom) ist das Standardsystem für die Energieübert
 
 ## Was ist Drehstrom?
 
+:::schematic Drehstrom-Netz (Sternschaltung): Generator links mit drei Wicklungen (L1, L2, L3) je 120° versetzt; drei Aussenleiter (L1 braun, L2 schwarz, L3 grau) führen zur Last; Neutralleiter N (blau) verbindet Sternpunkt des Generators mit Sternpunkt der Last; Strangspannung U_str = 230 V (L–N) und Leiterspannung U_L = 400 V (L–L) eingezeichnet
+/schaltplaene/drehstrom/drehstrom_netz.svg
+:::
+
 Drei sinusförmige Wechselspannungen gleicher Amplitude und Frequenz, aber um je **120° zeitlich versetzt**. Sie werden in einem gemeinsamen Generator erzeugt, dessen drei Wicklungen gleichmässig um den Rotor verteilt sind.
 
 :::hbox

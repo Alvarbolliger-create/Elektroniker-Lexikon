@@ -24,6 +24,10 @@ An welchen Lastwiderstand gibt eine reale Quelle die grösste Leistung ab? Die A
 
 ## Bedingung für maximale Leistung
 
+:::schematic Reale Spannungsquelle mit Lastwiderstand: Ideale Spannungsquelle U0 in Reihe mit Innenwiderstand Ri (links); Lastwiderstand Ra (rechts) an den Klemmen; Strom I fliesst im Uhrzeigersinn; Spannung U an Ra eingezeichnet; Beschriftung: U0, Ri, Ra, I
+/schaltplaene/schaltkreise/leistungsanpassung.svg
+:::
+
 Die maximale Leistung an der Last wird erreicht, wenn der Lastwiderstand Ra gleich dem Innenwiderstand Ri der Quelle ist:
 
 :::formel

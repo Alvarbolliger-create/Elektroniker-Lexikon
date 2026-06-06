@@ -30,6 +30,10 @@ Jeder reale Leiter hat einen Widerstand — er hängt vom Material, der Länge, 
 
 Der Widerstand eines Leiters steigt mit der Länge und sinkt mit dem Querschnitt. Das Material bestimmt den **spezifischen Widerstand** rho.
 
+:::schematic Zylindrischer Leiter mit Länge l (Längsachse, Pfeil von links nach rechts) und kreisförmigem Querschnitt A (an der Stirnseite eingezeichnet); Strom I fliesst von links nach rechts; Material mit Kenngrösse rho beschriftet
+/abbildungen/grundlagen/leiterwiderstand_geometrie.svg
+:::
+
 :::formel
 R = rho * l / A
 :::

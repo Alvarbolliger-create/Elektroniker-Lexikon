@@ -23,6 +23,10 @@ Das Übersetzungsverhältnis beschreibt, wie Spannung, Strom und Impedanz zwisch
 
 ## Spannungsübersetzung
 
+:::schematic Transformator Übersetzungsverhältnis: Transformatorsymbol (zwei Spulen mit Kern); Primärseite links: N1 Windungen, Spannung U1, Strom I1; Sekundärseite rechts: N2 Windungen, Spannung U2, Strom I2, Lastwiderstand Z2; Verhältnisse U1/U2 = N1/N2 und I1/I2 = N2/N1 als Beschriftung
+/schaltplaene/transformator/uebersetzungsverhaeltnis.svg
+:::
+
 Im idealen Transformator ist das Spannungsverhältnis gleich dem Windungszahlverhältnis. Mehr Windungen auf der Sekundärseite → höhere Spannung (Aufwärtstransformator).
 
 :::formel

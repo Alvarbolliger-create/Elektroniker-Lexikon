@@ -34,6 +34,10 @@ P1 = P2 + P_v    # Primärleistung = Nutzleistung + Verluste
 
 ## Kupferverluste (Last-Verluste)
 
+:::schematic Transformator-Ersatzschaltbild mit Verlusten: Primärseite links: Primärwiderstand R1 in Reihe, dann ideale Primärspule; Querarm in der Mitte: Eisenverlust-Widerstand R_Fe parallel zur Hauptinduktivität X_m (Magnetisierung); Sekundärseite rechts: ideale Sekundärspule, dann Sekundärwiderstand R2 in Reihe, Sekundärspannung U2 an Last; Beschriftung: R1, R2, R_Fe, X_m, U1, U2
+/schaltplaene/transformator/trafo_ersatzschaltbild.svg
+:::
+
 Die Wicklungswiderstände R1 und R2 erzeugen ohmsche Verluste, die quadratisch mit dem Strom steigen:
 
 :::formel

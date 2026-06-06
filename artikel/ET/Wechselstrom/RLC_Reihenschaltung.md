@@ -26,6 +26,10 @@ _status: NEU
 
 Die RLC-Reihenschaltung vereint Wirkwiderstand, Induktivität und Kapazität in einem Zweig. Bei der Resonanzfrequenz heben sich X_L und X_C auf — die Schaltung verhält sich rein ohmsch und der Strom erreicht sein Maximum.
 
+:::schematic RLC-Reihenschaltung: Wechselspannungsquelle U_ges links; R, L und C in Reihe hintereinander geschaltet; Teilspannungen U_R, U_L, U_C eingezeichnet; Zeigerdreieck rechts: U_R horizontal, U_L nach oben, U_C nach unten (entgegengesetzt), Differenz U_L − U_C vertikal, U_ges als Hypotenuse; Resonanzfall: U_L = U_C → Z = R
+/schaltplaene/wechselstrom/rlc_reihe.svg
+:::
+
 ## Impedanz
 
 X_L und X_C wirken entgegengesetzt: X_L wächst mit f, X_C sinkt. Die Differenz (X_L − X_C) bestimmt das reaktive Verhalten:

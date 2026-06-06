@@ -33,6 +33,10 @@ Feldlinien zeigen die Richtung der Kraft auf eine positive Probeladung:
 - Enger Abstand = stärkeres Feld; weiter Abstand = schwächeres Feld
 - Im homogenen Feld (z. B. zwischen Kondensatorplatten) verlaufen sie parallel und gleichmässig
 
+:::schematic Homogenes elektrisches Feld zwischen zwei parallelen Kondensatorplatten; linke Platte positiv (+), rechte Platte negativ (−); parallele, gleichmässig verteilte Feldlinien von + nach −; Plattenabstand d und Spannung U eingezeichnet
+/abbildungen/grundlagen/elektrisches_feld_plattenkondensator.svg
+:::
+
 ## Elektrische Feldstärke
 
 Die Feldstärke E gibt an, wie gross die Kraft auf eine Probeladung ist:
@@ -84,6 +88,10 @@ Die Kraft nimmt mit dem Quadrat des Abstands ab — wie die Schwerkraft.
 ## Influenz & Faradayscher Käfig
 
 **Influenz**: Wird ein leitender Körper in ein elektrisches Feld gebracht, verschieben sich die freien Elektronen: negative Ladungen sammeln sich auf der der Feldquelle zugewandten Seite, positive auf der abgewandten. Der Körper selbst bleibt neutral, aber die Ladungen sind getrennt.
+
+:::schematic Influenz: Neutraler leitender Block in einem äusseren elektrischen Feld (Feldlinien von links nach rechts); linke Seite des Blocks mit negativen Ladungen (−), rechte Seite mit positiven (+); Feldlinien biegen sich um den Block; im Innern des Leiters keine Feldlinien
+/abbildungen/grundlagen/influenz.svg
+:::
 
 **Faradayscher Käfig**: Ein geschlossenes leitendes Gehäuse schirmt das Innere vollständig vom äusseren elektrischen Feld ab. Das Feld im Innern ist null. Anwendungen: Abschirmung von Messgeräten, EMV-Gehäuse, Mikrowellengehäuse.
 

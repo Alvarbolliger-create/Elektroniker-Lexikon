@@ -25,6 +25,10 @@ Ein Elektromagnet erzeugt ein steuerbares Magnetfeld durch elektrischen Strom. E
 
 Ein Elektromagnet besteht aus einer Spule, die auf einem Eisenkern gewickelt ist. Der Eisenkern verstärkt das Magnetfeld um das mu_r-fache gegenüber Luft (typisch 1000× bis 10 000×). Meist ist ein Luftspalt vorhanden, damit ein beweglicher Anker angezogen werden kann.
 
+:::schematic Elektromagnet (Relais): U-förmiger Eisenkern mit Spulenwicklung (N Windungen, Strom I); Luftspalt zwischen Kern und Anker; Anker als bewegliches Eisenstück oben; Magnetfeldlinien geschlossen durch Kern, Luftspalt und Anker; Beschriftung: N, I, Luftspalt, Anker, Anzugskraft F
+/abbildungen/magnetfelder/elektromagnet_aufbau.svg
+:::
+
 | Komponente | Funktion |
 |---|---|
 | Spule (N Windungen, Strom I) | Erzeugt die Durchflutung Theta = N·I |

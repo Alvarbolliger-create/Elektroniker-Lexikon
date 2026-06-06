@@ -25,6 +25,10 @@ _status: NEU
 
 Bei der RL-Parallelschaltung teilt sich der Gesamtstrom in den Wirkstrom (durch R) und den Blindstrom (durch L) auf. Die gemeinsame Spannung ist die Referenzgrösse — alle Ströme werden dazu in Beziehung gesetzt.
 
+:::schematic RL-Parallelschaltung: Wechselspannungsquelle U links; R und L parallel dazu geschaltet; Strom I_R durch R (in Phase), Strom I_L durch L (90° hinter U); Gesamtstrom I_ges aus Quelle; Zeigerdreieck rechts: I_R horizontal, I_L senkrecht nach unten (induktiv), I_ges als Hypotenuse, Winkel phi zwischen I_ges und I_R (negativ, induktiv)
+/schaltplaene/wechselstrom/rl_parallel.svg
+:::
+
 ## Spannung und Teilströme
 
 An beiden Zweigen liegt dieselbe Spannung U. Die Teilströme sind:

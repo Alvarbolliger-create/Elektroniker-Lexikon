@@ -35,6 +35,10 @@ Magnetische Feldlinien verlaufen in geschlossenen Schleifen — sie haben keinen
 
 **Rechte-Hand-Regel** für einen geraden Leiter: Daumen in Stromrichtung, die gekrümmten Finger zeigen die Richtung des Magnetfeldes (Kreise um den Leiter).
 
+:::schematic Rechte-Hand-Regel: Links: gerader Leiter (vertikal), Strom I nach oben (Pfeil); konzentrische Kreise als Magnetfeldlinien um den Leiter, Richtung gemäss Rechtsschraube (Uhrzeigersinn von oben gesehen); Rechts: Solenoid-Spule mit Stromrichtung in Wicklung; Magnetfeldlinien im Innern als Längslinien, aussen als geschlossene Schleifen; Daumen zeigt auf Nordpol; Beschriftung: I, B, N, S
+/abbildungen/magnetfelder/rechte_hand_regel.svg
+:::
+
 **Rechte-Hand-Regel** für eine Spule: Finger in Wicklungsrichtung des Stroms, Daumen zeigt auf den Nordpol.
 
 ## Magnetische Durchflutung

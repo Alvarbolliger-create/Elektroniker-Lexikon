@@ -28,6 +28,10 @@ Im Wechselstromkreis haben Spannung und Strom nicht nur Amplituden, sondern auch
 
 ## Darstellung als Zeiger
 
+:::schematic Zeigerdiagramm einer RL-Reihenschaltung: Waagerechte reelle Achse, senkrechte imaginäre Achse; Strom I als Referenzzeiger auf der reellen Achse nach rechts; U_R in Phase mit I (horizontal); U_L senkrecht nach oben (90° vor I); Resultierende U_ges als Zeiger von Ursprung zur Spitze des Vektoradditions-Dreiecks; Winkel phi zwischen U_ges und I eingezeichnet; Beschriftung: I, U_R, U_L, U_ges, phi
+/abbildungen/wechselstrom/zeigerdiagramm_rl.svg
+:::
+
 Jede sinusförmige Grösse lässt sich als rotierender Zeiger darstellen: Der Zeiger dreht sich mit der Kreisfrequenz omega im Gegenuhrzeigersinn. Seine Länge entspricht dem Scheitelwert (oder Effektivwert — muss konsequent sein), seine Winkelposition zur reellen Achse dem Phasenwinkel phi.
 
 **Konvention:** In der Technik wird häufig der **Strom I** als Referenzzeiger horizontal (phi = 0°) gezeichnet — alle anderen Zeiger werden dazu in Beziehung gesetzt.

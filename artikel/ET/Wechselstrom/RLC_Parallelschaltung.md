@@ -26,6 +26,10 @@ _status: NEU
 
 Die RLC-Parallelschaltung ist das Dual zur Reihenschaltung: Alle drei Bauteile liegen parallel an derselben Spannung. Bei Resonanz heben sich B_L und B_C auf — die Impedanz ist maximal, der Gesamtstrom minimal.
 
+:::schematic RLC-Parallelschaltung: Wechselspannungsquelle U links; R, L und C parallel dazu geschaltet; Teilströme I_R (in Phase), I_L (nacheilend), I_C (voreilend) in separaten Zweigen; Gesamtstrom I_ges aus Quelle; Leitwert-Zeigerdreieck rechts: G horizontal, B_L nach unten, B_C nach oben, Differenz (B_C − B_L) vertikal, Y als Hypotenuse
+/schaltplaene/wechselstrom/rlc_parallel.svg
+:::
+
 ## Gesamtstrom und Leitwerte
 
 Alle drei Zweige teilen dieselbe Spannung U. Die Teilströme sind:

@@ -29,6 +29,10 @@ Der Transformator überträgt Wechselenergie zwischen zwei galvanisch getrennten
 
 ## Funktionsprinzip
 
+:::schematic Transformator-Prinzip: Eisenkern (E/I-Form) in der Mitte; Primärwicklung N1 (links am linken Schenkel) mit Wechselspannungsquelle U1 und Strom I1; Sekundärwicklung N2 (rechts am rechten Schenkel) mit Last und Spannung U2, Strom I2; Magnetischer Fluss Phi im Kern als Kreispfeil; Beschriftung: N1, N2, U1, U2, I1, I2, Phi
+/schaltplaene/transformator/transformator_aufbau.svg
+:::
+
 Zwei Spulen (Primär- und Sekundärwicklung) auf demselben Eisenkern. Der Wechselstrom der Primärseite erzeugt einen wechselnden magnetischen Fluss im Kern, der in der Sekundärwicklung eine Spannung induziert.
 
 Voraussetzung: **Wechselstrom** — bei Gleichstrom ist der Fluss konstant, keine Induktion auf der Sekundärseite.

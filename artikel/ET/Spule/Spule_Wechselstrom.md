@@ -53,6 +53,10 @@ Bei einer idealen Spule eilt die **Spannung dem Strom um 90° vor**. Die Spule b
 
 phi = +90° (Spannung voreilend gegenüber Strom)
 
+:::schematic Zeigerdiagramm Spule: Zeiger U_L zeigt senkrecht nach oben (positive imaginäre Achse); Zeiger I liegt horizontal nach rechts (reale Achse); Winkel phi = +90° zwischen U_L und I eingezeichnet; Beschriftung: U_L oben, I rechts, phi = +90°
+/abbildungen/spule/spule_wechselstrom_zeiger.svg
+:::
+
 Merkhilfe: *ELI* (im ELI-Modell: bei L eilt E vor I)
 
 ## Frequenzabhängigkeit

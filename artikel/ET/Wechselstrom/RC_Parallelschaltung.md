@@ -25,6 +25,10 @@ _status: NEU
 
 Bei der RC-Parallelschaltung teilt sich der Strom in den Wirkstrom (durch R) und den kapazitiven Blindstrom (durch C) auf. Der kapazitive Strom eilt der Spannung vor — entgegen dem induktiven Fall bei der RL-Parallelschaltung.
 
+:::schematic RC-Parallelschaltung: Wechselspannungsquelle U links; R und C parallel dazu geschaltet; Strom I_R durch R (in Phase), Strom I_C durch C (90° vor U); Gesamtstrom I_ges aus Quelle; Zeigerdreieck rechts: I_R horizontal, I_C senkrecht nach oben (kapazitiv), I_ges als Hypotenuse, Winkel phi zwischen I_ges und I_R
+/schaltplaene/wechselstrom/rc_parallel.svg
+:::
+
 ## Spannung und Teilströme
 
 An beiden Zweigen liegt dieselbe Spannung U. Die Teilströme sind:

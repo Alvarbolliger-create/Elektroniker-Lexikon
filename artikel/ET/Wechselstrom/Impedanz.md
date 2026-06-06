@@ -48,6 +48,10 @@ X_L = omega * L    # induktive Reaktanz, steigt mit Frequenz
 
 ## Betrag und Phase
 
+:::schematic Impedanzdreieck: Rechtwinkliges Dreieck; Horizontale Kathete = R (Wirkwiderstand); Vertikale Kathete = X (Reaktanz, positiv nach oben für induktiv, negativ nach unten für kapazitiv); Hypotenuse = Z (Impedanz); Winkel phi zwischen Z und R eingezeichnet; Beschriftung: R, X, Z, phi
+/abbildungen/wechselstrom/impedanzdreieck.svg
+:::
+
 Die Impedanz lässt sich als rechtwinkliges Dreieck darstellen: R horizontal, X vertikal, Z als Hypotenuse (→ [[Zeigerdiagramm]]).
 
 :::formel

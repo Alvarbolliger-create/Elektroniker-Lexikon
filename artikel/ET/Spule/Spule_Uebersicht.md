@@ -89,6 +89,10 @@ k = 1 ist nur im idealen Transformator erreichbar (alle Feldlinien koppeln). In 
 
 Beim Abschalten einer induktiven Last (Relais, Motor) erzeugt die Spule eine hohe Spannungsspitze (Abschaltspannung), die Halbleiter sofort zerstören kann. Eine **Freilaufdiode** parallel zur Spule (in Sperrrichtung zur Versorgung) leitet diesen Strom um und begrenzt die Spannung auf eine Diodenflussspannung.
 
+:::schematic Freilaufdiode: Induktive Last (Spule L, z.B. Relaisspule) zwischen VCC und Transistor-Kollektor; Freilaufdiode antiparallel zur Spule geschaltet (Kathode an VCC, Anode am Kollektor); Transistor als Schalter unten nach GND; beim Öffnen des Transistors fliesst der Induktionsstrom über die Diode im Kreis
+/schaltplaene/spule/freilaufdiode.svg
+:::
+
 :::warning
 Jede Schaltung, die induktive Lasten (Relais, Motoren, Solenoide) mit Transistoren oder MOSFETs schaltet, **muss** eine Freilaufdiode oder andere Schutzschaltung haben. Ohne Schutz: Sofortausfall des Schaltelements.
 :::

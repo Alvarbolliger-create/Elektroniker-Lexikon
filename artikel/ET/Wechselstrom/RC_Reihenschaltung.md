@@ -28,6 +28,10 @@ _status: NEU
 
 Die RC-Reihenschaltung ist das Gegenstück zur RL-Reihenschaltung: Widerstand R und Kondensator C in Serie. Der Kondensator erzeugt eine negative Phasenverschiebung — der Strom eilt der Spannung vor. Als Filter bildet die RC-Reihenschaltung den einfachsten Tiefpass oder Hochpass.
 
+:::schematic RC-Reihenschaltung: Wechselspannungsquelle U_ges links; Widerstand R und Kondensator C in Reihe; Strom I fliesst durch beide Bauteile; Teilspannungen U_R (an R) und U_C (an C) eingezeichnet; Phasenzeiger-Dreieck rechts: U_R horizontal, U_C senkrecht nach unten (kapazitiv), U_ges als Hypotenuse, Winkel phi zwischen U_ges und U_R
+/schaltplaene/wechselstrom/rc_reihe.svg
+:::
+
 ## Kapazitive Reaktanz
 
 Der Kondensator hat eine frequenzabhängige Reaktanz, die mit der Frequenz sinkt:
