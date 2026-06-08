@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 170" width="400" height="170">
+  <defs>
+    <marker id="pfeil" markerWidth="8" markerHeight="8" refX="3" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- U_E Quelle -->
+  <line x1="40" y1="28" x2="40" y2="40" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="40" cy="52" r="13" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  <line x1="40" y1="42" x2="40" y2="62" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="31" y1="46" x2="36" y2="46" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="33.5" y1="43.5" x2="33.5" y2="48.5" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="40" y1="65" x2="40" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="18" y="56" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">U_E</text>
+
+  <!-- L1 -->
+  <line x1="40" y1="28" x2="73" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M 73,28 A 8,8 0 0 1 89,28 A 8,8 0 0 1 105,28 A 8,8 0 0 1 121,28"
+        fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="121" y1="28" x2="138" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="97" y="15" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">L1</text>
+
+  <!-- Knoten A -->
+  <circle cx="138" cy="28" r="2.5" fill="#1e293b"/>
+
+  <!-- S Schalter gegen GND -->
+  <line x1="138" y1="28" x2="138" y2="48" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="138" cy="48" r="2" fill="#1e293b"/>
+  <line x1="138" y1="48" x2="153" y2="65" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="138" cy="78" r="2.5" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+  <line x1="138" y1="80" x2="138" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="158" y="62" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">S</text>
+
+  <!-- C1 Koppelkondensator (in Serie) -->
+  <line x1="138" y1="28" x2="160" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="160" y1="18" x2="160" y2="38" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="174" y1="18" x2="174" y2="38" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="174" y1="28" x2="195" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="167" y="14" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">C1</text>
+
+  <!-- Knoten B -->
+  <circle cx="195" cy="28" r="2.5" fill="#1e293b"/>
+
+  <!-- L2 gegen GND -->
+  <line x1="195" y1="28" x2="195" y2="50" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M 195,50 A 8,8 0 0 1 195,66 A 8,8 0 0 1 195,82 A 8,8 0 0 1 195,98"
+        fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="195" y1="98" x2="195" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="213" y="78" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">L2</text>
+
+  <!-- D (Anode an B, Kathode an Ausgang) -->
+  <line x1="195" y1="28" x2="217" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="217" y1="18" x2="217" y2="38" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="247" y1="18" x2="247" y2="38" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="217" y1="18" x2="247" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="217" y1="38" x2="247" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="247" y1="28" x2="270" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="232" y="14" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">D</text>
+
+  <!-- Knoten Ausgang -->
+  <circle cx="270" cy="28" r="2.5" fill="#1e293b"/>
+  <line x1="270" y1="28" x2="335" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="335" cy="28" r="3" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- C2 Ausgangskondensator (polarisiert) -->
+  <line x1="270" y1="28" x2="270" y2="52" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="255" y1="52" x2="285" y2="52" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="255" y1="65" x2="285" y2="65" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="246" y="50" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">+</text>
+  <line x1="270" y1="65" x2="270" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="293" y="60" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">C2</text>
+
+  <!-- R_L Last -->
+  <circle cx="308" cy="28" r="2.5" fill="#1e293b"/>
+  <line x1="308" y1="28" x2="308" y2="58" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <rect x="298" y="58" width="20" height="38" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  <line x1="308" y1="96" x2="308" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="326" y="78" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">R_L</text>
+
+  <!-- GND Schiene -->
+  <line x1="40" y1="130" x2="308" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="195" y1="130" x2="195" y2="138" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="180" y1="138" x2="210" y2="138" stroke="#1e293b" stroke-width="4" stroke-linecap="round"/>
+  <text x="195" y="155" text-anchor="middle" font-family="monospace" font-size="13" fill="#1e293b">GND</text>
+
+  <!-- U_A Spannungspfeil (blau) -->
+  <line x1="355" y1="31" x2="355" y2="127" stroke="#2563eb" stroke-width="1.5" marker-end="url(#pfeil)"/>
+  <text x="361" y="82" font-size="13" font-family="sans-serif" fill="#2563eb">U_A</text>
+
+</svg>

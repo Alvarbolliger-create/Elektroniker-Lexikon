@@ -1,4 +1,4 @@
-﻿---
+---
 title: Akku Grundlagen
 kategorie: EK
 kapitel: Akku
@@ -15,12 +15,12 @@ _status: FERTIG
 :::
 :::vbox
 **Verwandte Artikel**
-- [[BMS]]
+- [[BMS — Batteriemanagementsystem]]
 - [[Spannungsstabilisierung]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[BMS]]
+- [[BMS — Batteriemanagementsystem]]
 - [[Zell-Balancing]]
 :::
 :::

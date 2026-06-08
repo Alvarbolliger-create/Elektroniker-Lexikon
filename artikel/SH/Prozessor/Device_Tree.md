@@ -1,69 +1,69 @@
 ---
 title: Device Tree
 kategorie: SH
-tags: [device tree, DTS, DTB, kernel, linux, hardware-beschreibung, overlay, U-Boot, raspberry pi, compatible]
-symbol: —
-einheit: —
+kapitel: Prozessor
+tags: [device tree, hardwarebeschreibung, kernel, treiberbindung, dtb, dts]
+_status: PORT
 ---
-
-Der Device Tree ist eine Datenstruktur die dem Linux-Kernel beschreibt welche Hardware auf einem Board vorhanden ist. Ohne Device Tree weiss der Kernel nichts über die Peripherie.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
 - [[Embedded Linux]]
 :::
-:::vbox
-**Verwandte Artikel**
-- [[Embedded Linux]]
-:::
 :::
 
 ---
 
-## Warum Device Tree?
+Im Artikel über → [[Embedded Linux|Embedded Linux]] tauchte bereits die Frage auf: Woher weiss ein und derselbe Linux-Kernel, welche Hardware auf einem ganz bestimmten Board überhaupt verbaut ist — welche UART an welcher Adresse hängt, wie viel RAM zur Verfügung steht, welcher SPI-Bus mit welchem Sensor verbunden ist? Die Antwort liefert der **Device Tree**.
 
-Früher war die Hardwarekonfiguration direkt im Kernel-Code eingebaut. Jede Boardvariante brauchte eine eigene Kernel-Version. Der Device Tree trennt Hardware-Beschreibung vom Kernel-Code.
+## Warum überhaupt ein Device Tree?
 
-Einmal geschriebener Kernel-Code läuft auf allen Boards wenn der Device Tree stimmt.
+:::merke
+Früher musste für jedes einzelne Board eine eigene, fest kompilierte Kernel-Variante gebaut werden, die sämtliche Hardware-Details — Adressen, Interrupt-Leitungen, Bus-Zuordnungen — direkt im Programmcode enthielt. Das führte zu einer kaum noch wartbaren Vielzahl praktisch identischer Kernel-Versionen. Der **Device Tree** löst dieses Problem, indem er die Hardware-Beschreibung vollständig vom Kernel-Code **trennt**: Ein einziges Kernel-Image kann so auf den unterschiedlichsten Boards laufen — es liest beim Start einfach die mitgelieferte "Bauplan-Datei" und passt sich entsprechend an.
+:::
 
-## DTS und DTB
+## DTS und DTB: lesbare Quelle, kompiliertes Binärformat
 
-**DTS (Device Tree Source)**: Lesbare Textdatei (.dts).  
-**DTB (Device Tree Blob)**: Kompilierte Binärversion (.dtb). Wird beim Booten vom Bootloader an den Kernel übergeben.
+Wie bei der Übersetzung eines Hochsprachenprogramms in → [[Befehlszyklus & Maschinencode|Maschinencode]] gibt es auch beim Device Tree eine für Menschen lesbare und eine für die Maschine bestimmte Form:
 
-Compiliert mit:
 :::formel
-dtc -O dtb -o output.dtb input.dts
+DTS (Device Tree Source, Textform) → Compiler `dtc -O dtb` → DTB (Device Tree Blob, Binärform für den Bootloader)
 :::
-## Aufbau
 
-:::monospace
-/ {
-    model = "Mein Board";
-    compatible = "hersteller,meinboard";
+Der Entwickler schreibt die Hardware-Beschreibung in der lesbaren **DTS**-Syntax (Dateiendung `.dts`), der **Device Tree Compiler** (`dtc`) übersetzt sie in eine kompakte binäre **DTB**-Datei. Diese wird zusammen mit dem Kernel-Image in den Speicher geladen und vom → [[Boot-Vorgang|Bootloader]] übergeben.
 
-    uart0: serial@1c28000 {
-        compatible = "allwinner,sun4i-uart";
-        reg = <0x01c28000 0x400>;
-        clocks = <&apb2_clk>;
-        status = "okay";
-    };
+## Aufbau: Knoten, Eigenschaften, Adressen
 
-    spi0: spi@1c68000 {
-        compatible = "allwinner,sun6i-spi";
-        status = "disabled";
-    };
+Ein Device Tree gliedert sich in eine Baumstruktur aus **Knoten** — jeder Knoten beschreibt einen Hardware-Baustein mit seinen Eigenschaften:
+
+:::tip
+```
+uart0: serial@40010000 {
+    compatible = "vendor,my-uart";
+    reg = <0x40010000 0x1000>;
+    interrupts = <5>;
+    status = "okay";
 };
+
+spi0: spi@40020000 {
+    compatible = "vendor,my-spi";
+    reg = <0x40020000 0x1000>;
+    #address-cells = <1>;
+    #size-cells = <0>;
+    status = "okay";
+};
+```
+
+Die Eigenschaft `compatible` benennt den genauen Baustein und erlaubt dem Kernel, den passenden Treiber zu finden; `reg` gibt Basisadresse und Grösse des zugehörigen Registerbereichs an; `interrupts` legt fest, welche Interrupt-Leitung der Baustein verwendet; `status = "okay"` aktiviert den Knoten — `"disabled"` würde ihn deaktivieren, ohne ihn aus der Beschreibung entfernen zu müssen.
 :::
-`reg` gibt die Basisadresse und Grösse der Register an. `compatible` verbindet den Knoten mit dem richtigen Treiber.
 
-## Overlays
+## Overlays: gezielte Erweiterungen ohne Neukompilierung
 
-Device Tree Overlays erlauben das Hinzufügen von Knoten ohne das Haupt-DTS zu ändern. Raspberry Pi nutzt das extensiv für HATs.
+Gerade bei modular aufgebauten Systemen — etwa einem Raspberry Pi mit wechselbaren Aufsteckplatinen ("HATs") — wäre es unpraktisch, für jede mögliche Kombination einen eigenen, vollständigen Device Tree zu pflegen:
 
-Overlays werden im Bootloader geladen und mit dem Basis-DTS zusammengeführt.
+:::info
+Ein **Device Tree Overlay** ergänzt einen bestehenden Device Tree zur Laufzeit um zusätzliche oder veränderte Knoten — etwa um einen neu angeschlossenen Sensor oder ein Display zu beschreiben — ohne dass der Basis-Device-Tree dafür neu kompiliert werden müsste. Overlays lassen sich beim Booten gezielt einbinden und wieder entfernen, was die Konfiguration eines Geräts deutlich flexibler macht — ein Prinzip, das in seiner Grundidee an die → [[FPGA (Field Programmable Gate Array)|nachträgliche Rekonfiguration eines FPGA]] erinnert: Die zugrundeliegende Hardware bleibt gleich, ihre Beschreibung beziehungsweise Konfiguration lässt sich aber flexibel anpassen.
+:::
 
-## Praktisch
-
-Für Raspberry Pi: Overlays in /boot/config.txt aktivieren. Für eigene Boards: DTS der Referenzplatine anpassen und neu kompilieren.
+Damit schliesst sich der Bogen vom kompakten Mikrocontroller-Programm bis zum vollwertigen Linux-System: Ein Device Tree macht den Kernel hardwareunabhängig, ein Bootloader lädt ihn passgenau, und der Kernel "verdrahtet" anhand dieser Beschreibung Treiber mit realer Hardware. Wie sich digitale Schaltungen — die letztlich genau jene Hardware bilden, die ein Device Tree beschreibt — direkt in einer Hardwarebeschreibungssprache entwerfen lassen, zeigt der Artikel zu → [[VHDL & Verilog|VHDL und Verilog]].

@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 310" width="380" height="310">
+
+  <defs>
+    <marker id="pfeil" markerWidth="8" markerHeight="8" refX="3" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- VRef -->
+  <text x="60" y="13" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="middle">V<tspan font-size="9" baseline-shift="sub">Ref</tspan></text>
+  <line x1="60" y1="40" x2="60" y2="20" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <polygon points="60,17 56,25 64,25" fill="#1e293b"/>
+
+  <!-- R1 -->
+  <line x1="60" y1="40" x2="60" y2="46" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <rect x="53" y="46" width="14" height="42" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="40" y="68" font-size="12" font-family="sans-serif" fill="#1e293b" text-anchor="middle">R1</text>
+  <line x1="60" y1="88" x2="60" y2="108" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Knoten: R1 unten | R2 oben | Schiene zu R3 / "+"-Eingang -->
+  <circle cx="60" cy="108" r="2.5" fill="#1e293b"/>
+
+  <!-- R2 (etwas tiefer als der Knoten) -->
+  <line x1="60" y1="108" x2="60" y2="120" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <rect x="53" y="120" width="14" height="42" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="40" y="142" font-size="12" font-family="sans-serif" fill="#1e293b" text-anchor="middle">R2</text>
+  <line x1="60" y1="162" x2="60" y2="172" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- GND (Spannungsteiler) -->
+  <line x1="45" y1="172" x2="75" y2="172" stroke="#1e293b" stroke-width="4" stroke-linecap="round"/>
+  <text x="82" y="176" font-size="10" font-family="monospace" fill="#1e293b" text-anchor="start">GND</text>
+
+  <!-- Schiene vom Knoten nach rechts: Abzweig zum "+"-Eingang -->
+  <line x1="60" y1="108" x2="118" y2="108" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="118" cy="108" r="2.5" fill="#1e293b"/>
+  <line x1="118" y1="108" x2="118" y2="169" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="118" y1="169" x2="140" y2="169" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- R3: Rueckkopplung, ueber dem OPV gefuehrt (kreuzungsfrei zur VCC-Versorgung) -->
+  <line x1="118" y1="108" x2="118" y2="85" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="118" y1="85" x2="138" y2="85" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <rect x="138" y="78" width="40" height="14" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="158" y="69" font-size="12" font-family="sans-serif" fill="#1e293b" text-anchor="middle">R3</text>
+  <line x1="178" y1="85" x2="236" y2="85" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="236" y1="85" x2="236" y2="180" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- OPV: IEC-Symbol (aus symbole/OPV.svg) · + Pin (140,169) · - Pin (140,191) · OUT (216,180) -->
+  <g transform="translate(140,140)">
+    <line x1="0"  y1="29" x2="16" y2="29" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0"  y1="51" x2="16" y2="51" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+    <line x1="60" y1="40" x2="76" y2="40" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+    <rect x="16" y="7" width="44" height="66" fill="none" stroke="#1e293b" stroke-width="2"/>
+    <polygon points="23,14 23,22 31,18" fill="#1e293b"/>
+    <text x="49" y="18" font-size="13" fill="#1e293b" font-family="sans-serif" text-anchor="middle" dominant-baseline="middle">∞</text>
+    <text x="23" y="29" font-size="12" fill="#1e293b" font-family="sans-serif" text-anchor="start" dominant-baseline="middle">+</text>
+    <text x="23" y="51" font-size="12" fill="#1e293b" font-family="sans-serif" text-anchor="start" dominant-baseline="middle">−</text>
+  </g>
+
+  <!-- VCC (wie symbole/vcc.svg) -->
+  <line x1="178" y1="147" x2="178" y2="123" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="158" y1="123" x2="198" y2="123" stroke="#1e293b" stroke-width="4" stroke-linecap="round"/>
+  <text x="178" y="112" font-size="10" font-family="monospace" fill="#1e293b" text-anchor="middle">VCC</text>
+
+  <!-- -VCC (wie symbole/minus_vcc.svg) -->
+  <line x1="178" y1="213" x2="178" y2="237" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="158" y1="237" x2="198" y2="237" stroke="#1e293b" stroke-width="4" stroke-linecap="round"/>
+  <text x="178" y="250" font-size="10" font-family="monospace" fill="#1e293b" text-anchor="middle">-VCC</text>
+
+  <!-- Ausgang -->
+  <line x1="216" y1="180" x2="236" y2="180" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="236" cy="180" r="2.5" fill="#1e293b"/>
+  <line x1="236" y1="180" x2="320" y2="180" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="320" cy="180" r="3" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- Ue -> "-"-Eingang (rot) -->
+  <line x1="48" y1="191" x2="140" y2="191" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="48" cy="191" r="3" fill="white" stroke="#dc2626" stroke-width="1.5"/>
+
+  <!-- untere Bezugsschiene mit GND -->
+  <line x1="48" y1="270" x2="320" y2="270" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="48" cy="270" r="3" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+  <circle cx="320" cy="270" r="3" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+  <line x1="184" y1="270" x2="184" y2="278" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="169" y1="278" x2="199" y2="278" stroke="#1e293b" stroke-width="4" stroke-linecap="round"/>
+  <text x="184" y="291" font-size="10" font-family="monospace" fill="#1e293b" text-anchor="middle">GND</text>
+
+  <!-- Ue / Ua Spannungspfeile (blau) -->
+  <line x1="28" y1="196" x2="28" y2="266" stroke="#2563eb" stroke-width="1.5" marker-end="url(#pfeil)"/>
+  <text x="14" y="234" font-size="13" font-family="sans-serif" fill="#2563eb">Ue</text>
+  <line x1="340" y1="184" x2="340" y2="266" stroke="#2563eb" stroke-width="1.5" marker-end="url(#pfeil)"/>
+  <text x="346" y="228" font-size="13" font-family="sans-serif" fill="#2563eb">Ua</text>
+
+</svg>

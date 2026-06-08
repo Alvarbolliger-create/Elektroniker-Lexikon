@@ -101,6 +101,24 @@ Prüfungsrelevante Kernaussage — lila Rahmen.
 :::
 ```
 
+Der Inhalt eines Hinweis-Blocks wird wie regulärer Artikeltext geparst:
+neben Fliesstext sind also auch Bilder, Tabellen und Formeln möglich, z. B.
+
+```markdown
+:::tip
+Faustregel mit Beispielwerten:
+
+| Größe | Wert |
+|-------|------|
+| U     | 5 V  |
+| I     | 1 A  |
+
+:::formel
+P = U \cdot I
+:::
+:::
+```
+
 ### Schaltplan einbetten
 
 ```markdown

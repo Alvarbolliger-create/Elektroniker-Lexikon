@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 380" width="520" height="380">
+<line x1="140" y1="270" x2="180.0" y2="270.0" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="340.0" y1="270.0" x2="380" y2="270" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round"/>
+<g transform="rotate(0.00,260.0,270.0)">
+<g transform="translate(160.0,170.0)">
+<line x1="20" y1="100" x2="60" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <rect x="60" y="80" width="80" height="40" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  
+  <line x1="140" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+</g>
+</g>
+<text x="260.0" y="292.0" font-size="11" font-family="sans-serif" fill="#6b7280" text-anchor="middle">Z3</text>
+<line x1="140" y1="270" x2="157.3" y2="242.6" stroke="#92400e" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="242.7" y1="107.4" x2="260" y2="80" stroke="#92400e" stroke-width="1.5" stroke-linecap="round"/>
+<g transform="rotate(-57.72,200.0,175.0)">
+<g transform="translate(100.0,75.0)">
+<line x1="20" y1="100" x2="60" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <rect x="60" y="80" width="80" height="40" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  
+  <line x1="140" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+</g>
+</g>
+<text x="218.6" y="186.7" font-size="11" font-family="sans-serif" fill="#92400e" text-anchor="middle">Z1</text>
+<line x1="260" y1="80" x2="277.3" y2="107.4" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="362.7" y1="242.6" x2="380" y2="270" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<g transform="rotate(57.72,320.0,175.0)">
+<g transform="translate(220.0,75.0)">
+<line x1="20" y1="100" x2="60" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <rect x="60" y="80" width="80" height="40" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  
+  <line x1="140" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+</g>
+</g>
+<text x="301.4" y="186.7" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">Z2</text>
+<circle cx="260" cy="80" r="2.5" fill="#1e293b"/>
+<circle cx="140" cy="270" r="2.5" fill="#1e293b"/>
+<circle cx="380" cy="270" r="2.5" fill="#1e293b"/>
+<line x1="260" y1="80" x2="260" y2="30" stroke="#92400e" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="260" cy="30" r="3" fill="white" stroke="#92400e" stroke-width="1.5"/>
+<text x="260" y="20" font-size="13" font-family="sans-serif" fill="#92400e" text-anchor="middle">L1</text>
+<line x1="140" y1="270" x2="70" y2="270" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="70" cy="270" r="3" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+<text x="60" y="274" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="end">L2</text>
+<line x1="380" y1="270" x2="450" y2="270" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="450" cy="270" r="3" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+<text x="460" y="274" font-size="13" font-family="sans-serif" fill="#6b7280" text-anchor="start">L3</text>
+<text x="260" y="345" font-size="12" font-family="sans-serif" fill="#1e293b" text-anchor="middle">Kein Sternpunkt — jede Last liegt an der vollen Leiterspannung U_L = 400 V</text>
+</svg>

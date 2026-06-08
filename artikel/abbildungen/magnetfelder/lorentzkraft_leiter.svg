@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300" width="520" height="300">
+  <defs>
+    <marker id="feld" markerWidth="8" markerHeight="8" refX="3" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="strom" markerWidth="8" markerHeight="8" refX="3" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2563eb"/>
+    </marker>
+  </defs>
+<line x1="230" y1="85" x2="462" y2="85" stroke="#6b7280" stroke-width="1.3" marker-end="url(#feld)"/>
+<line x1="230" y1="160" x2="462" y2="160" stroke="#6b7280" stroke-width="1.3" marker-end="url(#feld)"/>
+<line x1="230" y1="235" x2="462" y2="235" stroke="#6b7280" stroke-width="1.3" marker-end="url(#feld)"/>
+<text x="476" y="164" font-size="14" font-family="sans-serif" fill="#6b7280" text-anchor="start">B</text>
+<line x1="299.2" y1="195.6" x2="400.8" y2="124.4" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+<text x="410.8" y="120.4" font-size="14" font-family="sans-serif" fill="#1e293b" text-anchor="start">l</text>
+<line x1="362.4" y1="151.2" x2="388.4" y2="133.2" stroke="#2563eb" stroke-width="1.6" marker-end="url(#strom)"/>
+<text x="349.4" y="156.2" font-size="14" font-family="sans-serif" fill="#2563eb" text-anchor="middle">I</text>
+<path d="M 321.2,195.6 A 22,22 0 0,0 317.2,182.9" fill="none" stroke="#1e293b" stroke-width="1.2"/>
+<text x="331.2" y="189.6" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="start">α</text>
+<line x1="400.8" y1="124.4" x2="400.8" y2="195.6" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,3"/>
+<line x1="299.2" y1="195.6" x2="400.8" y2="195.6" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,3"/>
+<text x="408.8" y="160.0" font-size="12" font-family="sans-serif" fill="#1e293b" text-anchor="start">l·sin α</text>
+<circle cx="356" cy="112" r="9" fill="none" stroke="#dc2626" stroke-width="1.5"/>
+<circle cx="356" cy="112" r="2.5" fill="#dc2626"/>
+<text x="370.0" y="117.0" font-size="14" font-family="sans-serif" fill="#dc2626" text-anchor="start">F</text>
+<line x1="45" y1="56" x2="137" y2="56" stroke="#6b7280" stroke-width="1.3" marker-end="url(#feld)"/>
+<line x1="45" y1="100" x2="137" y2="100" stroke="#6b7280" stroke-width="1.3" marker-end="url(#feld)"/>
+<line x1="65" y1="78" x2="125" y2="78" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+<line x1="78" y1="78" x2="102" y2="78" stroke="#2563eb" stroke-width="1.6" marker-end="url(#strom)"/>
+<text x="95" y="130" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="middle">α = 0°</text>
+<text x="95" y="146" font-size="13" font-family="sans-serif" fill="#dc2626" text-anchor="middle">F = 0</text>
+<line x1="45" y1="186" x2="137" y2="186" stroke="#6b7280" stroke-width="1.3" marker-end="url(#feld)"/>
+<line x1="45" y1="230" x2="137" y2="230" stroke="#6b7280" stroke-width="1.3" marker-end="url(#feld)"/>
+<line x1="95" y1="178" x2="95" y2="238" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+<line x1="95" y1="222" x2="95" y2="198" stroke="#2563eb" stroke-width="1.6" marker-end="url(#strom)"/>
+<circle cx="128" cy="208" r="9" fill="none" stroke="#dc2626" stroke-width="1.5"/>
+<circle cx="128" cy="208" r="2.5" fill="#dc2626"/>
+<text x="95" y="260" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="middle">α = 90°</text>
+<text x="95" y="276" font-size="13" font-family="sans-serif" fill="#dc2626" text-anchor="middle">F = F_max</text>
+<line x1="178" y1="20" x2="178" y2="280" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,4"/>
+</svg>

@@ -1,4 +1,4 @@
-﻿---
+---
 title: OPV Summierender Verstärker
 kategorie: EK
 kapitel: OPV
@@ -10,16 +10,16 @@ _status: FERTIG
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[OPV Invertierend]]
+- [[OPV Invertierender Verstärker]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[OPV Subtrahierend]]
-- [[OPV Invertierend]]
+- [[OPV Subtrahierender Verstärker]]
+- [[OPV Invertierender Verstärker]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[Instrumentenverstärker]]
+- [[Instrumentenverstärker (3-OPV)]]
 :::
 :::
 
@@ -29,39 +29,22 @@ Der summierende Verstärker addiert mehrere Eingangssignale gewichtet — jedes 
 
 ## Schaltung und Formel
 
-:::schematic Summierender OPV-Verstärker (3 Eingänge): OPV-Dreieck. U_1 → R_1, U_2 → R_2, U_3 → R_3 — alle drei laufen auf den invertierenden Eingang (−). Nichtinvertierender Eingang (+) auf GND. Rückkopplung R_R von Ausgang auf (−). Virtuelle Masse am (−)-Knoten. Ausgang U_A
-/Diagramm/opv_summierend.svg
+:::schematic Addierer (Summierverstärker)
+/schaltplaene/OPV/Verstärker/opv_addierer.svg
 :::
 
-Mehrere Eingänge über je einen Widerstand R_1, R_2, ... R_n an den invertierenden Eingang (–). Rückkopplung über R_R.
+Zwei Eingänge über je einen Widerstand R_1, R_2 an den invertierenden Eingang (–). Rückkopplung über R_R.
 
 :::formel
-U_A = -R_R * (U_1/R_1 + U_2/R_2 + ... + U_n/R_n)    # allgemeine Formel
+U_A = -(U_1 / R_1 + U_2 / R_2) * R_R    # allgemein: jeder Eingang gewichtet mit R_R / R_n
+U_A = -(U_1 + U_2)                      # Sonderfall gleiche Widerstände: R_1 = R_2 = R_R
 :::
 
-**Sonderfall gleiche Widerstände** (R_1 = R_2 = ... = R_n = R_R):
-
-:::formel
-U_A = -(U_1 + U_2 + ... + U_n)    # einfache Summe mit Phasenumkehr
-:::
+Die Schaltung lässt sich auf beliebig viele Eingänge erweitern: mit drei, vier oder n Eingängen (je über einen eigenen Widerstand R_3, R_4, ... R_n an (–)) gilt allgemein U_A = -R_R · (U_1/R_1 + U_2/R_2 + ... + U_n/R_n), und im Sonderfall gleicher Widerstände vereinfacht sich das zu U_A = -(U_1 + U_2 + ... + U_n).
 
 ## Herleitung mit virtueller Masse
 
-Am Knoten (–) (virtuelle Masse) gilt die Knotenregel. Alle Eingangsströme fliessen durch R_R ab:
-
-:::formel
-I_1 + I_2 + ... + I_n + I_R = 0
-U_1/R_1 + U_2/R_2 + ... = -U_A/R_R    # daraus folgt die Summenformel
-:::
-
-Dank der virtuellen Masse sind die Eingänge vollständig voneinander entkoppelt — U_1 beeinflusst U_2 nicht.
-
-## Formeln zur Dimensionierung
-
-:::formel
-R_R = -U_A / (U_1/R_1 + U_2/R_2 + ... + U_n/R_n)    # Gegenkopplungswiderstand
-R_1 = -U_1 * R_R / (U_A + R_R*(U_2/R_2 + ... + U_n/R_n))  # Widerstand für Eingang 1
-:::
+Am Knoten (–) (virtuelle Masse) gilt die Knotenregel: alle Eingangsströme fliessen durch R_R ab, U_1/R_1 + U_2/R_2 + ... = -U_A/R_R — daraus folgt die Summenformel. Dank der virtuellen Masse sind die Eingänge vollständig voneinander entkoppelt — U_1 beeinflusst U_2 nicht.
 
 ## Berechnungsbeispiel
 

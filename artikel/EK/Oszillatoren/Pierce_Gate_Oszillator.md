@@ -1,4 +1,4 @@
-﻿---
+---
 title: Pierce-Gate-Oszillator
 kategorie: EK
 kapitel: Oszillatoren
@@ -21,7 +21,7 @@ _status: FERTIG
 :::
 :::vbox
 **Führt weiter zu**
-- [[Regelungstechnik Grundlagen]]
+- [[Regelkreis Grundlagen]]
 :::
 :::
 

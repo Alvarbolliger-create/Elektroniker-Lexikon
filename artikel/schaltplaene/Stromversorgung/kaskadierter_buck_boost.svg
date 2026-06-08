@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 170" width="440" height="170">
+  <defs>
+    <marker id="pfeil" markerWidth="8" markerHeight="8" refX="3" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- U_E Quelle -->
+  <line x1="40" y1="28" x2="40" y2="40" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="40" cy="52" r="13" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  <line x1="40" y1="42" x2="40" y2="62" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="31" y1="46" x2="36" y2="46" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="33.5" y1="43.5" x2="33.5" y2="48.5" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="40" y1="65" x2="40" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="18" y="56" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">U_E</text>
+
+  <!-- Buck-Stufe: S1 (Serie), S2 (gegen GND) -->
+  <line x1="40" y1="28" x2="83" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="83" cy="28" r="2" fill="#1e293b"/>
+  <line x1="83" y1="28" x2="108" y2="17" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="114" cy="28" r="2.5" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+  <line x1="116" y1="28" x2="135" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="99" y="12" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">S1</text>
+
+  <circle cx="135" cy="28" r="2.5" fill="#1e293b"/>
+  <text x="135" y="44" font-size="10" font-family="sans-serif" fill="#1e293b" text-anchor="middle">A</text>
+
+  <line x1="135" y1="28" x2="135" y2="48" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="135" cy="48" r="2" fill="#1e293b"/>
+  <line x1="135" y1="48" x2="150" y2="63" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="135" cy="73" r="2.5" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+  <line x1="135" y1="75" x2="135" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="155" y="62" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">S2</text>
+
+  <!-- L (gemeinsame Speicherdrossel) -->
+  <line x1="135" y1="28" x2="166" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M 166,28 A 8,8 0 0 1 182,28 A 8,8 0 0 1 198,28 A 8,8 0 0 1 214,28"
+        fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="214" y1="28" x2="245" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="190" y="15" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">L</text>
+
+  <!-- Boost-Stufe: S3 (gegen GND), S4 (Serie) -->
+  <circle cx="245" cy="28" r="2.5" fill="#1e293b"/>
+  <text x="245" y="44" font-size="10" font-family="sans-serif" fill="#1e293b" text-anchor="middle">B</text>
+
+  <line x1="245" y1="28" x2="245" y2="48" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="245" cy="48" r="2" fill="#1e293b"/>
+  <line x1="245" y1="48" x2="260" y2="63" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="245" cy="73" r="2.5" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+  <line x1="245" y1="75" x2="245" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="265" y="62" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">S3</text>
+
+  <line x1="245" y1="28" x2="263" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="263" cy="28" r="2" fill="#1e293b"/>
+  <line x1="263" y1="28" x2="288" y2="17" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="294" cy="28" r="2.5" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+  <line x1="296" y1="28" x2="315" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="279" y="12" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">S4</text>
+
+  <!-- Knoten Ausgang -->
+  <circle cx="315" cy="28" r="2.5" fill="#1e293b"/>
+  <line x1="315" y1="28" x2="375" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="375" cy="28" r="3" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- C Ausgangskondensator (polarisiert) -->
+  <line x1="315" y1="28" x2="315" y2="52" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="300" y1="52" x2="330" y2="52" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="300" y1="65" x2="330" y2="65" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="291" y="50" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">+</text>
+  <line x1="315" y1="65" x2="315" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="338" y="60" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">C</text>
+
+  <!-- R_L Last -->
+  <circle cx="350" cy="28" r="2.5" fill="#1e293b"/>
+  <line x1="350" y1="28" x2="350" y2="58" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <rect x="340" y="58" width="20" height="38" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  <line x1="350" y1="96" x2="350" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="368" y="78" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">R_L</text>
+
+  <!-- GND Schiene -->
+  <line x1="40" y1="130" x2="350" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="190" y1="130" x2="190" y2="138" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="175" y1="138" x2="205" y2="138" stroke="#1e293b" stroke-width="4" stroke-linecap="round"/>
+  <text x="190" y="155" text-anchor="middle" font-family="monospace" font-size="13" fill="#1e293b">GND</text>
+
+  <!-- U_A Spannungspfeil (blau) -->
+  <line x1="395" y1="31" x2="395" y2="127" stroke="#2563eb" stroke-width="1.5" marker-end="url(#pfeil)"/>
+  <text x="401" y="82" font-size="13" font-family="sans-serif" fill="#2563eb">U_A</text>
+
+  <!-- Stufenbezeichnung -->
+  <text x="105" y="148" font-size="10" font-family="sans-serif" fill="#64748b" text-anchor="middle">Buck-Stufe (S1, S2)</text>
+  <text x="280" y="148" font-size="10" font-family="sans-serif" fill="#64748b" text-anchor="middle">Boost-Stufe (S3, S4)</text>
+
+</svg>

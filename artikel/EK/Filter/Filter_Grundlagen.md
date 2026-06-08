@@ -1,4 +1,4 @@
-﻿---
+---
 title: Filter Grundlagen
 kategorie: EK
 kapitel: Filter
@@ -10,7 +10,7 @@ _status: FERTIG
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Impedanz & Blindwiderstand]]
+- [[Impedanz]]
 - [[Verstärkung & Dämpfung]]
 :::
 :::vbox

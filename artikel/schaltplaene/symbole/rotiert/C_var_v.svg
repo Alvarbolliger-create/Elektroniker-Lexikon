@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 210" width="210" height="210">
+  <g transform="translate(210, 0) rotate(90)">
+
+  <title>Kondensator (variabel / Trimmer)</title>
+
+  <!-- Draht links: (20,100)→(90,100) -->
+  <line x1="20" y1="100" x2="90" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Platte 1: x=90, y=70..130 -->
+  <line x1="90" y1="70" x2="90" y2="130" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Platte 2: x=110, y=70..130 -->
+  <line x1="110" y1="70" x2="110" y2="130" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Draht rechts: (110,100)→(180,100) -->
+  <line x1="110" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Pfeil diagonal variabel: von (70,140) nach (140,60) -->
+  <line x1="70" y1="140" x2="140" y2="60" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Pfeilspitze bei (140,60) -->
+  <polyline points="128,62 140,60 138,72" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

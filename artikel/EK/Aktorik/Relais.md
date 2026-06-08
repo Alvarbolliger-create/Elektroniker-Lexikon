@@ -1,4 +1,4 @@
-﻿---
+---
 title: Relais
 kategorie: EK
 kapitel: Aktorik
@@ -21,7 +21,7 @@ _status: FERTIG
 :::
 :::vbox
 **Führt weiter zu**
-- [[DC Motor]]
+- [[DC-Motor]]
 - [[Heizelement & Peltier]]
 :::
 :::
@@ -51,6 +51,8 @@ Relais-Spule **niemals** ohne Freilaufdiode an einem Halbleiterausgang betreiben
 :::
 
 Die Freilaufdiode wird **parallel zur Spule** in Sperrrichtung zur Versorgung eingebaut. Beim Abschalten leitet sie und begrenzt die Spitze auf ca. 0.7 V.
+
+**Kehrseite — Abfallverzögerung:** Die Diode bietet dem Spulenstrom nach dem Abschalten einen geschlossenen Umlaufpfad (Spule–Diode). Die in der Induktivität gespeicherte Energie baut sich dadurch nur langsam über die Diodendurchlassspannung (≈ 0.7 V) ab statt schlagartig — der Strom (und damit das Magnetfeld) klingt deutlich langsamer ab als ohne Diode. Der Anker fällt deshalb **verzögert** ab (Abfallverzögerung, je nach Spule einige ms bis ~10 ms zusätzlich). Wer eine schnelle Abschaltung braucht, ersetzt die einfache Diode durch eine Diode + Z-Diode/Suppressordiode in Serie — das begrenzt die Spannungsspitze auf einen höheren, aber definierten Wert und baut die Energie schneller ab.
 
 :::schematic Relais mit Freilaufdiode: NPN-Transistor (Kollektor oben, Emitter nach GND). Relaisspule von +U_B nach Kollektor. Freilaufdiode parallel zur Spule (Kathode an +U_B, Anode am Kollektor) — in Sperrrichtung zur Versorgung. Beim Abschalten: Induktionsspannung treibt Strom durch Diode, begrenzt Spannungsspitze auf +U_B + 0.7 V. Basis über R_B von µC-Pin gesteuert
 /Diagramm/relais_freilaufdiode.svg

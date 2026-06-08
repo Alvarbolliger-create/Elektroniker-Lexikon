@@ -1,100 +1,96 @@
 ---
 title: DMA (Direct Memory Access)
 kategorie: SH
-tags: [DMA, busmatrix, CPU, UART, SPI, ADC, speicher, circular, double-buffer, cache, cortex-M, DAC]
-symbol: —
-einheit: —
+kapitel: Prozessor
+tags: [dma, direct memory access, datentransfer, speicherzugriff, busmatrix]
+_status: PORT
 ---
-
-Der DMA-Controller überträgt Daten direkt zwischen Peripherie und Speicher, ohne die CPU zu belasten. Die CPU gibt den Transfer in Auftrag und kann dann andere Aufgaben erledigen.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
 - [[Mikrocontroller]]
-- [[CPU Aufbau]]
-- [[Speicherarten]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Interrupt & Watchdog]]
-- [[SPI]]
-- [[UART]]
+- [[Interrupt]]
 :::
 :::
 
 ---
 
-## Problem ohne DMA: CPU-Polling
+Der → [[Interrupt|Interrupt]] befreit die CPU davon, ständig nachzufragen, ob ein Ereignis eingetreten ist. Doch sobald es um die Übertragung **grosser Datenmengen** geht — etwa das Auslesen eines ADC-Pufferspeichers oder das Senden eines ganzen Datenblocks per UART — bringt selbst die interruptgesteuerte Lösung die CPU an ihre Grenzen: Für jedes einzelne Byte muss sie kurz innehalten, das Datum übernehmen und es weiterleiten. Genau hier setzt der **DMA-Controller** an.
 
-Ohne DMA muss die CPU jeden Byte einzeln übertragen:
+## Das Problem ohne DMA
 
-:::monospace
-// UART Empfang ohne DMA
-while (bytes_to_receive > 0) {
-    while (!UART_RxReady());    // warten
-    buffer[i++] = UART_Read();  // Byte lesen
-    bytes_to_receive--;
+```c
+// CPU kopiert jedes Byte einzeln - blockiert dabei das Hauptprogramm
+for (int i = 0; i < 1024; i++) {
+    while (!ADC_DATA_READY());      // warten...
+    buffer[i] = ADC_READ();          // ein Byte übernehmen
 }
-// CPU ist die ganze Zeit blockiert
+// 1024-mal warten, lesen, schreiben - die CPU kann nichts anderes tun
+```
+
+:::warning
+Auch mit Interrupt-Unterstützung muss die CPU bei einem grossen Datentransfer **jedes einzelne Datum** persönlich von der Quelle zum Ziel kopieren — das bindet Rechenzeit, die für andere Aufgaben fehlt, und verursacht bei jedem Byte zusätzlich den Verwaltungsaufwand eines vollständigen Interrupt-Durchlaufs (Kontext sichern, ISR aufrufen, Kontext wiederherstellen).
 :::
-Bei 1 Mbit/s UART und 8-Bit-Daten: 125'000 CPU-Interrupts pro Sekunde, jede mit Overhead. Das schluckt erhebliche CPU-Kapazität.
 
-## DMA-Lösung
+## Die DMA-Lösung: Datentransfer ohne CPU
 
-Der DMA-Controller übernimmt die Übertragung selbst:
+Ein **DMA-Controller** (Direct Memory Access) ist eine eigenständige Recheneinheit, die Daten **selbstständig** zwischen Speicher und Peripherie verschiebt — die CPU muss den Transfer nur noch anstossen:
 
-:::monospace
-// DMA konfigurieren
-DMA_Config.Source = &UART->DR;         // Quelle: UART-Register
-DMA_Config.Destination = buffer;        // Ziel: RAM
-DMA_Config.Length = 1000;              // 1000 Bytes
-DMA_Config.Mode = DMA_CIRCULAR;        // optional: kreisförmig
-DMA_Start();
+```c
+// CPU konfiguriert den DMA-Kanal einmalig...
+DMA_Config(channel = 1,
+           source = &ADC->DATA,
+           dest   = buffer,
+           count  = 1024,
+           mode   = PERIPHERAL_TO_MEMORY);
+DMA_Start(channel = 1);
+// ...und kann sofort weiterarbeiten - der Transfer läuft im Hintergrund
+```
 
-// CPU kann sofort anderes tun
-do_other_stuff();
-
-// Interrupt wenn fertig
-void DMA_IRQHandler(void) {
-    // Alle 1000 Bytes empfangen
-    process_buffer();
-}
+:::merke
+Die CPU **konfiguriert** den DMA-Kanal einmalig — Quelladresse, Zieladresse, Anzahl der zu übertragenden Worte, Übertragungsrichtung — und stösst den Transfer an. Ab diesem Moment übernimmt der DMA-Controller die komplette Übertragung selbstständig, **ohne** dass die CPU für jedes einzelne Datum eingreifen muss. Erst wenn der gesamte Block übertragen ist, meldet sich der Controller per → [[Interrupt|Interrupt]] und teilt der CPU mit: "fertig". So bleibt die CPU während der gesamten Übertragung frei für andere Aufgaben.
 :::
-## Architektur: Busmatrix
 
-Moderne Mikrocontroller haben eine Busmatrix — ein Kreuzschalter der mehrere Busse parallel nutzen lässt.
+## Architektur: die Busmatrix
 
-:::schematic
-/Diagramm/dma_0.svg
+Damit DMA-Controller und CPU nicht ständig um denselben Bus konkurrieren, sind moderne Mikrocontroller mit einer **Busmatrix** ausgestattet — einem Schaltnetz, das mehrere Bus-Master (CPU, DMA-Kanäle, …) gleichzeitig mit mehreren Bus-Slaves (Speicher, Peripherie) verbinden kann:
+
+:::info
+Solange CPU und DMA-Controller auf unterschiedliche Speicherbereiche zugreifen, können beide **gleichzeitig** über die Busmatrix arbeiten — die CPU rechnet weiter, während der DMA-Controller im Hintergrund Daten verschiebt. Erst wenn beide auf denselben Speicherblock zugreifen wollen, muss die Busmatrix den Zugriff zeitlich verschachteln (Arbitrierung) — meist mit einer leichten Bevorzugung der CPU oder nach einem festgelegten Prioritätsschema.
 :::
-CPU und DMA können gleichzeitig auf den Bus zugreifen, wenn sie auf verschiedene Speicherbereiche zugreifen. Bei Konflikt (beide auf denselben Bus) bekommt DMA meist Vorrang (da zeitkritischer).
 
-## DMA-Transfermodi
+## Transfermodi
 
-**Memory-to-Memory**: Kopieren von Daten innerhalb des RAM. Schneller als memcpy() wenn CPU andere Arbeit hat.
+Je nach Anwendung lässt sich ein DMA-Kanal auf unterschiedliche Übertragungsarten konfigurieren:
 
-**Peripherie-to-Memory**: ADC-Ergebnis → RAM, UART-Empfang → RAM. Häufigster Fall.
-
-**Memory-to-Peripherie**: RAM → SPI-Transmit, RAM → DAC. Für Ausgabe.
-
-**Circular Mode**: DMA überschreibt den Buffer von vorne, wenn er voll ist. Ideal für Audio-Streaming, kontinuierliche ADC-Messung.
-
-**Double-Buffer Mode**: Zwei Buffer wechseln sich ab. Während CPU den einen Buffer verarbeitet, füllt DMA den anderen.
+| Modus | Beschreibung | Typische Anwendung |
+|---|---|---|
+| **Memory-to-Memory** | Daten werden zwischen zwei Speicherbereichen kopiert | Pufferkopien, Bildverarbeitung |
+| **Peripherie-to-Memory** | Daten von einem Peripheriebaustein in den Speicher | ADC-Abtastwerte, empfangene UART-Bytes |
+| **Memory-to-Peripherie** | Daten aus dem Speicher zu einem Peripheriebaustein | DAC-Ausgabe, zu sendende UART-Daten |
+| **Circular-Modus** | Nach Erreichen des Endes beginnt die Übertragung automatisch erneut am Anfang | kontinuierliche Audio- oder Sensordaten |
+| **Double-Buffer-Modus** | Zwei Puffer werden abwechselnd befüllt — während einer übertragen wird, kann der andere verarbeitet werden | Streaming ohne Datenverlust |
 
 ## DMA-Kanäle und Prioritäten
 
-Ein DMA-Controller hat mehrere Kanäle (typisch 4–16). Jeder Kanal hat:
-- Quell- und Zieladresse
-- Transfergrösse (Bytes, Halbworte, Worte)
-- Priorität (Kanäle konkurrieren um den Bus)
-- Interrupt bei Halbfertig, Fertig oder Fehler
+Ein DMA-Controller verfügt in der Regel über **mehrere Kanäle**, die parallel und unabhängig voneinander konfiguriert werden können. Da auch hier mehrere Anfragen gleichzeitig auftreten können, lässt sich — ganz ähnlich wie beim → [[Interrupt|NVIC]] — jedem Kanal eine eigene **Priorität** zuweisen, die bestimmt, welcher Transfer bei einer Konkurrenzsituation Vorrang erhält.
 
-## Cache-Kohärenz (wichtig bei Cortex-A)
+## Cache-Kohärenz: eine Falle für Unaufmerksame
 
-Bei Mikrocontrollern mit Cache (Cortex-A, Cortex-M7) muss sichergestellt werden, dass der DMA nicht auf gecachte Daten schreibt, ohne den Cache zu invalidieren. Fehlender Cache-Flush führt zu Datenkorruption — ein häufiger Fehler.
+Verfügt der Mikrocontroller über einen **Cache**, lauert eine subtile Gefahr:
 
-:::monospace
-// Vor DMA-Transfer: Cache invalidieren
-SCB_InvalidateDCache_by_Addr(buffer, size);
+:::warning
+Schreibt der DMA-Controller Daten direkt in den Hauptspeicher, "weiss" der Cache der CPU davon zunächst nichts — er hält möglicherweise weiterhin die *alten* Werte für denselben Speicherbereich vor. Liest die CPU anschliessend aus dem Cache, erhält sie veraltete Daten, obwohl im Speicher längst neue stehen (und umgekehrt: schreibt die CPU in den Cache, bevor der DMA-Controller den Speicher liest, überträgt dieser die alten Werte). Software muss diese **Cache-Kohärenz** deshalb aktiv sicherstellen — etwa durch gezieltes Invalidieren des betroffenen Speicherbereichs:
+
+```c
+SCB_InvalidateDCache_by_Addr((uint32_t*)buffer, sizeof(buffer));
+```
+
+Ohne diesen Schritt entstehen schwer auffindbare Fehler, bei denen Daten "korrekt aussehen", aber inhaltlich veraltet sind.
 :::
+
+Damit ergänzen sich Interrupt und DMA zu einem leistungsfähigen Team: Der Interrupt sorgt dafür, dass die CPU auf einzelne Ereignisse reagieren kann, ohne zu warten — der DMA-Controller übernimmt die eigentliche Datenbewegung, sodass die CPU ihre Rechenzeit voll für die eigentliche Aufgabe nutzen kann. Wie ein Mikrocontroller-System aber überhaupt erst in einen funktionsfähigen Zustand gelangt — was beim Einschalten genau passiert, bevor das erste Programm überhaupt starten kann —, klärt der → [[Boot-Vorgang|Boot-Vorgang]].

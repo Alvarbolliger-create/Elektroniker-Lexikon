@@ -1,4 +1,4 @@
-﻿---
+---
 title: Heizelement & Peltier
 kategorie: EK
 kapitel: Aktorik
@@ -17,11 +17,11 @@ _status: FERTIG
 :::vbox
 **Verwandte Artikel**
 - [[NTC & PTC Thermistoren]]
-- [[PID Regler]]
+- [[PID-Regler]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[PID Regler]]
+- [[PID-Regler]]
 - [[Regelkreis Grundlagen]]
 :::
 :::

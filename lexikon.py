@@ -223,9 +223,14 @@ class TruthTableBlock:
 
 @dataclass
 class NoteBlock:
-    """Hervorgehobener Hinweis-Block (Warnung, Tipp, Info etc.)."""
+    """Hervorgehobener Hinweis-Block (Warnung, Tipp, Info etc.).
 
-    text: str
+    Der Inhalt wird wie regulärer Artikeltext geparst — neben Fliesstext
+    sind also auch Bilder, Tabellen, Formeln (``:::formel``) und weitere
+    Direktiven innerhalb des Blocks moeglich.
+    """
+
+    children: list["ArticleBlock"]
     kind: str = "info"               # "info" | "tip" | "warning" | "danger" | "norm" | "merke"
 
 
@@ -390,6 +395,7 @@ def parse_frontmatter(content: str) -> tuple[dict[str, str], str]:
     den beiden Trennern werden ``key: value``-Paare erwartet.
     """
     meta: dict[str, str] = {}
+    content = content.lstrip("﻿")  # UTF-8 BOM entfernen falls vorhanden
     text = content
     if content.startswith("---"):
         parts = content.split("---", 2)
@@ -632,10 +638,10 @@ def _parse_directive(
     body_text = "\n".join(body_lines).strip()
 
     if kind in ("warning", "info", "tip", "danger", "norm", "merke"):
-        return NoteBlock(text=body_text, kind=kind)
+        return NoteBlock(children=parse_article_blocks(body_text, all_articles), kind=kind)
     if kind == "note":
         note_kind = args if args in ("warning", "info", "tip", "danger", "norm", "merke") else "info"
-        return NoteBlock(text=body_text, kind=note_kind)
+        return NoteBlock(children=parse_article_blocks(body_text, all_articles), kind=note_kind)
     if kind == "formel":
         formula_lines = [ln.strip() for ln in body_lines if ln.strip()]
         return CodeBlock(lines=formula_lines) if formula_lines else None
@@ -1849,7 +1855,7 @@ class ArticleContentWidget(QScrollArea):
         if isinstance(block, TruthTableBlock):
             return self._make_truth_table(block)
         if isinstance(block, NoteBlock):
-            return self._make_note(block)
+            return self._make_note(block, article_folder)
         if isinstance(block, HBoxBlock):
             return self._make_hbox(block, article_folder)
         if isinstance(block, VBoxBlock):
@@ -2045,15 +2051,19 @@ class ArticleContentWidget(QScrollArea):
         img_path = (ARTICLES_FOLDER / p.lstrip("/")) if p.startswith("/") else (article_folder / p)
 
         if not img_path.exists():
-            err = QLabel(f"[Bild nicht gefunden: {block.path}]")
+            short_path = block.path if len(block.path) <= 60 else "…" + block.path[-57:]
+            err = QLabel(f"[Bild nicht gefunden: {short_path}]")
             err.setObjectName("imageError")
+            err.setWordWrap(True)
             layout.addWidget(err)
             return container
 
         img_widget = self._load_image_widget(img_path, block.path, 600)
         if img_widget is None:
-            err = QLabel(f"[Bildformat nicht unterstuetzt: {block.path}]")
+            short_path = block.path if len(block.path) <= 60 else "…" + block.path[-57:]
+            err = QLabel(f"[Bildformat nicht unterstuetzt: {short_path}]")
             err.setObjectName("imageError")
+            err.setWordWrap(True)
             layout.addWidget(err)
             return container
 
@@ -2078,20 +2088,25 @@ class ArticleContentWidget(QScrollArea):
             title_lbl.setStyleSheet(
                 "color:#374151;font-size:13px;font-weight:600;"
             )
+            title_lbl.setWordWrap(True)
             layout.addWidget(title_lbl)
 
         sp = block.path.strip()
         img_path = (ARTICLES_FOLDER / sp.lstrip("/")) if sp.startswith("/") else (article_folder / sp)
         if not img_path.exists():
-            err = QLabel(f"[Schaltplan nicht gefunden: {block.path}]")
+            short_path = block.path if len(block.path) <= 60 else "…" + block.path[-57:]
+            err = QLabel(f"[Schaltplan nicht gefunden: {short_path}]")
             err.setObjectName("imageError")
+            err.setWordWrap(True)
             layout.addWidget(err)
             return container
 
         img_widget = self._load_image_widget(img_path, block.path, 700)
         if img_widget is None:
-            err = QLabel(f"[Format nicht unterstuetzt: {block.path}]")
+            short_path = block.path if len(block.path) <= 60 else "…" + block.path[-57:]
+            err = QLabel(f"[Format nicht unterstuetzt: {short_path}]")
             err.setObjectName("imageError")
+            err.setWordWrap(True)
             layout.addWidget(err)
             return container
 
@@ -2225,7 +2240,7 @@ class ArticleContentWidget(QScrollArea):
         outer.addWidget(grid_host)
         return container
 
-    def _make_note(self, block: NoteBlock) -> QWidget:
+    def _make_note(self, block: NoteBlock, article_folder: Path) -> QWidget:
         bg, border, icon = self._NOTE_STYLES.get(block.kind, self._NOTE_STYLES["info"])
 
         container = QFrame()
@@ -2245,15 +2260,19 @@ class ArticleContentWidget(QScrollArea):
             "background:transparent;border:none;"
         )
         icon_lbl.setFixedWidth(22)
+        icon_lbl.setAlignment(Qt.AlignmentFlag.AlignTop)
         layout.addWidget(icon_lbl)
 
-        text_lbl = QLabel(block.text)
-        text_lbl.setWordWrap(True)
-        text_lbl.setStyleSheet(
-            "color:#1e293b;font-size:14px;"
-            "background:transparent;border:none;"
-        )
-        layout.addWidget(text_lbl, stretch=1)
+        content = QWidget()
+        content.setStyleSheet("background:transparent;border:none;")
+        content_layout = QVBoxLayout(content)
+        content_layout.setContentsMargins(0, 0, 0, 0)
+        content_layout.setSpacing(6)
+        for child in block.children:
+            w = self._block_to_widget(child, article_folder)
+            if w is not None:
+                content_layout.addWidget(w)
+        layout.addWidget(content, stretch=1)
         return container
 
     def _make_hbox(self, block: HBoxBlock, article_folder: Path) -> QWidget:

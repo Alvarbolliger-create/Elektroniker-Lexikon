@@ -1,4 +1,4 @@
-﻿---
+---
 title: Logarithmischer Verstärker
 kategorie: EK
 kapitel: OPV
@@ -10,7 +10,7 @@ _status: FERTIG
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[OPV Invertierend]]
+- [[OPV Invertierender Verstärker]]
 - [[Diode]]
 - [[pn-Übergang]]
 :::
@@ -34,13 +34,7 @@ Der logarithmische Verstärker nutzt die exponentielle Kennlinie einer Diode in 
 /Diagramm/opv_log_verstaerker.svg
 :::
 
-Im invertierenden Verstärker wird der Rückkopplungswiderstand durch eine **Diode** ersetzt. Wegen der Shockley-Gleichung gilt für die Diodenspannung:
-
-:::formel
-U_D = U_T * ln(I_D / I_S)    # Diodenspannung; U_T = 26 mV, I_S = Sättigungsstrom
-:::
-
-Da der OPV die virtuelle Masse aufrechterhält, fliesst der gesamte Eingangsstrom I_ein = U_ein / R durch die Diode. Damit:
+Im invertierenden Verstärker wird der Rückkopplungswiderstand durch eine **Diode** ersetzt. Wegen der Shockley-Gleichung (U_D = U_T · ln(I_D / I_S), mit U_T = 26 mV) und der virtuellen Masse, durch die der gesamte Eingangsstrom I_ein = U_ein / R durch die Diode fliesst, ergibt sich:
 
 :::formel
 U_a = -U_T * ln(U_ein / (I_S * R))    # Ausgangsspannung (logarithmisch)

@@ -28,7 +28,7 @@ Ein realer Kondensator ist keine ideale Kapazität — er hat parasitäre Widers
 ## Realer vs. idealer Kondensator
 
 :::schematic
-/schaltplaene/kondensator/kondensator_ersatzschaltbild.svg
+/schaltplaene/C/kondensator_ersatzschaltbild.svg
 :::
 
 Das Ersatzschaltbild zeigt die drei parasitären Elemente in Serie: ESR (Widerstand), ESL (Induktivität) und C (ideale Kapazität). Parallel zu C liegt noch ein grosser Leckwiderstand R_leck, der den sehr langsamen Selbstentladestrom beschreibt — bei hochwertigen Kondensatoren vernachlässigbar.

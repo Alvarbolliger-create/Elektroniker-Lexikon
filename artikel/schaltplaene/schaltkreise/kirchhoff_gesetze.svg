@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 340" width="340" height="340">
+<defs><marker id="pf" markerWidth="8" markerHeight="8" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#dc2626"/></marker></defs>
+<line x1="170" y1="170" x2="170.0" y2="75.0" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="170.0" y1="111.1" x2="170.0" y2="133.9" stroke="#dc2626" stroke-width="2" marker-end="url(#pf)"/>
+<text x="190.0" y="95.9" font-size="15" font-family="sans-serif" fill="#dc2626" text-anchor="middle">I1</text>
+<line x1="170" y1="170" x2="75.0" y2="170.0" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="111.1" y1="170.0" x2="133.9" y2="170.0" stroke="#dc2626" stroke-width="2" marker-end="url(#pf)"/>
+<text x="95.9" y="156.0" font-size="15" font-family="sans-serif" fill="#dc2626" text-anchor="middle">I2</text>
+<line x1="170" y1="170" x2="265.0" y2="170.0" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="206.1" y1="170.0" x2="228.9" y2="170.0" stroke="#dc2626" stroke-width="2" marker-end="url(#pf)"/>
+<text x="244.1" y="156.0" font-size="15" font-family="sans-serif" fill="#dc2626" text-anchor="middle">I3</text>
+<line x1="170" y1="170" x2="170.0" y2="265.0" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="170.0" y1="206.1" x2="170.0" y2="228.9" stroke="#dc2626" stroke-width="2" marker-end="url(#pf)"/>
+<text x="150.0" y="244.1" font-size="15" font-family="sans-serif" fill="#dc2626" text-anchor="middle">I4</text>
+<circle cx="170" cy="170" r="4" fill="#1e293b"/>
+<text x="170" y="315" font-size="15" font-family="sans-serif" fill="#1e293b" text-anchor="middle">I1 + I2 = I3 + I4</text>
+</svg>

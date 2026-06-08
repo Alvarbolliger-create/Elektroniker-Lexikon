@@ -1,0 +1,31 @@
+<svg width="100%" viewBox="0 0 210 210" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>LED</title>
+
+  <!-- Draht links: Anschluss (20,100) -->
+  <line x1="20" y1="100" x2="80" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Dreieck -->
+  <line x1="80" y1="80" x2="80" y2="120" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="80" y1="80" x2="120" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="80" y1="120" x2="120" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Kathode -->
+  <line x1="120" y1="80" x2="120" y2="120" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Draht rechts: Anschluss (180,100) -->
+  <line x1="120" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!--
+    Pfeile oben, zeigen nach oben-rechts (45°)
+    d=(1,−1), dn=(0.707,−0.707), perp=(0.707,0.707)
+    Pfeil 1: Start=(95,75) → Spitze=(115,55)
+      Fl1=(115−2.1, 55+7.8)=(112.9,62.8)≈(113,63)
+      Fl2=(115−7.8, 55+2.1)=(107.2,57.1)≈(107,57)
+    Pfeil 2: +20px X → Start=(115,75) → Spitze=(135,55)
+      Fl1=(133,63), Fl2=(127,57)
+  -->
+  <!-- Pfeil 1 -->
+  <line x1="95" y1="75" x2="115" y2="55" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <polyline points="113,63 115,55 107,57" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Pfeil 2: +20px X -->
+  <line x1="115" y1="75" x2="135" y2="55" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <polyline points="133,63 135,55 127,57" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

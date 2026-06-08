@@ -1,4 +1,4 @@
-﻿---
+---
 title: OPV Differenzierer
 kategorie: EK
 kapitel: OPV
@@ -10,7 +10,7 @@ _status: FERTIG
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[OPV Invertierend]]
+- [[OPV Invertierender Verstärker]]
 - [[Hochpass]]
 :::
 :::vbox
@@ -40,15 +40,6 @@ Wie der invertierende Verstärker — aber **Kondensator C am Eingang** und Wide
 
 :::formel
 U_A = -R * C * (Delta_U_E / Delta_t)    # Ausgang proportional zur Änderungsrate
-:::
-
-Umgestellt:
-
-:::formel
-Delta_U_E = -U_A * Delta_t / (R * C)    # Eingangsspannungsänderung
-Delta_t   = -R * C * Delta_U_E / U_A   # Zeit
-R = -U_A * Delta_t / (Delta_U_E * C)   # Widerstand
-C = -U_A * Delta_t / (Delta_U_E * R)   # Kondensator
 :::
 
 ## Berechnungsbeispiel

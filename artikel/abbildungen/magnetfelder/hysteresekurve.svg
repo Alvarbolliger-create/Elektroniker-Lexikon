@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 420" width="480" height="420">
+<defs>
+  <marker id="pf" markerWidth="8" markerHeight="8" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1e293b"/></marker>
+</defs>
+<line x1="50" y1="230" x2="430" y2="230" stroke="#1e293b" stroke-width="1.4" marker-end="url(#pf)"/>
+<line x1="240" y1="380" x2="240" y2="40" stroke="#1e293b" stroke-width="1.4" marker-end="url(#pf)"/>
+<text x="420" y="222" font-size="14" font-family="sans-serif" fill="#1e293b" text-anchor="middle">H</text>
+<text x="252" y="50" font-size="14" font-family="sans-serif" fill="#1e293b" text-anchor="middle">B</text>
+<path d="M 240,230 Q 290,160 330,120 Q 350,100 360,90" fill="none" stroke="#6b7280" stroke-width="1.6" stroke-dasharray="6,4"/>
+<text x="345" y="205" font-size="12" font-family="sans-serif" fill="#6b7280" text-anchor="start">Neukurve</text>
+<path d="M 360,90 Q 290,110 240,140 Q 205,165 180,230 Q 155,300 120,370" fill="none" stroke="#dc2626" stroke-width="1.8"/>
+<path d="M 120,370 Q 175,345 240,320 Q 280,290 300,230 Q 325,160 360,90" fill="none" stroke="#dc2626" stroke-width="1.8"/>
+<circle cx="360" cy="90" r="2.6" fill="#1e293b"/>
+<text x="370" y="84" font-size="12" font-family="sans-serif" fill="#1e293b" text-anchor="start">B_sat</text>
+<circle cx="120" cy="370" r="2.6" fill="#1e293b"/>
+<text x="110" y="384" font-size="12" font-family="sans-serif" fill="#1e293b" text-anchor="end">-B_sat</text>
+<circle cx="240" cy="140" r="2.6" fill="#1e293b"/>
+<text x="254" y="134" font-size="12" font-family="sans-serif" fill="#1e293b" text-anchor="start">B_r</text>
+<circle cx="240" cy="320" r="2.6" fill="#1e293b"/>
+<text x="254" y="336" font-size="12" font-family="sans-serif" fill="#1e293b" text-anchor="start">-B_r</text>
+<circle cx="300" cy="230" r="2.6" fill="#1e293b"/>
+<text x="308" y="250" font-size="12" font-family="sans-serif" fill="#1e293b" text-anchor="start">H_c</text>
+<circle cx="180" cy="230" r="2.6" fill="#1e293b"/>
+<text x="172" y="250" font-size="12" font-family="sans-serif" fill="#1e293b" text-anchor="end">-H_c</text>
+</svg>

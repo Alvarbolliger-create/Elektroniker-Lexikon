@@ -1,144 +1,72 @@
 ---
-title: Logikfamilien (TTL, CMOS, LVDS)
+title: Logikfamilien (TTL, CMOS, BiCMOS, ECL)
 kategorie: SH
-tags: [TTL, CMOS, LVDS, logikfamilien, pegel, fanout, propagation-delay, HCT, HC, noise-margin, level-shifter, 74HC, 74HCT, 74LVC, ESD, rauschspanne]
-symbol: —
-einheit: —
+kapitel: Logik
+tags: [ttl, cmos, bicmos, ecl, logikfamilie, verlustleistung, schaltgeschwindigkeit, treiberfaehigkeit, integrationsdichte]
+_status: PORT
 ---
-
-Logikfamilien definieren, wie digitale Gatter elektrisch aufgebaut sind. Sie bestimmen Spannungspegel, Stromtreibfähigkeit, Geschwindigkeit und Leistungsaufnahme.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Logikgatter]]
-- [[Transistor NPN]]
-- [[MOSFET]]
+- [[Logikgatter (UND, ODER, NICHT, NAND, NOR, EXOR)]]
 :::
 :::vbox
-**Verwandte Artikel**
-- [[Pull-Up / Pull-Down]]
-- [[Flipflops]]
+**Führt weiter zu**
+- [[Schaltpegel & Störabstand]]
+- [[Fan-Out & Fan-In]]
 :::
 :::
 
 ---
 
-## Pegelübersicht
+Nicht jedes Logikgatter ist intern gleich aufgebaut. Je nachdem, mit welcher Halbleitertechnologie ein Gatter realisiert wird, unterscheiden sich Schaltgeschwindigkeit, Verlustleistung, Treiberfähigkeit und Betriebsspannung erheblich. Man fasst Bausteine mit gleicher zugrunde liegender Schaltungstechnik zu **Logikfamilien** zusammen — die wichtigsten sind TTL, CMOS, BiCMOS und ECL.
 
-Jede Logikfamilie definiert vier kritische Spannungen:
+## TTL — Transistor-Transistor-Logik
 
-| Pegel | Bedeutung |
-|---|---|
-| V_OH | Minimale Ausgangsspannung für logisch 1 |
-| V_OL | Maximale Ausgangsspannung für logisch 0 |
-| V_IH | Minimale Eingangsspannung, die als 1 erkannt wird |
-| V_IL | Maximale Eingangsspannung, die als 0 erkannt wird |
+Bei der **TTL-Logik** kennen die Transistoren nur zwei Zustände: gesperrt oder leitend (daher auch "Zweizustandslogik" bzw. bipolare Logik). Ein TTL-NAND vom Typ 7400 zieht den Ausgang über eine feste Transistorstruktur auf High oder Low. TTL ist seit etwa 1975 auf dem Markt und bot der ersten Generation hohe Schaltgeschwindigkeit und hohe Treiberfähigkeit — allerdings auf Kosten einer hohen Verlustleistung. Mit Schottky-Dioden liess sich die Verlustleistung später um das Fünffache senken (→ **LS-TTL**, 74LS00).
 
-**Rauschspanne (Noise Margin)**:
-:::formel
-NM_H = V_OH - V_IH    # High-Rauschspanne
-NM_L = V_IL - V_OL    # Low-Rauschspanne
+:::merke
+Grundeigenschaften der TTL-Familie: hohe Schaltgeschwindigkeit, hohe Treiberfähigkeit, guter ESD-Schutz — aber hohe Verlustleistung und vergleichsweise geringe Integrationsdichte. Die Betriebsspannung beträgt fest 5 Volt. Bekannte Varianten sind LS-TTL, ALS-TTL und AS-TTL — für Neuentwicklungen wird TTL heute kaum mehr eingesetzt.
 :::
----
 
-## TTL (Transistor-Transistor-Logik)
+## CMOS — Complementary Metal Oxide Semiconductor
 
-- Aufgebaut mit bipolaren NPN-Transistoren
-- Versorgung: **5V fest**
-- Hoher Ruhestrom auch ohne Last (statische Verluste)
-- Schnelles Schalten, aber hoher Strombedarf
+**CMOS**-Logikfamilien verwenden anstelle bipolarer Transistoren **Feldeffekttransistoren (FET)**. Das bringt zwei entscheidende Vorteile: FETs sind sehr hochohmig, wodurch die Verlustleistung im statischen Zustand praktisch null ist (sie steigt allerdings mit der Arbeitsfrequenz spürbar an — die Verlustleistung von CMOS ist also **frequenzabhängig**). Ausserdem sind FETs geometrisch sehr klein, was eine hohe Integrationsdichte ermöglicht — hochintegrierte Bausteine wie DRAMs und CPUs werden praktisch ausschliesslich in CMOS-Technologie gefertigt.
 
-| Grösse | Typischer Wert |
-|---|---|
-| V_CC | 5V |
-| V_OH | ≥ 2.4V |
-| V_OL | ≤ 0.4V |
-| V_IH | ≥ 2.0V |
-| V_IL | ≤ 0.8V |
-| I_OH | –400 µA (Sourceströme klein!) |
-| t_pd | 10–50 ns |
+Die ersten CMOS-Familien hatten gegenüber TTL noch langsamere Durchlaufzeiten und eine geringere Treiberfähigkeit; durch optimierte Fertigungsprozesse wurden diese Nachteile inzwischen ausgemerzt. Moderne CMOS-Familien arbeiten mit unterschiedlichen Betriebsspannungen — gängig sind 5 V, 3.3 V, 2.5 V und sogar 1.8 V. Die schnellsten CMOS-Familien (CBT, CBTLV) erreichen heute Durchlaufzeiten unter 1.5 ns.
+
+:::info
+Bekannte CMOS-Vertreter sind HC/HCT (High Speed CMOS), AC/ACT (Advanced CMOS), LV/LVC (Low Voltage CMOS) sowie ALVC und AVC für besonders niedrige Versorgungsspannungen.
+:::
+
+## BiCMOS — das Beste aus beiden Welten
+
+**BiCMOS**-Familien (z. B. BCT, ABT, LVT) kombinieren die CMOS-Technik mit der TTL-Technik: Eine **CMOS-Eingangsstufe** sorgt für eine kleine Verlustleistung, während eine **TTL-Ausgangsstufe** den nötigen Treiberstrom liefert. So vereint BiCMOS die Vorteile der TTL-Schaltungen (kurze Durchlaufzeit, hohe Treiberfähigkeit) mit denjenigen der CMOS-Schaltungen (kleine Verlustleistung).
+
+## ECL — Emitter Coupled Logic
+
+Steht die Geschwindigkeit absolut im Vordergrund und spielt die Verlustleistung nur eine untergeordnete Rolle, kommt die **ECL-Logik** zum Einsatz. Sie zeichnet sich durch extrem kurze Durchlaufzeiten aus (die schnellste ECL-Familie 100E100 erreicht ca. 0.4 ns!). Erreicht wird dies, indem die Transistoren im ungesättigten Zustand betrieben werden und kleinere Signalpegel als bei "normaler" TTL-Logik verwendet werden.
 
 :::warning
-TTL kann nur wenige µA sourcen, aber mehrere mA sinken. LEDs nie direkt von TTL-Ausgang nach VCC schalten — immer gegen GND (active low).
+Die ECL-Logik wird **negativ gespeist** (z. B. −5.2 V) — ein wichtiger Unterschied zu TTL und CMOS, der bei der Schaltungsplanung unbedingt zu beachten ist. Typische Einsatzgebiete sind Superrechner für Wissenschaft und Militär, bei denen die hohe Verlustleistung (rund 55 mW pro NOR-Gatter bei der Standard-ECL-Serie) eine untergeordnete Rolle spielt — solche Anlagen werden oft aktiv gekühlt. Im Gegensatz zu CMOS ist die Verlustleistung von ECL **frequenzunabhängig**.
 :::
 
-## CMOS (Complementary MOS)
+## Vergleich: Durchlaufzeit, Verlustleistung und Betriebsspannung
 
-- Aufgebaut mit PMOS + NMOS in Komplementärpaaren
-- Statische Verluste nahezu null (Verluste nur beim Schalten)
-- Vielzahl von Versorgungsspannungen möglich (1.2V–15V je nach Serie)
-- Bei hohen Frequenzen: dynamische Verluste dominieren
+| Familie | Gatter | Spannung | Verlustleistung Pᵥ | Laufzeit t_PD |
+|---|---|---|---|---|
+| TTL | 7400 | 5 V | 10 mW | 10 ns |
+| LS-TTL | 74LS00 | 5 V | 2 mW | 10 ns |
+| ALS-TTL | 74ALS00 | 5 V | 1 mW | 4 ns |
+| CMOS HC | 74HC00 | 5 V | 0.5 mW/MHz | 10 ns |
+| CMOS AC | 74AC00 | 5 V | 0.8 mW/MHz | 3 ns |
+| CMOS LV | 74LV00 | 3.3 V | 0.6 mW/MHz | 14 ns |
+| ECL standard | 10.100 | −5.2 V | 35 mW | 2 ns |
+| ECL high Speed | 100E100 | −4.5 V | 40 mW | 0.4 ns |
 
-| Grösse | HC-CMOS (5V) |
-|---|---|
-| V_CC | 2–6V (typisch 3.3V oder 5V) |
-| V_OH | ≥ V_CC – 0.1V |
-| V_OL | ≤ 0.1V |
-| V_IH | ≥ 0.7 × V_CC |
-| V_IL | ≤ 0.3 × V_CC |
-| t_pd | 5–20 ns |
+![Marktübersicht der Logikfamilien über die Zeit: Bipolare Familien (TTL) dominierten in der Frühphase, wurden dann durch CMOS-Familien abgelöst und schliesslich durch BiCMOS ergänzt — der Lebenszyklus zeigt Einführung, Akzeptanz, Höhepunkt, Marktabnahme und Auslauf](abbildungen/logikfamilien_marktuebersicht.png)
 
-**Vorteil**: Rail-to-Rail Ausgang, hohe Rauschspanne, niedrige Leistung.  
-**Nachteil**: Empfindlicher gegen statische Entladung (ESD).
-
----
-
-## Vergleich der wichtigsten Familien
-
-| Familie | V_CC | Technologie | Speed | Leistung | Kompatibilität |
-|---|---|---|---|---|---|
-| 74xx (TTL) | 5V | Bipolar NPN | Mittel | Hoch | — |
-| 74LS (Low-power Schottky) | 5V | Schottky-TTL | Mittel | Mittel | TTL-kompatibel |
-| 74HC (High-speed CMOS) | 2–6V | CMOS | Schnell | Sehr niedrig | Nicht TTL-kompatibel* |
-| 74HCT (CMOS, TTL-Pegel) | 5V | CMOS | Schnell | Sehr niedrig | TTL-kompatibel |
-| 74LVC (Low-Voltage CMOS) | 1.65–3.6V | CMOS | Sehr schnell | Niedrig | 5V-tolerant am Eingang |
-| LVDS | 3.3V (diff.) | CMOS | Sehr schnell (GBit/s) | Niedrig | Differenziell |
-
-*74HC mit 5V-Versorgung: V_IH = 3.5V, aber TTL-Ausgang liefert nur 2.4V min. → nicht kompatibel ohne Pull-up oder Level-Shifter.
-
----
-
-## Pegel-Kompatibilität
-
-**Problem**: Wenn verschiedene Logikfamilien oder Spannungen kombiniert werden, müssen die Pegel kompatibel sein.
-
-**3.3V CMOS → 5V TTL/CMOS**:
-- 74LVC-Ausgänge sind oft 5V-tolerant am Eingang
-- 3.3V-Ausgang ≈ 3.3V, TTL benötigt V_IH ≥ 2.0V → kompatibel!
-- CMOS bei 5V benötigt V_IH ≥ 3.5V → nicht kompatibel → Level-Shifter nötig
-
-**5V → 3.3V**:
-- 5V direkt an 3.3V-CMOS-Eingang: Zerstörungsgefahr (überschreitet V_CC + 0.5V)
-- Lösung: Spannungsteiler, Level-Shifter IC (z.B. TXS0108), oder 5V-tolerante CMOS
-
----
-
-## LVDS (Low Voltage Differential Signaling)
-
-Für hohe Geschwindigkeiten (>100 MHz, Gbits/s):
-
-- **Differenziell**: Zwei Leitungen, Signal = Spannungsdifferenz (typisch ±350mV)
-- Sehr geringe Emission (elektromagnetisch): kleine Schwingung, hohe CMRR
-- Abschlusswiderstand: 100Ω zwischen den Leitungen am Empfänger
-
-:::formel
-Sender: D+ = 1.375V, D– = 1.025V → Diff = +350mV → logisch 1
-         D+ = 1.025V, D– = 1.375V → Diff = –350mV → logisch 0
+:::tip
+Die Wahl der richtigen Logikfamilie ist eine Abwägung zwischen technischen Kriterien (Durchlaufzeit, Verlustleistung, Betriebsspannung, **Treiberfähigkeit**, **Schaltpegel**, Störsicherheit) und wirtschaftlichen Kriterien (Preis, Lieferbarkeit, Second Source). Wie sich Schaltpegel und Treiberfähigkeit konkret auswirken — und was beim Zusammenschalten verschiedener Familien zu beachten ist — zeigen die Artikel → [[Schaltpegel & Störabstand]] und → [[Fan-Out & Fan-In]].
 :::
-Anwendungen: HDMI, DisplayPort, MIPI CSI (Kamera), Hochgeschwindigkeits-ADC/DAC-Verbindungen.
-
----
-
-## Fanout
-
-Fanout gibt an, wie viele gleiche Gatter-Eingänge ein Ausgang treiben kann, ohne die Pegel zu verletzen.
-
-:::formel
-Fanout = min(I_OH / I_IH, I_OL / I_IL)
-:::
-| Familie | Typischer Fanout |
-|---|---|
-| TTL | 10 |
-| HC-CMOS | 50+ (statisch, kapazitiv begrenzt) |
-| LS-TTL | 20 |

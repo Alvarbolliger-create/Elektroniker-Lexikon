@@ -1,0 +1,16 @@
+<svg width="100%" viewBox="0 0 210 210" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Widerstand (variabel)</title>
+
+  <!-- Draht links: (20,100)→(60,100) -->
+  <line x1="20" y1="100" x2="60" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Rechteck Widerstand: x=60,y=80, w=80,h=40 — alles auf Grid -->
+  <rect x="60" y="80" width="80" height="40" rx="0" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  <!-- Draht rechts: (140,100)→(180,100) -->
+  <line x1="140" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Pfeil diagonal (variabel): von (70,140) nach (140,60) — auf Grid -->
+  <line x1="70" y1="140" x2="140" y2="60" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Pfeilspitze bei (140,60): Richtung oben-rechts (~45°) -->
+  <!-- Spitze: Hauptpunkt (140,60), zwei Flügel senkrecht zur Linie -->
+  <polyline points="128,62 140,60 138,72" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

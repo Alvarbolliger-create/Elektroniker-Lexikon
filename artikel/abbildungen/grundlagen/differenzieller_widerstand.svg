@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 360" width="520" height="360">
+  <defs>
+    <marker id="achse" markerWidth="9" markerHeight="9" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1e293b"/>
+    </marker>
+    <marker id="pfeil_b" markerWidth="8" markerHeight="8" refX="3" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2563eb"/>
+    </marker>
+  </defs>
+<line x1="70" y1="310" x2="372" y2="310" stroke="#1e293b" stroke-width="1.5" marker-end="url(#achse)"/>
+<text x="382" y="315" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="start">U / V</text>
+<line x1="70" y1="310" x2="70" y2="48" stroke="#1e293b" stroke-width="1.5" marker-end="url(#achse)"/>
+<text x="70" y="36" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="middle">I / A</text>
+<text x="62" y="328" font-size="12" font-family="sans-serif" fill="#1e293b" text-anchor="middle">0</text>
+<polyline points="70.0,310.0 76.0,309.4 82.0,308.8 88.0,308.1 94.0,307.4 100.0,306.6 106.0,305.7 112.0,304.8 118.0,303.7 124.0,302.6 130.0,301.3 136.0,300.0 142.0,298.5 148.0,296.9 154.0,295.2 160.0,293.3 166.0,291.2 172.0,289.0 178.0,286.5 184.0,283.9 190.0,281.0 196.0,277.8 202.0,274.3 208.0,270.6 214.0,266.5 220.0,262.0 226.0,257.1 232.0,251.8 238.0,246.1 244.0,239.8 250.0,232.9 256.0,225.4 262.0,217.3 268.0,208.4 274.0,198.8 280.0,188.2 286.0,176.8 292.0,164.3 298.0,150.7 304.0,135.8 310.0,119.7 316.0,102.1 322.0,82.9 328.0,62.0" fill="none" stroke="#1e293b" stroke-width="2"/>
+<text x="300" y="98" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="start">Kennlinie (Diode)</text>
+<line x1="70" y1="310" x2="322.0" y2="190.7" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,4"/>
+<text x="316.0" y="180.7" font-size="13" font-family="sans-serif" fill="#6b7280" text-anchor="end">R = U/I (Sekante)</text>
+<line x1="200.0" y1="302.6" x2="302.0" y2="162.3" stroke="#dc2626" stroke-width="1.8"/>
+<text x="308.0" y="166.3" font-size="13" font-family="sans-serif" fill="#dc2626" text-anchor="start">r_dif = ΔU/ΔI (Tangente)</text>
+<circle cx="260.0" cy="220.1" r="3.5" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+<text x="260.0" y="244.1" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="middle">AP</text>
+<line x1="260.0" y1="220.1" x2="295.0" y2="220.1" stroke="#2563eb" stroke-width="1.5" marker-end="url(#pfeil_b)"/>
+<text x="281.0" y="238.1" font-size="13" font-family="sans-serif" fill="#2563eb" text-anchor="middle">ΔU</text>
+<line x1="302.0" y1="220.1" x2="302.0" y2="169.3" stroke="#2563eb" stroke-width="1.5" marker-end="url(#pfeil_b)"/>
+<text x="312.0" y="195.2" font-size="13" font-family="sans-serif" fill="#2563eb" text-anchor="start">ΔI</text>
+<line x1="260.0" y1="220.1" x2="302.0" y2="220.1" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+</svg>

@@ -111,6 +111,14 @@ Integrierte Linearregler (z.B. 78xx, LM317) ersetzen die Zener-Schaltung. Sie en
 | LM317 | Einstellbar positiv | 1.25–37 V | 1.5 A |
 | LM337 | Einstellbar negativ | −1.25–−37 V | 1.5 A |
 
+**Dropout-Spannung (Headroom):** Lineare Regler benötigen eine Mindest-Spannungsdifferenz zwischen Eingang und Ausgang, um stabil zu regeln:
+
+:::formel
+U_dropout = U_in - U_out    # Headroom — minimale Differenz für stabile Regelung
+:::
+
+Für den LM317 werden ca. 3 V Headroom empfohlen (V_in − V_out), damit auch bei maximalem Strom und hoher Temperatur noch genug Reserve besteht.
+
 **LM317 Einstellformel** (zwischen Vout und Adj herrschen immer 1.25V):
 
 :::formel

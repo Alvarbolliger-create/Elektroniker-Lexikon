@@ -1,4 +1,4 @@
-﻿---
+---
 title: Zell-Balancing
 kategorie: EK
 kapitel: Akku
@@ -11,16 +11,16 @@ _status: FERTIG
 :::vbox
 **Voraussetzungen**
 - [[Akku Grundlagen]]
-- [[BMS]]
+- [[BMS — Batteriemanagementsystem]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[DC-DC Wandler]]
+- [[DC-DC-Wandler]]
 - [[NTC & PTC Thermistoren]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[DC-DC Wandler]]
+- [[DC-DC-Wandler]]
 :::
 :::
 

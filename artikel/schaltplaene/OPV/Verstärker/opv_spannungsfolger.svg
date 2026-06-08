@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 310" width="380" height="310">
+
+  <defs>
+    <marker id="pfeil" markerWidth="8" markerHeight="8" refX="3" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Rueckkopplung: Ausgang -> "-"-Eingang (direkt, ueber dem OPV gefuehrt, kreuzungsfrei) -->
+  <line x1="250" y1="180" x2="250" y2="85" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="250" y1="85" x2="150" y2="85" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="150" y1="85" x2="150" y2="169" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- OPV: IEC-Symbol · "-" oben (150,169) · "+" unten (150,191) · OUT (226,180) -->
+  <g transform="translate(150,140)">
+    <line x1="0"  y1="29" x2="16" y2="29" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0"  y1="51" x2="16" y2="51" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+    <line x1="60" y1="40" x2="76" y2="40" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+    <rect x="16" y="7" width="44" height="66" fill="none" stroke="#1e293b" stroke-width="2"/>
+    <polygon points="23,14 23,22 31,18" fill="#1e293b"/>
+    <text x="49" y="18" font-size="13" fill="#1e293b" font-family="sans-serif" text-anchor="middle" dominant-baseline="middle">∞</text>
+    <text x="23" y="29" font-size="12" fill="#1e293b" font-family="sans-serif" text-anchor="start" dominant-baseline="middle">−</text>
+    <text x="23" y="51" font-size="12" fill="#dc2626" font-family="sans-serif" text-anchor="start" dominant-baseline="middle">+</text>
+  </g>
+
+  <!-- Ue -> "+"-Eingang (rot, direkt, kreuzungsfrei) -->
+  <circle cx="40" cy="191" r="3" fill="white" stroke="#dc2626" stroke-width="1.5"/>
+  <line x1="40" y1="191" x2="150" y2="191" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Ausgang -->
+  <line x1="226" y1="180" x2="250" y2="180" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="250" cy="180" r="2.5" fill="#1e293b"/>
+  <line x1="250" y1="180" x2="320" y2="180" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="320" cy="180" r="3" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- untere Bezugsschiene mit GND -->
+  <line x1="40" y1="270" x2="320" y2="270" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="40" cy="270" r="3" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+  <circle cx="320" cy="270" r="3" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+  <line x1="180" y1="270" x2="180" y2="278" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="165" y1="278" x2="195" y2="278" stroke="#1e293b" stroke-width="4" stroke-linecap="round"/>
+  <text x="180" y="291" font-size="10" font-family="monospace" fill="#1e293b" text-anchor="middle">GND</text>
+
+  <!-- Ue / Ua Spannungspfeile (blau) -->
+  <line x1="22" y1="195" x2="22" y2="266" stroke="#2563eb" stroke-width="1.5" marker-end="url(#pfeil)"/>
+  <text x="8" y="234" font-size="13" font-family="sans-serif" fill="#2563eb">Ue</text>
+  <line x1="340" y1="184" x2="340" y2="266" stroke="#2563eb" stroke-width="1.5" marker-end="url(#pfeil)"/>
+  <text x="346" y="228" font-size="13" font-family="sans-serif" fill="#2563eb">Ua</text>
+
+</svg>

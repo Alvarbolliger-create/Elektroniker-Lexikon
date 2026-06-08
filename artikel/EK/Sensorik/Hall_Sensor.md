@@ -1,4 +1,4 @@
-﻿---
+---
 title: Hall-Sensor
 kategorie: EK
 kapitel: Sensorik
@@ -20,8 +20,8 @@ _status: FERTIG
 :::
 :::vbox
 **Führt weiter zu**
-- [[BLDC]]
-- [[DC Motor]]
+- [[BLDC-Motor]]
+- [[DC-Motor]]
 - [[Regelkreis Grundlagen]]
 :::
 :::

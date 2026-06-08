@@ -1,127 +1,67 @@
 ---
-title: Multiplexer & Demultiplexer
+title: Multiplexer (MUX)
 kategorie: SH
-tags: [multiplexer, demultiplexer, MUX, DMUX, datenselektion, digitaltechnik, decoder, adressdekodierung, BCD, 7-segment, chip-select]
-symbol: —
-einheit: —
+kapitel: Digitaltechnik
+tags: [multiplexer, mux, datenselektor, steuereingaenge, kaskadierung]
+_status: PORT
 ---
-
-Ein Multiplexer (MUX) wählt aus mehreren Dateneingängen einen aus und leitet ihn auf einen Ausgang. Ein Demultiplexer (DMUX) macht das Umgekehrte: er verteilt einen Eingang auf mehrere Ausgänge.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Logikgatter]]
-- [[Schaltalgebra]]
+- [[Logikgatter (UND, ODER, NICHT, NAND, NOR, EXOR)]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Karnaugh-Veitch-Diagramm (KVD)]]
-- [[Addierer]]
-- [[Digitale Codes]]
+- [[Demultiplexer & Decoder]]
+:::
+:::vbox
+**Führt weiter zu**
+- [[Flipflops (SR, D, JK, T)]]
 :::
 :::
 
 ---
 
-## Multiplexer (MUX)
+Ein **Datenselektor** wählt aus mehreren angebotenen Datensignalen das gewünschte aus und leitet es an einen einzigen Ausgang weiter. Wird diese Auswahl zeitabhängig über digitale Steuersignale getroffen, spricht man von einem **Multiplexer (MUX)** — einem der grundlegendsten "Verbindungsbausteine" der Digitaltechnik, der mehrere Quellen auf eine gemeinsame Leitung "bündelt".
 
-**Funktion**: n Steuerleitungen wählen aus 2ⁿ Dateneingängen genau einen aus.
+## Aufbau und Funktionsprinzip
 
-### 4:1 MUX (2 Steuerleitungen)
+Ein **4-Bit-zu-1-Bit-Datenselektor** besitzt vier Dateneingänge C0…C3, einen Ausgang Y sowie zwei Steuereingänge A und B. Die Steuereingänge bestimmen, welcher der vier Dateneingänge auf den Ausgang durchgeschaltet wird — man kann sich den MUX als **elektronischen Umschalter** vorstellen, dessen Schaltarm durch das Binärwort an den Steuereingängen positioniert wird:
 
-:::schematic
-/Diagramm/multiplexer_0.svg
-:::
-Wahrheitstabelle:
+| ĒN | B | A | Y |
+|---|---|---|---|
+| 1 | X | X | Z (hochohmig) |
+| 0 | 0 | 0 | C0 |
+| 0 | 0 | 1 | C1 |
+| 0 | 1 | 0 | C2 |
+| 0 | 1 | 1 | C3 |
 
-| S1 | S0 | Ausgang Y |
-|---|---|---|
-| 0 | 0 | D0 |
-| 0 | 1 | D1 |
-| 1 | 0 | D2 |
-| 1 | 1 | D3 |
+![4:1-Multiplexer als Blockschaltbild: vier Dateneingänge C0–C3 werden über den zweistelligen Adresseingang A/B (Steuereingang) auf den Ausgang Y durchgeschaltet — je nach Adresswort wird genau einer der vier Dateneingänge zum Ausgang "weitergeleitet"](abbildungen/mux_4zu1_block.png)
 
-**Schaltfunktion**:
-:::formel
-Y = S̄1·S̄0·D0 + S̄1·S0·D1 + S1·S̄0·D2 + S1·S0·D3
-:::
-### Aufbau mit Logikgattern
-
-:::schematic
-/Diagramm/multiplexer_1.svg
-:::
-Jedes AND-Gatter hat zusätzlich den entsprechenden Dateneingang Di.
-
----
-
-## Demultiplexer (DMUX)
-
-**Funktion**: 1 Eingang wird durch n Steuerleitungen auf einen von 2ⁿ Ausgängen geschaltet.
-
-### 1:4 DMUX (2 Steuerleitungen)
-
-:::schematic
-/Diagramm/multiplexer_2.svg
-:::
-| S1 | S0 | Aktiver Ausgang |
-|---|---|---|
-| 0 | 0 | Y0 = D |
-| 0 | 1 | Y1 = D |
-| 1 | 0 | Y2 = D |
-| 1 | 1 | Y3 = D |
-
-Alle nicht ausgewählten Ausgänge = 0.
-
-**Schaltfunktionen**:
-:::formel
-Y0 = D · S̄1 · S̄0
-Y1 = D · S̄1 · S0
-Y2 = D · S1 · S̄0
-Y3 = D · S1 · S0
-:::
----
-
-## Decoder als Sonderfall
-
-Ein **Decoder** ist ein DMUX ohne Dateneingänge (D = 1 immer). Er aktiviert genau einen von 2ⁿ Ausgängen basierend auf dem n-Bit-Adresseingang.
-
-**2:4-Decoder** entspricht einem 1:4 DMUX mit D = 1:
-
-| A1 | A0 | Y3 | Y2 | Y1 | Y0 |
-|---|---|---|---|---|---|
-| 0 | 0 | 0 | 0 | 0 | 1 |
-| 0 | 1 | 0 | 0 | 1 | 0 |
-| 1 | 0 | 0 | 1 | 0 | 0 |
-| 1 | 1 | 1 | 0 | 0 | 0 |
-
-Anwendung: Chip-Select-Generierung, Speicheradressierung.
-
----
-
-## Anwendungen
-
-**MUX**:
-- Mehrere Signale über einen Bus übertragen (Zeit-Multiplex)
-- Beliebige Boolesche Funktion mit einem MUX realisieren (programmierbare Logik)
-- Analoges Multiplexing: Mehrere Messsignale auf einen ADC schalten
-
-**DMUX/Decoder**:
-- Adressdekodierung in Mikroprozessorsystemen
-- Speicherauswahl (welcher RAM-Chip antwortet?)
-- 7-Segment-Ansteuerung (BCD-zu-7-Segment-Decoder)
-
-:::info
-Ein 8:1 MUX kann jede beliebige 3-Variable Boolesche Funktion realisieren: Die 3 Variablen steuern die Selektion, die 8 Dateneingänge werden auf 0 oder 1 gesetzt gemäss der Wahrheitstabelle.
+:::merke
+Intern lässt sich ein 4:1-MUX direkt aus der Wahrheitstabelle als kombinatorische Schaltung aufbauen: Für jeden Dateneingang entsteht ein UND-Term, der das Datensignal nur dann durchlässt, wenn das Adresswort an A und B genau diesen Eingang "trifft" — z. B. y' = ¬A∧¬B∧C0, y'' = A∧¬B∧C1 usw. Ein abschliessendes ODER-Gatter mit Tristate-Ausgang (∇) fasst alle vier Terme zum Ausgang Y zusammen. Über den Freigabeeingang **ĒN** (Enable, active LOW) lässt sich der gesamte Baustein in den hochohmigen Z-Zustand versetzen — wichtig für die → [[Bussysteme (Adress-, Daten-, Steuerbus)|Buskopplung]].
 :::
 
----
+## Multiplexer als IC
 
-## Cascading (Erweiterung)
+Aus der TTL-Serie sind fertige Multiplexer-Bausteine verschiedener Grösse verfügbar:
 
-Zwei 4:1 MUX lassen sich zu einem 8:1 MUX erweitern:
+| Funktion | Typische ICs |
+|---|---|
+| 2-zu-1-Datenselektor | 7498, 74157 |
+| 4-zu-1-Datenselektor | 74153, 74352 |
+| 8-zu-1-Datenselektor | 74251, 74351 |
+| 16-zu-1-Datenselektor | 74850, 74851 |
 
-:::schematic
-/Diagramm/multiplexer_3.svg
+:::tip
+Steht für eine Aufgabe nicht der "passende" Baustein zur Verfügung, lassen sich kleinere Multiplexer **kaskadieren**: Zwei 4:1-MUX und ein zusätzlicher 2:1-MUX ergeben zusammen einen 8:1-Datenselektor — die beiden 4:1-Stufen wählen jeweils aus vier Eingängen vor, der nachgeschaltete 2:1-MUX entscheidet anhand des höchstwertigen Adressbits, welche der beiden Vorauswahlen am Ausgang erscheint. Auf diese Weise lässt sich praktisch jede gewünschte Eingangsbreite aus Standardbausteinen zusammensetzen.
 :::
-S2 wählt zwischen den beiden 4:1-Blöcken.
+
+## Multiplexer als universeller Funktionsbaustein
+
+Ein Multiplexer kann weit mehr als nur Daten "durchschalten": Da jeder Dateneingang fest auf 0 oder 1 gelegt werden kann, lässt sich **jede beliebige Wahrheitstabelle** direkt mit einem MUX realisieren — die Eingangsvariablen der Funktion werden einfach an die Steuereingänge gelegt, und an den Dateneingängen liegen die in der Wahrheitstabelle vorgegebenen Funktionswerte (0, 1 oder eine weitere Variable) an. Damit wird der MUX zu einer Art "programmierbarem" Logikbaustein, der ohne ein einziges zusätzliches Gatter komplexe Verknüpfungen abbilden kann.
+
+Auch **analoge Signale** lassen sich mit speziellen Multiplexer-ICs (z. B. dem analogen 8-Kanal-Multiplexer/Demultiplexer 74HC4051 oder dem Schalter-IC DG408) digital ansteuern und auswählen — ein wichtiges Bindeglied zwischen analoger Sensorik und digitaler Verarbeitung, etwa beim sequenziellen Abtasten mehrerer Sensoreingänge durch einen einzigen → [[Wandler|AD-Wandler]].
+
+Bei → [[Schieberegister|seriellen Datenübertragungen]] dient der Multiplexer ausserdem dazu, parallel anliegende Datenbits (S0…S7) takt­gesteuert nacheinander auf eine einzige serielle Leitung zu legen — die Umkehrung dieser Operation übernimmt der → [[Demultiplexer & Decoder|Demultiplexer]].

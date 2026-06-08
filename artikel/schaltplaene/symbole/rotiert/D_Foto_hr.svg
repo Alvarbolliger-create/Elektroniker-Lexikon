@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 210" width="210" height="210">
+  <g transform="translate(210, 210) rotate(180)">
+
+  <title>Foto-Diode</title>
+
+  <!-- Draht links: Anschluss (20,100) -->
+  <line x1="20" y1="100" x2="80" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Dreieck -->
+  <line x1="80" y1="80" x2="80" y2="120" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="80" y1="80" x2="120" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="80" y1="120" x2="120" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Kathode -->
+  <line x1="120" y1="80" x2="120" y2="120" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Draht rechts: Anschluss (180,100) -->
+  <line x1="120" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!--
+    Foto-Pfeile: oben, zeigen nach unten-rechts (45°) ins Bauteil
+    d=(1,1), dn=(0.707,0.707), perp=(−0.707,0.707)
+    Pfeil 1: Start=(65,55) → Spitze=(85,75)
+      Fl1=(85−4.95−2.83, 75−4.95+2.83)=(77.2,72.9)≈(77,73)
+      Fl2=(85−4.95+2.83, 75−4.95−2.83)=(82.9,67.2)≈(83,67)
+    Pfeil 2: +20px X → Start=(85,55) → Spitze=(105,75)
+      Fl1=(97,73), Fl2=(103,67)
+  -->
+  <!-- Pfeil 1 -->
+  <line x1="65" y1="55" x2="85" y2="75" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <polyline points="77,73 85,75 83,67" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Pfeil 2: +20px X -->
+  <line x1="85" y1="55" x2="105" y2="75" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <polyline points="97,73 105,75 103,67" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

@@ -1,4 +1,4 @@
-﻿---
+---
 title: Schrittmotor
 kategorie: EK
 kapitel: Motoren
@@ -10,14 +10,14 @@ _status: FERTIG
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[DC Motor]]
+- [[DC-Motor]]
 - [[H-Brücke]]
 - [[Aktorik Grundlagen]]
 :::
 :::vbox
 **Verwandte Artikel**
 - [[Servomotor]]
-- [[BLDC]]
+- [[BLDC-Motor]]
 :::
 :::vbox
 **Führt weiter zu**

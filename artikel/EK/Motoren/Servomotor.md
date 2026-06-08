@@ -1,4 +1,4 @@
-﻿---
+---
 title: Servomotor
 kategorie: EK
 kapitel: Motoren
@@ -11,13 +11,13 @@ _status: FERTIG
 :::vbox
 **Voraussetzungen**
 - [[Schrittmotor]]
-- [[BLDC]]
-- [[PID Regler]]
+- [[BLDC-Motor]]
+- [[PID-Regler]]
 :::
 :::vbox
 **Verwandte Artikel**
 - [[Schrittmotor]]
-- [[BLDC]]
+- [[BLDC-Motor]]
 - [[Frequenzumrichter]]
 :::
 :::vbox

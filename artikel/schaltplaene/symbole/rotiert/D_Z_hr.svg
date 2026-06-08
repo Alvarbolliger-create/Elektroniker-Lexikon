@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 210" width="210" height="210">
+  <g transform="translate(210, 210) rotate(180)">
+
+  <title>Zener-Diode</title>
+
+  <!-- Draht links -->
+  <line x1="20" y1="100" x2="80" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Dreieck aus 3 Linien -->
+  <line x1="80" y1="80" x2="80" y2="120" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="80" y1="80" x2="120" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="80" y1="120" x2="120" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Zener-Kathode: senkrecht + EIN Haken oben nach links -->
+  <!-- Senkrecht: x=120, y=80→120 -->
+  <line x1="120" y1="80" x2="120" y2="120" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Haken oben: (120,80)→(110,70) -->
+  <line x1="120" y1="80" x2="110" y2="70" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Draht rechts -->
+  <line x1="120" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+</svg>

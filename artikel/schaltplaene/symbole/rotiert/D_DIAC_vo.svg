@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 210" width="210" height="210">
+  <g transform="translate(210, 0) rotate(90)">
+
+  <title>DIAC</title>
+
+  <!-- h.1: (20,100)→(80,100) -->
+  <line x1="20" y1="100" x2="80" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- v.1: x=80, y=70→130 -->
+  <line x1="80" y1="70" x2="80" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- v.2: x=95, y=70→130 -->
+  <line x1="95" y1="70" x2="95" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- v.3: x=110, y=70→130 -->
+  <line x1="110" y1="70" x2="110" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- D.1: Basis (80,100)→(80,130), Spitze (110,115) -->
+  <line x1="80" y1="100" x2="110" y2="115" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="80" y1="130" x2="110" y2="115" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- D.2: Basis (110,70)→(110,100), Spitze (80,85) -->
+  <line x1="110" y1="70" x2="80" y2="85" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="110" y1="100" x2="80" y2="85" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- h.2: (110,100)→(180,100) -->
+  <line x1="110" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+</svg>

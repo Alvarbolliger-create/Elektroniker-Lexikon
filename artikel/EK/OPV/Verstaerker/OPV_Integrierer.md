@@ -1,4 +1,4 @@
-﻿---
+---
 title: OPV Integrierer
 kategorie: EK
 kapitel: OPV
@@ -10,7 +10,7 @@ _status: FERTIG
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[OPV Invertierend]]
+- [[OPV Invertierender Verstärker]]
 - [[Tiefpass]]
 :::
 :::vbox
@@ -41,15 +41,6 @@ Wie der invertierende Verstärker — aber statt R_R liegt ein **Kondensator C**
 :::formel
 U_A = -(1 / (R * C)) * integral(U_E * dt)    # kontinuierlich
 U_A = -(Delta_t / (R * C)) * U_E             # diskret (bei konstantem U_E)
-:::
-
-Umgestellt:
-
-:::formel
-U_E  = -U_A * R * C / Delta_t     # Eingangsspannung
-Delta_t = -U_A * R * C / U_E      # Integrationszeit
-R    = -U_E * Delta_t / (U_A * C) # Widerstand
-C    = -U_E * Delta_t / (U_A * R) # Kondensator
 :::
 
 ## Berechnungsbeispiel

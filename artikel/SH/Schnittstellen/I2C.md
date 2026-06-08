@@ -1,69 +1,64 @@
 ---
 title: I2C
 kategorie: SH
-tags: [I2C, seriell, schnittstelle, SDA, SCL, adresse, bus, open-drain, pull-up, ACK, start-condition, 7-bit, EEPROM, sensor]
-symbol: —
-einheit: —
+kapitel: Schnittstellen
+tags: [i2c, inter-integrated circuit, sda, scl, master slave, adressierung]
+_status: PORT
 ---
-
-I2C (Inter-Integrated Circuit) verbindet viele Geräte mit nur zwei Leitungen. Jeder Teilnehmer hat eine Adresse. Typisch für Sensoren, EEPROMs und Displays auf kurzen Strecken.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[UART]]
+- [[Serielle Datenübertragung (Grundlagen)]]
 :::
 :::vbox
 **Verwandte Artikel**
 - [[SPI]]
-- [[UART]]
-:::
-:::vbox
-**Führt weiter zu**
-- [[Embedded Software]]
 :::
 :::
 
 ---
 
-## Leitungen
+→ [[SPI|SPI]] erkauft sich seine hohe Geschwindigkeit mit Verdrahtungsaufwand: vier gemeinsame Leitungen plus eine eigene Chip-Select-Leitung pro Slave. Was aber, wenn ein gutes Dutzend Sensoren, Displays und Speicherbausteine an einem einzigen Mikrocontroller hängen sollen — und kaum noch freie Pins übrig sind? Genau für diese Situation wurde **I2C** (Inter-Integrated Circuit) entwickelt: eine Schnittstelle, die mit nur **zwei** Leitungen auskommt und dabei dutzende Teilnehmer gleichzeitig verwalten kann.
 
-Nur zwei: SDA (Daten) und SCL (Takt). Beide sind bidirektional und benötigen Pull-up-Widerstände nach VCC.
+## Nur zwei Leitungen für den ganzen Bus
 
-Alle Geräte hängen parallel am selben Bus. Adressierung unterscheidet sie.
+:::merke
+I2C kommt mit nur zwei Leitungen aus: **SDA** (Serial Data, die eigentlichen Nutzdaten) und **SCL** (Serial Clock, der gemeinsame Takt). Beide Leitungen sind **bidirektional** und elektrisch als **Open-Drain** ausgeführt — das bedeutet, jeder angeschlossene Baustein kann die Leitung aktiv auf LOW ziehen, sie aber nicht aktiv auf HIGH treiben. Damit die Leitung im Ruhezustand trotzdem zuverlässig auf HIGH liegt, sind an beiden Leitungen **Pull-up-Widerstände** nach VCC zwingend erforderlich — typisch 4,7 kΩ bei 100 kHz oder 2,2 kΩ bei 400 kHz. Ohne diese Pull-ups funktioniert I2C grundsätzlich nicht!
 
-## Adressierung
-
-Jeder Slave hat eine 7-Bit-Adresse (0x00 bis 0x7F). Der Master schickt die Adresse zu Beginn jeder Transaktion. Nur der angesprochene Slave antwortet.
-
-Manche Adressen sind reserviert. Einige ICs erlauben die Adresse per Pin zu konfigurieren, sodass mehrere gleiche ICs am Bus hängen können.
-
-## Übertragungsablauf
-
-1. Start-Condition (SDA fällt während SCL HIGH)
-2. 7-Bit Adresse + R/W-Bit
-3. ACK vom Slave
-4. Datenbytes, je mit ACK
-5. Stop-Condition
-
-:::waveform
-labels: Idle,Start,A3,,A2,,A1,,A0,,ACK,,Stop
-SCL: 1,1,0,1,0,1,0,1,0,1,0,1,1
-SDA: 1,0,1,1,0,0,1,1,0,0,0,0,1
+Alle Teilnehmer — ob Sensor, Display oder Speicherbaustein — hängen elektrisch **parallel** an denselben zwei Leitungen. Was sie unterscheidet, ist nicht die Verdrahtung, sondern eine eindeutige **Adresse**.
 :::
 
-## Geschwindigkeit
+## Adressierung: wie der Master den richtigen Teilnehmer findet
 
-Standard: 100 kBit/s. Fast: 400 kBit/s. Fast-Plus: 1 MBit/s. High-Speed: 3.4 MBit/s (selten).
+:::tip
+Jeder Slave besitzt eine eindeutige **7-Bit-Adresse** (Wertebereich 0x00 bis 0x7F, also bis zu 127 mögliche Adressen). Der Master schickt diese Adresse zu Beginn jeder Transaktion auf den Bus — und nur der angesprochene Slave antwortet, alle anderen bleiben "stumm". Manche Adressbereiche sind für Sonderzwecke reserviert; viele ICs erlauben zudem, die eigene Adresse über zusätzliche Adress-Pins frei zu konfigurieren — so können sogar mehrere baugleiche Bausteine gleichzeitig am selben Bus betrieben werden, ohne sich gegenseitig zu stören.
+:::
 
-Viel langsamer als SPI, aber dafür nur zwei Leitungen und viele Teilnehmer möglich.
+## Der Übertragungsablauf: Schritt für Schritt
 
-## Pull-up-Widerstände
+Eine vollständige I2C-Transaktion folgt einem festen Muster, das stark an das im Artikel → [[Serielle Datenübertragung (Grundlagen)|Grundlagen der seriellen Datenübertragung]] beschriebene Schema mit Steuerzeichen und Bestätigung erinnert:
 
-Ohne Pull-ups funktioniert I2C nicht. Typisch 4.7 kΩ bei 100 kHz, 2.2 kΩ bei 400 kHz.
+1. **Start-Condition**: SDA fällt von HIGH auf LOW, während SCL noch HIGH ist — das Signal für "jetzt beginnt eine Übertragung"
+2. **7-Bit-Adresse + R/W-Bit**: Welcher Slave wird angesprochen, und soll gelesen oder geschrieben werden?
+3. **ACK** (Acknowledge) vom angesprochenen Slave — die Bestätigung "ich bin da und habe verstanden"
+4. **Datenbytes**, jeweils mit eigenem ACK quittiert
+5. **Stop-Condition**: Die Übertragung wird sauber beendet
 
-Zu grosse Widerstände: Flanken werden langsam, bei hohen Frequenzen versagt die Kommunikation. Zu kleine: höherer Strom, aber schnellere Flanken.
+## Geschwindigkeit: bewusst langsamer, dafür schlanker
+
+:::info
+I2C kennt mehrere genormte Geschwindigkeitsstufen: **Standard Mode** mit 100 kBit/s, **Fast Mode** mit 400 kBit/s, **Fast-Plus** mit 1 MBit/s und — eher selten anzutreffen — **High-Speed Mode** mit bis zu 3,4 MBit/s. Das ist deutlich langsamer als SPI — ein bewusster Kompromiss: I2C tauscht Geschwindigkeit gegen die Möglichkeit, mit nur zwei Leitungen sehr viele Teilnehmer gleichzeitig zu verwalten und sauber zu adressieren.
+:::
+
+## Stolperstein Pull-up-Dimensionierung und Adresskonflikte
 
 :::warning
-Adresskonflikte erkennen: Wenn zwei Slaves dieselbe Adresse haben, kollisionieren beide Antworten auf dem Bus. Die Kommunikation schlägt fehl. Adressen aller Busteilnehmer immer prüfen.
+Die Wahl der Pull-up-Widerstände ist ein Balanceakt: **Zu grosse** Widerstände lassen die Signalflanken so langsam ansteigen, dass die Kommunikation bei hohen Taktfrequenzen schlicht versagt; **zu kleine** Widerstände führen zu unnötig hohem Stromverbrauch (wenn auch zu saubereren, schnelleren Flanken).
+
+Eine zweite, oft unterschätzte Fehlerquelle sind **Adresskonflikte**: Besitzen zwei Slaves dieselbe 7-Bit-Adresse, antworten beide gleichzeitig auf eine Anfrage — ihre Signale kollidieren auf dem Bus, und die Kommunikation schlägt komplett fehl. Vor der Inbetriebnahme eines I2C-Systems lohnt es sich deshalb immer, die Adressen sämtlicher Busteilnehmer sorgfältig zu prüfen — insbesondere, wenn mehrere baugleiche Module zum Einsatz kommen.
 :::
+
+## Das grosse Bild: drei Schnittstellen, drei Philosophien
+
+Mit UART, SPI und I2C haben wir nun drei grundverschiedene Lösungsansätze für serielle Kommunikation kennengelernt: UART als denkbar einfachste Punkt-zu-Punkt-Verbindung, SPI als Geschwindigkeits-Champion mit grossem Verdrahtungsaufwand, und I2C als sparsamste Lösung für viele Teilnehmer an wenigen Leitungen. Welche Schnittstelle die richtige ist, hängt immer von der konkreten Anwendung ab — von der benötigten Geschwindigkeit, der Anzahl Teilnehmer und der verfügbaren Anzahl Pins. Wie sich diese Mikrocontroller-internen Schnittstellen zu den klassischen, oft über grössere Distanzen reichenden Industrie-Standards wie → [[RS232 & RS485|RS232 und RS485]] verhalten, zeigt der nächste Abschnitt des Kapitels.

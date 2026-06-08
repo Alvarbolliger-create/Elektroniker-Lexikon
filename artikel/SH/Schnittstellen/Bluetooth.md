@@ -1,54 +1,64 @@
 ---
 title: Bluetooth
 kategorie: SH
-tags: [bluetooth, BLE, classic, GATT, GAP, profile, 2.4 GHz, nRF52840, advertising, beacon, A2DP, SPP]
-symbol: —
-einheit: —
+kapitel: Schnittstellen
+tags: [bluetooth, funktechnik, pairing, profile, bluetooth low energy]
+_status: PORT
 ---
-
-Bluetooth ist ein Kurzstrecken-Funkstandard bei 2.4 GHz. Bluetooth Classic für Audio, BLE (Bluetooth Low Energy) für batteriebetriebene Sensoren und IoT.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Signale]]
-- [[Mikrocontroller]]
-:::
-:::vbox
-**Verwandte Artikel**
-- [[LoRaWAN]]
-- [[TCP/IP und MQTT]]
+- [[Serielle Datenübertragung (Grundlagen)]]
 :::
 :::
 
 ---
 
-## Classic vs. BLE
+Alle bisher behandelten Schnittstellen — UART, SPI, I2C, RS232/485, CAN-Bus — haben eines gemeinsam: Sie übertragen ihre Daten über **Kabel**. Doch immer mehr Geräte sollen sich kabellos verbinden — Kopfhörer, Tastaturen, Fitness-Tracker, Sensoren. Eine der bekanntesten und am weitesten verbreiteten Funktechnologien für genau diesen Nahbereich ist **Bluetooth**.
 
-**Bluetooth Classic**: Für kontinuierliche Datenübertragung. Audio-Profile (A2DP), Seriell (SPP), Headset. Höherer Strombedarf.
+## Zwei Welten unter demselben Namen
 
-**BLE (Bluetooth Low Energy)**: Für sporadische kleine Datenpakete. Sensoren, Beacons, Wearables. Jahrelanger Batteriebetrieb möglich. Nicht kompatibel mit Classic für Audioprofile.
+:::merke
+Hinter dem Namen "Bluetooth" verbergen sich heute eigentlich **zwei unterschiedliche Technologien**:
 
-## BLE Architektur
+- **Bluetooth Classic**: für Anwendungen mit kontinuierlichem, eher hohem Datendurchsatz — etwa Audio-Streaming zu Kopfhörern oder Lautsprechern. Reichweite etwa 10 m.
+- **Bluetooth Low Energy (BLE)**: speziell für batteriebetriebene Geräte entwickelt, die nur gelegentlich kleine Datenmengen übertragen — etwa Sensoren, Fitness-Tracker oder Smart-Home-Geräte. Der Name ist Programm: extrem **niedriger Energieverbrauch**, dafür geringerer Datendurchsatz. Reichweite ähnlich, bei manchen Anwendungen bis etwa 100 m, mit Bluetooth 5 sogar deutlich mehr.
 
-**GAP (Generic Access Profile)**: Definiert Rollen und Verbindungsaufbau.
-- **Peripheral**: Sendet Advertising-Pakete, wartet auf Verbindung (Sensor, Wearable)
-- **Central**: Scannt und verbindet sich (Smartphone, Gateway)
+Für die allermeisten modernen IoT- und Mikrocontroller-Projekte ist heute BLE die relevantere der beiden Varianten — kein Wunder, dass praktisch jeder aktuelle Smartphone- und Mikrocontroller-Chip BLE-fähig ist.
+:::
 
-**GATT (Generic Attribute Profile)**: Definiert wie Daten organisiert sind.
-- **Service**: Gruppe von zusammengehörigen Charakteristiken (z.B. "Heart Rate Service")
-- **Characteristic**: Einzelner Datenpunkt mit Wert, Beschreibung und Eigenschaften (Read/Write/Notify)
+## Die Architektur von BLE: GAP und GATT
 
-## Advertising
+:::tip
+Die Funktionsweise von BLE lässt sich anhand zweier zentraler Konzepte verstehen:
 
-Ein BLE-Gerät im Advertising-Modus sendet alle paar Millisekunden ein kleines Paket (31 Byte). Darin können Gerätename, UUID und kleine Datenpakete enthalten sein. Beacons funktionieren oft nur im Advertising-Modus ohne Verbindung.
+- **GAP (Generic Access Profile)** regelt, *wie* sich Geräte überhaupt finden und verbinden. Ein Gerät kann dabei als **Peripheral** (sendet "Advertising"-Pakete, in denen es seine Anwesenheit bekannt gibt — etwa ein Sensor) oder als **Central** (durchsucht aktiv die Umgebung nach solchen Advertising-Paketen — etwa ein Smartphone) auftreten.
+- **GATT (Generic Attribute Profile)** regelt, *wie* nach erfolgter Verbindung Daten ausgetauscht werden. Die Daten werden dabei in **Services** (thematische Gruppen, z. B. "Herzfrequenz-Service") und darin enthaltene **Characteristics** (einzelne Datenwerte, z. B. der aktuelle Herzfrequenz-Messwert) organisiert — ein bisschen wie ein strukturiertes Inhaltsverzeichnis, durch das sich ein Central-Gerät "durchblättern" kann.
 
-## Module
+Dieses **Advertising** ist der erste Schritt jeder BLE-Verbindung: Ein Peripheral sendet in regelmässigen Abständen kleine Pakete aus, die seinen Namen, seine Fähigkeiten (Services) und weitere Kennungen enthalten — sichtbar für jedes in der Nähe lauschende Central-Gerät.
+:::
 
-- **HC-05/HC-06**: Günstige Classic-Module, serieller Durchschleifer
-- **HM-10**: BLE-Modul, einfache AT-Befehle
-- **nRF52840**: Leistungsfähiger SoC mit ARM + BLE, Zigbee, USB
+## Pairing: zwei Geräte lernen sich kennen
 
-## Reichweite
+Bevor zwei Geräte regelmässig und sicher miteinander kommunizieren können, müssen sie sich **koppeln (pairen)**. Dabei tauschen sie Sicherheitsschlüssel aus, mit denen die nachfolgende Kommunikation verschlüsselt werden kann — wichtig etwa bei sensiblen Daten wie Gesundheitswerten oder Zugangscodes. Einmal gekoppelt, "erinnern" sich die Geräte in der Regel aneinander und verbinden sich bei künftigen Begegnungen automatisch wieder.
 
-Im Freien 10-100 m je nach Sendeleistung. In Gebäuden weniger. BLE Long Range (Coded PHY) bis zu 300 m.
+## Verbreitete Module für eigene Projekte
+
+:::info
+Für eigene Mikrocontroller-Projekte gibt es zahlreiche fertige Bluetooth-Module, die sich unkompliziert über → [[UART|UART]] oder direkt über eine integrierte Funkschnittstelle ansteuern lassen:
+
+| Modul | Variante | Bemerkung |
+|---|---|---|
+| HC-05 / HC-06 | Bluetooth Classic | Klassiker für UART-Funkbrücken, sehr verbreitet und günstig |
+| HM-10 | BLE | Einfache BLE-Anbindung über AT-Befehle |
+| nRF52840 | BLE (System-on-Chip) | Leistungsfähiger BLE-Chip mit eigenem ARM-Cortex-Kern, oft direkt als Mikrocontroller einsetzbar |
+
+Solche Module übersetzen die komplexe Funkkommunikation nach aussen oft auf eine simple serielle UART-Schnittstelle — ein Mikrocontroller "sieht" dann nur ein gewohntes serielles Interface, während das Modul im Hintergrund die gesamte Funktechnik abwickelt.
+:::
+
+## Grenzen von Bluetooth
+
+:::warning
+So praktisch Bluetooth auch ist — es hat klare Grenzen: Die Reichweite bleibt auf den **Nahbereich** beschränkt (typischerweise 10 bis 100 m, in Innenräumen oft deutlich weniger durch Wände und Störungen), und die Anzahl gleichzeitig verbundener Geräte ist begrenzt. Für Anwendungen, die grössere Reichweiten überbrücken müssen — etwa Sensoren, die über ein ganzes Stadtgebiet oder eine grosse Industrieanlage verteilt sind — braucht es andere Funktechnologien. Eine davon, die speziell für solche Langstrecken-Anwendungen mit geringem Datenaufkommen entwickelt wurde, lernen wir im nächsten Artikel kennen: → [[LoRaWAN|LoRaWAN]].
+:::

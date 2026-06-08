@@ -1,4 +1,4 @@
-﻿---
+---
 title: MOSFET Anwendungen
 kategorie: EK
 kapitel: Transistoren
@@ -16,12 +16,12 @@ _status: FERTIG
 **Verwandte Artikel**
 - [[IGBT]]
 - [[H-Brücke]]
-- [[DC-DC Wandler Grundlagen]]
+- [[DC-DC-Wandler]]
 :::
 :::vbox
 **Führt weiter zu**
 - [[H-Brücke]]
-- [[DC-DC Wandler Grundlagen]]
+- [[DC-DC-Wandler]]
 :::
 :::
 

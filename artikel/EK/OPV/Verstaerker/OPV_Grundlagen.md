@@ -1,4 +1,4 @@
-﻿---
+---
 title: OPV Grundlagen
 kategorie: EK
 kapitel: OPV
@@ -16,12 +16,12 @@ _status: FERTIG
 :::vbox
 **Verwandte Artikel**
 - [[Komparator]]
-- [[Schmitt-Trigger]]
+- [[Schmitt-Trigger Grundlagen]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[OPV Invertierend]]
-- [[OPV Nichtinvertierend]]
+- [[OPV Invertierender Verstärker]]
+- [[OPV Nichtinvertierender Verstärker]]
 - [[OPV Spannungsfolger]]
 :::
 :::

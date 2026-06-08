@@ -1,4 +1,4 @@
-﻿---
+---
 title: Schottky-Diode
 kategorie: EK
 kapitel: Halbleiter
@@ -15,11 +15,11 @@ _status: FERTIG
 :::vbox
 **Verwandte Artikel**
 - [[Diode]]
-- [[DC-DC Wandler Grundlagen]]
+- [[DC-DC-Wandler]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[DC-DC Wandler Grundlagen]]
+- [[DC-DC-Wandler]]
 - [[Schaltregler Topologien]]
 :::
 :::

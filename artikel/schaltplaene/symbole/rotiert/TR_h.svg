@@ -1,0 +1,26 @@
+<svg width="100%" viewBox="0 0 290 210" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Transformator</title>
+  <rect width="280" height="200" fill="none"/>
+  <rect width="280" height="200" fill="url(#g)"/>
+
+  <!-- Draht links oben: (20,60)→(100,60) -->
+  <line x1="20" y1="60" x2="100" y2="60" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Draht links unten: (20,140)→(100,140) -->
+  <line x1="20" y1="140" x2="100" y2="140" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Linke Spule: x=100, sweep=1 → öffnet nach links (aussen) -->
+  <path d="M 100,60&#10;           A 10,10 0 0,1 100,80&#10;           A 10,10 0 0,1 100,100&#10;           A 10,10 0 0,1 100,120&#10;           A 10,10 0 0,1 100,140" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Kern Linie 1: x=120, Abstand r=10 von Spule -->
+  <line x1="120" y1="55" x2="120" y2="145" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Kern Linie 2: x=130, Abstand r=10 von Linie 1 -->
+  <line x1="130" y1="55" x2="130" y2="145" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Rechte Spule: x=150, Abstand r=10 von Kern Linie 2 + r=10 -->
+  <path d="M 150,60&#10;           A 10,10 0 0,0 150,80&#10;           A 10,10 0 0,0 150,100&#10;           A 10,10 0 0,0 150,120&#10;           A 10,10 0 0,0 150,140" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Draht rechts oben: (150,60)→(260,60) -->
+  <line x1="150" y1="60" x2="260" y2="60" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Draht rechts unten: (150,140)→(260,140) -->
+  <line x1="150" y1="140" x2="260" y2="140" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

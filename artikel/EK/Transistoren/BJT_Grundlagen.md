@@ -1,4 +1,4 @@
-﻿---
+---
 title: BJT Grundlagen
 kategorie: EK
 kapitel: Transistoren
@@ -22,7 +22,7 @@ _status: FERTIG
 **Führt weiter zu**
 - [[BJT Emitterschaltung]]
 - [[BJT Arbeitspunkt]]
-- [[BJT Kollektorschaltung]]
+- [[BJT Kollektorschaltung (Emitterfolger)]]
 :::
 :::
 

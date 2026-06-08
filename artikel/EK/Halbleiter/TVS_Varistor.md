@@ -1,4 +1,4 @@
-﻿---
+---
 title: TVS-Diode & Varistor
 kategorie: EK
 kapitel: Halbleiter
@@ -18,7 +18,7 @@ _status: FERTIG
 :::
 :::vbox
 **Führt weiter zu**
-- [[EMV Grundlagen]]
+- [[EMV-Grundlagen]]
 :::
 :::
 

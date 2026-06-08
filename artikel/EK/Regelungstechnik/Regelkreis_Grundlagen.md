@@ -1,4 +1,4 @@
-﻿---
+---
 title: Regelkreis Grundlagen
 kategorie: EK
 kapitel: Regelungstechnik
@@ -10,8 +10,8 @@ _status: FERTIG
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[OPV Subtrahierend]]
-- [[OPV Summierend]]
+- [[OPV Subtrahierender Verstärker]]
+- [[OPV Summierender Verstärker]]
 :::
 :::vbox
 **Verwandte Artikel**
@@ -93,7 +93,7 @@ Beispiel Thermostat: Sollwert 20 °C
   Hysterese = 21 − 18 = 3 °C
 :::
 
-Elektronische Realisierung: Schmitt-Trigger → [[Schmitt-Trigger]]
+Elektronische Realisierung: Schmitt-Trigger → [[Schmitt-Trigger Grundlagen]]
 
 ## Dreipunktregler
 

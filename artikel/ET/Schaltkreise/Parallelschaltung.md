@@ -26,8 +26,8 @@ _status: PORT  # ET_alt/Schaltkreise/Parallelschaltung.md
 
 Bei der Parallelschaltung liegen alle Widerstände an derselben Spannung. Der Gesamtstrom teilt sich auf die Zweige auf — je kleiner der Widerstand eines Zweigs, desto grösser sein Anteil am Strom.
 
-:::schematic
-/schaltplaene/schaltkreise/parallelschaltung.svg
+:::schematic R-Parallelschaltung
+/schaltplaene/Filter/r_parallel.svg
 :::
 
 ## Spannung

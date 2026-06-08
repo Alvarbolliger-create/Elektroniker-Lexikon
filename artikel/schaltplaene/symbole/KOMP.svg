@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 76 80" width="76" height="80">
+  <!-- pins: +(0,29)  −(0,51)  OUT(76,40) -->
+
+  <!-- Eingang + (nichtinvertierend) -->
+  <line x1="0"  y1="29" x2="16" y2="29" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Eingang − (invertierend) -->
+  <line x1="0"  y1="51" x2="16" y2="51" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Ausgang -->
+  <line x1="60" y1="40" x2="76" y2="40" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Körper (44 breit × 66 hoch → Verhältnis 1:1.5) -->
+  <rect x="16" y="7" width="44" height="66" fill="none" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Pin-Beschriftung -->
+  <text x="23" y="29" font-size="12" fill="#1e293b" font-family="sans-serif" text-anchor="start" dominant-baseline="middle">+</text>
+  <text x="23" y="51" font-size="12" fill="#1e293b" font-family="sans-serif" text-anchor="start" dominant-baseline="middle">−</text>
+</svg>

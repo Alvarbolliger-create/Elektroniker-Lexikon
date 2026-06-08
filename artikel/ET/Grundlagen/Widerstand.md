@@ -1,7 +1,7 @@
 ---
 title: Widerstand (Bauformen, Farbcode, E-Reihen)
 kategorie: ET
-tags: [widerstand, bauteil, farbcode, smd, e-reihen, tht, potentiometer, leistung, derating, bauform]
+tags: [widerstand, bauteil, farbcode, smd, e-reihen, tht, potentiometer, leistung, derating, bauform, toleranz, worst-case, grenzwertbetrachtung, widerstandsnetzwerk, resistor array, dip, sip]
 groessen: R|Widerstand|Ohm; P|Verlustleistung|W; T|Betriebstemperatur|°C
 _status: PORT  # ET_alt/Bauelemente/Widerstand.md
 ---
@@ -79,6 +79,18 @@ Die Wicklung macht den Drahtwiderstand **induktiv** — bei höheren Frequenzen 
 
 Auf einem Aluminiumoxid-Substrat (Al₂O₃) wird eine Widerstandspaste aufgedruckt und eingebrannt. Die Metallisierungs-Kappen an den Stirnseiten dienen als Lötflächen. Die Genauigkeit wird — wie beim THT — durch einen Lasereinschnitt in die Dickschicht eingestellt. Dünnschicht-SMD-Widerstände (±0,1 %) verwenden statt Druckpaste eine aufgedampfte Metallschicht.
 
+### Widerstands-Netzwerk (Resistor-Array)
+
+:::schematic
+/abbildungen/grundlagen/widerstand_netzwerk_aufbau.svg
+:::
+
+Mehrere Widerstände werden in einem gemeinsamen Gehäuse (meist DIP- oder SIP-Bauform mit 6–10 Anschlussbeinchen) zusammengefasst — intern auf einem einzigen Keramiksubstrat als Dickschicht aufgebracht. Typische Schaltungen: isolierte Einzelwiderstände, gemeinsamer Bezugspunkt (Bus-Anordnung) oder Spannungsteiler-Ketten.
+
+:::tip
+Widerstands-Netzwerke sparen Platz und Bestückungsaufwand, wenn viele gleiche Werte gebraucht werden — etwa als Pull-up-/Pull-down-Arrays an parallelen Bus-Leitungen (z. B. Daten- oder Adressbus eines Mikrocontrollers).
+:::
+
 ## Farbcode (THT)
 
 4-Ring-Farbcode für Standard-Widerstände:
@@ -126,6 +138,15 @@ Widerstände werden nicht in beliebigen Werten produziert, sondern in normierten
 
 **E12-Reihe (12 Werte):** 1,0 — 1,2 — 1,5 — 1,8 — 2,2 — 2,7 — 3,3 — 3,9 — 4,7 — 5,6 — 6,8 — 8,2 (dann × 10 weiter)
 
+:::tip
+**Toleranzen in Berechnungen:** Soll der Wertebereich einer Grösse berechnet werden, die aus mehreren toleranzbehafteten Bauteilen multiplikativ zusammengesetzt ist (z. B. tau = R · C), müssen die Extremwerte **kombiniert, nicht gemischt** werden:
+
+- Minimalwert: kleinste Faktoren miteinander multiplizieren (R_min · C_min)
+- Maximalwert: grösste Faktoren miteinander multiplizieren (R_max · C_max)
+
+Ein Mischen wie R_min · C_max würde keinen real existierenden Bauteilkombination entsprechen und das Ergebnis verfälschen.
+:::
+
 ## Verlustleistung & Derating
 
 Jeder Widerstand hat eine maximale Verlustleistung P_max (auf dem Datenblatt). Bei höheren Temperaturen muss die Belastung reduziert werden (Derating):
@@ -167,5 +188,6 @@ Nicht nur die Verlustleistung P = U²/R prüfen — auch sicherstellen, dass die
 | Kohleschicht | ±5–10 % | Hoch | 250 V | Preiswert, allgemein |
 | Metallschicht | ±1 % | Niedrig | 250 V | Präzision, Audio |
 | Drahtwiderstand | ±0,01 % | Sehr niedrig | 500 V+ | Präzisionsmessung, Leistung |
+| Widerstands-Netzwerk | ±2–5 % | Mittel | 50–100 V | Pull-up/-down-Arrays, Bus-Leitungen |
 | SMD Dickschicht | ±1–5 % | Mittel | 50–200 V | Massenproduktion |
 | SMD Dünnschicht | ±0,1 % | Niedrig | 50–200 V | Präzision SMD |

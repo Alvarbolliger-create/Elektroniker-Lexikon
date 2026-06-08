@@ -1,81 +1,71 @@
 ---
 title: CAN-Bus
 kategorie: SH
-tags: [CAN, bus, differenziell, automobil, industriekommunikation, rahmen, frame, CAN-FD, arbitrierung, CSMA, feldbus, bit-stuffing, abschlusswiderstand, transceiver, SAE J1939, embedded]
-symbol: —
-einheit: —
+kapitel: Schnittstellen
+tags: [can-bus, controller area network, arbitrierung, fehlererkennung, automotive]
+_status: PORT
 ---
-
-CAN (Controller Area Network) ist ein robuster Feldbus für störungsreiche Umgebungen. Entwickelt für Automobile, heute auch in Industrie und Medizintechnik weit verbreitet.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[UART]]
-:::
-:::vbox
-**Verwandte Artikel**
-- [[RS-232 / RS-485]]
+- [[Serielle Datenübertragung (Grundlagen)]]
 :::
 :::
 
 ---
 
-## Besonderheiten
+Stell dir ein modernes Auto vor: Motorsteuerung, ABS, Airbag, Klimaanlage, Fensterheber, Tachometer — gut hundert kleine Steuergeräte, die ständig Informationen austauschen müssen, oft in Sekundenbruchteilen und unter rauen Bedingungen (Vibration, Temperaturschwankungen, elektromagnetische Störungen). Würde man jedes Gerät einzeln verkabeln, entstünde ein unüberschaubares Kabelgewirr. Die Lösung dafür heisst **CAN-Bus** (Controller Area Network) — ein Bussystem, das genau für solche Anforderungen entwickelt wurde und heute weit über die Automobilindustrie hinaus in Maschinen, Anlagen und der Gebäudetechnik verbreitet ist.
 
-**Multi-Master**: Jeder Knoten kann senden wenn der Bus frei ist. Kollisionen werden durch Prioritäten aufgelöst — ohne Datenverlust (CSMA/CR, siehe unten).
+## Multi-Master statt fester Hierarchie
 
-**Differenziell**: CAN_H und CAN_L. Störungen auf beiden Leitungen gleich, werden subtrahiert. Sehr störfest.
-
-**Nachrichtenbasiert**: Keine Adressen. Jede Nachricht hat eine ID. Alle Knoten entscheiden selbst welche Nachrichten sie verarbeiten.
-
-## CSMA/CR — Arbitrierung ohne Kollision
-
-CAN verwendet **CSMA/CR** (Carrier Sense Multiple Access / Collision Resolution — auch: Collision Avoidance mit Bitarbitrierung).
-
-**Wie es funktioniert**:
-- Der Bus hat zwei Pegel: **dominant** (0) und **rezessiv** (1)
-- Dominant überschreibt rezessiv — wie eine Wired-AND-Logik
-- Jeder sendende Knoten schreibt sein Bit und liest sofort zurück was auf dem Bus liegt
-- Stimmt das gelesene Bit nicht mit dem gesendeten überein, hat ein anderer Knoten ein dominantes Bit gesendet → der Knoten mit dem höheren ID-Bit zieht sich zurück
-
-**Ergebnis**: Der Rahmen mit der **kleinsten ID-Nummer gewinnt** (mehr Nullen = mehr dominante Bits = höhere Priorität). Der Gewinner sendet ungestört weiter, die Verlierer versuchen es später erneut. **Kein Datenverlust, keine Wiederholung nötig**.
-
-## Bit-Stuffing
-
-CAN-Daten enthalten keine eigene Taktsynchronisation. Der Empfänger synchronisiert sich auf die Flanken des Signals.
-
-**Problem**: Lange Sequenzen ohne Flanke (viele gleiche Bits) → Empfänger verliert Synchronisation.
-
-**Lösung: Bit-Stuffing**: Nach 5 gleichen Bits in Folge fügt der Sender automatisch ein inverses Bit (Stuff-Bit) ein. Der Empfänger erkennt und entfernt dieses Bit automatisch.
-
-:::formel
-Datenbits: 1 1 1 1 1 | 0 1 1 0 0 ...
-                         ↑ Stuff-Bit (invertiert nach 5x '1')
+:::merke
+Der CAN-Bus ist ein **Multi-Master-Bussystem**: Es gibt keinen zentralen Master, der den Datenverkehr steuert — jeder Teilnehmer ("Knoten") kann jederzeit eigenständig senden, sobald der Bus frei ist. Übertragen wird **differenziell** über ein verdrilltes Adernpaar **CAN_H** und **CAN_L** — dasselbe robuste Prinzip wie bei → [[RS422 & Current Loop|RS422 und RS485]]: Störungen, die auf beide Leitungen gleichermassen einwirken, heben sich beim Empfänger gegenseitig auf. An beiden Enden des Busses sitzen **Abschlusswiderstände von 120 Ω**, die Signalreflexionen unterdrücken.
 :::
-Bit-Stuffing vergrössert die übertragene Datenmenge um maximal 25 %, erlaubt aber den Betrieb ohne separate Taktleitung.
 
-## Rahmenaufbau
-
-ID (11 oder 29 Bit) + DLC (Datenlänge) + bis zu 8 Byte Daten + CRC + ACK.
-
-Die ID bestimmt die Priorität. Kleinere ID-Nummer = höhere Priorität.
-
-## Bitraten
-
-| Bitrate | Maximale Buslänge |
-|---|---|
-| 1 MBit/s | 40 m |
-| 500 kBit/s | 100 m |
-| 250 kBit/s | 250 m |
-| 125 kBit/s | 500 m |
-
-CAN FD (Flexible Data Rate): bis 5 MBit/s für den Datenteil, bis 64 Byte pro Rahmen.
-
-## Abschlusswiderstände
-
-Am Ende jeder Busleitung 120 Ω zwischen CAN_H und CAN_L. Verhindert Reflexionen. Ohne Abschluss: Kommunikationsfehler bei höheren Bitraten.
+## Arbitrierung: wie der Bus Kollisionen elegant auflöst
 
 :::tip
-CAN-Transceiver-ICs (z.B. MCP2551, SN65HVD230) wandeln die logischen Pegel des Mikrocontrollers in die differenziellen CAN-Pegel. Nie direkt verbinden.
+Was passiert, wenn zwei Knoten gleichzeitig senden wollen? Beim CAN-Bus führt das nicht etwa zu einer Kollision wie bei anderen Bussystemen, sondern zu einer fairen, verlustfreien **Arbitrierung** nach dem CSMA/CR-Prinzip (Carrier Sense Multiple Access / Collision Resolution):
+
+Jede Nachricht trägt eine **Identifier (ID)**, die gleichzeitig ihre Priorität festlegt. Auf dem Bus gibt es zwei Zustände: **dominant** (logisch 0) und **rezessiv** (logisch 1) — wobei "dominant" sich gegen "rezessiv" immer durchsetzt, sobald beide gleichzeitig auf den Bus gelegt werden (vergleichbar mit einer Wired-AND-Verknüpfung). Senden zwei Knoten gleichzeitig, vergleichen beide bitweise ihre ID mit dem tatsächlichen Buspegel: Sobald ein Knoten ein rezessives Bit sendet, auf dem Bus aber ein dominantes Bit erscheint (weil ein anderer Knoten gleichzeitig eine niedrigere — also wichtigere — ID sendet), erkennt er, dass er den Wettbewerb verloren hat, und zieht sich sofort zurück. Der Knoten mit der **niedrigsten ID** (= höchste Priorität) sendet ungestört weiter — **ohne jeden Datenverlust**! Diese Eigenschaft macht den CAN-Bus ideal für zeitkritische Anwendungen wie die Übertragung von Bremssignalen.
 :::
+
+## Der Rahmenaufbau: kompakt und mit eingebauter Fehlerkontrolle
+
+Eine CAN-Nachricht (Frame) ist kompakt aufgebaut und enthält dabei bereits eine eingebaute Fehlerkontrolle:
+
+| Feld | Bedeutung |
+|---|---|
+| Start of Frame | Kennzeichnet den Beginn der Nachricht |
+| Identifier (ID) | Bestimmt Priorität und Bedeutung der Nachricht |
+| DLC (Data Length Code) | Anzahl der folgenden Datenbytes (0–8) |
+| Daten | Die eigentlichen Nutzdaten (max. 8 Byte beim klassischen CAN) |
+| CRC | Prüfsumme zur Fehlererkennung |
+| ACK | Bestätigung durch mindestens einen Empfänger |
+| End of Frame | Kennzeichnet das Ende der Nachricht |
+
+:::info
+Ein cleverer Mechanismus zur Sicherstellung der Synchronisation ist das **Bit-Stuffing**: Sobald **fünf gleiche Bits** in Folge gesendet werden, fügt der Sender automatisch ein zusätzliches Bit mit dem entgegengesetzten Pegel ein (ein sogenanntes "Stuff-Bit"). Der Empfänger entfernt dieses Bit beim Empfang wieder. Dadurch entstehen garantiert regelmässige Flankenwechsel auf dem Bus — wichtig, damit sich alle Teilnehmer zuverlässig auf den gemeinsamen Takt synchronisieren können, obwohl CAN ganz ohne separate Taktleitung auskommt.
+:::
+
+## Geschwindigkeit hängt von der Leitungslänge ab
+
+:::warning
+Beim CAN-Bus stehen **Bitrate und maximale Leitungslänge** in einem direkten Zusammenhang: Je länger der Bus, desto länger braucht ein Signal, um von einem Ende zum anderen zu gelangen — und desto langsamer muss folglich übertragen werden, damit die Arbitrierung noch zuverlässig funktioniert.
+
+| Bitrate | Max. Leitungslänge |
+|---|---|
+| 1 MBit/s | ca. 40 m |
+| 500 kBit/s | ca. 100 m |
+| 250 kBit/s | ca. 250 m |
+| 125 kBit/s | ca. 500 m |
+
+Wer einen CAN-Bus plant, muss also stets einen Kompromiss zwischen gewünschter Geschwindigkeit und der räumlichen Ausdehnung der Anlage finden.
+:::
+
+## CAN FD: mehr Daten, mehr Tempo
+
+Die Weiterentwicklung **CAN FD** (Flexible Data-Rate) erlaubt grössere Datenfelder (bis zu 64 Byte statt 8) und schaltet während der Übertragung der Nutzdaten auf eine höhere Bitrate um — ein cleverer Weg, die Vorteile des bewährten CAN-Protokolls (Arbitrierung, Fehlererkennung) mit deutlich höherem Datendurchsatz zu verbinden. CAN FD findet zunehmend Verbreitung in modernen Fahrzeugen und Industrieanlagen, in denen grössere Datenmengen anfallen als noch vor wenigen Jahren.
+
+Der CAN-Bus zeigt eindrücklich, wie sich aus einfachen Grundprinzipien — Differenzsignal, Priorisierung über IDs, eingebaute Fehlerkontrolle — ein extrem robustes und bewährtes System für anspruchsvolle Echtzeitanwendungen aufbauen lässt. Während CAN auf kabelgebundene Verbindungen setzt, verlagert sich die Kommunikation in vielen modernen Anwendungen zunehmend in die **Funkwelt**. Der nächste Artikel stellt eine der bekanntesten Funktechnologien für die Nahbereichskommunikation vor: → [[Bluetooth|Bluetooth]].

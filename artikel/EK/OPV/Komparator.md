@@ -1,4 +1,4 @@
-﻿---
+---
 title: Komparator
 kategorie: EK
 kapitel: OPV
@@ -14,12 +14,12 @@ _status: FERTIG
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Schmitt-Trigger]]
+- [[Schmitt-Trigger Grundlagen]]
 - [[Fensterkomparator]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[Schmitt-Trigger]]
+- [[Schmitt-Trigger Grundlagen]]
 - [[Fensterkomparator]]
 :::
 :::

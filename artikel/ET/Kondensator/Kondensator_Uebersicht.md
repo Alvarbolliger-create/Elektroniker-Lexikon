@@ -45,8 +45,8 @@ Der Kondensator "merkt sich" die angelegte Spannung — er ist ein Spannungsspei
 
 ## Serieschaltung
 
-:::schematic
-/schaltplaene/kondensator/kondensator_serie.svg
+:::schematic C-Reihenschaltung
+/schaltplaene/C/c_reihe.svg
 :::
 
 Bei der Serieschaltung von Kondensatoren teilt sich die Spannung auf, aber alle tragen dieselbe Ladung (Knotenregel für Ladung). Der Gesamtkapazitätswert ist kleiner als der kleinste Einzelwert — umgekehrt wie bei Widerständen.
@@ -90,8 +90,8 @@ Der kleinere Kondensator trägt die grössere Spannung — genau umgekehrt zu Wi
 
 ## Parallelschaltung
 
-:::schematic
-/schaltplaene/kondensator/kondensator_parallel.svg
+:::schematic C-Parallelschaltung
+/schaltplaene/C/c_parallel.svg
 :::
 
 Bei der Parallelschaltung liegt an allen die gleiche Spannung. Die Gesamtkapazität addiert sich direkt — wie Leitwerte bei Widerständen.

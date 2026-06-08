@@ -1,4 +1,4 @@
-﻿---
+---
 title: BJT Emitterschaltung
 kategorie: EK
 kapitel: Transistoren
@@ -15,7 +15,7 @@ _status: FERTIG
 :::
 :::vbox
 **Verwandte Artikel**
-- [[BJT Kollektorschaltung]]
+- [[BJT Kollektorschaltung (Emitterfolger)]]
 - [[BJT Basisschaltung]]
 :::
 :::vbox

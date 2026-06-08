@@ -1,4 +1,4 @@
-﻿---
+---
 title: Transit & Grenzfrequenz
 kategorie: EK
 kapitel: Filter
@@ -11,7 +11,7 @@ _status: FERTIG
 :::vbox
 **Voraussetzungen**
 - [[Filter Grundlagen]]
-- [[Impedanz & Blindwiderstand]]
+- [[Impedanz]]
 :::
 :::vbox
 **Verwandte Artikel**

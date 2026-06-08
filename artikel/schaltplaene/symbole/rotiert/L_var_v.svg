@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 210" width="210" height="210">
+  <g transform="translate(210, 0) rotate(90)">
+
+  <title>Spule (variabel / Trimmer)</title>
+
+  <!-- Draht links: (20,100)→(50,100) -->
+  <line x1="20" y1="100" x2="50" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!--
+    Spule: 4 Halbkreise, je Radius=10, auf y=100 zentriert
+    Halbkreis 1: Mittelpunkt (60,100), von (50,100) nach (70,100), Bogen oben
+    Halbkreis 2: Mittelpunkt (80,100), von (70,100) nach (90,100)
+    Halbkreis 3: Mittelpunkt (100,100), von (90,100) nach (110,100)
+    Halbkreis 4: Mittelpunkt (120,100), von (110,100) nach (130,100)
+    Alle x-Punkte auf 10er-Grid ✓
+  -->
+  <path d="M 50,100 A 10,10 0 0 1 70,100&#10;           A 10,10 0 0 1 90,100&#10;           A 10,10 0 0 1 110,100&#10;           A 10,10 0 0 1 130,100" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Draht rechts: (130,100)→(180,100) -->
+  <line x1="130" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Pfeil diagonal variabel: von (60,150) nach (140,60) — nahe auf Grid -->
+  <line x1="60" y1="150" x2="140" y2="60" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Pfeilspitze bei (140,60) -->
+  <polyline points="128,62 140,60 138,72" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

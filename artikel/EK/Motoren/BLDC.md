@@ -1,4 +1,4 @@
-﻿---
+---
 title: BLDC-Motor
 kategorie: EK
 kapitel: Motoren
@@ -10,7 +10,7 @@ _status: FERTIG
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[DC Motor]]
+- [[DC-Motor]]
 - [[H-Brücke]]
 - [[Hall-Sensor]]
 :::

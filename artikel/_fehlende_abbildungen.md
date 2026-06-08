@@ -50,6 +50,7 @@ Nur neue oder zusammengeführte Artikel — Ports übernehmen ggf. vorhandene Gr
 | Pfad | Beschreibung | Priorität |
 |---|---|---|
 | /abbildungen/magnetfelder/lorentzkraft_leiter.svg | Leiter im Magnetfeld mit Winkel alpha. B-Feldlinien horizontal (Pfeile von links nach rechts). Leiter (dicker Strich) schräg eingezeichnet, Winkel alpha zwischen Leiter und B-Feldrichtung beschriftet. Stromrichtung I als Pfeil am Leiter. Kraft F senkrecht zur Bildebene (Kreis mit Punkt = aus der Ebene heraus). Gestrichelte Hilfslinie zeigt die wirksame Komponente l·sin(alpha) senkrecht zu B. Links daneben: Spezialfall alpha=90° (Leiter senkrecht, F maximal) und alpha=0° (Leiter parallel, F=0). | Hoch |
+| /abbildungen/magnetfelder/parallele_leiter.svg | Zwei vertikale Leiter nebeneinander im Abstand a. Links: gleichsinnige Ströme (beide Pfeile I1, I2 nach oben) — Feldlinien zwischen den Leitern dünn/aufgehoben gezeichnet, aussen verdichtet; Kraftpfeile F an beiden Leitern zeigen aufeinander zu (Anziehung). Rechts: gegensinnige Ströme (Pfeile entgegengesetzt) — Feldlinien zwischen den Leitern verdichtet, aussen verdünnt; Kraftpfeile F zeigen voneinander weg (Abstossung). Beschriftung: I1, I2, a, F. | Mittel |
 
 ---
 

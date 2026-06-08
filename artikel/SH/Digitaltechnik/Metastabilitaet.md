@@ -1,93 +1,48 @@
 ---
-title: Metastabilität, Setup-Time & Hold-Time
+title: Metastabilität
 kategorie: SH
-tags: [metastabilität, setup-time, hold-time, flipflop, synchronisation, clock domain, MTBF, CDC, synchronizer, double-FF, aperture]
-symbol: t_su, t_h
-einheit: s
+kapitel: Digitaltechnik
+tags: [metastabilitaet, setup-zeit, hold-zeit, synchronisierung, taktdomaene]
+_status: PORT
 ---
-
-Ein Flipflop braucht Zeit, um das Eingangssignal sicher einzulesen. Wird diese Zeit verletzt, kann das Flipflop in einen undefinierten Zustand geraten — Metastabilität.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Flipflops]]
-- [[Synchrone Zähler]]
-- [[FPGA]]
-:::
-:::vbox
-**Verwandte Artikel**
-- [[FSM (Zustandsautomat)]]
-- [[CPU Aufbau]]
-:::
-:::vbox
-**Führt weiter zu**
-- [[VHDL und Verilog]]
-- [[Embedded Linux]]
+- [[Flipflops (SR, D, JK, T)]]
 :::
 :::
 
 ---
 
-## Setup-Time (t_su)
+Ein → [[Flipflops (SR, D, JK, T)|Flipflop]] übernimmt seinen Eingangswert exakt im Moment der aktiven Taktflanke. Damit dies zuverlässig gelingt, muss das Eingangssignal eine gewisse Zeit vor und nach der Flanke stabil anliegen. Wird diese Bedingung verletzt, kann das Flipflop in einen undefinierten Schwebezustand geraten — die **Metastabilität**.
 
-Das Eingangssignal (D) muss mindestens t_su vor der Taktflanke stabil sein. Ändert sich D kurz vor der Flanke, kann das Flipflop das Signal nicht sicher einlesen.
+## Setup-Zeit und Hold-Zeit
 
-:::formel
-t_su = Mindestzeit D stabil vor Taktflanke    # typisch 0.1–2 ns
+Jedes flankengesteuerte Flipflop besitzt zwei kritische Zeitfenster rund um die aktive Taktflanke:
+
+:::merke
+Die **Setup-Zeit** (t_su) ist die minimale Zeitspanne, während der das Datensignal **vor** der aktiven Taktflanke bereits stabil anliegen muss. Die **Hold-Zeit** (t_h) ist die minimale Zeitspanne, während der das Datensignal **nach** der Taktflanke noch stabil bleiben muss. Nur wenn beide Bedingungen eingehalten werden, übernimmt das Flipflop den Eingangswert sicher und mit garantierter Verzögerung an seinem Ausgang.
 :::
-**Verletzung**: Wenn D sich weniger als t_su vor der Taktflanke ändert, ist unklar ob Q = 0 oder Q = 1 gespeichert wird.
 
-## Hold-Time (t_h)
+Ändert sich der Dateneingang **innerhalb** dieses Setup-/Hold-Fensters — also zu nahe an der Taktflanke —, kann das interne, aus rückgekoppelten Gattern aufgebaute Speicherelement des Flipflops für eine unbestimmte Zeit in einem Zwischenzustand verharren, der weder sicher als 0 noch als 1 interpretiert werden kann.
 
-Das Eingangssignal muss mindestens t_h nach der Taktflanke noch stabil bleiben. Das gibt dem Flipflop Zeit, den Zustand sicher zu übernehmen.
-
-:::formel
-t_h = Mindestzeit D stabil nach Taktflanke    # typisch 0–0.5 ns
-:::
-## Timing-Diagramm
-
-:::schematic
-/Diagramm/metastabilitaet_0.svg
-:::
-Das Timing-Budget im Design:
-
-:::formel
-T_clk ≥ t_co + t_propag + t_su    # T_clk = Taktperiode, t_co = Clock-to-Output des Vorgängers
-:::
-## Metastabilität
-
-Wenn Setup- oder Hold-Time verletzt wird, gerät das Flipflop in einen metastabilen Zustand. In diesem Zustand ist die interne Spannung weder klar High noch klar Low — sie liegt dazwischen.
-
-Das Flipflop verlässt den metastabilen Zustand nach einer zufälligen Zeitspanne. Je nach dem landet es bei 0 oder 1 — das Ergebnis ist nicht vorhersagbar.
-
-**Das Problem in der Praxis**: Asynchrone Eingangssignale (von aussen, von anderen Clockdomains) können jederzeit ankommen — auch während des Aperture-Fensters.
-
-## Mean Time Between Failures (MTBF)
-
-Metastabilität lässt sich nicht verhindern, nur die Wahrscheinlichkeit reduzieren:
-
-:::formel
-MTBF = (e^(t_resolve / τ)) / (f_clk × f_data × C1)    # τ und C1: Flipflop-Kennwerte
-:::
-Je länger die "Auflösezeit" t_resolve, desto unwahrscheinlicher bleibt die Metastabilität über diese Zeit hinaus bestehen.
-
-## Synchronisierungskette (Synchronizer)
-
-**Lösung für asynchrone Eingangssignale**: Zwei hintereinandergeschaltete Flipflops (Double-FF Synchronizer).
-
-:::formel
-Async_Input → FF1 → FF2 → Verwendung im System
-              (beide getaktet mit System-Clock)
-:::
-FF1 kann metastabil werden. FF2 liest den Ausgang von FF1 erst einen vollen Taktzyklus später — das gibt FF1 Zeit, aus dem metastabilen Zustand heraus zu kommen. Mit modernen Flipflops ist die MTBF dann typisch > 1 Million Jahre.
+## Der metastabile Zustand
 
 :::warning
-Alle asynchronen Signale (externe Eingänge, Signale aus anderen Clock-Domains) müssen synchronisiert werden, bevor sie in synchrone Logik eingespeist werden. Das gilt auch für Reset-Signale!
+Im **metastabilen Zustand** liegt der Ausgang eines Flipflops auf einem Pegel, der zwischen den definierten Low- und High-Bereichen schwebt — vergleichbar mit einer Kugel, die exakt auf der Spitze eines Hügels balanciert: Theoretisch könnte sie dort beliebig lange verharren, in der Praxis kippt sie nach einer unvorhersehbaren Zeit nach der einen oder anderen Seite. Genauso "entscheidet" sich ein metastabiles Flipflop irgendwann für 0 oder 1 — wann genau und wofür, ist jedoch nicht vorhersagbar. Schlimmer noch: Verschiedene nachgeschaltete Gatter können den schwebenden Pegel **unterschiedlich** interpretieren, sodass in derselben Schaltung gleichzeitig eine 0 und eine 1 "gelesen" werden — ein klassischer Quell für sporadische, schwer reproduzierbare Fehler.
 :::
 
-## Clock Domain Crossing (CDC)
+## Wann tritt Metastabilität auf?
 
-Wenn zwei Teile einer Schaltung mit unterschiedlichen Taktfrequenzen arbeiten, muss jede Signalübergabe zwischen den Domains synchronisiert werden.
+Solange alle Signale innerhalb derselben **Taktdomäne** synchron zueinander erzeugt werden, lässt sich die Einhaltung von Setup- und Hold-Zeit durch sorgfältiges Schaltungsdesign garantieren. Kritisch wird es jedoch beim Übergang zwischen **asynchronen Signalquellen**:
 
-Werkzeuge (Synopsys CDC, Questa Verify) können CDC-Verletzungen im Design automatisch prüfen.
+:::tip
+Typische Auslöser für Metastabilität sind asynchrone Eingangssignale, die nicht zum Systemtakt passen — etwa ein Tastendruck, ein externes Sensorsignal oder ein Datensignal aus einer anderen **Taktdomäne** (z. B. beim Übergang zwischen zwei Schaltungsteilen mit unterschiedlichen Taktfrequenzen). Da ein solches Signal jederzeit, also auch genau im Setup-/Hold-Fenster, wechseln kann, lässt sich eine Verletzung der Zeitbedingungen prinzipiell nie vollständig ausschliessen — sie kann nur auf ein praktisch vernachlässigbares Mass reduziert werden.
+:::
+
+## Die Lösung: Synchronisierer-Ketten
+
+Da sich Metastabilität nicht verhindern, sondern nur in ihrer Auswirkung entschärfen lässt, wird in der Praxis eine **Synchronisierer-Kette** eingesetzt: Das asynchrone Signal durchläuft zunächst ein erstes, mit dem Systemtakt getaktetes Flipflop. Dessen Ausgang darf zwar kurzzeitig metastabil sein — er erhält jedoch eine ganze Taktperiode lang Zeit, sich auf einen stabilen Pegel "festzulegen", bevor ihn ein zweites, nachgeschaltetes Flipflop übernimmt. Erst der Ausgang dieser zweiten (oder bei hohen Anforderungen auch dritten) Stufe gilt als sicher synchronisiert und darf in der eigentlichen Schaltung weiterverarbeitet werden.
+
+Die mittlere Zeit zwischen zwei metastabilitätsbedingten Fehlfunktionen wird als **MTBF** (Mean Time Between Failures) bezeichnet — sie lässt sich durch zusätzliche Synchronisierer-Stufen und schnellere Flipflops auf Werte vergrössern, die für die jeweilige Anwendung praktisch keine Rolle mehr spielen. Damit ist die Synchronisierer-Kette das Standardwerkzeug überall dort, wo digitale Schaltungen mit der "unberechenbaren" analogen Aussenwelt oder mit anderen Taktdomänen kommunizieren müssen.

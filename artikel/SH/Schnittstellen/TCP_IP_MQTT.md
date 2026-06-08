@@ -1,67 +1,69 @@
 ---
-title: TCP/IP und MQTT
+title: TCP/IP & MQTT
 kategorie: SH
-tags: [TCP, IP, UDP, MQTT, IoT, protokoll, socket, broker, QoS, publish-subscribe, ESP32, mosquitto, 3-way-handshake]
-symbol: —
-einheit: —
+kapitel: Schnittstellen
+tags: [tcp/ip, mqtt, protokoll, internet, broker, publish subscribe]
+_status: PORT
 ---
-
-TCP/IP ist das Fundament des Internets. MQTT ist ein leichtgewichtiges Nachrichtenprotokoll für IoT-Geräte, das auf TCP/IP aufbaut.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
 - [[Ethernet]]
-- [[Mikrocontroller]]
-:::
-:::vbox
-**Verwandte Artikel**
-- [[Bluetooth]]
-- [[LoRaWAN]]
 :::
 :::
 
 ---
 
-## IP (Internet Protocol)
+→ [[Ethernet|Ethernet]] sorgt dafür, dass Datenpakete zuverlässig innerhalb eines lokalen Netzwerks von Gerät zu Gerät gelangen — über MAC-Adressen und Frames. Doch das Internet besteht aus Millionen solcher Netzwerke, die weltweit miteinander verbunden sind. Damit ein Datenpaket den Weg von einem Mikrocontroller in der Schweiz zu einem Server irgendwo auf der anderen Seite der Welt findet — und damit Anwendungen sich sinnvoll über diese Strecke unterhalten können — braucht es zusätzliche Protokollschichten: **TCP/IP** als Transport-Fundament des Internets und **MQTT** als schlankes Anwendungsprotokoll, das speziell auf die Bedürfnisse von IoT-Geräten zugeschnitten ist.
 
-IP ist die Adressierungsschicht. Jedes Gerät hat eine IP-Adresse (z.B. 192.168.1.42). IP-Pakete werden unabhängig geroutet, können verloren gehen oder in falscher Reihenfolge ankommen.
+## IP-Adressierung: jedes Gerät bekommt eine eindeutige Anschrift
 
-## TCP (Transmission Control Protocol)
+:::merke
+Damit ein Datenpaket sein Ziel im weltweiten Netzwerk der Netzwerke findet, braucht jedes Gerät eine eindeutige **IP-Adresse** — vergleichbar mit einer Postanschrift. Bei **IPv4** besteht sie aus vier Zahlenblöcken (z. B. 192.168.1.42), bei **IPv6** aus einer deutlich längeren hexadezimalen Schreibweise, die den seit Jahren spürbaren Mangel an verfügbaren IPv4-Adressen beheben soll. Innerhalb eines lokalen Netzwerks vergibt meist ein **Router** per DHCP automatisch Adressen an alle angeschlossenen Geräte — inklusive Mikrocontroller mit Netzwerkanbindung.
+:::
 
-TCP läuft über IP und fügt hinzu:
-- Verbindungsaufbau (3-Way-Handshake)
-- Bestätigung und Wiederholung verlorener Pakete
-- Korrekte Reihenfolge
-- Flusskontrolle
+## TCP und UDP: zwei Philosophien des Datentransports
 
-Zuverlässig aber mit Overhead. Für Web, E-Mail, Dateiübertragung.
+:::tip
+Auf der Transportschicht stehen zwei grundverschiedene Protokolle zur Wahl — ganz ähnlich wie bei der Wahl zwischen einer gesicherten und einer ungesicherten Übertragung, die uns schon im Grundlagenartikel begegnet ist:
 
-## UDP (User Datagram Protocol)
+- **TCP** (Transmission Control Protocol) baut vor jeder Datenübertragung eine **verbindungsorientierte** Verbindung auf — über den klassischen **Drei-Wege-Handschlag (Three-Way-Handshake)**: Der Client sendet ein SYN ("ich möchte eine Verbindung aufbauen"), der Server antwortet mit SYN-ACK ("verstanden, ich bin bereit"), der Client bestätigt mit ACK ("dann legen wir los"). Erst danach beginnt die eigentliche Datenübertragung. TCP überwacht zudem laufend, ob alle Pakete korrekt und in der richtigen Reihenfolge ankommen, und fordert verlorene Pakete automatisch erneut an — **zuverlässig, aber mit etwas Overhead**.
+- **UDP** (User Datagram Protocol) verzichtet komplett auf Verbindungsaufbau und Empfangsbestätigung — Pakete werden einfach "auf gut Glück" losgeschickt. Das macht UDP **schnell und schlank**, aber eben auch unzuverlässig: Pakete können verloren gehen oder in falscher Reihenfolge ankommen, ohne dass der Sender etwas davon merkt. UDP eignet sich deshalb vor allem dort, wo Geschwindigkeit wichtiger ist als Vollständigkeit — etwa bei Video-Streams, wo ein einzelnes verlorenes Bild kaum auffällt, ein spürbares Stocken durch Nachforderungen aber sehr wohl.
 
-Kein Verbindungsaufbau, keine Bestätigung. Schneller, aber unzuverlässig. Nützlich wenn ein verlorenes Paket weniger schlimm ist als Verzögerung: Videostreaming, DNS, VoIP.
+Für die meisten IoT-Anwendungen, bei denen Daten zuverlässig ankommen sollen, ist TCP die naheliegende Wahl — und genau auf TCP baut auch das im Folgenden vorgestellte MQTT auf.
+:::
 
-## MQTT
+## MQTT: das schlanke Protokoll für die IoT-Welt
 
-MQTT (Message Queuing Telemetry Transport) ist ein Publish-Subscribe-Protokoll über TCP.
+:::info
+**MQTT** (Message Queuing Telemetry Transport) ist ein leichtgewichtiges Anwendungsprotokoll, das speziell für Geräte mit begrenzten Ressourcen — wenig Rechenleistung, wenig Bandbreite, knapper Energievorrat — entwickelt wurde. Sein Grundprinzip ist denkbar elegant und basiert auf drei Rollen:
 
-Prinzip:
-- **Broker**: Zentraler Server (z.B. Mosquitto, HiveMQ)
-- **Publisher**: Sendet Nachrichten zu einem Topic
-- **Subscriber**: Empfängt Nachrichten eines Topics
+- **Broker**: die zentrale Vermittlungsstelle, über die *alle* Nachrichten laufen (z. B. ein Mosquitto-Server)
+- **Publisher**: ein Gerät, das Nachrichten zu einem bestimmten **Thema (Topic)** veröffentlicht — z. B. `wohnzimmer/temperatur`
+- **Subscriber**: ein Gerät, das sich für ein bestimmtes Topic interessiert und vom Broker automatisch alle dazu veröffentlichten Nachrichten zugestellt bekommt
 
-Beispiel: Temperatursensor publiziert `haus/wohnzimmer/temperatur = 22.5`. Ein Display subscribed dasselbe Topic und zeigt 22.5 an.
+Das Entscheidende an diesem **Publish-Subscribe-Muster**: Publisher und Subscriber kennen sich gegenseitig gar nicht — sie kommunizieren ausschliesslich indirekt über den Broker und das gemeinsame Topic. Ein Temperatursensor muss also nicht wissen, wie viele und welche Geräte seine Messwerte gerade auswerten — er veröffentlicht sie einfach, und der Broker kümmert sich um die Verteilung an alle interessierten Empfänger. Das macht Systeme extrem flexibel erweiterbar: Ein neuer Subscriber kann jederzeit hinzukommen, ohne dass am Publisher irgendetwas geändert werden müsste.
+:::
 
-MQTT braucht sehr wenig Bandbreite und Energie. Ideal für batteriebetriebene IoT-Geräte.
+## QoS-Level: wie zuverlässig soll die Zustellung sein?
 
-## QoS-Level in MQTT
+:::warning
+MQTT erlaubt es, für jede Nachricht individuell festzulegen, wie zuverlässig sie zugestellt werden soll — über das sogenannte **Quality-of-Service-Level (QoS)**:
 
-| Level | Garantie |
-|---|---|
-| 0 | Einmal senden, kein Nachweis |
-| 1 | Mindestens einmal, Duplikate möglich |
-| 2 | Genau einmal, kein Duplikat |
+| QoS-Level | Bezeichnung | Garantie |
+|---|---|---|
+| 0 | "At most once" | Nachricht wird höchstens einmal zugestellt — kann verloren gehen, kein erneuter Versand |
+| 1 | "At least once" | Nachricht wird mindestens einmal zugestellt — kann aber theoretisch doppelt ankommen |
+| 2 | "Exactly once" | Nachricht wird garantiert genau einmal zugestellt — höchste Zuverlässigkeit, aber auch der grösste Protokoll-Overhead |
 
-## In der Praxis
+Welches Level die richtige Wahl ist, hängt stark von der Anwendung ab: Ein Temperaturwert, der ohnehin alle paar Sekunden neu gesendet wird, verkraftet locker QoS 0 — geht eine Nachricht verloren, kommt die nächste ja gleich hinterher. Ein Befehl wie "Tür öffnen" oder "Alarm auslösen" hingegen sollte zuverlässig ankommen — hier ist QoS 1 oder 2 die bessere Wahl.
+:::
 
-Arduino/ESP32 mit PubSubClient-Bibliothek. Raspberry Pi mit Paho MQTT. Broker auf Raspberry Pi oder in der Cloud (AWS IoT, Azure IoT Hub).
+## MQTT in der Praxis: Broker und Bibliotheken
+
+Für eigene Projekte hat sich eine kleine, bewährte Werkzeugkiste etabliert: Als **Broker** wird häufig **Mosquitto** eingesetzt — ein leichtgewichtiger, quelloffener MQTT-Server, der sich auf praktisch jeder Plattform (vom Raspberry Pi bis zum Cloud-Server) betreiben lässt. Auf der Geräteseite übernimmt häufig die Bibliothek **PubSubClient** die Kommunikation — sie kümmert sich um Verbindungsaufbau, das Veröffentlichen und Abonnieren von Topics sowie das Empfangen eingehender Nachrichten, und lässt sich unkompliziert in Mikrocontroller-Programme einbinden.
+
+## Rückblick: das grosse Bild der Schnittstellen
+
+Damit schliesst sich der Kreis dieses Kapitels: Wir haben den Weg eines einzelnen Bits von der → [[Serielle Datenübertragung (Grundlagen)|seriellen Grundlagen]] über chip-interne Schnittstellen wie → [[UART|UART]], → [[SPI|SPI]] und → [[I2C|I2C]], über klassische Industriestandards wie → [[RS232 & RS485|RS232/RS485]] und → [[RS422 & Current Loop|RS422/Current Loop]], über spezialisierte Bussysteme wie den → [[CAN-Bus|CAN-Bus]] und drahtlose Technologien wie → [[Bluetooth|Bluetooth]] und → [[LoRaWAN|LoRaWAN]] bis hin zu → [[Ethernet|Ethernet]] und schliesslich zur globalen Vernetzung über **TCP/IP** und **MQTT** verfolgt. Jede dieser Schnittstellen löst dasselbe Grundproblem — die zuverlässige Übertragung von Information — auf ihre eigene, für den jeweiligen Einsatzzweck optimierte Art. Mit diesem Werkzeugkasten im Kopf lässt sich für (fast) jede Aufgabenstellung die passende Schnittstelle finden.

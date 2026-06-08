@@ -51,6 +51,10 @@ Diese Energie muss beim Abschalten irgendwo hin — daher die gefährlichen Absc
 
 ## Reihenschaltung
 
+:::schematic L-Reihenschaltung
+/schaltplaene/L/l_reihe.svg
+:::
+
 Induktivitäten addieren sich in Reihe direkt — wie ohmsche Widerstände:
 
 :::formel
@@ -60,6 +64,10 @@ L_ges = L1 + L2 + L3
 (Gilt nur ohne magnetische Kopplung zwischen den Spulen.)
 
 ## Parallelschaltung
+
+:::schematic L-Parallelschaltung
+/schaltplaene/l_parallel.svg
+:::
 
 Bei Parallelschaltung addieren sich die Kehrwerte:
 

@@ -3,7 +3,7 @@ title: Schmitt-Trigger nicht invertierend symmetrisch
 kategorie: EK
 kapitel: OPV
 tags: [schmitt-trigger, nichtinvertierend, symmetrisch, dual supply, mitkopplung, schaltschwelle, hysterese, gleichphasig]
-groessen: U_e_ein|Obere Schaltschwelle|V; U_e_aus|Untere Schaltschwelle|V; U_hys|Hysterese|V; R1|Eingangswiderstand|Ω; R_M|Mitkopplungswiderstand|Ω
+groessen: U_e_ein|Obere Schaltschwelle|V; U_e_aus|Untere Schaltschwelle|V; U_hys|Hysterese|V; R1|Eingangswiderstand|Ω; R2|Mitkopplungswiderstand|Ω
 _status: FERTIG
 ---
 
@@ -29,58 +29,22 @@ Der nicht invertierende Schmitt-Trigger ist **gleichphasig**: wenn der Eingang H
 
 ## Schaltung
 
-:::schematic Nicht invertierender Schmitt-Trigger (symmetrisch, ±VCC): OPV-Dreieck. Eingangssignal U_e über R1 auf den nichtinvertierenden Eingang (+). Ausgang U_a über R_M zurück auf den (+)-Eingang (Mitkopplung). Invertierender Eingang (−) direkt auf GND (0 V). Versorgung ±VCC. Schaltschwellen symmetrisch um 0 V
-/Diagramm/st_nichtinv_sym.svg
+:::schematic Nicht invertierender Schmitt-Trigger (symmetrisch, ±VCC)
+/schaltplaene/OPV/Schmitttriger/opv_schmitttrigger_ni.svg
 :::
 
 - Signal U_e → R1 → nichtinvertierender Eingang (+)
-- Mitkopplung: Ausgang U_a → R_M → (+)
+- Mitkopplung: Ausgang U_a → R2 → (+)
 - Invertierender Eingang (−) auf GND
 
-## Herleitung der Schaltschwellen
+## Schaltschwellen
 
-Der OPV schaltet, wenn U_+ = U_− = 0 V (da (−) auf GND). Beim Umschalten gilt KCL am (+)-Knoten:
-
-:::formel
-(U_e - U_+) / R1 + (U_a - U_+) / R_M = 0    # KCL am (+), mit U_+ = 0:
-U_e / R1 + U_a / R_M = 0
-U_e = -(R1 / R_M) * U_a                       # allgemeine Schwellenformel
-:::
-
-**Obere Schwelle** (U_a war LOW = U_a_Low, z.B. −VCC):
+Der OPV schaltet, wenn U_+ = U_− = 0 V (da (−) auf GND). Am (+)-Knoten bilden R1 (vom Signal) und R2 (von U_a) einen Spannungsteiler, der je nach Ausgangszustand eine andere Eingangsspannung zum Umschalten erfordert:
 
 :::formel
-U_e_ein = -(R1 / R_M) * U_a_Low    # positiver Wert, da U_a_Low negativ
-:::
-
-**Untere Schwelle** (U_a war HIGH = U_a_High, z.B. +VCC):
-
-:::formel
-U_e_aus = -(R1 / R_M) * U_a_High    # negativer Wert, da U_a_High positiv
-:::
-
-**Hysterese:**
-
-:::formel
-U_hys = U_e_ein - U_e_aus = (R1 / R_M) * (U_a_High - U_a_Low)    # immer > 0
-:::
-
-## Alle Formeln (gesammelt)
-
-:::formel
-U_e_ein = -(R1 / R_M) * U_a_Low     # obere Schaltschwelle (LOW→HIGH)
-U_e_aus = -(R1 / R_M) * U_a_High    # untere Schaltschwelle (HIGH→LOW)
-U_hys   = (R1 / R_M) * (U_a_High - U_a_Low)
-R1      = R_M * U_e_ein / (-U_a_Low)
-R_M     = R1 * (-U_a_Low) / U_e_ein
-:::
-
-Bei symmetrischer Versorgung (U_a_High = +VCC, U_a_Low = −VCC):
-
-:::formel
-U_e_ein = (R1 / R_M) * VCC     # vereinfacht: VCC positiv, VCC und -VCC gleich gross
-U_e_aus = -(R1 / R_M) * VCC
-U_hys   = 2 * (R1 / R_M) * VCC
+U_e_ein = -(R1 / R2) * U_a_Low     # obere Schaltschwelle (LOW→HIGH), positiv
+U_e_aus = -(R1 / R2) * U_a_High    # untere Schaltschwelle (HIGH→LOW), negativ
+U_hys   = (R1 / R2) * (U_a_High - U_a_Low)    # immer > 0
 :::
 
 ## Berechnungsbeispiel
@@ -89,9 +53,9 @@ U_hys   = 2 * (R1 / R_M) * VCC
 Gesucht: U_e_ein = +2 V, U_e_aus = −2 V bei ±5 V Versorgung
 → U_a_High = +5 V, U_a_Low = −5 V
 
-Aus U_e_ein = −(R1/R_M) × U_a_Low:
-2 = −(R1/R_M) × (−5)
-R1/R_M = 0.4 → z.B. R1 = 10 kΩ, R_M = 25 kΩ
+Aus U_e_ein = −(R1/R2) × U_a_Low:
+2 = −(R1/R2) × (−5)
+R1/R2 = 0.4 → z.B. R1 = 10 kΩ, R2 = 25 kΩ
 
 Probe:
   U_e_ein = −(10/25) × (−5) = +2 V ✓

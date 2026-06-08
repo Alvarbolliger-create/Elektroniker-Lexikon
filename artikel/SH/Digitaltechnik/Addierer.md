@@ -1,95 +1,71 @@
 ---
-title: Addierer: Ripple-Carry & Carry-Lookahead
+title: Addierer (Halbaddierer, Volladdierer)
 kategorie: SH
-tags: [addierer, ripple-carry, carry-lookahead, übertrag, ALU, halbaddierer, volladdierer, CLA, propagation, kogge-stone, prefix-addierer]
-symbol: —
-einheit: —
+kapitel: Digitaltechnik
+tags: [halbaddierer, volladdierer, summe, uebertrag, addierwerk, alu]
+_status: PORT
 ---
-
-Binäre Addierer sind Grundbausteine der ALU. Die einfachste Variante (Ripple-Carry) ist langsam. Der Carry-Lookahead-Addierer berechnet alle Überträge parallel und ist wesentlich schneller.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Logikgatter]]
-- [[Binäre Arithmetik]]
-- [[Schaltalgebra]]
+- [[Binäre Arithmetik (Addition, Subtraktion, Zweierkomplement)]]
+- [[Logikgatter (UND, ODER, NICHT, NAND, NOR, EXOR)]]
 :::
 :::vbox
-**Verwandte Artikel**
-- [[CPU Aufbau]]
-- [[FPGA]]
+**Führt weiter zu**
+- [[Rechnerarchitekturen (CISC, RISC, DSP)]]
 :::
 :::
 
 ---
 
-## Halbaddierer (Half Adder)
+Jede → [[Rechnerarchitekturen (CISC, RISC, DSP)|Recheneinheit]] eines Prozessors muss im Kern eine einzige Grundoperation beherrschen: die binäre Addition. Aus zwei elementaren Bausteinen — dem **Halbaddierer** und dem **Volladdierer** — lässt sich jedes beliebig breite Addierwerk aufbauen.
 
-Addiert zwei 1-Bit-Zahlen. Kein Eingangs-Carry.
+## Der Halbaddierer
 
-:::formel
-S = A XOR B     # Summenbit
-C = A AND B     # Übertrag (Carry)
+Ein **Halbaddierer (HA)** addiert zwei einzelne Bits A und B und liefert dabei zwei Ausgänge: die **Summe** S und den **Übertrag** (Carry) C in die nächsthöhere Stelle:
+
+| A | B | S (Summe) | C (Übertrag) |
+|---|---|---|---|
+| 0 | 0 | 0 | 0 |
+| 0 | 1 | 1 | 0 |
+| 1 | 0 | 1 | 0 |
+| 1 | 1 | 0 | 1 |
+
+:::merke
+Aus der Wahrheitstabelle lassen sich die beiden Verknüpfungsgleichungen direkt ablesen: Die Summe entspricht einer **EXOR-Verknüpfung** (S = A ⊻ B — "1, wenn die Eingänge unterschiedlich sind"), der Übertrag entspricht einer **UND-Verknüpfung** (C = A ∧ B — "1, nur wenn beide Eingänge gesetzt sind"). Ein Halbaddierer besteht damit aus genau zwei Gattern: einem EXOR und einem UND.
 :::
-Kann nur das unterste Bit addieren.
 
-## Volladdierer (Full Adder)
+Der Name "Halb"-Addierer verrät bereits seine Einschränkung: Er kann keinen von einer vorherigen Stelle kommenden Übertrag mit verarbeiten — für eine mehrstellige Addition reicht er deshalb nicht aus.
 
-Addiert drei Bits: A, B und Eingangs-Carry Cin.
+## Der Volladdierer
 
-:::formel
-S = A XOR B XOR Cin
-Cout = (A AND B) OR (Cin AND (A XOR B))
+Der **Volladdierer (VA)** schliesst genau diese Lücke: Er verarbeitet zusätzlich zu den beiden Operandenbits A und B auch einen **Übertragseingang** Cᵢₙ (Carry-In) aus der vorherigen Stelle und liefert wiederum Summe S und Übertragsausgang Cₒᵤₜ (Carry-Out):
+
+| A | B | Cᵢₙ | S | Cₒᵤₜ |
+|---|---|---|---|---|
+| 0 | 0 | 0 | 0 | 0 |
+| 0 | 0 | 1 | 1 | 0 |
+| 0 | 1 | 0 | 1 | 0 |
+| 0 | 1 | 1 | 0 | 1 |
+| 1 | 0 | 0 | 1 | 0 |
+| 1 | 0 | 1 | 0 | 1 |
+| 1 | 1 | 0 | 0 | 1 |
+| 1 | 1 | 1 | 1 | 1 |
+
+:::tip
+Ein Volladdierer lässt sich elegant aus **zwei Halbaddierern und einem ODER-Gatter** zusammensetzen: Der erste Halbaddierer addiert A und B, der zweite addiert dieses Zwischenergebnis mit Cᵢₙ — die Summe S ergibt sich am Ausgang des zweiten Halbaddierers. Die beiden Übertragsausgänge der Halbaddierer werden mit einem ODER-Gatter zu Cₒᵤₜ zusammengeführt (es kann ja niemals in beiden Halbaddierern gleichzeitig ein Übertrag entstehen). So entsteht aus zwei einfachen Bausteinen ein vollwertiger 1-Bit-Volladdierer mit Übertragsverarbeitung in beide Richtungen.
 :::
-## Ripple-Carry-Addierer
 
-N Volladdierer in Reihe. Der Übertrag "rippt" von Bit zu Bit durch die Kette.
+## Mehrstellige Addierwerke: Carry-Ripple-Addierer
 
-:::formel
-Bit 0: FA → Carry0
-Bit 1: FA (mit Carry0) → Carry1
-Bit 2: FA (mit Carry1) → Carry2
-...
-Bit N: FA (mit Carry_N-1) → Summe fertig
+Reiht man mehrere Volladdierer aneinander und verbindet jeweils den Übertragsausgang Cₒᵤₜ einer Stelle mit dem Übertragseingang Cᵢₙ der nächsthöheren Stelle, entsteht ein **paralleles Addierwerk**, das ganze Binärwörter auf einen Schlag addiert. Ein bekannter integrierter Vertreter ist der **74283** — ein fertiger 4-Bit-Volladdierer, der zwei 4-Bit-Operanden plus einen Übertrag addiert und Summe sowie Übertragsausgang liefert.
+
+:::warning
+Bei diesem sogenannten **Carry-Ripple-Prinzip** muss sich der Übertrag von Stufe zu Stufe "durchwellen" (engl. *to ripple*), bevor das Endergebnis feststeht — die letzte Stelle kann ihre Summe erst dann sicher ausgeben, wenn der Übertrag durch alle vorangehenden Stufen hindurchgelaufen ist. Bei breiten Addierwerken (32 Bit, 64 Bit) summiert sich diese Durchlaufzeit zu einer spürbaren Verzögerung — ein Grund, weshalb moderne Prozessoren auf schnellere Verfahren wie den **Carry-Look-Ahead-Addierer** setzen, der den Übertrag für alle Stufen gleichzeitig vorausberechnet.
 :::
-**Problem**: Die Laufzeit wächst linear mit der Bitbreite. Ein 64-Bit-Addierer muss auf 64 Carry-Propagationen warten. Bei schnellen CPUs ist das inakzeptabel.
 
-Laufzeit: `t_gesamt = N × t_FA`
+## Subtraktion mit demselben Baustein
 
-## Carry-Lookahead-Addierer (CLA)
-
-Der CLA berechnet alle Überträge gleichzeitig (parallel), bevor die Summen berechnet werden.
-
-**Zwei Hilfsgrössen pro Bitstelle**:
-- Generate: `G_i = A_i AND B_i` — Übertrag wird erzeugt, egal was Cin ist
-- Propagate: `P_i = A_i XOR B_i` — eingehender Übertrag wird weitergeleitet
-
-**Übertragsberechnung** (alle parallel):
-:::formel
-C1 = G0 OR (P0 AND C0)
-C2 = G1 OR (P1 AND C1) = G1 OR (P1 AND G0) OR (P1 AND P0 AND C0)
-C3 = G2 OR (P2 AND G1) OR (P2 AND P1 AND G0) OR (P2 AND P1 AND P0 AND C0)
-:::
-Jeder Carry hängt nur von G_i, P_i und C0 ab — alles bekannt vor dem ersten Gatterdelay!
-
-**Laufzeit**: Unabhängig von N (für den Carry). Insgesamt 2–3 Gatterdelays für jeden Carry.
-
-## Laufzeit-Vergleich
-
-| Addierer | Laufzeit 64 Bit |
-|---|---|
-| Ripple-Carry | 64 × t_FA ≈ 128 Gatterdelays |
-| Carry-Lookahead (4-bit Gruppen) | ≈ 6–8 Gatterdelays |
-
-## Gruppenstruktur
-
-Für grosse Bitbreiten wird CLA in Gruppen aufgebaut:
-- Gruppen-CLA (4-Bit-Blöcke mit CLA intern)
-- Zweistufiger CLA: CLA auf Gruppenebene + CLA auf Block-Gruppenebene
-
-Moderne CPUs nutzen Hybridstrukturen (Prefix-Addierer, Kogge-Stone, Brent-Kung) für optimale Laufzeit und Gatteranzahl.
-
-## Anwendung
-
-Jede ALU in Mikroprozessoren, FPGAs und DSPs enthält einen schnellen Addierer. FPGA-Carry-Chains sind hardverdrahtete Ripple-Carry-Strukturen mit sehr kurzen Delays (optimiert durch die physische Nähe der Carry-Leitungen).
+Ein praktischer Vorteil des Volladdierers: Mit Hilfe des → [[Binäre Arithmetik (Addition, Subtraktion, Zweierkomplement)|Zweierkomplements]] lässt sich auch die **Subtraktion** auf eine Addition zurückführen — der Subtrahend wird dazu bitweise invertiert und über den anfänglichen Übertragseingang (Cᵢₙ = 1) automatisch um 1 erhöht. Dasselbe Addierwerk kann so — je nach Steuersignal — sowohl addieren als auch subtrahieren, was den Schaltungsaufwand einer → [[Rechnerarchitekturen (CISC, RISC, DSP)|arithmetisch-logischen Einheit (ALU)]] erheblich reduziert.

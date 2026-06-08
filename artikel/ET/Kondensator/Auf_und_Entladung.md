@@ -41,7 +41,7 @@ Dabei ist Q die elektrische Ladung in Coulomb (C = As). Diese Formel gilt immer 
 ## Laden über Widerstand (RC)
 
 :::schematic
-/schaltplaene/kondensator/rc_ladeschaltung.svg
+/schaltplaene/C/rc_ladeschaltung.svg
 :::
 
 ### Zeitkonstante tau = R · C
@@ -84,7 +84,7 @@ U_C(t) = U_0 * e^(-t / tau)
 ## Laden mit Konstantstrom
 
 :::schematic
-/schaltplaene/kondensator/konstantstrom_ladeschaltung.svg
+/schaltplaene/C/konstantstrom_ladeschaltung.svg
 :::
 
 Fliesst ein konstanter Strom I in den Kondensator (z. B. von einer Stromquelle), dann wächst die Ladung Q linear mit der Zeit: Q = I · t. Da Q = C · U_C gilt, steigt auch die Spannung **linear**:

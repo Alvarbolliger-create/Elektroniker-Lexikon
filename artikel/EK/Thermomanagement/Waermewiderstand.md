@@ -1,4 +1,4 @@
-﻿---
+---
 title: Wärmewiderstand
 kategorie: EK
 kapitel: Thermomanagement
@@ -16,7 +16,7 @@ _status: FERTIG
 :::vbox
 **Verwandte Artikel**
 - [[Spannungsstabilisierung]]
-- [[DC-DC Wandler]]
+- [[DC-DC-Wandler]]
 :::
 :::vbox
 **Führt weiter zu**

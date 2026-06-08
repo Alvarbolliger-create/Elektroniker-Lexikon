@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 320" width="380" height="320">
+<defs><marker id="pf_b" markerWidth="8" markerHeight="8" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2563eb"/></marker></defs>
+<line x1="160" y1="50" x2="160" y2="90" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="160" cy="50" r="3" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+<text x="174" y="54" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="start">A</text>
+<line x1="160" y1="230" x2="160" y2="270" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="160" cy="270" r="3" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+<text x="174" y="274" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="start">B</text>
+<line x1="110" y1="90" x2="210" y2="90" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="110" y1="230" x2="210" y2="230" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="160" cy="90" r="2.6" fill="#1e293b"/>
+<circle cx="160" cy="230" r="2.6" fill="#1e293b"/>
+<line x1="110" y1="90" x2="110" y2="142.0" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="110" y1="178.0" x2="110" y2="230" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="110" cy="160.0" r="18" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+<line x1="98" y1="160.0" x2="122" y2="160.0" stroke="#1e293b" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="101" y1="151.0" x2="107" y2="151.0" stroke="#1e293b" stroke-width="1.1" stroke-linecap="round"/>
+<line x1="104" y1="148.0" x2="104" y2="154.0" stroke="#1e293b" stroke-width="1.1" stroke-linecap="round"/>
+<text x="78" y="164.0" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="end">Ik</text>
+<line x1="210" y1="90" x2="210" y2="140.0" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="210" y1="180.0" x2="210" y2="230" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="200" y="140.0" width="20" height="40" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+<text x="240" y="164.0" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="start">Ri</text>
+<line x1="300" y1="50" x2="165" y2="50" stroke="#2563eb" stroke-width="1" stroke-linecap="round" stroke-dasharray="3,3"/>
+<line x1="300" y1="270" x2="165" y2="270" stroke="#2563eb" stroke-width="1" stroke-linecap="round" stroke-dasharray="3,3"/>
+<line x1="300" y1="264" x2="300" y2="56" stroke="#2563eb" stroke-width="1.6" marker-end="url(#pf_b)"/>
+<text x="314" y="164.0" font-size="13" font-family="sans-serif" fill="#2563eb" text-anchor="start">U_AB</text>
+</svg>

@@ -1,65 +1,60 @@
 ---
 title: Mikrocontroller
 kategorie: SH
-tags: [mikrocontroller, MCU, CPU, peripherie, GPIO, ADC, embedded, ARM, AVR, STM32, ESP32, RP2040, flash, SRAM, timer, UART, SPI, I2C, PWM, DMA, sleep-modus, interrupt]
-symbol: µC
-einheit: —
+kapitel: Prozessor
+tags: [mikrocontroller, embedded system, peripherie, gpio, on-chip speicher]
+_status: PORT
 ---
-
-Ein Mikrocontroller ist ein vollständiger Computer auf einem Chip. CPU, Speicher, Peripherie und I/O in einem Gehäuse. Er ist das Herzstück der meisten eingebetteten Systeme.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[CPU Aufbau]]
-- [[Speicherarten]]
-:::
-:::vbox
-**Verwandte Artikel**
-- [[UART]]
-- [[SPI]]
-- [[I2C]]
+- [[Rechnerarchitekturen (CISC, RISC, DSP)]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[Embedded Linux]]
+- [[Interrupt]]
+- [[DMA (Direct Memory Access)]]
+- [[Boot-Vorgang]]
 :::
 :::
 
 ---
 
-## Was ist drin?
+Im → [[Aufbau eines Mikroprozessorsystems|klassischen Mikroprozessorsystem]] sind CPU, Speicher und Peripherie getrennte Chips, die über den Systembus verbunden werden müssen — Decoder, Memorymap, externe Beschaltung. Packt man stattdessen all diese Bausteine in **ein einziges Gehäuse**, entsteht der **Mikrocontroller** (Single Chip Computer): ein vollständiger, eigenständiger Computer auf einem Chip — das Herzstück praktisch jedes eingebetteten Systems, vom Lichtschalter bis zur Industriesteuerung.
 
-**CPU-Kern**: Führt Befehle aus. ARM Cortex-M0 bis M7, AVR, PIC, RISC-V.
+## Was steckt im Gehäuse?
 
-**Flash**: Programmspeicher. Nicht flüchtig, behält das Programm ohne Strom.
+:::merke
+Ein Mikrocontroller vereint **CPU-Kern** (vom einfachen 8-Bit-Kern bis zu leistungsfähigen ARM-Cortex-M-Architekturen), **Flash** als nichtflüchtigen Programmspeicher, **SRAM** als flüchtigen Arbeitsspeicher für Variablen und Stack sowie umfangreiche **Peripherie** — Timer, UART, SPI, I2C, ADC, DAC, PWM, DMA — direkt auf einem Chip. Über **GPIO**-Pins (General Purpose I/O) lässt sich jeder Anschluss individuell als digitaler Ein- oder Ausgang konfigurieren. Diese enge Integration ist genau das, was den → [[Aufbau eines Mikroprozessorsystems|"einfachen Mikrorechner"]] zum kompakten, eigenständigen Single-Chip-System macht.
+:::
 
-**RAM (SRAM)**: Arbeitsspeicher für Variablen und Stack. Klein, typisch 2 bis 512 kB.
+## Verbreitete Familien
 
-**Peripherie**: Alles was die CPU unterstützt. Timers, UART, SPI, I2C, ADC, DAC, PWM, DMA.
+Welcher Mikrocontroller zum Einsatz kommt, hängt stark von Anwendung, Budget und gewünschter Peripherie ab:
 
-**GPIO**: General Purpose I/O. Digitale Pins die als Ein- oder Ausgang konfiguriert werden.
-
-## Wichtige Familien
-
-| Familie | Hersteller | Spannung | Einstieg |
+| Familie | Hersteller | Spannung | Typischer Einstieg |
 |---|---|---|---|
-| ATmega (AVR) | Microchip | 3.3 / 5 V | Arduino Uno |
-| STM32 (ARM Cortex-M) | ST | 3.3 V | Nucleo, Blue Pill |
-| RP2040 | Raspberry Pi | 3.3 V | Pi Pico |
-| ESP32 | Espressif | 3.3 V | WLAN + Bluetooth |
-| PIC | Microchip | 1.8 bis 5.5 V | Industrie |
+| ATmega (AVR) | Microchip | 3,3 / 5 V | Arduino Uno |
+| STM32 (ARM Cortex-M) | ST Microelectronics | 3,3 V | Nucleo, "Blue Pill" |
+| RP2040 | Raspberry Pi | 3,3 V | Raspberry Pi Pico |
+| ESP32 | Espressif | 3,3 V | integriertes WLAN + Bluetooth |
+| PIC | Microchip | 1,8 – 5,5 V | Industrieanwendungen |
 
-## Takt und Leistung
+## Takt, Leistung und Stromsparmodi
 
-Der Takt (MHz) bestimmt wie viele Befehle pro Sekunde ausgeführt werden. Höherer Takt, mehr Leistung, mehr Stromverbrauch.
+Der **Systemtakt** (in MHz oder GHz angegeben) bestimmt direkt, wie viele → [[Befehlszyklus & Maschinencode|Befehlszyklen]] pro Sekunde durchlaufen werden — höherer Takt bedeutet mehr Rechenleistung, aber auch höheren Stromverbrauch. Gerade bei batteriebetriebenen Geräten ist das ein entscheidender Faktor:
 
-Bei batteriebetriebenen Geräten: Sleep-Modi nutzen. Im tiefen Schlaf verbrauchen viele MCUs unter 10 µA.
+:::tip
+Moderne Mikrocontroller bieten gestaffelte **Sleep-Modi**, in denen Taktquellen, Peripherie und sogar Teile der CPU gezielt abgeschaltet werden. Im tiefsten Schlafzustand verbrauchen viele MCUs unter 10 µA — ein Gerät kann so monate- bis jahrelang mit einer Knopfzelle auskommen, solange es die meiste Zeit "schläft" und nur kurz für seine eigentliche Aufgabe "aufwacht".
+:::
 
 ## Entwicklungsumgebung
 
-IDE (z.B. STM32CubeIDE, Arduino IDE, PlatformIO), Compiler (GCC), Debugger (J-Link, ST-Link). Debugger erlaubt Schritt-für-Schritt Ausführung und Inspektion von Variablen direkt auf dem Chip.
+Programmiert wird typischerweise in C oder C++, übersetzt mit einem auf die jeweilige Architektur zugeschnittenen Compiler (z. B. GCC), in einer integrierten Entwicklungsumgebung (IDE — etwa STM32CubeIDE, Arduino IDE oder PlatformIO). Ein **Debugger** (z. B. J-Link, ST-Link) erlaubt es, das Programm Schritt für Schritt direkt auf dem Chip auszuführen und dabei Register- und Variableninhalte zu inspizieren — unverzichtbar, wenn ein Programm nicht so läuft wie erwartet.
 
-:::tip
-Für Einsteiger: Arduino-Ökosystem. Einfache API, grosse Community, viele Bibliotheken. Für Profis: STM32 mit HAL oder LL-Treibern. Mehr Kontrolle, mehr Peripherie, bessere Werkzeuge.
+:::info
+Für den Einstieg eignet sich das **Arduino-Ökosystem**: eine einfache, gut dokumentierte API, eine riesige Community und unzählige fertige Bibliotheken. Für anspruchsvollere Projekte greifen Profis eher zu **STM32** mit HAL- oder LL-Treibern — das bedeutet zwar eine steilere Lernkurve, dafür aber mehr Kontrolle über die Hardware, Zugriff auf deutlich mehr Peripherie und leistungsfähigere Entwicklungswerkzeuge.
 :::
+
+Damit ein Mikrocontroller seine Aufgaben erfüllen kann, muss er nicht nur "rechnen", sondern auch auf Ereignisse aus seiner Umgebung **reagieren** können — sei es ein eintreffendes Datenbyte, ein Tastendruck oder ein Sensorsignal. Wie er das tut, ohne die ganze Zeit in einer Warteschleife zu verharren, zeigt der → [[Interrupt|Interrupt]].

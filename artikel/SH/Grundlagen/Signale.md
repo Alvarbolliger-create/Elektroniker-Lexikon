@@ -1,56 +1,53 @@
 ---
-title: Signale
+title: Signale (Analog, Digital, Binär)
 kategorie: SH
-tags: [signal, analog, digital, pegel, spannung, rauschen, ADC, DAC, signalintegrität, TTL, CMOS, sampling, HIGH, LOW]
-symbol: —
-einheit: —
+kapitel: Grundlagen
+tags: [signal, analogsignal, digitalsignal, binaersignal, signalarten, stetig, gestuft]
+_status: PORT
 ---
-
-Ein Signal überträgt Information. In der Elektronik ist das meistens eine Spannung die sich über die Zeit verändert. Signale sind entweder analog oder digital.
 
 :::hbox
 :::vbox
-**Voraussetzungen**
-- —
-:::
-:::vbox
-**Verwandte Artikel**
-- [[Zahlensysteme]]
-- [[Logikgatter]]
-:::
-:::vbox
 **Führt weiter zu**
-- [[Zahlensysteme]]
-- [[AD/DA Grundlagen]]
+- [[Zahlensysteme (Dual, Hexadezimal)]]
+- [[Logikgatter (UND, ODER, NICHT, NAND, NOR, EXOR)]]
 :::
 :::
 
 ---
 
-## Analoges Signal
+Jedes elektronische System verarbeitet Information in Form von Spannungsverläufen über die Zeit. Je nachdem, wie viele Werte ein Signal annehmen kann, unterscheidet man drei Signalarten — und genau diese Unterscheidung trennt die "analoge" von der "digitalen" Welt.
 
-Kann jeden beliebigen Wert annehmen. Ein Mikrofon gibt eine analoge Spannung aus, die dem Schalldruck folgt. Ein Temperatursensor gibt eine analoge Spannung proportional zur Temperatur.
+## Die drei Signalarten
 
-Analogsignale sind empfindlich gegenüber Rauschen. Jede Störung verändert den Wert.
+| Signalart | Wertebereich | Verlauf | Beispiel |
+|---|---|---|---|
+| **Analog** | beliebig viele Werte in einem Bereich | stetig veränderbar | Mikrofonspannung, Temperatursensor |
+| **Digital** | mehrere abzählbare Stufen | stufig (sprunghaft, gleicher Wertezuwachs) | Anzeige eines AD-Wandlers |
+| **Binär** | genau zwei Zustände | EIN / AUS | Logikpegel, Schaltzustand |
 
-## Digitales Signal
+![Vergleich der drei Signalarten im Spannungs-Zeit-Diagramm: Analogsignal (stetig ansteigend), Digitalsignal (gestufte Treppenkurve) und Binärsignal (zwei Zustände: EIN / AUS)](abbildungen/signalarten_analog_digital_binaer.png)
 
-Kennt nur zwei Zustände: HIGH und LOW. In der Praxis sind das Spannungsbereiche, nicht exakte Werte.
+**Analoge Signale** ändern ihren Wert kontinuierlich mit der verursachenden Grösse — sie können in ihrem Wertebereich jeden Zwischenwert annehmen. Eine Temperatur oder eine Mikrofonspannung sind typische Beispiele.
 
-| Logikfamilie | LOW | HIGH |
-|---|---|---|
-| 5V TTL | unter 0.8 V | über 2.0 V |
-| 3.3V CMOS | unter 1.0 V | über 2.3 V |
-| 1.8V LVTTL | unter 0.6 V | über 1.2 V |
+**Digitale Signale** ändern ihre Grösse sprunghaft, in gleich grossen Stufen. Sie sind "stufig" veränderbar — zwischen zwei benachbarten Stufen gibt es keinen gültigen Zwischenwert.
 
-Digitale Signale sind robuster. Ein Pegel von 3.0 V wird als HIGH interpretiert, unabhängig ob er eigentlich 3.0 oder 3.2 V ist.
+**Binäre Signale** sind der Spezialfall mit nur zwei möglichen Zuständen: 0 oder 1, EIN oder AUS, GND oder +5 V. In dieser Welt der zwei Zustände bewegt sich die gesamte Digitaltechnik.
 
-## Analog zu Digital
+:::merke
+Binär ist ein Sonderfall von Digital: Digital heisst "in abzählbaren Stufen", binär heisst "in genau zwei Stufen". Jedes binäre Signal ist digital — aber nicht jedes digitale Signal ist binär (ein BCD-codierter Wert mit 10 Stufen ist digital, wird intern aber durch mehrere binäre Leitungen dargestellt).
+:::
 
-Analoge Signale werden mit einem Analog-Digital-Wandler (ADC) in digitale Zahlen umgewandelt. Digital zu Analog geht mit einem DAC.
+## Warum Digitaltechnik binär arbeitet
 
-Mehr dazu unter [[AD/DA Grundlagen]].
+Ein Transistor lässt sich besonders einfach und zuverlässig zwischen zwei Zuständen schalten — leitend oder sperrend. Zwei eindeutig unterscheidbare Pegel sind robust gegenüber Rauschen und Bauteiltoleranzen: Selbst wenn der Pegel etwas schwankt, bleibt die Information eindeutig 0 oder 1. Aus dieser Robustheit folgt die ganze digitale Schaltungstechnik — Logikgatter, Speicher, Prozessoren — als systematischer Aufbau aus binären Grundbausteinen.
 
-## Signalintegrität
+:::tip
+In Schaltplänen und Datenblättern wird häufig festgelegt: 0 = GND (0 V), 1 = +5 V (oder eine andere Versorgungsspannung). Diese Zuordnung ist Konvention. → [[Schaltpegel & Störabstand]]
+:::
 
-Lange Leitungen, hohe Frequenzen und schlechtes Layout können digitale Signale verfälschen. Was als scharfe Rechteckflanke losgeht, kommt verundet oder mit Über- und Unterschwingern an.
+## Vom analogen zum digitalen Signal
+
+Reale physikalische Grössen (Temperatur, Druck, Schall) sind analog. Damit ein digitales System sie verarbeiten kann, müssen sie zunächst in eine binäre Darstellung umgewandelt werden — das Signal wird abgetastet und in Stufen quantisiert. → [[Abtasttheorem]], [[AD-Wandler-Verfahren]]
+
+Umgekehrt erzeugt ein DA-Wandler aus einer binären Zahl wieder ein analoges Ausgangssignal. → [[DA-Wandler (R-2R, gewichtetes Netzwerk)]]

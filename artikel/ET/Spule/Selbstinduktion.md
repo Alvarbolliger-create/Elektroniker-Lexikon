@@ -34,7 +34,7 @@ Eine Flussänderung in einer Spule mit N Windungen erzeugt eine Spannung proport
 u_i = -N * dPhi / dt    # induzierte Spannung (negatives Vorzeichen = Lenzsche Regel)
 :::
 
-Das Minuszeichen zeigt die Richtung an: Die induzierte Spannung wirkt immer so, dass sie ihrer Ursache entgegenwirkt ([[#Lenzsche Regel]]).
+Das Minuszeichen zeigt die Richtung an: Die induzierte Spannung wirkt immer so, dass sie ihrer Ursache entgegenwirkt (Lenzsche Regel).
 
 ## Induzierte Spannung über Stromänderung
 

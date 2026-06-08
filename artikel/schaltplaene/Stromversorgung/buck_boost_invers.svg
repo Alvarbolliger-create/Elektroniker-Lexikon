@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 170" width="380" height="170">
+  <defs>
+    <marker id="pfeil" markerWidth="8" markerHeight="8" refX="3" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- U_E Quelle -->
+  <line x1="45" y1="28" x2="45" y2="40" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="45" cy="52" r="13" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  <line x1="45" y1="42" x2="45" y2="62" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="36" y1="46" x2="41" y2="46" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="38.5" y1="43.5" x2="38.5" y2="48.5" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="45" y1="65" x2="45" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="22" y="56" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">U_E</text>
+
+  <!-- obere Schiene zu S -->
+  <line x1="45" y1="28" x2="98" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="98" cy="28" r="2" fill="#1e293b"/>
+  <line x1="98" y1="28" x2="124" y2="17" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="130" cy="28" r="2.5" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+  <line x1="132" y1="28" x2="145" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="113" y="12" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">S</text>
+
+  <!-- Knoten A -->
+  <circle cx="145" cy="28" r="2.5" fill="#1e293b"/>
+
+  <!-- L (Speicherdrossel, gegen GND) -->
+  <line x1="145" y1="28" x2="145" y2="50" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M 145,50 A 8,8 0 0 1 145,66 A 8,8 0 0 1 145,82 A 8,8 0 0 1 145,98"
+        fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="145" y1="98" x2="145" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="163" y="78" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">L</text>
+
+  <!-- D (Kathode an A links, Anode an Ausgang rechts) -->
+  <line x1="145" y1="28" x2="167" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="167" y1="18" x2="167" y2="38" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="192" y1="18" x2="192" y2="38" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="192" y1="18" x2="167" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="192" y1="38" x2="167" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="192" y1="28" x2="218" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="180" y="14" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">D</text>
+
+  <!-- Knoten B (Ausgang) -->
+  <circle cx="218" cy="28" r="2.5" fill="#1e293b"/>
+  <line x1="218" y1="28" x2="285" y2="28" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="285" cy="28" r="3" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- C (polarisiert, parallel zur Last) -->
+  <line x1="218" y1="28" x2="218" y2="52" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="203" y1="52" x2="233" y2="52" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="203" y1="65" x2="233" y2="65" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="194" y="50" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">−</text>
+  <line x1="218" y1="65" x2="218" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="241" y="60" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">C</text>
+
+  <!-- R_L Last -->
+  <circle cx="258" cy="28" r="2.5" fill="#1e293b"/>
+  <line x1="258" y1="28" x2="258" y2="58" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <rect x="248" y="58" width="20" height="38" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  <line x1="258" y1="96" x2="258" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="276" y="78" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">R_L</text>
+
+  <!-- GND Schiene -->
+  <line x1="45" y1="130" x2="258" y2="130" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="145" y1="130" x2="145" y2="138" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="130" y1="138" x2="160" y2="138" stroke="#1e293b" stroke-width="4" stroke-linecap="round"/>
+  <text x="145" y="155" text-anchor="middle" font-family="monospace" font-size="13" fill="#1e293b">GND</text>
+
+  <!-- U_A Spannungspfeil (blau, negativ) -->
+  <line x1="305" y1="31" x2="305" y2="127" stroke="#2563eb" stroke-width="1.5" marker-end="url(#pfeil)"/>
+  <text x="311" y="82" font-size="13" font-family="sans-serif" fill="#2563eb">U_A ≤ 0</text>
+
+</svg>

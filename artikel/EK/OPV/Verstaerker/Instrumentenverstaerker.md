@@ -1,21 +1,21 @@
-﻿---
+---
 title: Instrumentenverstärker (3-OPV)
 kategorie: EK
 kapitel: OPV
-tags: [instrumentenverstärker, 3-opv, cmrr, präzisionsverstärker, messverstärker, brückenauswertung, gleichtaktunterdrückung, r_g, ina128, ina333, hochohmig]
-groessen: G|Verstärkung|—; CMRR|Gleichtaktunterdrückung|dB; R_G|Gainwiderstand|Ω
+tags: [instrumentenverstärker, 3-opv, cmrr, präzisionsverstärker, messverstärker, brückenauswertung, gleichtaktunterdrückung, r_gain, ina128, ina333, hochohmig]
+groessen: U_A|Ausgangsspannung|V; G|Verstärkung|—; CMRR|Gleichtaktunterdrückung|dB; R|Rückkopplungswiderstand 1. Stufe|Ω; R_gain|Gainwiderstand|Ω; R1|Eingangswiderstand 2. Stufe|Ω; R2|Gegenkopplungswiderstand 2. Stufe|Ω
 _status: FERTIG
 ---
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[OPV Subtrahierend]]
-- [[OPV Nichtinvertierend]]
+- [[OPV Subtrahierender Verstärker]]
+- [[OPV Nichtinvertierender Verstärker]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[OPV Subtrahierend]]
+- [[OPV Subtrahierender Verstärker]]
 :::
 :::vbox
 **Führt weiter zu**
@@ -29,42 +29,46 @@ Der Instrumentenverstärker (INA) löst die zwei grössten Schwächen des einfac
 
 ## Aufbau: Zwei Stufen
 
-:::schematic Instrumentenverstärker 3-OPV: Erste Stufe: OPV A (nichtinvertierend, Eingang U_1) und OPV B (nichtinvertierend, Eingang U_2). Zwischen den (−)-Eingängen beider OPVs liegt R_G (Gainwiderstand). Ausgänge OPV A und B führen zur zweiten Stufe. Zweite Stufe: OPV C als Subtrahierverstärker mit 4 gleichen Widerständen R. Ausgang U_out. Verstärkung G = 1 + 2R/R_G
-/Diagramm/instrumentenverstaerker.svg
+:::schematic Instrumentenverstärker (3-OPV, mit Verstärkungsnetzwerk R_gain)
+/schaltplaene/OPV/Verstärker/opv_instrumentenverstaerker_gain.svg
 :::
 
 **Erste Stufe** — zwei nichtinvertierende Pufferverstärker (OPV A und OPV B):
 - Beide Eingänge U_1 und U_2 werden von je einem OPV hochohmig gepuffert
-- Zwischen den invertierenden Eingängen (–) der beiden OPVs liegt der **Gainwiderstand R_G**
+- Zwischen den invertierenden Eingängen (–) der beiden OPVs liegt der **Gainwiderstand R_gain**, jeder OPV hat zudem einen Rückkopplungswiderstand R zu seinem eigenen Ausgang
 - Die Differenz U_1 – U_2 wird verstärkt, Gleichtaktsignale werden kaum berührt
 
 **Zweite Stufe** — ein Subtrahierverstärker (OPV C):
-- Vier gleiche Widerstände R bilden den Differenzverstärker
+- Eingangswiderstände R1 und Gegenkopplungswiderstände R2 (gleiche Rollen wie beim [[OPV Subtrahierender Verstärker]]) bilden den Differenzverstärker mit der Verstärkung R2/R1
 - Subtrahiert die Ausgänge der ersten Stufe und unterdrückt Reste des Gleichtaktsignals
 
-## Verstärkungsformel
+## Ausgangsspannung und Verstärkung
 
 :::formel
-G = (1 + 2 * R / R_G)    # Gesamtverstärkung; R = Widerstände der zweiten Stufe
-R_G = 2 * R / (G - 1)    # Gainwiderstand aus gewünschter Verstärkung
+U_A = (U_2 - U_1) * (R2 / R1) * (1 + 2 * R / R_gain)
+G   = (R2 / R1) * (1 + 2 * R / R_gain)
 :::
 
-Die Verstärkung wird durch **einen einzigen Widerstand R_G** eingestellt — alle anderen Widerstände bleiben fest. Das ist der grosse Vorteil: keine symmetrischen Widerstandspaare müssen abgestimmt werden.
+In der Praxis wählt man R1 = R2, damit das Verhältnis R2/R1 = 1 wird und die zweite Stufe nicht zur Gesamtverstärkung beiträgt. Dann gilt G = 1 + 2R/R_gain, und die Verstärkung wird durch **einen einzigen Widerstand R_gain** eingestellt — alle anderen Widerstände bleiben fest. Das ist der grosse Vorteil: keine symmetrischen Widerstandspaare müssen für die Verstärkungseinstellung abgestimmt werden, R1/R2 bleiben fest und müssen nur paarweise genau übereinstimmen.
+
+:::formel
+R_gain = 2 * R / (G - 1)    # Gainwiderstand aus gewünschter Verstärkung (für R1 = R2)
+:::
 
 ## Berechnungsbeispiel
 
 :::monospace
-INA128 (R intern = 40 kΩ), gewünschte Verstärkung G = 100
-R_G = 2 × 40 kΩ / (100 - 1) = 80 kΩ / 99 ≈ 808 Ω → 806 Ω (Normwert E96)
+INA128 (R intern = 40 kΩ, R1 = R2), gewünschte Verstärkung G = 100
+R_gain = 2 × 40 kΩ / (100 - 1) = 80 kΩ / 99 ≈ 808 Ω → 806 Ω (Normwert E96)
 
-Probe: G = 1 + 2×40k/806 = 1 + 99.3 ≈ 100 ✓
+Probe: G = (R2/R1) × (1 + 2×40k/806) = 1 × (1 + 99.3) ≈ 100 ✓
 :::
 
 ## Vergleich: Subtrahierverstärker vs. Instrumentenverstärker
 
 | Eigenschaft | Subtrahierverstärker | Instrumentenverstärker |
 |---|---|---|
-| Eingangswiderstand | R_E (10–100 kΩ) | > 10 GΩ |
+| Eingangswiderstand | R1/R3 (10–100 kΩ) | > 10 GΩ |
 | CMRR | 40–80 dB | 80–130 dB |
 | Verstärkungseinstellung | 2 Widerstandspaare | 1 Widerstand R_G |
 | Aufwand | gering (1 OPV) | höher (3 OPV oder IC) |

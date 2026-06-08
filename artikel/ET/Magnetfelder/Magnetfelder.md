@@ -59,6 +59,17 @@ H = N * I / l    # l = Länge des magnetischen Pfades (m)
 
 **Einheit:** A/m (Ampere pro Meter).
 
+:::tip
+**Ringspule (Toroidspule):** Hier verlaufen die Feldlinien als geschlossene Kreise im Inneren des Rings — der magnetische Pfad l entspricht der **mittleren Feldlinienlänge l_m**, also dem Umfang des Rings auf dem mittleren Durchmesser d_m:
+
+Wird d_m bei gleichbleibendem Strom und gleicher Windungszahl um den Faktor x grösser, steigt l_m um denselben Faktor x — und H sinkt entsprechend auf 1/x der ursprünglichen Feldstärke (H ~ 1/l).
+:::
+
+:::formel
+l = l_m = pi * d_m    # mittlere Feldlinienlänge der Ringspule
+H = N * I / (pi * d_m)
+:::
+
 ## Magnetische Flussdichte B
 
 Die Flussdichte B (auch: "magnetische Induktion") beschreibt das Feld im Material — sie hängt von H und vom Werkstoff ab:
@@ -109,5 +120,5 @@ B   = 1.257e-6 · 1000 · 1000 = 1.26 T
 :::
 
 :::tip
-Die Analogie zum elektrischen Stromkreis hilft beim Verständnis: H ↔ E-Feld, B ↔ Stromdichte, Phi ↔ Strom, Theta ↔ Spannung, magnetischer Widerstand ↔ ohmscher Widerstand → [[Magnetischer Widerstand]].
+Die Analogie zum elektrischen Stromkreis hilft beim Verständnis: H ↔ E-Feld, B ↔ Stromdichte, Phi ↔ Strom, Theta ↔ Spannung, magnetischer Widerstand ↔ ohmscher Widerstand → [[Magnetischer Widerstand (Reluktanz)]].
 :::

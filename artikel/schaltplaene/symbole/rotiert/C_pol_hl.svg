@@ -1,0 +1,25 @@
+<svg width="100%" viewBox="0 0 210 210" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Kondensator (polarisiert)</title>
+  <desc>Polarisierter Kondensator, alle Anschlüsse auf 10px-Raster</desc>
+
+  <!-- Hintergrund + Dot-Grid -->
+
+  <!-- === SYMBOL === -->
+  <!-- Draht links: (20,100) → (90,100) — beide auf Grid -->
+  <line x1="20" y1="100" x2="90" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Platte 1: x=90, y=70..130 — auf Grid -->
+  <line x1="90" y1="70" x2="90" y2="130" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Platte 2: x=110, y=70..130 — auf Grid -->
+  <line x1="110" y1="70" x2="110" y2="130" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Draht rechts: (110,100) → (180,100) — auf Grid -->
+  <line x1="110" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Plus-Zeichen bei (60,80) — auf Grid -->
+  <line x1="55" y1="80" x2="65" y2="80" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  <line x1="60" y1="75" x2="60" y2="85" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Anschluss-Punkte zur Kontrolle (können später entfernt werden) -->
+</svg>

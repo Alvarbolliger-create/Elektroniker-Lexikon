@@ -26,8 +26,8 @@ _status: PORT  # ET_alt/Schaltkreise/Reihenschaltung.md
 
 Bei der Reihenschaltung sind alle Widerstände hintereinander geschaltet — durch alle fliesst derselbe Strom. Die Gesamtspannung verteilt sich auf die einzelnen Teilspannungen.
 
-:::schematic
-/schaltplaene/schaltkreise/reihenschaltung.svg
+:::schematic R-Reihenschaltung
+/schaltplaene/Filter/r_reihe.svg
 :::
 
 ## Gesamtwiderstand

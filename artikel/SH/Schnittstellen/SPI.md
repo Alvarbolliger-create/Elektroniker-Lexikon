@@ -1,57 +1,71 @@
 ---
 title: SPI
 kategorie: SH
-tags: [SPI, seriell, schnittstelle, MOSI, MISO, SCK, CS, mikrocontroller, CPOL, CPHA, daisy-chain, vollduplex, chip-select, synchron]
-symbol: —
-einheit: —
+kapitel: Schnittstellen
+tags: [spi, serial peripheral interface, mosi, miso, sclk, chip select, master slave]
+_status: PORT
 ---
-
-SPI (Serial Peripheral Interface) ist eine synchrone serielle Schnittstelle. Vier Leitungen, hohe Geschwindigkeit, kein Protokoll-Overhead. Standard für Displays, Flash-Speicher und Sensoren.
 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[UART]]
+- [[Serielle Datenübertragung (Grundlagen)]]
 :::
 :::vbox
 **Verwandte Artikel**
 - [[I2C]]
-- [[UART]]
-:::
-:::vbox
-**Führt weiter zu**
-- [[Mikrocontroller]]
 :::
 :::
 
 ---
 
-## Leitungen
+→ [[UART|UART]] verbindet immer nur zwei Geräte direkt miteinander — und das auch noch ohne gemeinsamen Takt, was eine genaue Abstimmung der Baudrate erfordert. Für Anwendungen, die hohe Geschwindigkeit und mehrere angeschlossene Bausteine brauchen — Displays, Flash-Speicher, Sensoren — hat sich eine andere Schnittstelle durchgesetzt: **SPI** (Serial Peripheral Interface), eine **synchrone** serielle Schnittstelle mit eigener Taktleitung.
+
+## Vier Leitungen mit klarer Aufgabenteilung
+
+:::merke
+SPI verwendet vier Leitungen mit klar getrennten Aufgaben:
 
 | Leitung | Richtung | Bedeutung |
 |---|---|---|
 | SCK | Master → Slave | Takt |
-| MOSI | Master → Slave | Daten vom Master |
-| MISO | Slave → Master | Daten vom Slave |
+| MOSI | Master → Slave | Daten vom Master (Master Out, Slave In) |
+| MISO | Slave → Master | Daten vom Slave (Master In, Slave Out) |
 | CS / SS | Master → Slave | Chip Select, aktiv LOW |
 
-Jeder Slave bekommt eine eigene CS-Leitung. Alle anderen teilen SCK, MOSI, MISO.
-
-## Übertragung
-
-Der Master erzeugt den Takt. Bei jedem Taktimpuls wird ein Bit gesendet und empfangen. Gleichzeitig, vollduplex.
-
-Ein Byte braucht 8 Taktimpulse. Keine Startbits, keine Stoppbits.
-
-:::waveform
-labels: ,B3,,B2,,B1,,B0,,
-CS:   1,0,0,0,0,0,0,0,0,1
-SCK:  0,0,1,0,1,0,1,0,1,0
-MOSI: 0,1,1,0,0,1,1,0,0,0
-MISO: 0,0,0,1,1,1,1,0,0,0
+Der **Master** erzeugt den gemeinsamen Takt SCK — genau das ist der entscheidende Unterschied zu UART: Weil beide Seiten exakt im selben Rhythmus arbeiten, ist keine Vereinbarung über eine Baudrate nötig, und es entsteht auch keine Drift, die aufsynchronisiert werden müsste. Bei jedem Taktimpuls wird gleichzeitig ein Bit gesendet **und** empfangen — die Übertragung läuft also **vollduplex**. Ein Byte braucht damit genau acht Taktimpulse, ganz ohne Start- oder Stoppbits.
 :::
 
-## Vergleich: UART, SPI, I2C
+## Mehrere Slaves an einem Bus: jeder bekommt seine eigene Leitung
+
+:::tip
+SCK, MOSI und MISO werden von allen angeschlossenen Bausteinen gemeinsam genutzt. Damit der Master trotzdem gezielt mit einem bestimmten Baustein kommunizieren kann, bekommt **jeder Slave eine eigene CS-Leitung** (Chip Select, aktiv LOW). Nur der Slave, dessen CS-Leitung gerade auf LOW gezogen wird, "hört zu" und antwortet — alle anderen ignorieren den Datenverkehr auf dem Bus vollständig. Diese Lösung ist denkbar einfach, hat aber einen Haken: Bei vielen Slaves braucht man entsprechend viele freie GPIO-Pins am Mikrocontroller.
+
+Eine elegante Alternative bei begrenzter Pin-Anzahl ist das **Daisy-Chaining**: Die Slaves werden in Reihe geschaltet, wobei der MISO-Ausgang des einen auf den MOSI-Eingang des nächsten geführt wird. Alle Slaves teilen sich dann eine gemeinsame CS-Leitung — die Daten "wandern" wie auf einem Förderband von einem Baustein zum nächsten.
+:::
+
+## Die vier SPI-Modi: Taktpolarität und -phase
+
+:::warning
+Bevor zwei SPI-Bausteine zusammenarbeiten können, müssen sie sich auf denselben **Modus** einigen — definiert durch die Taktpolarität CPOL (Ruhepegel des Takts) und die Taktphase CPHA (an welcher Flanke abgetastet wird). Es gibt vier Kombinationen:
+
+| Modus | CPOL | CPHA | Takt im Ruhezustand | Abtastung |
+|---|---|---|---|---|
+| 0 | 0 | 0 | LOW | steigende Flanke |
+| 1 | 0 | 1 | LOW | fallende Flanke |
+| 2 | 1 | 0 | HIGH | fallende Flanke |
+| 3 | 1 | 1 | HIGH | steigende Flanke |
+
+Ist der Modus falsch eingestellt, funktioniert die Kommunikation überhaupt nicht — die Bits werden zur falschen Zeit abgetastet und ergeben nur "Datenmüll". Der korrekte Modus für einen bestimmten Baustein steht immer in dessen Datenblatt und muss dort nachgeschlagen werden.
+:::
+
+## Geschwindigkeit: die Königsdisziplin unter den seriellen Schnittstellen
+
+:::info
+SPI ist deutlich schneller als UART und → [[I2C|I2C]] — typisch sind 1 bis 50 Mbit/s, je nach IC und Leitungslänge. Der Grund liegt in der einfachen, synchronen Architektur ohne Protokoll-Overhead: keine Adressierung, keine Start- und Stoppbits, kein Handshake — nur ein gemeinsamer Takt und zwei Datenleitungen, die vollduplex arbeiten. Diese Schlankheit macht SPI zur ersten Wahl überall dort, wo grosse Datenmengen schnell übertragen werden müssen, etwa bei Displays, Kameramodulen oder externen Flash-Speichern.
+:::
+
+## SPI im Vergleich zu UART und I2C
 
 | Merkmal | UART | SPI | I2C |
 |---|---|---|---|
@@ -63,24 +77,4 @@ MISO: 0,0,0,1,1,1,1,0,0,0
 | Elektrisch | Push-Pull | Push-Pull | Open-Drain |
 | Adressierung | Keine (Punkt-zu-Punkt) | Über CS-Leitungen | 7-Bit-Adresse im Protokoll |
 
-**Asynchron** (UART): Kein gemeinsamer Takt. Sender und Empfänger einigen sich vorher auf die Baudrate.  
-**Synchron** (SPI, I2C): Eine Taktleitung (SCK / SCL) synchronisiert Sender und Empfänger.
-
-## Geschwindigkeit
-
-Viel schneller als UART und I2C. Typisch 1 bis 50 MBit/s, je nach IC und Leitungslänge.
-
-## SPI Modi
-
-Vier Modi (0 bis 3) definieren Taktpolarität (CPOL) und -phase (CPHA). Falsch eingestellter Modus: Kommunikation funktioniert nicht. Immer im Datenblatt des Slaves nachschauen.
-
-| Modus | CPOL | CPHA | Takt im Ruhezustand | Abtastung |
-|---|---|---|---|---|
-| 0 | 0 | 0 | LOW | steigende Flanke |
-| 1 | 0 | 1 | LOW | fallende Flanke |
-| 2 | 1 | 0 | HIGH | fallende Flanke |
-| 3 | 1 | 1 | HIGH | steigende Flanke |
-
-:::tip
-Daisy-Chaining: Mehrere SPI-Slaves können in Reihe geschaltet werden (MISO eines Slaves auf MOSI des nächsten). Alle teilen CS. Nützlich wenn die Anzahl CS-Pins begrenzt ist.
-:::
+Diese Tabelle macht den grundsätzlichen Zielkonflikt sichtbar: SPI tauscht **Geschwindigkeit gegen Verdrahtungsaufwand** — vier Leitungen plus eine pro Slave. Wer stattdessen mit minimalem Verdrahtungsaufwand auskommen und dabei viele Teilnehmer an denselben zwei Leitungen betreiben will, greift zu jener Schnittstelle, die im nächsten Artikel vorgestellt wird: → [[I2C|I2C]].

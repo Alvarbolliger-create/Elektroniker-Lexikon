@@ -95,6 +95,7 @@ Kein Schalter-L-System — nur Kondensatoren. Geeignet für kleine Leistungen.
 | Zeta | U_A = D/(1−D) · U_E | 2L + C | U_E > 0, U_A positiv |
 | Doppelinverter | U_A = −D/(1−D) · U_E | 2L + C | U_A negativ |
 | Split-Pi | Beliebig | 2L + C | Bidirektional |
+| Kaskadierter Ab-/Aufwärtswandler | Beliebig | L | Kombiniert Buck- und Boost-Stufe (4 Schalter), nicht-invertierend, Leistungsfluss-Richtung wählbar |
 
 ## Wirkungsgrad
 

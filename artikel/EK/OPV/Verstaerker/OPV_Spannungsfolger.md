@@ -1,4 +1,4 @@
-﻿---
+---
 title: OPV Spannungsfolger
 kategorie: EK
 kapitel: OPV
@@ -14,12 +14,12 @@ _status: FERTIG
 :::
 :::vbox
 **Verwandte Artikel**
-- [[BJT Kollektorschaltung]]
-- [[OPV Nichtinvertierend]]
+- [[BJT Kollektorschaltung (Emitterfolger)]]
+- [[OPV Nichtinvertierender Verstärker]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[Instrumentenverstärker]]
+- [[Instrumentenverstärker (3-OPV)]]
 :::
 :::
 
@@ -29,8 +29,8 @@ Der Spannungsfolger ist die einfachste OPV-Schaltung: der Ausgang ist direkt mit
 
 ## Schaltung und Formel
 
-:::schematic OPV Spannungsfolger: OPV-Dreieck. U_e am nichtinvertierenden Eingang (+). Ausgang U_a direkt (Drahtbrücke, kein Widerstand) zurück auf den invertierenden Eingang (−). 100 % Gegenkopplung. Verstärkung = 1, gleichphasig
-/Diagramm/opv_spannungsfolger.svg
+:::schematic Spannungsfolger
+/schaltplaene/OPV/Verstärker/opv_spannungsfolger.svg
 :::
 
 Ausgang direkt auf den invertierenden Eingang (–) zurückgeführt. Signal an den nichtinvertierenden Eingang (+).
@@ -61,7 +61,7 @@ Die goldene Regel: U_+ = U_–. Der OPV regelt seinen Ausgang bis U_– = U_+. D
 **ADC-Puffer**: Vor einem Analog-Digital-Wandler schützt der Spannungsfolger den Sensor vor dem Ladestrom des ADC-Eingangs.
 
 :::info
-Der BJT-Emitterfolger erfüllt dieselbe Funktion, ist aber weniger präzise (U_BE-Offset, temperaturabhängig). Der OPV-Spannungsfolger ist der moderne Standard für diese Aufgabe. → [[BJT Kollektorschaltung]]
+Der BJT-Emitterfolger erfüllt dieselbe Funktion, ist aber weniger präzise (U_BE-Offset, temperaturabhängig). Der OPV-Spannungsfolger ist der moderne Standard für diese Aufgabe. → [[BJT Kollektorschaltung (Emitterfolger)]]
 :::
 
 :::warning

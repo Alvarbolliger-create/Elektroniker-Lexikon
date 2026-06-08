@@ -92,10 +92,10 @@ Die Herleitung der konkreten Schwellenwerte erfolgt über **KCL am (+)-Knoten** 
 
 | Variante | Signal | (−)-Eingang | Schwellen |
 |---|---|---|---|
-| [[Nicht invertierend, symmetrisch]] | → (+) | GND | symmetrisch um 0 |
-| [[Invertierend, symmetrisch]] | → (−) | Signal | symmetrisch um 0 |
-| [[Nicht invertierend, unsymmetrisch]] | → (+) | U_ref | verschoben um U_ref |
-| [[Invertierend, unsymmetrisch]] | → (−) | Signal | verschoben um U_ref |
+| [[Schmitt-Trigger nicht invertierend symmetrisch|Nicht invertierend, symmetrisch]] | → (+) | GND | symmetrisch um 0 |
+| [[Schmitt-Trigger invertierend symmetrisch|Invertierend, symmetrisch]] | → (−) | Signal | symmetrisch um 0 |
+| [[Schmitt-Trigger nicht invertierend unsymmetrisch|Nicht invertierend, unsymmetrisch]] | → (+) | U_ref | verschoben um U_ref |
+| [[Schmitt-Trigger invertierend unsymmetrisch|Invertierend, unsymmetrisch]] | → (−) | Signal | verschoben um U_ref |
 
 ## Anwendungen
 

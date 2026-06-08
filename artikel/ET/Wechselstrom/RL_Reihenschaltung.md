@@ -28,8 +28,8 @@ _status: NEU
 
 Die RL-Reihenschaltung ist der einfachste Wechselstromkreis mit einem reaktiven Bauteil: Widerstand R und Spule L hintereinander. Die Spule erzeugt eine frequenzabhängige Phasenverschiebung — mit steigender Frequenz wird die Schaltung immer "induktiver".
 
-:::schematic RL-Reihenschaltung: Wechselspannungsquelle U_ges links; Widerstand R und Spule L in Reihe; Strom I fliesst durch beide Bauteile; Teilspannungen U_R (an R) und U_L (an L) eingezeichnet; Zeigerdreieck rechts: U_R horizontal, U_L senkrecht nach oben (induktiv), U_ges als Hypotenuse, Winkel phi zwischen U_ges und U_R
-/schaltplaene/wechselstrom/rl_reihe.svg
+:::schematic RL-Reihenschaltung
+/schaltplaene/Filter/rl_reihe.svg
 :::
 
 ## Induktive Reaktanz
@@ -120,4 +120,25 @@ L = 3140 / (2*pi*10000) = 50 mH
 
 :::tip
 Die RL-Reihenschaltung wirkt als **Hochpass** für die Spannung an der Spule (U_L steigt mit f) und als **Tiefpass** für die Spannung am Widerstand (U_R sinkt mit f). Die Grenzfrequenz liegt bei f = R / (2·pi·L), wo X_L = R gilt.
+:::
+
+## Antwort auf Rechtecksignale (Pulsformer/Differenzierglied)
+
+Auch im Zeitbereich verhält sich die RL-Reihenschaltung wie ein Hochpass/Tiefpass-Paar — mit vertauschten Rollen gegenüber der RC-Schaltung, weil bei der Spule der **Strom** I sich nicht sprunghaft ändern kann, während sich U_L sprunghaft ändern darf:
+
+:::schematic Oszillogramm-Vergleich: oben das Rechteck-Eingangssignal U_in; darunter die Antwortkurven U_L und I übereinander (in Blau bzw. Rot). U_L zeigt bei jeder Flanke einen steilen Spannungs-Nadelimpuls (Polarität je nach Flankenrichtung), der exponentiell mit tau = L/R gegen 0 V abklingt. I zeigt dazu komplementär die exponentielle Stromaufbau-/Abbaukurve (abgerundete Rampen) — dieselbe Form wie U_C beim RC-Glied
+/Diagramm/rl_reihe_rechteck_antwort.svg
+:::
+
+**Spannung U_L (Differenzierglied):** Bei jeder Flanke kann der Strom I (und damit U_R = I·R) nicht springen — die gesamte Spannungsänderung fällt im ersten Moment an L ab. U_L "springt mit" und klingt danach exponentiell mit tau = L/R auf 0 V ab → ein **Nadelimpuls** pro Flanke, analog zu I bei der RC-Schaltung ([[RC-Reihenschaltung]]).
+
+**Strom I (Integrierglied):** Der Strom I — und damit auch U_R = I·R, das überall in der Reihenschaltung dieselbe Form wie I hat — baut sich exponentiell auf bzw. ab ([[Auf- und Entladung (RL)]]), das Rechtecksignal wird "abgerundet".
+
+| Verhältnis tau zu Pulsdauer T | Verhalten von U_L (Hochpass-Charakter) | Verhalten von I (Tiefpass-Charakter) |
+|---|---|---|
+| tau ≪ T | Scharfe, schnell abklingende Nadelimpulse | Folgt dem Rechteck mit sichtbarer Rundung |
+| tau ≫ T | U_L bleibt nahe am vollen Sprung, klingt kaum ab | I baut sich kaum auf — Ausgang bleibt nahezu konstant |
+
+:::tip
+Wer einmal die RC-Antwort auf Rechtecksignale verstanden hat, kann sie 1:1 auf die RL-Schaltung übertragen — nur "Spannung am Kondensator kann nicht springen" wird zu "Strom durch die Spule kann nicht springen", und die Rollen von Hochpass-/Tiefpass-Ausgang vertauschen sich.
 :::

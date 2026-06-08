@@ -1,7 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 30" width="40" height="30">
-  <!-- pin: A=(20,30) -->
-  <line x1="20" y1="30" x2="20" y2="18" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
-  <line x1="6"  y1="18" x2="34" y2="18" stroke="#1e293b" stroke-width="2.5" stroke-linecap="round"/>
-  <text x="20" y="13" font-family="sans-serif" font-size="9" font-weight="bold"
-        text-anchor="middle" fill="#374151">VCC</text>
+<svg width="100%" viewBox="0 0 210 210" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>VCC</title>
+
+  <!-- VCC Text oberhalb: y=80 -->
+  <text x="100" y="80" text-anchor="middle" font-family="monospace" font-size="14" fill="#1e293b">VCC</text>
+
+  <!-- Horizontale Linie dick: (60,100)→(140,100) -->
+  <line x1="60" y1="100" x2="140" y2="100" stroke="#1e293b" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Draht unten: (100,100)→(100,180) -->
+  <line x1="100" y1="100" x2="100" y2="180" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
 </svg>

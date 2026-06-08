@@ -1,4 +1,4 @@
-﻿---
+---
 title: BJT Arbeitspunkt
 kategorie: EK
 kapitel: Transistoren
@@ -19,7 +19,7 @@ _status: FERTIG
 :::vbox
 **Führt weiter zu**
 - [[BJT Emitterschaltung]]
-- [[BJT Kollektorschaltung]]
+- [[BJT Kollektorschaltung (Emitterfolger)]]
 :::
 :::
 

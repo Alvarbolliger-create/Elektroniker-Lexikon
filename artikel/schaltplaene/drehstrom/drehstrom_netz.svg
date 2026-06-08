@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" width="720" height="420">
+<line x1="200" y1="240" x2="200.0" y2="245.0" stroke="#92400e" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="200.0" y1="85.0" x2="200.0" y2="90.0" stroke="#92400e" stroke-width="1.5" stroke-linecap="round"/>
+<g transform="rotate(-90.00,200.0,165.0)">
+<g transform="translate(100.0,65.0)">
+<line x1="20" y1="100" x2="50" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <path d="M 50,100 A 10,10 0 0 1 70,100&#10;           A 10,10 0 0 1 90,100&#10;           A 10,10 0 0 1 110,100&#10;           A 10,10 0 0 1 130,100" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <line x1="130" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+</g>
+</g>
+<line x1="200" y1="240" x2="195.2" y2="238.7" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="349.7" y1="280.1" x2="344.88887394336024" y2="278.8228567653781" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<g transform="rotate(15.00,272.44443697168015,259.41142838268905)">
+<g transform="translate(172.44443697168015,159.41142838268905)">
+<line x1="20" y1="100" x2="50" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <path d="M 50,100 A 10,10 0 0 1 70,100&#10;           A 10,10 0 0 1 90,100&#10;           A 10,10 0 0 1 110,100&#10;           A 10,10 0 0 1 130,100" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <line x1="130" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+</g>
+</g>
+<line x1="200" y1="240" x2="204.3" y2="237.5" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="65.8" y1="317.5" x2="70.0961894323342" y2="315.0" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round"/>
+<g transform="rotate(150.00,135.0480947161671,277.5)">
+<g transform="translate(35.0480947161671,177.5)">
+<line x1="20" y1="100" x2="50" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <path d="M 50,100 A 10,10 0 0 1 70,100&#10;           A 10,10 0 0 1 90,100&#10;           A 10,10 0 0 1 110,100&#10;           A 10,10 0 0 1 130,100" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <line x1="130" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+</g>
+</g>
+<circle cx="200" cy="240" r="3" fill="#1e293b"/>
+<text x="190" y="230" font-size="10" font-family="sans-serif" fill="#1e293b" text-anchor="end">Sternpunkt</text>
+<text x="200" y="65" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="middle">Generator</text>
+<line x1="520" y1="240" x2="520.0" y2="245.0" stroke="#92400e" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="520.0" y1="85.0" x2="520.0" y2="90.0" stroke="#92400e" stroke-width="1.5" stroke-linecap="round"/>
+<g transform="rotate(-90.00,520.0,165.0)">
+<g transform="translate(420.0,65.0)">
+<line x1="20" y1="100" x2="60" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <rect x="60" y="80" width="80" height="40" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  
+  <line x1="140" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+</g>
+</g>
+<line x1="520" y1="240" x2="524.8" y2="238.7" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="370.3" y1="280.1" x2="375.11112605663976" y2="278.82285676537816" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<g transform="rotate(165.00,447.55556302831985,259.4114283826891)">
+<g transform="translate(347.55556302831985,159.4114283826891)">
+<line x1="20" y1="100" x2="60" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <rect x="60" y="80" width="80" height="40" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  
+  <line x1="140" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+</g>
+</g>
+<line x1="520" y1="240" x2="515.7" y2="237.5" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="654.2" y1="317.5" x2="649.9038105676658" y2="315.0" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round"/>
+<g transform="rotate(30.00,584.951905283833,277.5)">
+<g transform="translate(484.95190528383296,177.5)">
+<line x1="20" y1="100" x2="60" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <rect x="60" y="80" width="80" height="40" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  
+  <line x1="140" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+</g>
+</g>
+<circle cx="520" cy="240" r="3" fill="#1e293b"/>
+<text x="530" y="230" font-size="10" font-family="sans-serif" fill="#1e293b" text-anchor="start">Sternpunkt</text>
+<text x="520" y="65" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="middle">Last</text>
+<line x1="200.0" y1="90.0" x2="520.0" y2="90.0" stroke="#92400e" stroke-width="1.5" stroke-linecap="round"/>
+<text x="360.0" y="82.0" font-size="12" font-family="sans-serif" fill="#92400e" text-anchor="middle">L1</text>
+<line x1="344.9" y1="278.8" x2="375.1" y2="278.8" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<text x="360.0" y="268.8" font-size="12" font-family="sans-serif" fill="#1e293b" text-anchor="middle">L2</text>
+<path d="M 70.1,315.0 L 70.1,365.0 L 649.9,365.0 L 649.9,315.0" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round"/>
+<text x="360.0" y="381.0" font-size="12" font-family="sans-serif" fill="#6b7280" text-anchor="middle">L3</text>
+<line x1="200" y1="240" x2="520" y2="240" stroke="#2563eb" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="6,3"/>
+<text x="360.0" y="232.0" font-size="12" font-family="sans-serif" fill="#2563eb" text-anchor="middle">N</text>
+<text x="360" y="408" font-size="12" font-family="sans-serif" fill="#1e293b" text-anchor="middle">Generator und Last je in Sternschaltung — verbunden über L1, L2, L3 und Neutralleiter N</text>
+</svg>

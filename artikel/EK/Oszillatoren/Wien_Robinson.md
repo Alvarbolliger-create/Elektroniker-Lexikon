@@ -1,4 +1,4 @@
-﻿---
+---
 title: Wien-Robinson-Oszillator
 kategorie: EK
 kapitel: Oszillatoren
@@ -12,11 +12,11 @@ _status: FERTIG
 **Voraussetzungen**
 - [[Oszillatoren Grundlagen]]
 - [[Bandpass]]
-- [[OPV Nichtinvertierend]]
+- [[OPV Nichtinvertierender Verstärker]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[RC-Phasenschieber]]
+- [[RC-Phasenschieber-Oszillator]]
 :::
 :::vbox
 **Führt weiter zu**

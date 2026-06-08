@@ -1,7 +1,7 @@
 ---
 title: Strom, Spannung, Widerstand
 kategorie: ET
-tags: [strom, spannung, widerstand, ohm, leitwert, grundlagen, ohmsches gesetz, kennlinie]
+tags: [strom, spannung, widerstand, ohm, leitwert, grundlagen, ohmsches gesetz, kennlinie, differenzieller widerstand, dynamischer widerstand, arbeitspunkt, diode]
 groessen: U|Spannung|V; I|Strom|A; R|Widerstand|Ohm; G|Leitwert|S; Q|Ladung|C
 _status: PORT  # ET_alt/Grundlagen/Strom_Spannung_Widerstand.md
 ---
@@ -9,6 +9,7 @@ _status: PORT  # ET_alt/Grundlagen/Strom_Spannung_Widerstand.md
 :::hbox
 :::vbox
 **Verwandte Artikel**
+- [[Diode]]
 - [[Kirchhoffsche Gesetze]]
 - [[NTC & PTC]]
 :::

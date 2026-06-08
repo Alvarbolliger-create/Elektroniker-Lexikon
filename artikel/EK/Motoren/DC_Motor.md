@@ -1,4 +1,4 @@
-﻿---
+---
 title: DC-Motor
 kategorie: EK
 kapitel: Motoren
@@ -16,11 +16,11 @@ _status: FERTIG
 :::vbox
 **Verwandte Artikel**
 - [[Schrittmotor]]
-- [[BLDC]]
+- [[BLDC-Motor]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[BLDC]]
+- [[BLDC-Motor]]
 - [[Regelkreis Grundlagen]]
 :::
 :::

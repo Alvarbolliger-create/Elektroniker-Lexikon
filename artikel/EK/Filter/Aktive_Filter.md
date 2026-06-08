@@ -1,4 +1,4 @@
-﻿---
+---
 title: Aktive Filter
 kategorie: EK
 kapitel: Filter
@@ -11,7 +11,7 @@ _status: FERTIG
 :::vbox
 **Voraussetzungen**
 - [[OPV Grundlagen]]
-- [[OPV Invertierend]]
+- [[OPV Invertierender Verstärker]]
 - [[Filter Grundlagen]]
 - [[Tiefpass]]
 - [[Hochpass]]

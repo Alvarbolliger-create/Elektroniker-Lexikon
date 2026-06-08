@@ -1,4 +1,4 @@
-﻿---
+---
 title: H-Brücke
 kategorie: EK
 kapitel: Aktorik
@@ -17,13 +17,13 @@ _status: FERTIG
 :::vbox
 **Verwandte Artikel**
 - [[Relais]]
-- [[DC Motor]]
+- [[DC-Motor]]
 - [[Schrittmotor]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[DC Motor]]
-- [[BLDC]]
+- [[DC-Motor]]
+- [[BLDC-Motor]]
 - [[Frequenzumrichter]]
 :::
 :::

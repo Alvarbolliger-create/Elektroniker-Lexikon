@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 305" width="360" height="305">
+<defs><marker id="pf_b" markerWidth="8" markerHeight="8" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2563eb"/></marker></defs>
+<line x1="80" y1="70" x2="80" y2="132.0" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="80" y1="168.0" x2="80" y2="230" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="80" cy="150.0" r="18" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+<line x1="80" y1="138.0" x2="80" y2="162.0" stroke="#1e293b" stroke-width="1.2" stroke-linecap="round"/>
+<line x1="71" y1="141.0" x2="77" y2="141.0" stroke="#1e293b" stroke-width="1.1" stroke-linecap="round"/>
+<line x1="74" y1="138.0" x2="74" y2="144.0" stroke="#1e293b" stroke-width="1.1" stroke-linecap="round"/>
+<text x="50" y="154.0" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="end">U0</text>
+<line x1="80" y1="70" x2="155.0" y2="70" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<rect x="155.0" y="58" width="50" height="24" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+<text x="180.0" y="48" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="middle">Ri</text>
+<line x1="205.0" y1="70" x2="280" y2="70" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="280" y1="70" x2="280" y2="230" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="80" cy="230" r="3" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+<text x="66" y="235" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="end">A</text>
+<circle cx="280" cy="230" r="3" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+<text x="294" y="235" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="start">B</text>
+<line x1="80" y1="265" x2="80" y2="233" stroke="#2563eb" stroke-width="1" stroke-linecap="round" stroke-dasharray="3,3"/>
+<line x1="280" y1="265" x2="280" y2="233" stroke="#2563eb" stroke-width="1" stroke-linecap="round" stroke-dasharray="3,3"/>
+<line x1="274" y1="265" x2="86" y2="265" stroke="#2563eb" stroke-width="1.6" marker-end="url(#pf_b)"/>
+<text x="180.0" y="283" font-size="13" font-family="sans-serif" fill="#2563eb" text-anchor="middle">U_AB</text>
+</svg>

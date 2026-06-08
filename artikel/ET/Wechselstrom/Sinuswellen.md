@@ -1,7 +1,7 @@
 ---
 title: Sinuswellen & Effektivwert
 kategorie: ET
-tags: [sinuswelle, effektivwert, scheitelwert, frequenz, periode, kreisfrequenz, PWM, dreieck, rechteck, RMS, bogenmass]
+tags: [sinuswelle, effektivwert, scheitelwert, frequenz, periode, kreisfrequenz, PWM, dreieck, rechteck, RMS, bogenmass, phasenwinkel, phasenverschiebung, oszillogramm]
 groessen: u(t)|Momentanspannung|V; U_peak|Scheitelwert|V; U_eff|Effektivwert|V; f|Frequenz|Hz; T|Periodendauer|s; omega|Kreisfrequenz|rad/s; phi|Phasenwinkel|°
 _status: PORT+ERWEITERN  # ET_alt/Wechselstrom/Sinuswellen.md — Dreieck/Rechteck/PWM + Grad/Bogenmass ergänzt
 ---
@@ -72,6 +72,22 @@ phi_rad = phi_deg * pi / 180
 
 :::tip
 Taschenrechner immer auf **RAD-Modus** stellen, wenn mit omega·t gerechnet wird. Im DEG-Modus liefert sin(omega·t) falsche Ergebnisse.
+:::
+
+## Phasenwinkel aus dem Oszillogramm ablesen
+
+Sind zwei Kurven (z. B. u und i) im selben Diagramm gezeichnet, lässt sich der Phasenwinkel phi direkt aus der **zeitlichen Verschiebung Delta_t** zwischen zwei entsprechenden Punkten (z. B. beide Scheitelwerte oder beide Nulldurchgänge) bestimmen:
+
+:::formel
+phi = (Delta_t / T) * 360°    # Delta_t = Zeitverschiebung zwischen den Kurven, T = Periodendauer
+:::
+
+Eine volle Periode T entspricht 360°. Der Anteil, den Delta_t von T ausmacht, überträgt sich direkt auf den Winkel — daraus lässt sich z. B. der Leistungsfaktor cos(phi) berechnen → [[Wechselstromleistung]].
+
+:::monospace
+Beispiel: T = 20 ms, die Spitze von i folgt der Spitze von u um Delta_t ≈ 3,3 ms später
+phi = (3.3 / 20) * 360° ≈ 60°
+cos(phi) = cos(60°) = 0.5
 :::
 
 ## Effektivwert – Grundprinzip

@@ -1,0 +1,17 @@
+<svg width="100%" viewBox="0 0 210 210" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Potentiometer</title>
+
+  <!-- Draht links: (20,100)→(60,100) -->
+  <line x1="20" y1="100" x2="60" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Rechteck: x=60,y=80, w=80,h=40 -->
+  <rect x="60" y="80" width="80" height="40" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+  <!-- Draht rechts: (140,100)→(180,100) -->
+  <line x1="140" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Abgriff: Pfeil von (100,150)→(100,120), Spitze zeigt auf Rechteck -->
+  <line x1="100" y1="160" x2="100" y2="122" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Pfeilspitze -->
+  <polyline points="94,130 100,120 106,130" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Draht Abgriff nach unten: (100,160)→(100,180) -->
+  <line x1="100" y1="160" x2="100" y2="180" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

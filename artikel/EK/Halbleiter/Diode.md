@@ -1,4 +1,4 @@
-﻿---
+---
 title: Diode
 kategorie: EK
 kapitel: Halbleiter
@@ -20,7 +20,7 @@ _status: FERTIG
 :::
 :::vbox
 **Führt weiter zu**
-- [[Thyristor]]
+- [[Thyristor (SCR)]]
 - [[LED]]
 - [[Optokoppler]]
 :::

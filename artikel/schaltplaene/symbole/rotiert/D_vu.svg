@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 210" width="210" height="210">
+  <g transform="translate(0, 210) rotate(-90)">
+
+  <title>Diode (standard)</title>
+
+  <!-- Draht links: (20,100)→(80,100) -->
+  <line x1="20" y1="100" x2="80" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Dreieck aus 3 Linien: Basis x=80 y=80→120, Schenkel links-oben→rechts, links-unten→rechts -->
+  <!-- Basis: (80,80)→(80,120) -->
+  <line x1="80" y1="80" x2="80" y2="120" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Obere Schräge: (80,80)→(120,100) -->
+  <line x1="80" y1="80" x2="120" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Untere Schräge: (80,120)→(120,100) -->
+  <line x1="80" y1="120" x2="120" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Kathode: senkrechter Strich x=120, y=80→120 -->
+  <line x1="120" y1="80" x2="120" y2="120" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Draht rechts: (120,100)→(180,100) -->
+  <line x1="120" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+</svg>

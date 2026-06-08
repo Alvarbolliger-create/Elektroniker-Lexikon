@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 210" width="210" height="210">
+  <g transform="translate(210, 0) rotate(90)">
+
+  <title>Spule (fest)</title>
+
+  <!-- Draht links: (20,100)→(50,100) -->
+  <line x1="20" y1="100" x2="50" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- 4 Halbkreise, r=10, Mittelpunkte auf Grid -->
+  <path d="M 50,100 A 10,10 0 0 1 70,100&#10;           A 10,10 0 0 1 90,100&#10;           A 10,10 0 0 1 110,100&#10;           A 10,10 0 0 1 130,100" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Draht rechts: (130,100)→(180,100) -->
+  <line x1="130" y1="100" x2="180" y2="100" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+</svg>

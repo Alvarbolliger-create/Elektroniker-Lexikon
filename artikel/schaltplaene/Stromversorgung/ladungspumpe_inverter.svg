@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 230" width="480" height="230">
+  <defs>
+    <marker id="pfeil" markerWidth="8" markerHeight="8" refX="3" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- U_E Pfeil + Label -->
+  <line x1="30" y1="34" x2="30" y2="176" stroke="#2563eb" stroke-width="1.5" marker-end="url(#pfeil)"/>
+  <text x="16" y="108" font-size="13" font-family="sans-serif" fill="#2563eb" text-anchor="middle">U_E</text>
+
+  <!-- Eingang "+" -->
+  <circle cx="55" cy="30" r="3" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="42" y="34" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="middle">+</text>
+  <line x1="58" y1="30" x2="88" y2="30" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Schalter S: Kontakt "+", Pol, Kontakt "-" -->
+  <circle cx="88" cy="30" r="2.5" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+  <line x1="90" y1="32" x2="106" y2="42" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="108" cy="44" r="2" fill="#1e293b"/>
+  <line x1="106" y1="46" x2="90" y2="56" stroke="#1e293b" stroke-width="1.2" stroke-dasharray="3,2"/>
+  <circle cx="88" cy="58" r="2.5" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+  <line x1="88" y1="61" x2="88" y2="180" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="100" y="36" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">S</text>
+
+  <!-- Pol-Ausgang zu C1 -->
+  <line x1="108" y1="44" x2="135" y2="30" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="135" y1="30" x2="155" y2="30" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- C1 (unpolarisiert, in Serie) -->
+  <line x1="155" y1="20" x2="155" y2="40" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="163" y1="20" x2="163" y2="40" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="163" y1="30" x2="195" y2="30" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="159" y="14" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">C1</text>
+
+  <!-- Knoten M -->
+  <circle cx="195" cy="30" r="2.5" fill="#1e293b"/>
+  <text x="195" y="46" font-size="10" font-family="sans-serif" fill="#1e293b" text-anchor="middle">M</text>
+
+  <!-- D1 (vertikal, Anode an M oben, Kathode unten an GND) -->
+  <line x1="195" y1="30" x2="195" y2="48" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="183" y1="48" x2="207" y2="48" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="183" y1="78" x2="207" y2="78" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="183" y1="48" x2="195" y2="78" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="207" y1="48" x2="195" y2="78" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="195" y1="78" x2="195" y2="180" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="172" y="68" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">D1</text>
+
+  <!-- D2 (horizontal, Kathode an M-Seite links, Anode an Knoten-O-Seite rechts — gespiegelt zu D1/D2 im Verdoppler) -->
+  <line x1="195" y1="30" x2="215" y2="30" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="215" y1="20" x2="215" y2="40" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="245" y1="20" x2="245" y2="40" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="245" y1="20" x2="215" y2="30" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="245" y1="40" x2="215" y2="30" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="245" y1="30" x2="290" y2="30" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="230" y="14" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">D2</text>
+
+  <!-- Knoten O (Ausgang) -->
+  <circle cx="290" cy="30" r="2.5" fill="#1e293b"/>
+  <text x="290" y="46" font-size="10" font-family="sans-serif" fill="#1e293b" text-anchor="middle">O</text>
+  <line x1="290" y1="30" x2="417" y2="30" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Ausgang "-" (invertiert: Pluspol liegt unten) -->
+  <circle cx="420" cy="30" r="3" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="434" y="34" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="middle">−</text>
+
+  <!-- C2 (unpolarisiert, vertikal von Knoten O zur unteren Schiene) -->
+  <line x1="290" y1="30" x2="290" y2="93" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="276" y1="93" x2="304" y2="93" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="276" y1="103" x2="304" y2="103" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="290" y1="103" x2="290" y2="180" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="313" y="102" font-size="11" font-family="sans-serif" fill="#1e293b" text-anchor="middle">C2</text>
+
+  <!-- untere Schiene -->
+  <line x1="58" y1="180" x2="417" y2="180" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="88" cy="180" r="2.5" fill="#1e293b"/>
+  <circle cx="195" cy="180" r="2.5" fill="#1e293b"/>
+
+  <!-- Eingang "-" -->
+  <circle cx="55" cy="180" r="3" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="42" y="184" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="middle">−</text>
+
+  <!-- Ausgang "+" (invertiert: liegt unten, GND-Bezug des Ausgangs) -->
+  <circle cx="420" cy="180" r="3" fill="white" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="434" y="184" font-size="13" font-family="sans-serif" fill="#1e293b" text-anchor="middle">+</text>
+
+  <!-- GND -->
+  <line x1="195" y1="180" x2="195" y2="190" stroke="#1e293b" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="180" y1="190" x2="210" y2="190" stroke="#1e293b" stroke-width="4" stroke-linecap="round"/>
+  <text x="195" y="208" text-anchor="middle" font-family="monospace" font-size="13" fill="#1e293b">GND</text>
+
+  <!-- U_A Pfeil + Label -->
+  <line x1="450" y1="34" x2="450" y2="176" stroke="#2563eb" stroke-width="1.5" marker-end="url(#pfeil)"/>
+  <text x="464" y="108" font-size="13" font-family="sans-serif" fill="#2563eb" text-anchor="middle">U_A</text>
+
+</svg>

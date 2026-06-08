@@ -1,7 +1,7 @@
 ---
 title: EMV-Grundlagen
 kategorie: MT
-tags: [EMV, elektromagnetische verträglichkeit, störung, kopplung, schirmung, filter, gleichtakt, gegentakt, common mode, differential mode, netzfilter, EN 61000, IEC 61000, CE-kennzeichnung, EMV-richtlinie, surge, burst, ESD, leitungsgebunden, abgestrahlt]
+tags: [EMV, elektromagnetische verträglichkeit, störung, kopplung, schirmung, abschirmung, faradayscher käfig, mu-metall, filter, gleichtakt, gegentakt, common mode, differential mode, netzfilter, EN 61000, IEC 61000, CE-kennzeichnung, EMV-richtlinie, surge, burst, ESD, leitungsgebunden, abgestrahlt]
 symbol: —
 einheit: —
 ---
@@ -50,6 +50,22 @@ Wechselndes Magnetfeld induziert Störspannung in benachbarte Schleifen (Lenz'sc
 Elektromagnetische Wellen strahlen Energie in Leitungen und Gehäuse ein (oder werden von ihnen abgestrahlt). Relevant ab ca. 30 MHz.
 
 **Gegenmassnahmen:** Metallgehäuse, Kabelschirmung, Filterung an Gehäusedurchführungen.
+
+## Abschirmung — Faradayscher Käfig & Materialwahl
+
+Ein **Faradayscher Käfig** ist eine geschlossene, elektrisch leitfähige Hülle, die das Innere vor äusseren elektromagnetischen Feldern abschirmt (und umgekehrt verhindert, dass innen erzeugte Felder nach aussen dringen). Jedes durchgehend leitfähige Metallgehäuse wirkt als Faradayscher Käfig — Lüftungsschlitze, Displayausschnitte und Kabeldurchführungen sind Schwachstellen und müssen zusätzlich gefiltert oder mit Dichtungen/Blenden versehen werden.
+
+**Nicht jedes Material schirmt gleich gut — und gegen dieselbe Störung:**
+
+| Material | Wirkprinzip | Schirmt wirksam gegen |
+|---|---|---|
+| Aluminium, Kupfer (gut leitfähig) | Wirbelströme im Metall bauen das eindringende Feld ab | Elektrische Felder & hochfrequente Wechselfelder (klassischer Faradayscher Käfig) |
+| Eisen-Nickel-Legierung / **µ-Metall** (sehr hohes mu_r) | Feldlinien werden vom hochpermeablen Material "aufgesaugt" und um das Innere herumgeleitet | Niederfrequente Magnetfelder — genau dort, wo Aluminium kaum wirkt |
+| Kunststoffe (Polyethylen, ABS, …) | Nichtleitend: keine Wirbelströme, kein magnetischer Pfad | **Nichts** — Kunststoffgehäuse bieten keinerlei Feldabschirmung |
+
+:::tip
+**Schirmung ≠ Filterung.** Ein Eingangsfilter (X-/Y-Kondensatoren, Gleichtaktdrossel, siehe unten) bekämpft **leitungsgebundene** Störungen auf den Versorgungsleitungen — er schützt das Gerät aber nicht vor von aussen einwirkenden elektromagnetischen Wechselfeldern. Gegen Felder hilft nur eine geschlossene, passend gewählte leitfähige bzw. hochpermeable Hülle (Schirmung/Faradayscher Käfig). Beides sind unabhängige EMV-Massnahmen gegen unterschiedliche Kopplungsmechanismen (→ oben: kapazitive/induktive/Strahlungskopplung vs. galvanische Kopplung).
+:::
 
 ## Gleichtakt- und Gegentaktstörungen
 

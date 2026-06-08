@@ -1,4 +1,4 @@
-﻿---
+---
 title: Frequenzumrichter
 kategorie: EK
 kapitel: Motoren
@@ -10,14 +10,14 @@ _status: FERTIG
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[BLDC]]
+- [[BLDC-Motor]]
 - [[IGBT]]
-- [[DC-DC Wandler]]
+- [[DC-DC-Wandler]]
 :::
 :::vbox
 **Verwandte Artikel**
 - [[Servomotor]]
-- [[BLDC]]
+- [[BLDC-Motor]]
 :::
 :::vbox
 **Führt weiter zu**

@@ -1,8 +1,8 @@
-﻿---
+---
 title: Oszillatoren Grundlagen
 kategorie: EK
 kapitel: Oszillatoren
-tags: [oszillator, schwingungsbedingung, rückkopplung, phasenverschiebung, schleifenverstärkung, selbsterregung, amplitudenbegrenzung, RC-oszillator, LC-oszillator, quarzoszillator, anlaufbedingung]
+tags: [oszillator, sinusgenerator, schwingungsbedingung, rückkopplung, phasenverschiebung, schleifenverstärkung, selbsterregung, amplitudenbegrenzung, RC-oszillator, LC-oszillator, quarzoszillator, anlaufbedingung, resonanzfrequenz, OPV-oszillator]
 groessen: φ|Phasenverschiebung Rückkopplung|°; λ|Phasenverschiebung Verstärker|°; k|Rückkopplungsfaktor|—; v_u|Spannungsverstärkung|—; f_0|Resonanzfrequenz|Hz
 _status: FERTIG
 ---
@@ -10,19 +10,19 @@ _status: FERTIG
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Schmitt-Trigger]]
+- [[Schmitt-Trigger Grundlagen]]
 - [[Filter Grundlagen]]
 - [[Bandpass]]
 :::
 :::vbox
 **Verwandte Artikel**
 - [[Wien-Robinson-Oszillator]]
-- [[RC-Phasenschieber]]
+- [[RC-Phasenschieber-Oszillator]]
 - [[Quarzoszillator]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[RC-Phasenschieber]]
+- [[RC-Phasenschieber-Oszillator]]
 - [[Wien-Robinson-Oszillator]]
 - [[Meissner-Oszillator]]
 :::
@@ -63,6 +63,18 @@ v_u = 1 / k            # benötigte Verstärkung aus Rückkopplungsfaktor
 :::info
 k · v_u > 1 → Amplitude wächst (Anlaufen). k · v_u < 1 → Schwingung klingt ab. Stabile Schwingung bei k · v_u = 1 — die Amplitudenbegrenzung regelt automatisch dahin.
 :::
+
+## Sinusgenerator — Sammelbegriff
+
+**"Sinusgenerator"** ist kein eigener Schaltungstyp, sondern der **Sammelbegriff für jeden Oszillator, der ein sinusförmiges Ausgangssignal erzeugt** — egal ob das frequenzbestimmende Netzwerk ein RC-Glied (Wien-Robinson, RC-Phasenschieber) oder ein LC-Schwingkreis ist (Meissner, Hartley, Colpitts), und egal ob als Verstärker ein BJT, FET **oder ein OPV** eingesetzt wird. In Prüfungsaufgaben taucht daher oft ein OPV mit einem Parallelschwingkreis (L parallel C) im Rückkopplungszweig auf — das ist funktional ein LC-Sinusgenerator, auch wenn er nicht wie die Lehrbuch-Schaltbilder (Trafo-Kopplung bei Meissner, Anzapfung bei Hartley) aussieht.
+
+Massgebend für die Schwingfrequenz ist in diesem Fall **nicht** die Schwingungsbedingung (die bestimmt nur, *ob* und *mit welcher Verstärkung* es schwingt), sondern die **Resonanzfrequenz des LC-Parallelschwingkreises**:
+
+:::formel
+f_0 = 1 / (2 * pi * sqrt(L * C))    # Resonanzfrequenz, bestimmt die Schwingfrequenz des Sinusgenerators
+:::
+
+→ Herleitung und Bedingungen am Parallelschwingkreis: [[Resonanz & Schwingkreise]] / [[RLC-Parallelschaltung (Parallelschwingkreis)]]. Diese Formel gilt unabhängig davon, ob die Verstärkerstufe mit BJT oder OPV aufgebaut ist — sie hängt nur von L und C des Schwingkreises ab.
 
 ## Anlaufbedingung
 

@@ -28,8 +28,8 @@ _status: NEU
 
 Die RC-Reihenschaltung ist das Gegenstück zur RL-Reihenschaltung: Widerstand R und Kondensator C in Serie. Der Kondensator erzeugt eine negative Phasenverschiebung — der Strom eilt der Spannung vor. Als Filter bildet die RC-Reihenschaltung den einfachsten Tiefpass oder Hochpass.
 
-:::schematic RC-Reihenschaltung: Wechselspannungsquelle U_ges links; Widerstand R und Kondensator C in Reihe; Strom I fliesst durch beide Bauteile; Teilspannungen U_R (an R) und U_C (an C) eingezeichnet; Phasenzeiger-Dreieck rechts: U_R horizontal, U_C senkrecht nach unten (kapazitiv), U_ges als Hypotenuse, Winkel phi zwischen U_ges und U_R
-/schaltplaene/wechselstrom/rc_reihe.svg
+:::schematic RC-Reihenschaltung
+/schaltplaene/Filter/rc_reihe.svg
 :::
 
 ## Kapazitive Reaktanz
@@ -125,4 +125,25 @@ f_3dB = 1 / (2 * pi * R * C)
 
 :::tip
 Die RC-Grenzfrequenzformel f = 1/(2·pi·R·C) ist dieselbe wie die Formel für die Zeitkonstante tau = R·C, denn f_3dB = 1/(2·pi·tau). Ein Tiefpass mit tau = 1 ms hat seine Grenzfrequenz bei f_3dB ≈ 159 Hz.
+:::
+
+## Antwort auf Rechtecksignale (Pulsformer/Differenzierglied)
+
+Speist man die RC-Reihenschaltung statt mit Sinus mit einem **Rechtecksignal**, zeigt sich im Zeitbereich dasselbe Hochpass-/Tiefpass-Verhalten — nur als Lade-/Entladevorgang statt als Phasenverschiebung:
+
+:::schematic Oszillogramm-Vergleich: oben das Rechteck-Eingangssignal U_in (Sprünge zwischen 0 V und U_max); darunter zwei Antwortkurven I und U_C übereinander gezeichnet (in Rot bzw. Blau). I zeigt bei jeder Flanke einen steilen Nadelimpuls (positiv bei steigender, negativ bei fallender Flanke), der exponentiell mit tau = R·C gegen 0 abklingt. U_C zeigt dazu komplementär abgerundete, exponentiell ansteigende bzw. abfallende Rampen zwischen den Pegeln — die typische Lade-/Entladekurve
+/Diagramm/rc_hochpass_rechteck_antwort.svg
+:::
+
+**Strom I (Differenzierglied):** Bei jeder Flanke springt U_in sofort um U_max. Da sich die Kondensatorspannung U_C nicht sprunghaft ändern kann ([[Auf- und Entladung (Kondensator)]]), liegt im ersten Moment die gesamte Sprunghöhe am Widerstand — und damit auch am Strom I = U_R / R, der überall in der Reihenschaltung gleich ist. I "springt mit" und klingt anschliessend exponentiell mit tau = R·C auf 0 ab. Das Ergebnis: aus jeder Flanke wird ein **Nadelimpuls** (positiv bei steigender, negativ bei fallender Flanke) — die Schaltung "differenziert" das Rechtecksignal. (U_R = I·R zeigt exakt dieselbe Form wie I, nur skaliert.)
+
+**Spannung U_C (Integrierglied):** U_C folgt trägheitsbehaftet dem Eingang — bei jedem Pegelwechsel lädt bzw. entlädt sich C exponentiell auf den neuen Wert. Aus dem Rechteck wird so ein "abgerundetes" Signal mit Lade-/Entladerampen.
+
+| Verhältnis tau zu Pulsdauer T | Verhalten von I (Hochpass-Charakter) | Verhalten von U_C (Tiefpass-Charakter) |
+|---|---|---|
+| tau ≪ T (Grenzfrequenz hoch) | Scharfe, schnell abklingende Nadelimpulse — reines Differenzierglied | Fast vollständige Lade-/Entladerampen — folgt dem Rechteck mit Rundung |
+| tau ≫ T (Grenzfrequenz tief) | I folgt dem Rechteck nahezu unverändert | C lädt sich kaum um — Ausgang bleibt nahezu konstant (glättet) |
+
+:::tip
+Dasselbe Prinzip mit vertauschten Rollen gilt für die [[RL-Reihenschaltung]]: dort übernimmt U_L die Differenzierfunktion (Spannungsspitzen bei den Flanken) und U_R die Integrierfunktion — denn bei der Spule ist es der **Strom**, der sich nicht sprunghaft ändern kann.
 :::

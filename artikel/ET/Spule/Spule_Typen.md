@@ -47,6 +47,15 @@ Wicklung auf einem Ringkern (Toroid). Sehr kleiner Streufluss — das Magnetfeld
 
 **Nachteile:** Schwieriger zu wickeln, Kernquerschnitt und Länge schwer zugänglich.
 
+**Magnetischer Pfad bei der Ringspule:** Die Feldlinien laufen als geschlossene Kreise im Ring. Der magnetische Pfad l entspricht daher der **mittleren Feldlinienlänge l_m** — dem Umfang auf dem mittleren Durchmesser d_m:
+
+:::formel
+l = l_m = pi * d_m              # mittlere Feldlinienlänge der Ringspule
+H = N * I / (pi * d_m)          # Feldstärke der Ringspule
+:::
+
+Wird d_m bei gleichem Strom und gleicher Windungszahl um den Faktor x grösser, wächst l_m um denselben Faktor x — H sinkt entsprechend auf 1/x der ursprünglichen Feldstärke (H ~ 1/l). Details zur Feldstärke-Formel allgemein → [[Magnetfelder]].
+
 **Anwendung:** Netzfilter, Audio-Verstärker, Gegentakt-Drossel in Schaltnetzteilen, EMV-Filternetzwerke.
 
 ## Netzdrossel (Common-Mode Drossel)
