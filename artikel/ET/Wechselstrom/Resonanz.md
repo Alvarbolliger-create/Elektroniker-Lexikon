@@ -16,6 +16,7 @@ _status: PORT+ERWEITERN  # ET_alt/Wechselstrom/Resonanz.md — Übersichtsartike
 **Führt weiter zu**
 - [[LC-Filter]]
 - [[Quarz-Oszillator]]
+- [[Filtercharakteristik]]
 :::
 :::
 

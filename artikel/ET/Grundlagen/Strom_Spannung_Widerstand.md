@@ -20,6 +20,10 @@ _status: PORT  # ET_alt/Grundlagen/Strom_Spannung_Widerstand.md
 - [[Elektrische Leistung]]
 - [[Leiterwiderstand]]
 :::
+:::vbox
+**Messtechnik**
+- [[Strom-, Spannungs-, Widerstandsmessung]]
+:::
 :::
 
 ---

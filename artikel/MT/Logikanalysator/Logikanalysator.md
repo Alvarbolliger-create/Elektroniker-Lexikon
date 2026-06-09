@@ -11,8 +11,8 @@ Ein Logikanalysator zeichnet viele digitale Kanäle gleichzeitig auf. Er zeigt T
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Signale]]
-- [[Flipflops]]
+- [[Signale (Analog, Digital, Binär)]]
+- [[Flipflops (SR, D, JK, T)]]
 :::
 :::vbox
 **Verwandte Artikel**

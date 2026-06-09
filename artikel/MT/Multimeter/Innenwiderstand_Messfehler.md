@@ -15,11 +15,11 @@ Jedes Messgerät beeinflusst die Schaltung die es misst. Der Innenwiderstand bes
 :::
 :::vbox
 **Verwandte Artikel**
-- [[TrueRMS vs. Mittelwert]]
+- [[True RMS]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[Vierleitermessung]]
+- [[Vierleitermessung (Kelvin)]]
 :::
 :::
 

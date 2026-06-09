@@ -11,12 +11,12 @@ Ein True-RMS-Messgerät misst den echten Effektivwert auch bei verzerrten Signal
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Sinuswellen]]
+- [[Sinuswellen & Effektivwert]]
 - [[Strom-, Spannungs-, Widerstandsmessung]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Oberschwingungen und THD]]
+- [[Klirrfaktor]]
 - [[Strommesszange]]
 :::
 :::

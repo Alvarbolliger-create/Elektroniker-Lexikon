@@ -20,6 +20,8 @@ Strom kann töten. Das Risiko hängt nicht von der Spannung, sondern vom Strom d
 :::vbox
 **Führt weiter zu**
 - [[Schutzklassen I, II, III]]
+- [[Fehlerschutz (FI/RCD)]]
+- [[Die 5 Sicherheitsregeln]]
 :::
 :::
 

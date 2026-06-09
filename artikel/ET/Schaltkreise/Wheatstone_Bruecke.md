@@ -15,6 +15,8 @@ _status: PORT  # ET_alt/Schaltkreise/Wheatstone_Bruecke.md
 :::vbox
 **Verwandte Artikel**
 - [[Spannungs- & Stromteiler]]
+- [[Innenwiderstand & Messfehler]]
+- [[Vierleitermessung (Kelvin)]]
 :::
 :::
 

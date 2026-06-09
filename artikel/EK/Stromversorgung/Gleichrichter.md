@@ -12,6 +12,7 @@ _status: FERTIG
 **Voraussetzungen**
 - [[Diode]]
 - [[Zener-Diode]]
+- [[Transformator Aufbau]]
 :::
 :::vbox
 **Verwandte Artikel**

@@ -21,7 +21,7 @@ _status: FERTIG
 :::vbox
 **Führt weiter zu**
 - [[Schaltregler Topologien]]
-- [[Thermomanagement]]
+- [[Kühlkörper]]
 :::
 :::
 

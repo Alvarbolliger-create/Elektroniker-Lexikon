@@ -14,6 +14,7 @@ _status: PORT  # ET_alt/Wechselstrom/LC_Filter.md
 :::vbox
 **Führt weiter zu**
 - [[Quarz-Oszillator]]
+- [[Filter Grundlagen]]
 :::
 :::
 

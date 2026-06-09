@@ -21,6 +21,11 @@ _status: PORT  # ET_alt/Transformator/Transformator_Aufbau.md
 **Führt weiter zu**
 - [[Übersetzungsverhältnis]]
 :::
+:::vbox
+**EK-Anwendungen**
+- [[Gleichrichter]]
+- [[Schaltregler Topologien]]
+:::
 :::
 
 ---

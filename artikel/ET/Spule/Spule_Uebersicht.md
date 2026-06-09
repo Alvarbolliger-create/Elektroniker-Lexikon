@@ -16,6 +16,12 @@ _status: PORT  # ET_alt/Spule/Spule_Uebersicht.md
 - [[Kondensator (Übersicht)]]
 :::
 :::vbox
+**EK-Anwendungen**
+- [[Filter Grundlagen]]
+- [[DC-DC-Wandler]]
+- [[Transformator Aufbau]]
+:::
+:::vbox
 **Führt weiter zu**
 - [[Spule Typen]]
 - [[Induktivität & Einheiten]]

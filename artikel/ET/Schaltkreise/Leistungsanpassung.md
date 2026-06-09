@@ -15,6 +15,7 @@ _status: PORT  # ET_alt/Schaltkreise/Leistungsanpassung.md
 :::vbox
 **Verwandte Artikel**
 - [[Elektrische Leistung]]
+- [[OPV Spannungsfolger]]
 :::
 :::
 

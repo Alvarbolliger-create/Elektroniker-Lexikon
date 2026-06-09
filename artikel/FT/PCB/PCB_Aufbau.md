@@ -11,17 +11,17 @@ Eine Leiterplatte (PCB) trägt und verbindet elektronische Bauteile. Aufbau und 
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Widerstand]]
+- [[Widerstand (Bauformen, Farbcode, E-Reihen)]]
 - [[Kondensator (Übersicht)]]
 :::
 :::vbox
 **Verwandte Artikel**
 - [[SMD vs. THT]]
-- [[Durchkontaktierung]]
+- [[Durchkontaktierung (Via)]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[Signalintegrität]]
+- [[Was ist ESD?]]
 :::
 :::
 

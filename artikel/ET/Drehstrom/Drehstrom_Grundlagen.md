@@ -18,6 +18,12 @@ _status: PORT  # ET_alt/Drehstrom/Drehstrom_Grundlagen.md
 - [[Dreieckschaltung]]
 - [[Verkettete Spannung]]
 :::
+:::vbox
+**EK-Anwendungen**
+- [[BLDC-Motor]]
+- [[Schrittmotor]]
+- [[Frequenzumrichter]]
+:::
 :::
 
 ---

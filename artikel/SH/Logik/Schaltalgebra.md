@@ -13,7 +13,7 @@ _status: PORT
 :::
 :::vbox
 **Führt weiter zu**
-- [[Karnaugh-Veitch-Diagramme]]
+- [[Karnaugh-Veitch-Diagramme (KV-Diagramme)]]
 :::
 :::
 
@@ -80,4 +80,4 @@ Ein UND-Gatter mit invertierten Ein- und Ausgängen verhält sich exakt wie ein 
 
 Auf dieselbe Weise lassen sich auch komplexere Funktionsgleichungen Schritt für Schritt in reine NAND- oder NOR-Schaltungen umformen — entweder zeichnerisch mit der Ringlitechnik oder algebraisch mit den Morganschen Gesetzen.
 
-Die systematische **Vereinfachung** solcher Funktionsgleichungen — insbesondere das Erkennen, welche Terme sich zusammenfassen lassen — wird mit dem grafischen Verfahren der → [[Karnaugh-Veitch-Diagramme]] deutlich übersichtlicher als mit rein algebraischem Umformen.
+Die systematische **Vereinfachung** solcher Funktionsgleichungen — insbesondere das Erkennen, welche Terme sich zusammenfassen lassen — wird mit dem grafischen Verfahren der → [[Karnaugh-Veitch-Diagramme (KV-Diagramme)]] deutlich übersichtlicher als mit rein algebraischem Umformen.

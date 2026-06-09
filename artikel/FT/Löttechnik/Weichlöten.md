@@ -11,7 +11,7 @@ Löten verbindet Bauteile elektrisch und mechanisch mit einer Metalllegierung. D
 :::hbox
 :::vbox
 **Voraussetzungen**
-- —
+- [[SMD vs. THT]]
 :::
 :::vbox
 **Verwandte Artikel**

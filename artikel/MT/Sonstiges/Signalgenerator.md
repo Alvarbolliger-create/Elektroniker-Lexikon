@@ -11,7 +11,7 @@ Ein Signalgenerator erzeugt definierte elektrische Signale zum Testen von Schalt
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Sinuswellen]]
+- [[Sinuswellen & Effektivwert]]
 - [[Oszilloskop: Aufbau & Bedienung]]
 :::
 :::vbox

@@ -48,6 +48,6 @@ In Schaltplänen und Datenblättern wird häufig festgelegt: 0 = GND (0 V), 1 = 
 
 ## Vom analogen zum digitalen Signal
 
-Reale physikalische Grössen (Temperatur, Druck, Schall) sind analog. Damit ein digitales System sie verarbeiten kann, müssen sie zunächst in eine binäre Darstellung umgewandelt werden — das Signal wird abgetastet und in Stufen quantisiert. → [[Abtasttheorem]], [[AD-Wandler-Verfahren]]
+Reale physikalische Grössen (Temperatur, Druck, Schall) sind analog. Damit ein digitales System sie verarbeiten kann, müssen sie zunächst in eine binäre Darstellung umgewandelt werden — das Signal wird abgetastet und in Stufen quantisiert. → [[Abtasttheorem (Nyquist-Shannon)]], [[AD-Wandler (Verfahren im Überblick)]]
 
-Umgekehrt erzeugt ein DA-Wandler aus einer binären Zahl wieder ein analoges Ausgangssignal. → [[DA-Wandler (R-2R, gewichtetes Netzwerk)]]
+Umgekehrt erzeugt ein DA-Wandler aus einer binären Zahl wieder ein analoges Ausgangssignal. → [[DA-Wandler (Digital-Analog-Umsetzer)]]

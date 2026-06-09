@@ -11,13 +11,13 @@ Die Gleichtaktunterdrückung (CMRR) beschreibt die Fähigkeit eines Verstärkers
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[OPV: Aufbau & Kennwerte]]
+- [[OPV Grundlagen]]
 - [[Oszilloskop: Aufbau & Bedienung]]
 :::
 :::vbox
 **Verwandte Artikel**
 - [[Tastkopf 1:1 vs. 10:1]]
-- [[DMS (Dehnungsmessstreifen)]]
+- [[Instrumentenverstärker (3-OPV)]]
 :::
 :::
 

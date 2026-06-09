@@ -12,7 +12,7 @@ _status: FERTIG
 **Voraussetzungen**
 - [[MOSFET Anwendungen]]
 - [[BJT Grundlagen]]
-- [[Signalverarbeitung Grundlagen]]
+- [[Verstärkung & Dämpfung]]
 :::
 :::vbox
 **Verwandte Artikel**

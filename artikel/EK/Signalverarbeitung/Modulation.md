@@ -19,7 +19,7 @@ _status: FERTIG
 :::
 :::vbox
 **Führt weiter zu**
-- [[Stromversorgung Grundlagen]]
+- [[DC-DC-Wandler]]
 :::
 :::
 

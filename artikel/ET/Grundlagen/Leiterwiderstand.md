@@ -15,10 +15,12 @@ _status: PORT  # ET_alt/Grundlagen/Leiterwiderstand.md
 :::vbox
 **Verwandte Artikel**
 - [[NTC & PTC]]
+- [[Halbleiter Grundlagen]]
 :::
 :::vbox
 **Führt weiter zu**
 - [[Skin-Effekt]]
+- [[Vierleitermessung (Kelvin)]]
 :::
 :::
 

@@ -14,6 +14,8 @@ _status: PORT
 :::vbox
 **Verwandte Artikel**
 - [[SPI]]
+- [[Protokoll-Decoder]]
+- [[Logikanalysator]]
 :::
 :::
 

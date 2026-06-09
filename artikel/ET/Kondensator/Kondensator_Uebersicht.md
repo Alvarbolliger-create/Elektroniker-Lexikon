@@ -17,6 +17,12 @@ _status: PORT  # ET_alt/Kondensator/Kondensator_Uebersicht.md
 - [[Spule (Übersicht)]]
 :::
 :::vbox
+**EK-Anwendungen**
+- [[Filter Grundlagen]]
+- [[Gleichrichter]]
+- [[Entkopplungskondensator (Decoupling)]]
+:::
+:::vbox
 **Führt weiter zu**
 - [[Kondensator Typen]]
 - [[Plattenkondensator & Influenz]]

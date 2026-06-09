@@ -13,11 +13,11 @@ Im XY-Betrieb zeichnet das Oszilloskop nicht Zeit auf der X-Achse, sondern die S
 **Voraussetzungen**
 - [[Oszilloskop: Aufbau & Bedienung]]
 - [[Triggerung]]
-- [[Sinuswellen]]
+- [[Sinuswellen & Effektivwert]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Zeigerdiagramm (Phasor)]]
+- [[Zeigerdiagramm]]
 - [[Impedanz]]
 :::
 :::

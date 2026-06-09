@@ -14,6 +14,8 @@ _status: PORT  # ET_alt/Magnetfelder/Elektromagnet.md
 :::vbox
 **Führt weiter zu**
 - [[Magnetischer Widerstand (Reluktanz)]]
+- [[DC-Motor]]
+- [[Relais]]
 :::
 :::
 

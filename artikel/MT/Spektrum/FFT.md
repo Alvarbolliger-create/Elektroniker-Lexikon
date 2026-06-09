@@ -11,12 +11,12 @@ Die FFT wandelt ein Zeitsignal in sein Frequenzspektrum um. Sie zeigt welche Fre
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Sinuswellen]]
-- [[AD/DA Grundlagen]]
+- [[Sinuswellen & Effektivwert]]
+- [[AD-Wandler (Verfahren im Überblick)]]
 :::
 :::vbox
 **Verwandte Artikel**
-- [[Oberschwingungen und THD]]
+- [[Klirrfaktor]]
 :::
 :::vbox
 **Führt weiter zu**

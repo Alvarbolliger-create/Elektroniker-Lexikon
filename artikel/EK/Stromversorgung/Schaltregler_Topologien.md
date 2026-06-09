@@ -17,11 +17,11 @@ _status: FERTIG
 :::vbox
 **Verwandte Artikel**
 - [[DC-DC-Wandler]]
-- [[Thermomanagement]]
+- [[Kühlkörper]]
 :::
 :::vbox
 **Führt weiter zu**
-- [[Thermomanagement]]
+- [[Kühlkörper]]
 :::
 :::
 

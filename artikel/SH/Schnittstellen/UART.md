@@ -14,6 +14,8 @@ _status: PORT
 :::vbox
 **Verwandte Artikel**
 - [[RS232 & RS485]]
+- [[Protokoll-Decoder]]
+- [[Logikanalysator]]
 :::
 :::
 

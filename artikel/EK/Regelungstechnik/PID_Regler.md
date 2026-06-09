@@ -21,7 +21,7 @@ _status: FERTIG
 :::
 :::vbox
 **Führt weiter zu**
-- [[Signalverarbeitung Grundlagen]]
+- [[Verstärkung & Dämpfung]]
 :::
 :::
 

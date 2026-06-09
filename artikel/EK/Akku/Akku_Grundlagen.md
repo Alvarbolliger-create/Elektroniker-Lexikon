@@ -11,7 +11,7 @@ _status: FERTIG
 :::vbox
 **Voraussetzungen**
 - [[Strom, Spannung, Widerstand]]
-- [[Spannungsquellen]]
+- [[Elektrische Leistung]]
 :::
 :::vbox
 **Verwandte Artikel**

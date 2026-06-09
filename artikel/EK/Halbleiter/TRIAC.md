@@ -20,7 +20,7 @@ _status: FERTIG
 :::
 :::vbox
 **Führt weiter zu**
-- [[Leistungselektronik]]
+- [[IGBT]]
 :::
 :::
 

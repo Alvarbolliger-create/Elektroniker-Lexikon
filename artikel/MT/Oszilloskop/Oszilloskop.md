@@ -11,8 +11,8 @@ Das Oszilloskop zeigt Signale über die Zeit. Es macht sichtbar was das Multimet
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Signale]]
-- [[Sinuswellen]]
+- [[Signale (Analog, Digital, Binär)]]
+- [[Sinuswellen & Effektivwert]]
 :::
 :::vbox
 **Verwandte Artikel**

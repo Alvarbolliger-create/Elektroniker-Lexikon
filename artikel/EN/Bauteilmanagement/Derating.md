@@ -12,14 +12,14 @@ Derating bedeutet, ein Bauteil mit weniger als der maximal zulässigen Belastung
 :::vbox
 **Voraussetzungen**
 - [[Datenblatt-Analyse]]
-- [[Widerstand]]
+- [[Widerstand (Bauformen, Farbcode, E-Reihen)]]
 - [[Kondensator (Übersicht)]]
 :::
 :::vbox
 **Verwandte Artikel**
 - [[FMEA]]
 - [[Lifecycle & Obsolescence]]
-- [[Kühlkörperberechnung]]
+- [[Wärmewiderstand]]
 :::
 :::
 

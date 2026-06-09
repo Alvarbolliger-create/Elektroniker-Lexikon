@@ -14,6 +14,8 @@ _status: PORT
 :::vbox
 **Verwandte Artikel**
 - [[I2C]]
+- [[Protokoll-Decoder]]
+- [[Logikanalysator]]
 :::
 :::
 

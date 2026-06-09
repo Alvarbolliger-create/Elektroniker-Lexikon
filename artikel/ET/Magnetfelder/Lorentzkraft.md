@@ -11,6 +11,10 @@ _status: PORT  # ET_alt/Magnetfelder/Lorentzkraft.md
 **Voraussetzungen**
 - [[Magnetfelder]]
 :::
+:::vbox
+**Führt weiter zu**
+- [[DC-Motor]]
+:::
 :::
 
 ---

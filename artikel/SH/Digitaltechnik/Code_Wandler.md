@@ -10,7 +10,7 @@ _status: PORT
 :::vbox
 **Voraussetzungen**
 - [[Digitale Codes (BCD, Gray, Hamming, ASCII)]]
-- [[Karnaugh-Veitch-Diagramme]]
+- [[Karnaugh-Veitch-Diagramme (KV-Diagramme)]]
 :::
 :::vbox
 **Führt weiter zu**
@@ -40,7 +40,7 @@ Eine 7-Segment-Anzeige soll zur Darstellung der im → [[Digitale Codes (BCD, Gr
 | 1 | 0 | 0 | 1 | 1 | 1 | 1 | 0 | 0 | 1 | 1 | 9 |
 
 :::merke
-Ein Code-Wandler ist im Kern nichts anderes als eine kombinatorische Schaltung mit vier Eingangsvariablen (Eingangscode) und sieben Ausgangsvariablen (Ausgangscode). Jede Ausgangsvariable lässt sich einzeln über ein → [[Karnaugh-Veitch-Diagramme|Karnaugh-Veitch-Diagramm]] minimieren — das Ergebnis ist eine Schaltung, die für jedes Segment eine eigene Verknüpfungsgleichung aus A, B, C, D bildet (z. B. ergibt sich für Segment a der Term A∧B ∨ A∧C ∨ ¬A∧¬C ∨ ¬A∧¬B ∨ D).
+Ein Code-Wandler ist im Kern nichts anderes als eine kombinatorische Schaltung mit vier Eingangsvariablen (Eingangscode) und sieben Ausgangsvariablen (Ausgangscode). Jede Ausgangsvariable lässt sich einzeln über ein → [[Karnaugh-Veitch-Diagramme (KV-Diagramme)|Karnaugh-Veitch-Diagramm]] minimieren — das Ergebnis ist eine Schaltung, die für jedes Segment eine eigene Verknüpfungsgleichung aus A, B, C, D bildet (z. B. ergibt sich für Segment a der Term A∧B ∨ A∧C ∨ ¬A∧¬C ∨ ¬A∧¬B ∨ D).
 :::
 
 ## Vom Gatternetz zum fertigen IC

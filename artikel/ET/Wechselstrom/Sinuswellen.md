@@ -21,6 +21,11 @@ _status: PORT+ERWEITERN  # ET_alt/Wechselstrom/Sinuswellen.md — Dreieck/Rechte
 - [[Wellenlänge]]
 - [[Wechselstromleistung]]
 :::
+:::vbox
+**MT / SH**
+- [[Tastkopf 1:1 vs. 10:1]]
+- [[Signale (Analog, Digital, Binär)]]
+:::
 :::
 
 ---

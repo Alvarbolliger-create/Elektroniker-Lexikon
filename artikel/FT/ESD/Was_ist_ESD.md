@@ -11,7 +11,7 @@ ESD (Electrostatic Discharge) ist die plötzliche Entladung statischer Elektrizi
 :::hbox
 :::vbox
 **Voraussetzungen**
-- [[Halbleitermaterial]]
+- [[Halbleiter Grundlagen]]
 - [[Elektrisches Feld]]
 :::
 :::vbox
