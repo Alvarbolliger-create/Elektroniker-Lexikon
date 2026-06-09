@@ -64,6 +64,30 @@ R_R = |v_u| × R1 = 10 × 10 kΩ = 100 kΩ
 Probe: U_A = -0.5 × 100k/10k = -5 V ✓
 :::
 
+## Referenzspannung am (+)-Eingang (angehobene virtuelle Masse)
+
+Liegt der (+)-Eingang nicht auf GND, sondern auf einer Referenzspannung **V_ref**, verschiebt sich die virtuelle Masse auf dieses Potential. Die Formel erweitert sich:
+
+:::formel
+U_A = V_ref * (1 + R_R / R1) - U_E * R_R / R1    # mit Referenz V_ref am (+)-Eingang
+:::
+
+Die **Wechselspannungsverstärkung** (AC-Anteil) bleibt unverändert –R_R/R1. Nur der **DC-Arbeitspunkt** des Ausgangs verschiebt sich:
+
+- Ohne Referenz (V_ref = 0): U_A schwingt um 0 V
+- Mit Referenz (V_ref > 0): U_A schwingt um V_ref × (1 + R_R/R1) — der Ausgang ist nach oben verschoben
+
+:::monospace
+Beispiel: R1 = 1 kΩ, R_R = 2 kΩ, V_ref = +6 V, U_E = 1 V Sinus
+  DC-Arbeitspunkt: 6 × (1 + 2/1) = 18 V
+  AC-Anteil: –2 × 1 V = –2 V Amplitude, invertiert
+  → Ausgang: Invertierter Sinus (2 V Amplitude) zentriert um +18 V
+:::
+
+:::tip
+Anwendung: Der Offset V_ref × (1 + R_R/R1) dient als DC-Verschiebung des Ausgangssignals — z.B. um ein bipolares Signal in einen einseitig versorgten ADC-Eingang zu verschieben.
+:::
+
 ## GBW und Bandbreite
 
 Das Gain-Bandwidth-Product (GBW) ist für jeden OPV-Typ konstant — die nutzbare Bandbreite f_3dB ergibt sich aus f_3dB = GBW / |v_u|: bei LM741 (GBW = 1 MHz) und v_u = 10 bleiben 100 kHz.

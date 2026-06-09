@@ -56,6 +56,27 @@ R_R = R1 * (v_u - 1) = 10 kΩ × (5 - 1) = 40 kΩ → Normwert 39 kΩ
 Probe: v_u = 1 + 39k/10k = 4.9 → nahe genug
 :::
 
+## Referenzspannung am R1-Fussknoten (angehobene Gegenkopplung)
+
+Liegt der untere Anschluss von R1 nicht auf GND, sondern auf **V_ref**, verschiebt sich der Ausgangs-Arbeitspunkt nach unten:
+
+:::formel
+U_A = U_E * (1 + R_R / R1) - V_ref * (R_R / R1)    # R1 unteres Ende auf V_ref statt GND
+:::
+
+Der **AC-Anteil** der Verstärkung (1 + R_R/R1) bleibt gleich. Der **DC-Arbeitspunkt** sinkt um V_ref × R_R/R1:
+
+:::monospace
+Beispiel: R1 = 10 kΩ, R_R = 20 kΩ, V_ref = +2 V, U_E = 1 V Sinus
+  Verstärkung: 1 + 20/10 = 3
+  DC-Verschiebung: –2 × 20/10 = –4 V
+  → Ausgang: Sinus (3 V Amplitude) zentriert um (3 × 1) – 4 = –1 V
+:::
+
+:::tip
+Anwendung: Mit V_ref an R1 lässt sich der DC-Ausgangspunkt gezielt nach oben oder unten verschieben — ohne die Signalverstärkung zu verändern. Umgekehrt: Die Referenzspannung **am (+)-Eingang** des invertierenden Verstärkers verschiebt den Arbeitspunkt nach oben (→ [[OPV Invertierender Verstärker]]).
+:::
+
 ## Wichtige Unterschiede zum invertierenden Verstärker
 
 | Eigenschaft | Nichtinvertierend | Invertierend |

@@ -57,6 +57,34 @@ U_S_oben  = V_cc * R1 / (R1 + R2 + R3 + R4)    # obere Schwelle am (+) von IC1A
 U_S_unten = V_cc * (R1 + R2) / (R1 + R2 + R3 + R4)    # untere Schwelle am (+) von IC1B
 :::
 
+## Fensterbreite berechnen
+
+Die **Fensterbreite** (in Temperaturreglern auch als Hysterese oder Totband bezeichnet) ist die Differenz zwischen oberer und unterer Schwelle. Sie wird durch einen **mittleren Widerstand R_F** direkt zwischen den beiden Referenzknoten eingestellt:
+
+:::schematic Fensterkomparator Referenzteiler mit R_F: Drei Widerstände R_oben, R_F, R_unten von V_cc nach GND in Serie. Abgriff zwischen R_oben und R_F → (+)-Eingang von IC1A (obere Schwelle U_S_oben). Abgriff zwischen R_F und R_unten → (+)-Eingang von IC1B (untere Schwelle U_S_unten). Beide (-)-Eingänge gemeinsam am Messsignal U_in.
+/schaltplaene/OPV/Fensterkomparator/fensterkomparator_hysterese.svg
+:::
+
+:::formel
+U_Fenster = V_cc * R_F / (R_oben + R_F + R_unten)    # Fensterbreite = Differenz der Schwellen
+R_F = (R_oben + R_unten) * U_Fenster / (V_cc - U_Fenster)    # R_F aus gewünschter Fensterbreite
+:::
+
+Sonderfall **symmetrischer Teiler** (R_oben = R_unten = R):
+
+:::formel
+R_F = 2 * R * U_Fenster / (V_cc - U_Fenster)    # vereinfacht für R_oben = R_unten
+:::
+
+:::monospace
+Beispiel: V_cc = 10 V, R_oben = R_unten = 10 kΩ, gewünschte Fensterbreite = 1.0 V
+R_F = 2 × 10 kΩ × 1.0 / (10 − 1.0) = 20 kΩ / 9 ≈ 2.2 kΩ  →  Normwert 2.2 kΩ
+:::
+
+:::tip
+Die "Hysterese" eines Fensterkomparators ist die **Fensterbreite** (Totband zwischen den Schwellen) — nicht eine Schaltschwellenverschiebung wie beim [[Schmitt-Trigger Grundlagen]]. Beide erzeugen ein Totband, aber durch unterschiedliche Mechanismen: Der Schmitt-Trigger verschiebt eine Einzelschwelle je nach Ausgangszustand, der Fensterkomparator hat zwei feste Schwellen mit definiertem Abstand.
+:::
+
 ## Anwendungen
 
 **Batteriespannungsüberwachung**: Fenster zwischen 11 V und 13.5 V — ausserhalb leuchtet eine Warn-LED.

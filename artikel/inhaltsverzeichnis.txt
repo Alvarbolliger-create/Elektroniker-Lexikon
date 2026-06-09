@@ -193,6 +193,10 @@ Status: [ ] = noch nicht geprüft | [x] = geprüft | [~] = in Bearbeitung
 [ ] SH/Prozessor/Embedded_Linux.md
 [ ] SH/Prozessor/Device_Tree.md
 
+### OOP
+[ ] SH/OOP/OOP_Grundlagen.md
+[ ] SH/OOP/OOP_Pruefungsaufgabe.md
+
 ### Schnittstellen
 [ ] SH/Schnittstellen/UART.md
 [ ] SH/Schnittstellen/SPI.md

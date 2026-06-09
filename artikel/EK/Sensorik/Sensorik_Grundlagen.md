@@ -38,11 +38,26 @@ Ein Sensor wandelt eine **physikalische Grösse** (Temperatur, Licht, Kraft, Mag
 |---|---|---|
 | Resistiv | Widerstandsänderung | NTC, PTC, LDR, DMS, PT100 |
 | Kapazitiv | Kapazitätsänderung | Feuchte, Füllstand, Beschleunigung |
-| Induktiv / induktiv | Induktivitätsänderung | LVDT, Wirbelstromsensor |
+| Induktiv | Induktivitätsänderung durch Wirbelströme | Näherungsschalter, LVDT — **erkennt ausschliesslich metallische Objekte** |
 | Halleffekt | Spannung (analog/digital) | Hall-Sensor, Stromsensor |
 | Fotovoltaisch | Strom / Spannung | Fotodiode, Fototransistor |
 | Thermoelektrisch | Thermospannung (µV) | Thermoelement (Typ K, J …) |
 | Digital | Frequenz / Puls | Encoder, Ultraschall |
+
+### Induktiver Sensor — Metallerfassung
+
+Ein induktiver Sensor erzeugt ein hochfrequentes Magnetfeld an seiner Spitze. Nähert sich ein **Metall**, entstehen im Metall **Wirbelströme** — diese entziehen dem Schwingkreis Energie, die Amplitude sinkt und der Sensor schaltet.
+
+:::info
+Induktive Sensoren erkennen **nur Metall** (leitfähige Werkstoffe). Kunststoff, Holz, Glas und andere Nichtleiter werden nicht erkannt. Für Kunststoff: kapazitiver Sensor.
+:::
+
+| Merkmal | Wert |
+|---|---|
+| Detektiertes Material | Metall (Eisen, Alu, Kupfer, …) |
+| Schaltabstand | typisch 1–50 mm |
+| Ausgang | PNP oder NPN Schalter (Digital) |
+| Typische Anwendung | Endlagenerkennung, Zählen von Metallteilen |
 
 ## Wichtige Kenngrössen
 
