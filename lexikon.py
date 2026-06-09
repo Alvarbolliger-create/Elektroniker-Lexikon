@@ -35,6 +35,7 @@ import json
 import math
 import os
 import re
+import threading
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, TypeAlias
@@ -926,6 +927,172 @@ def build_stylesheet(preset_name: str) -> str:
     return result
 
 
+# ── Whoosh-Volltext-Index ─────────────────────────────────────────────────────
+class SearchIndex:
+    """Whoosh-basierter Volltext-Suchindex.
+
+    Wird im Hintergrund aufgebaut; waehrend dieser Zeit greift
+    ``filtered_articles`` auf die einfache Titel/Tag/Kategorie-Suche zurueck.
+    Sobald der Index bereit ist, liefert er Volltexttreffer mit Relevanz-Ranking.
+
+    Index-Invalidierung: Bei jeder Aenderung an .md-Dateien (erkennbar an
+    der maximalen Modifikationszeit) wird der Index automatisch neu gebaut.
+    """
+
+    # Version erhoehen erzwingt Index-Rebuild.
+    _SCHEMA_VERSION = 2
+
+    def __init__(self, articles: dict, folder: Path) -> None:
+        self._articles = articles
+        self._folder = folder
+        self._ix = None
+        self._ready = threading.Event()
+        threading.Thread(target=self._build_safe, daemon=True).start()
+
+    @property
+    def ready(self) -> bool:
+        return self._ready.is_set()
+
+    def _index_dir(self) -> Path:
+        appdata = Path(os.environ.get("APPDATA", Path.home())) / "ElektronikLexikon"
+        return appdata / f"{self._folder.name}_whoosh"
+
+    def _stamp(self) -> str:
+        mtimes = [
+            p.stat().st_mtime
+            for p in self._folder.rglob("*.md")
+            if not any(part.endswith("_alt") for part in p.parts)
+        ]
+        return f"v{self._SCHEMA_VERSION}:{max(mtimes, default=0):.3f}"
+
+    def _build_safe(self) -> None:
+        try:
+            self._do_build()
+        except Exception:
+            pass  # Fallback-Suche bleibt aktiv
+
+    def _do_build(self) -> None:
+        from whoosh import index
+        from whoosh.fields import ID, KEYWORD, TEXT, Schema
+        from whoosh.analysis import RegexTokenizer, LowercaseFilter
+
+        # Kein Stemmer: Wörter werden kleingeschrieben gespeichert.
+        # Präfix-Wildcard in search() übernimmt Flexionsformen ("dynami*").
+        analyzer = RegexTokenizer() | LowercaseFilter()
+
+        idx_dir = self._index_dir()
+        current_stamp = self._stamp()
+        stamp_file = idx_dir / ".stamp"
+
+        # Bestehenden Index wiederverwenden wenn noch aktuell
+        if idx_dir.exists() and stamp_file.exists():
+            if stamp_file.read_text(encoding="utf-8") == current_stamp:
+                try:
+                    ix = index.open_dir(str(idx_dir))
+                    self._ix = ix
+                    self._ready.set()
+                    return
+                except Exception:
+                    pass
+
+        idx_dir.mkdir(parents=True, exist_ok=True)
+
+        schema = Schema(
+            title=ID(stored=True, unique=True),
+            kategorie=TEXT(analyzer=analyzer, stored=False),
+            tags=KEYWORD(commas=True, lowercase=True, stored=False),
+            body=TEXT(analyzer=analyzer, stored=False),
+        )
+
+        ix = index.create_in(str(idx_dir), schema)
+        writer = ix.writer()
+
+        for title, article in self._articles.items():
+            ensure_article_text(article)
+            writer.add_document(
+                title=title,
+                kategorie=article["kategorie"],
+                tags=",".join(article["tags"]),
+                body=article.get("text") or "",
+            )
+
+        writer.commit()
+        stamp_file.write_text(current_stamp, encoding="utf-8")
+        self._ix = ix
+        self._ready.set()
+
+    def _make_parser(self):
+        from whoosh.qparser import MultifieldParser
+        return MultifieldParser(
+            ["title", "tags", "kategorie", "body"],
+            schema=self._ix.schema,
+            fieldboosts={"title": 5.0, "tags": 3.0, "kategorie": 1.5, "body": 1.0},
+        )
+
+    def search(self, query: str) -> list[str] | None:
+        """Volltextsuche mit Präfix-Wildcard und Fuzzy-Fallback.
+
+        Strategie:
+        1. Präfix-Wildcard auf jedem Term ("dynami" → "dynami*") — deckt
+           inkrementelles Tippen und Flexionsformen ab.
+        2. Fuzzy-Fallback (~1 Edit-Distanz) bei weniger als 3 Treffern —
+           kompensiert Tippfehler wie "dynamisc" → "dynamisch".
+
+        Returns:
+            Geordnete Titelliste nach Relevanz, oder ``None`` wenn der Index
+            noch nicht bereit ist (Fallback auf einfache Suche).
+        """
+        if not self._ready.is_set() or self._ix is None:
+            return None
+
+        from whoosh.qparser import FuzzyTermPlugin
+
+        q = query.strip().lower()
+        terms = q.split()
+
+        def _prefix_q() -> str:
+            return " ".join(t + "*" if not t.endswith("*") else t for t in terms)
+
+        def _fuzzy_q() -> str:
+            # Fuzzy nur für Terme ab 4 Zeichen sinnvoll
+            return " ".join(
+                t + "~1" if len(t) >= 4 and not t.endswith("*") else t
+                for t in terms
+            )
+
+        collected: dict[str, int] = {}
+        rank = 0
+
+        def _add(hits) -> None:
+            nonlocal rank
+            for h in hits:
+                t = h["title"]
+                if t not in collected:
+                    collected[t] = rank
+                    rank += 1
+
+        try:
+            with self._ix.searcher() as searcher:
+                # Schritt 1: Präfix-Wildcard
+                try:
+                    _add(searcher.search(self._make_parser().parse(_prefix_q()), limit=None))
+                except Exception:
+                    pass
+
+                # Schritt 2: Fuzzy-Fallback wenn wenige Treffer
+                if len(collected) < 3:
+                    parser_f = self._make_parser()
+                    parser_f.add_plugin(FuzzyTermPlugin())
+                    try:
+                        _add(searcher.search(parser_f.parse(_fuzzy_q()), limit=None))
+                    except Exception:
+                        pass
+
+            return sorted(collected, key=collected.__getitem__) if collected else []
+        except Exception:
+            return None
+
+
 # ── ViewModel ────────────────────────────────────────────────────────────────
 class LexiconViewModel:
     """ViewModel des Elektronik-Lexikons.
@@ -953,27 +1120,37 @@ class LexiconViewModel:
         self.last_open_article: str | None = None
         self.expanded_folders: list[str] = []
         self._load_state()
+        self._search_index = SearchIndex(self.all_articles, self.folder)
 
     def filtered_articles(self, query: str) -> dict[str, dict[str, Any]]:
         """Filtert Artikel anhand der Suchanfrage.
 
-        Gesucht wird case-insensitive in Titel, Tags und Kategoriename.
+        Delegiert an den Whoosh-Index sobald dieser bereit ist (Volltext +
+        Relevanz-Ranking). Waehrend des Index-Aufbaus oder bei Whoosh-Fehler
+        wird auf case-insensitive Titel/Tag/Kategorie-Suche zurueckgefallen.
 
         Args:
             query: Suchbegriff. Leerer String = alle Artikel.
 
         Returns:
-            Mapping Titel -> Artikel-Datensatz (gefiltert).
+            Mapping Titel -> Artikel-Datensatz, bei Whoosh nach Relevanz sortiert.
         """
-        q = query.strip().lower()
+        q = query.strip()
         if not q:
             return dict(self.all_articles)
+
+        titles = self._search_index.search(q)
+        if titles is not None:
+            return {t: self.all_articles[t] for t in titles if t in self.all_articles}
+
+        # Fallback waehrend Index aufgebaut wird
+        q_lower = q.lower()
         return {
             title: article
             for title, article in self.all_articles.items()
-            if q in title.lower()
-            or any(q in t.lower() for t in article["tags"])
-            or q in article["kategorie"].lower()
+            if q_lower in title.lower()
+            or any(q_lower in t.lower() for t in article["tags"])
+            or q_lower in article["kategorie"].lower()
         }
 
     def navigate(self, title: str, push_history: bool = True) -> None:
@@ -2820,31 +2997,36 @@ class LexiconWidget(QWidget):
 
     # ── Artikel-Anzeige & Navigation ──────────────────────────────────────────
     def _refresh_list(self) -> None:
-        """Baut den Artikel-Baum aus der Ordnerhierarchie neu auf.
+        """Baut die Artikelliste neu auf.
 
-        Ordner unter dem Artikel-Wurzelordner werden zu verschachtelten
-        Knoten; Markdown-Dateien sind die Blaetter. Ohne Suchbegriff
-        werden Top-Level-Ordner aufgeklappt, tiefere Ebenen bleiben
-        zugeklappt. Mit aktiver Suche werden alle Knoten aufgeklappt,
-        damit die Treffer sichtbar sind.
+        Ohne Suchbegriff: Ordner-Baum wie gewohnt.
+        Mit Suchbegriff: flache Liste in Relevanz-Reihenfolge, ohne Ordner.
         """
         query = self.search.text().strip()
         articles = self.view_model.filtered_articles(query)
-        tree = self._build_folder_tree(articles)
 
-        # Aktuellen Zustand sichern bevor der Baum geleert wird.
+        # Ordner-Zustand sichern bevor der Baum geleert wird.
         if not query:
             saved = self._collect_expanded_folders()
             if saved:
                 self.view_model.expanded_folders = saved
 
         self.article_tree.clear()
-        expand_all = bool(query)
-        self._populate_tree(
-            None, tree, expand_all=expand_all,
-            current_path=self.view_model.folder,
-        )
-        if not expand_all:
+
+        if query:
+            # Suchmodus: flache Liste, Reihenfolge = Relevanz aus Whoosh
+            for title in articles:
+                leaf = QTreeWidgetItem([title])
+                leaf.setData(0, Qt.ItemDataRole.UserRole, title)
+                self.article_tree.addTopLevelItem(leaf)
+            self.collapse_all_btn.setVisible(False)
+        else:
+            # Normalmodus: Ordner-Baum
+            tree = self._build_folder_tree(articles)
+            self._populate_tree(
+                None, tree, expand_all=False,
+                current_path=self.view_model.folder,
+            )
             restored = self.view_model.expanded_folders
             if restored:
                 self._restore_expanded_folders(restored)
@@ -2853,6 +3035,7 @@ class LexiconWidget(QWidget):
                     top = self.article_tree.topLevelItem(i)
                     if top is not None and top.childCount() > 0:
                         top.setExpanded(True)
+            self.collapse_all_btn.setVisible(True)
 
         self.count_label.setText(f"{len(articles)} Begriffe")
 
